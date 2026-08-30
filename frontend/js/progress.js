@@ -102,7 +102,7 @@ async function loadProgress() {
 
         const response =
             await fetch(
-                `${API_BASE}/teacher/${teacher.id}`
+                `${API_BASE}/progress/teacher/${teacher.id}`
             );
 
 
