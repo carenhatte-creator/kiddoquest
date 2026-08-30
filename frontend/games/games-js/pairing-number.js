@@ -893,12 +893,6 @@ function checkAnswer(
         playGameWrong();
 
 
-        showFeedback(
-            "Try again! 😊",
-            false
-        );
-
-
         // SHOW CORRECT ANSWER
 
         const allButtons =

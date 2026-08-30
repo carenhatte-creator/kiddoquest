@@ -922,12 +922,6 @@ document.addEventListener(
 
                 updateLives();
 
-                feedback.textContent =
-                    "❌ Try again! Choose another color.";
-
-                feedback.className =
-                    "feedback wrong";
-
                 objectButton.classList.add(
                     "shake"
                 );

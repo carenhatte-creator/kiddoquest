@@ -980,12 +980,6 @@ function handleWrong(item) {
     item.classList.add("wrong");
 
 
-    showFeedback(
-        "❌ Try Again!",
-        "wrong"
-    );
-
-
     updateAll();
 
 
