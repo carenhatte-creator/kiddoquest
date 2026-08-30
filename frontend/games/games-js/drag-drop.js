@@ -1,8 +1,15 @@
 // ==========================================================
+// KINDERQUEST - DRAG & DROP LETTERS
+// TOUCH + MOUSE + CLICK SUPPORT
+// ==========================================================
+
+
+// ==========================================================
 // API
 // ==========================================================
 
-const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+const API_BASE =
+    "https://kiddoquest-backend.onrender.com/api";
 
 
 // ==========================================================
@@ -103,9 +110,26 @@ let maximumPossibleScore = 0;
 
 
 // ==========================================================
+// TOUCH DRAG VARIABLES
+// ==========================================================
+
+let touchDragging = false;
+
+let touchDragCard = null;
+
+let touchGhost = null;
+
+let touchStartX = 0;
+
+let touchStartY = 0;
+
+let touchMoved = false;
+
+let touchCurrentSlot = null;
+
+
+// ==========================================================
 // INITIAL LOADING STATE
-//
-// ONLY INITIAL PAGE ENTRY USES LOADING.
 // ==========================================================
 
 let initialLoadingDone = false;
@@ -242,10 +266,7 @@ const studentBackButton =
 
 
 // ==========================================================
-// SOUND MANAGER HELPERS
-//
-// Sound Manager is already loaded BEFORE this JS.
-// These helpers prevent errors if soundManager is unavailable.
+// SOUND MANAGER
 // ==========================================================
 
 function playCorrectSound() {
@@ -309,10 +330,7 @@ function startGameMusic() {
 
 
 // ==========================================================
-// GLOBAL DRAG & DROP GUARD
-//
-// Prevent native browser navigation/reload when a letter
-// is dropped outside a valid drop zone.
+// PREVENT NATIVE DRAG NAVIGATION
 // ==========================================================
 
 document.addEventListener(
@@ -378,10 +396,14 @@ document.addEventListener(
     "dragstart",
     event => {
 
+        const target =
+            event.target;
+
+
         const isLetterCard =
-            event.target &&
-            event.target.classList &&
-            event.target.classList.contains(
+            target &&
+            target.classList &&
+            target.classList.contains(
                 "letter-card"
             );
 
@@ -398,7 +420,7 @@ document.addEventListener(
 
 
 // ==========================================================
-// DISABLE NATIVE IMAGE DRAG
+// DISABLE IMAGE DRAG
 // ==========================================================
 
 if (wordImage) {
@@ -414,13 +436,14 @@ if (wordImage) {
     wordImage.style.webkitUserDrag =
         "none";
 
+    wordImage.ondragstart =
+        () => false;
+
 }
 
 
 // ==========================================================
 // INITIAL ENTRY
-//
-// ONLY THIS AREA CAN START LOADING.
 // ==========================================================
 
 document.addEventListener(
@@ -434,7 +457,7 @@ document.addEventListener(
 
 
 // ==========================================================
-// INITIAL LOADING ONLY
+// INITIAL LOADING
 // ==========================================================
 
 function runInitialLoading() {
@@ -444,6 +467,7 @@ function runInitialLoading() {
         return;
 
     }
+
 
     initialLoadingDone = true;
 
@@ -566,7 +590,7 @@ function removeInitialLoading() {
 
 
 // ==========================================================
-// START AFTER INITIAL LOADING
+// START AFTER LOADING
 // ==========================================================
 
 function startAfterInitialLoad() {
@@ -604,7 +628,9 @@ function getStudent() {
 
     try {
 
-        return JSON.parse(raw);
+        return JSON.parse(
+            raw
+        );
 
     }
 
@@ -626,7 +652,9 @@ function getStudent() {
 // GET STUDENT NAME
 // ==========================================================
 
-function getStudentName(student) {
+function getStudentName(
+    student
+) {
 
     if (!student) {
 
@@ -699,6 +727,7 @@ function checkStudent() {
 
         }
 
+
         return false;
 
     }
@@ -747,7 +776,8 @@ function calculateMaximumScore() {
 
 
             total +=
-                (missingCount * 10) + 10;
+                (missingCount * 10) +
+                10;
 
         }
     );
@@ -760,8 +790,6 @@ function calculateMaximumScore() {
 
 // ==========================================================
 // START GAME
-//
-// NO LOADING.
 // ==========================================================
 
 function startGame() {
@@ -786,15 +814,12 @@ function startGame() {
     draggedLetter = null;
 
 
+    resetTouchDrag();
+
+
     maximumPossibleScore =
         calculateMaximumScore();
 
-
-    // ======================================================
-    // START BACKGROUND MUSIC
-    //
-    // Sound Manager ang bahala kung naka-enable ang music.
-    // ======================================================
 
     startGameMusic();
 
@@ -886,6 +911,9 @@ function loadQuestion() {
     draggedLetter = null;
 
 
+    resetTouchDrag();
+
+
     if (questionNumberEl) {
 
         questionNumberEl.textContent =
@@ -943,7 +971,9 @@ function loadQuestion() {
 // CREATE WORD
 // ==========================================================
 
-function createWord(word) {
+function createWord(
+    word
+) {
 
     if (
         !wordContainer ||
@@ -1064,7 +1094,7 @@ function createWord(word) {
 
 
 // ==========================================================
-// MISSING POSITIONS
+// CHOOSE MISSING POSITIONS
 // ==========================================================
 
 function chooseMissingPositions(
@@ -1114,7 +1144,7 @@ function chooseMissingPositions(
 
 
 // ==========================================================
-// DISTRACTORS
+// GET DISTRACTORS
 // ==========================================================
 
 function getDistractors(
@@ -1166,7 +1196,9 @@ function getDistractors(
 // CREATE LETTER CARD
 // ==========================================================
 
-function createLetterCard(letter) {
+function createLetterCard(
+    letter
+) {
 
     if (!lettersContainer) {
 
@@ -1197,12 +1229,33 @@ function createLetterCard(letter) {
         letter;
 
 
+    // IMPORTANT FOR TOUCH DEVICES
+
+    card.style.touchAction =
+        "none";
+
+    card.style.webkitUserSelect =
+        "none";
+
+    card.style.userSelect =
+        "none";
+
+    card.style.webkitTouchCallout =
+        "none";
+
+
     const colors = [
+
         "#e53935",
+
         "#1976d2",
+
         "#43a047",
+
         "#f39c12",
+
         "#8e44ad"
+
     ];
 
 
@@ -1216,7 +1269,7 @@ function createLetterCard(letter) {
 
 
     // ======================================================
-    // DRAG START
+    // DESKTOP DRAG START
     // ======================================================
 
     card.addEventListener(
@@ -1266,7 +1319,7 @@ function createLetterCard(letter) {
 
 
     // ======================================================
-    // DRAG END
+    // DESKTOP DRAG END
     // ======================================================
 
     card.addEventListener(
@@ -1286,7 +1339,19 @@ function createLetterCard(letter) {
 
     card.addEventListener(
         "click",
-        () => {
+        event => {
+
+            if (
+                touchMoved
+            ) {
+
+                touchMoved =
+                    false;
+
+                return;
+
+            }
+
 
             if (
                 gameOver ||
@@ -1309,18 +1374,7 @@ function createLetterCard(letter) {
             }
 
 
-            document
-                .querySelectorAll(
-                    ".letter-card"
-                )
-                .forEach(
-                    item => {
-
-                        item.style.outline =
-                            "";
-
-                    }
-                );
+            clearSelectedLetters();
 
 
             card.style.outline =
@@ -1345,6 +1399,281 @@ function createLetterCard(letter) {
     );
 
 
+    // ======================================================
+    // TOUCH / POINTER START
+    // ======================================================
+
+    card.addEventListener(
+        "pointerdown",
+        event => {
+
+            if (
+                gameOver ||
+                gameFinished
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                card.classList.contains(
+                    "used"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                event.pointerType ===
+                "mouse"
+            ) {
+
+                return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            touchDragging =
+                true;
+
+            touchDragCard =
+                card;
+
+            touchMoved =
+                false;
+
+            touchStartX =
+                event.clientX;
+
+            touchStartY =
+                event.clientY;
+
+
+            try {
+
+                card.setPointerCapture(
+                    event.pointerId
+                );
+
+            }
+
+            catch (error) {
+
+                console.warn(
+                    "Pointer capture unavailable."
+                );
+
+            }
+
+
+            clearSelectedLetters();
+
+
+            card.style.outline =
+                "5px solid #ffe66d";
+
+
+            createTouchGhost(
+                card,
+                event.clientX,
+                event.clientY
+            );
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    // ======================================================
+    // TOUCH / POINTER MOVE
+    // ======================================================
+
+    card.addEventListener(
+        "pointermove",
+        event => {
+
+            if (
+                !touchDragging ||
+                touchDragCard !== card
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                gameOver ||
+                gameFinished
+            ) {
+
+                resetTouchDrag();
+
+                return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            const dx =
+                event.clientX -
+                touchStartX;
+
+
+            const dy =
+                event.clientY -
+                touchStartY;
+
+
+            if (
+                Math.abs(dx) > 6 ||
+                Math.abs(dy) > 6
+            ) {
+
+                touchMoved =
+                    true;
+
+            }
+
+
+            if (touchGhost) {
+
+                touchGhost.style.left =
+                    event.clientX + "px";
+
+                touchGhost.style.top =
+                    event.clientY + "px";
+
+            }
+
+
+            const element =
+                document.elementFromPoint(
+                    event.clientX,
+                    event.clientY
+                );
+
+
+            const slot =
+                element
+                    ? element.closest(
+                        ".word-slot.blank"
+                    )
+                    : null;
+
+
+            if (
+                touchCurrentSlot &&
+                touchCurrentSlot !== slot
+            ) {
+
+                touchCurrentSlot.classList.remove(
+                    "drag-over"
+                );
+
+            }
+
+
+            touchCurrentSlot =
+                slot;
+
+
+            if (touchCurrentSlot) {
+
+                touchCurrentSlot.classList.add(
+                    "drag-over"
+                );
+
+            }
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    // ======================================================
+    // TOUCH / POINTER END
+    // ======================================================
+
+    card.addEventListener(
+        "pointerup",
+        event => {
+
+            if (
+                !touchDragging ||
+                touchDragCard !== card
+            ) {
+
+                return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            const element =
+                document.elementFromPoint(
+                    event.clientX,
+                    event.clientY
+                );
+
+
+            const slot =
+                element
+                    ? element.closest(
+                        ".word-slot.blank"
+                    )
+                    : null;
+
+
+            if (slot) {
+
+                placeLetter(
+                    card,
+                    slot
+                );
+
+            }
+
+
+            resetTouchDrag();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    // ======================================================
+    // TOUCH CANCEL
+    // ======================================================
+
+    card.addEventListener(
+        "pointercancel",
+        () => {
+
+            resetTouchDrag();
+
+        }
+    );
+
+
     lettersContainer.appendChild(
         card
     );
@@ -1353,10 +1682,171 @@ function createLetterCard(letter) {
 
 
 // ==========================================================
+// CREATE TOUCH GHOST
+// ==========================================================
+
+function createTouchGhost(
+    card,
+    x,
+    y
+) {
+
+    removeTouchGhost();
+
+
+    touchGhost =
+        card.cloneNode(
+            true
+        );
+
+
+    touchGhost.classList.add(
+        "touch-drag-ghost"
+    );
+
+
+    touchGhost.classList.remove(
+        "used"
+    );
+
+
+    touchGhost.style.position =
+        "fixed";
+
+    touchGhost.style.left =
+        x + "px";
+
+    touchGhost.style.top =
+        y + "px";
+
+    touchGhost.style.width =
+        card.offsetWidth + "px";
+
+    touchGhost.style.height =
+        card.offsetHeight + "px";
+
+    touchGhost.style.margin =
+        "0";
+
+    touchGhost.style.zIndex =
+        "999999";
+
+    touchGhost.style.pointerEvents =
+        "none";
+
+    touchGhost.style.opacity =
+        "0.9";
+
+    touchGhost.style.transform =
+        "translate(-50%, -50%) scale(1.08)";
+
+    touchGhost.style.boxShadow =
+        "0 10px 25px rgba(0,0,0,.25)";
+
+
+    document.body.appendChild(
+        touchGhost
+    );
+
+}
+
+
+// ==========================================================
+// REMOVE TOUCH GHOST
+// ==========================================================
+
+function removeTouchGhost() {
+
+    if (
+        touchGhost &&
+        touchGhost.parentNode
+    ) {
+
+        touchGhost.parentNode.removeChild(
+            touchGhost
+        );
+
+    }
+
+
+    touchGhost =
+        null;
+
+}
+
+
+// ==========================================================
+// RESET TOUCH DRAG
+// ==========================================================
+
+function resetTouchDrag() {
+
+    if (touchCurrentSlot) {
+
+        touchCurrentSlot.classList.remove(
+            "drag-over"
+        );
+
+    }
+
+
+    touchCurrentSlot =
+        null;
+
+
+    removeTouchGhost();
+
+
+    if (touchDragCard) {
+
+        touchDragCard.style.outline =
+            "";
+
+    }
+
+
+    touchDragging =
+        false;
+
+    touchDragCard =
+        null;
+
+}
+
+
+// ==========================================================
+// CLEAR SELECTED LETTERS
+// ==========================================================
+
+function clearSelectedLetters() {
+
+    document
+        .querySelectorAll(
+            ".letter-card"
+        )
+        .forEach(
+            card => {
+
+                card.style.outline =
+                    "";
+
+            }
+        );
+
+}
+
+
+// ==========================================================
 // DROP SLOT
 // ==========================================================
 
-function setupDropSlot(slot) {
+function setupDropSlot(
+    slot
+) {
+
+    // ======================================================
+    // DESKTOP DRAG OVER
+    // ======================================================
 
     slot.addEventListener(
         "dragover",
@@ -1383,6 +1873,10 @@ function setupDropSlot(slot) {
     );
 
 
+    // ======================================================
+    // DESKTOP DRAG LEAVE
+    // ======================================================
+
     slot.addEventListener(
         "dragleave",
         () => {
@@ -1394,6 +1888,10 @@ function setupDropSlot(slot) {
         }
     );
 
+
+    // ======================================================
+    // DESKTOP DROP
+    // ======================================================
 
     slot.addEventListener(
         "drop",
@@ -1417,7 +1915,42 @@ function setupDropSlot(slot) {
             );
 
 
-            if (!draggedLetter) {
+            let card =
+                draggedLetter;
+
+
+            if (!card) {
+
+                const letter =
+                    event.dataTransfer
+                        ? event.dataTransfer.getData(
+                            "text/plain"
+                        )
+                        : "";
+
+
+                if (letter) {
+
+                    card =
+                        [
+                            ...document.querySelectorAll(
+                                ".letter-card"
+                            )
+                        ].find(
+                            item =>
+                                item.dataset.letter ===
+                                    letter &&
+                                !item.classList.contains(
+                                    "used"
+                                )
+                        );
+
+                }
+
+            }
+
+
+            if (!card) {
 
                 return;
 
@@ -1425,13 +1958,17 @@ function setupDropSlot(slot) {
 
 
             placeLetter(
-                draggedLetter,
+                card,
                 slot
             );
 
         }
     );
 
+
+    // ======================================================
+    // CLICK SLOT
+    // ======================================================
 
     slot.addEventListener(
         "click",
@@ -1545,7 +2082,7 @@ function placeLetter(
 
 
 // ==========================================================
-// CORRECT
+// CORRECT LETTER
 // ==========================================================
 
 function correctLetterPlaced(
@@ -1594,15 +2131,14 @@ function correctLetterPlaced(
         null;
 
 
+    resetTouchDrag();
+
+
     score += 10;
 
 
     updateScore();
 
-
-    // ======================================================
-    // CORRECT SOUND
-    // ======================================================
 
     playCorrectSound();
 
@@ -1631,10 +2167,12 @@ function correctLetterPlaced(
 
 
 // ==========================================================
-// WRONG
+// WRONG LETTER
 // ==========================================================
 
-function wrongLetterPlaced(slot) {
+function wrongLetterPlaced(
+    slot
+) {
 
     if (
         gameOver ||
@@ -1657,11 +2195,18 @@ function wrongLetterPlaced(slot) {
     );
 
 
-    // ======================================================
-    // WRONG SOUND
-    // ======================================================
-
     playWrongSound();
+
+
+    if (feedback) {
+
+        feedback.textContent =
+            "❌ Try again!";
+
+        feedback.className =
+            "feedback wrong";
+
+    }
 
 
     setTimeout(
@@ -1679,10 +2224,6 @@ function wrongLetterPlaced(slot) {
         400
     );
 
-
-    // ======================================================
-    // GAME OVER
-    // ======================================================
 
     if (lives <= 0) {
 
@@ -1737,12 +2278,6 @@ function wordCompleted() {
     }
 
 
-    // ======================================================
-    // STAR REWARD
-    //
-    // USE EXISTING CORRECT SOUND.
-    // ======================================================
-
     showStarReward();
 
 
@@ -1779,11 +2314,6 @@ function wordCompleted() {
 
 // ==========================================================
 // GAME OVER
-//
-// NO LOADING.
-// NO RESET.
-// NO PAGE RELOAD.
-// CARD STAYS.
 // ==========================================================
 
 function showGameOver() {
@@ -1798,11 +2328,15 @@ function showGameOver() {
     }
 
 
-    gameOver = true;
+    gameOver =
+        true;
 
 
     draggedLetter =
         null;
+
+
+    resetTouchDrag();
 
 
     disableGame();
@@ -1826,9 +2360,6 @@ function showGameOver() {
 
 // ==========================================================
 // FINISH GAME
-//
-// NO LOADING.
-// CARD STAYS.
 // ==========================================================
 
 function finishGame() {
@@ -1840,17 +2371,23 @@ function finishGame() {
     }
 
 
-    finishShown = true;
+    finishShown =
+        true;
 
 
-    gameFinished = true;
+    gameFinished =
+        true;
 
 
-    gameOver = false;
+    gameOver =
+        false;
 
 
     draggedLetter =
         null;
+
+
+    resetTouchDrag();
 
 
     if (progressBar) {
@@ -1895,6 +2432,9 @@ function disableGame() {
 
                 card.draggable =
                     false;
+
+                card.style.pointerEvents =
+                    "none";
 
             }
         );
@@ -1970,8 +2510,6 @@ function nextQuestion() {
 
 // ==========================================================
 // STAR REWARD
-//
-// CORRECT SOUND IS PLAYED HERE.
 // ==========================================================
 
 function showStarReward() {
@@ -1983,18 +2521,8 @@ function showStarReward() {
     }
 
 
-    // ======================================================
-    // STAR REWARD SOUND
-    //
-    // Same sound manager correct sound.
-    // ======================================================
-
     playCorrectSound();
 
-
-    // ======================================================
-    // SHOW STAR
-    // ======================================================
 
     starReward.classList.remove(
         "hidden"
@@ -2118,10 +2646,6 @@ if (hintBtn) {
             updateHint();
 
 
-            // ==================================================
-            // BUTTON SOUND
-            // ==================================================
-
             playButtonSound();
 
 
@@ -2149,9 +2673,6 @@ if (hintBtn) {
 
 // ==========================================================
 // RESTART BUTTON
-//
-// MANUAL RESTART WHILE PLAYING.
-// NO LOADING.
 // ==========================================================
 
 if (restartBtn) {
@@ -2177,11 +2698,11 @@ if (restartBtn) {
                 MAX_LIVES;
 
 
-            hints = 3;
+            hints =
+                3;
 
 
             updateLives();
-
 
             updateHint();
 
@@ -2202,18 +2723,25 @@ function calculateStars(
     percentage
 ) {
 
-    let stars = 1;
+    let stars =
+        1;
 
 
-    if (percentage >= 80) {
+    if (
+        percentage >= 80
+    ) {
 
-        stars = 3;
+        stars =
+            3;
 
     }
 
-    else if (percentage >= 60) {
+    else if (
+        percentage >= 60
+    ) {
 
-        stars = 2;
+        stars =
+            2;
 
     }
 
@@ -2225,13 +2753,11 @@ function calculateStars(
 
 // ==========================================================
 // SHOW RESULT CARD
-//
-// NO LOADING.
-// NO RELOAD.
-// CARD STAYS.
 // ==========================================================
 
-function showResultCard(type) {
+function showResultCard(
+    type
+) {
 
     if (!resultScreen) {
 
@@ -2239,10 +2765,6 @@ function showResultCard(type) {
 
     }
 
-
-    // ======================================================
-    // SCORE
-    // ======================================================
 
     if (finalScore) {
 
@@ -2252,11 +2774,8 @@ function showResultCard(type) {
     }
 
 
-    // ======================================================
-    // PERCENTAGE
-    // ======================================================
-
-    let percentage = 0;
+    let percentage =
+        0;
 
 
     if (
@@ -2284,19 +2803,11 @@ function showResultCard(type) {
         );
 
 
-    // ======================================================
-    // STARS
-    // ======================================================
-
     const stars =
         calculateStars(
             percentage
         );
 
-
-    // ======================================================
-    // GAME OVER
-    // ======================================================
 
     if (
         type === "gameover"
@@ -2328,10 +2839,6 @@ function showResultCard(type) {
     }
 
 
-    // ======================================================
-    // FINISH
-    // ======================================================
-
     else {
 
         if (resultTrophy) {
@@ -2360,10 +2867,6 @@ function showResultCard(type) {
     }
 
 
-    // ======================================================
-    // STARS DISPLAY
-    // ======================================================
-
     if (finalStars) {
 
         if (stars === 3) {
@@ -2390,20 +2893,10 @@ function showResultCard(type) {
     }
 
 
-    // ======================================================
-    // SHOW RESULT CARD
-    //
-    // STAYS VISIBLE.
-    // ======================================================
-
     resultScreen.classList.remove(
         "hidden"
     );
 
-
-    // ======================================================
-    // SAVE PROGRESS
-    // ======================================================
 
     saveProgress(
         percentage,
@@ -2415,9 +2908,6 @@ function showResultCard(type) {
 
 // ==========================================================
 // PLAY AGAIN
-//
-// NO LOADING.
-// DIRECT RESET.
 // ==========================================================
 
 if (playAgainButton) {
@@ -2429,10 +2919,6 @@ if (playAgainButton) {
             playButtonSound();
 
 
-            // ------------------------------------------------
-            // HIDE RESULT CARD
-            // ------------------------------------------------
-
             if (resultScreen) {
 
                 resultScreen.classList.add(
@@ -2441,10 +2927,6 @@ if (playAgainButton) {
 
             }
 
-
-            // ------------------------------------------------
-            // HIDE STAR REWARD
-            // ------------------------------------------------
 
             if (starReward) {
 
@@ -2455,20 +2937,20 @@ if (playAgainButton) {
             }
 
 
-            // ------------------------------------------------
-            // RESET FLAGS
-            // ------------------------------------------------
-
-            gameOver = false;
-
-            gameFinished = false;
-
-            finishShown = false;
+            gameOver =
+                false;
 
 
-            // ------------------------------------------------
-            // CHECK STUDENT
-            // ------------------------------------------------
+            gameFinished =
+                false;
+
+
+            finishShown =
+                false;
+
+
+            resetTouchDrag();
+
 
             if (!checkStudent()) {
 
@@ -2476,12 +2958,6 @@ if (playAgainButton) {
 
             }
 
-
-            // ------------------------------------------------
-            // DIRECT START
-            //
-            // NO LOADING.
-            // ------------------------------------------------
 
             startGame();
 
@@ -2493,8 +2969,6 @@ if (playAgainButton) {
 
 // ==========================================================
 // BACK TO ALPHABET
-//
-// NO LOADING.
 // ==========================================================
 
 if (backButton) {
@@ -2566,7 +3040,8 @@ function updateLives() {
     }
 
 
-    let hearts = "";
+    let hearts =
+        "";
 
 
     for (
@@ -2609,7 +3084,9 @@ function updateHint() {
 // SHUFFLE
 // ==========================================================
 
-function shuffle(array) {
+function shuffle(
+    array
+) {
 
     for (
         let i = array.length - 1;
@@ -2643,18 +3120,6 @@ function shuffle(array) {
 
 // ==========================================================
 // SAVE PROGRESS
-//
-// SAVES:
-//
-// - TEACHER ID
-// - STUDENT ID
-// - CATEGORY
-// - ACTIVITY
-// - SCORE
-// - STARS
-//
-// NO LOADING.
-// NO RELOAD.
 // ==========================================================
 
 async function saveProgress(
@@ -2673,10 +3138,6 @@ async function saveProgress(
             "selectedStudent"
         );
 
-
-    // ======================================================
-    // CHECK LOCAL STORAGE
-    // ======================================================
 
     if (
         !teacherData ||
@@ -2706,10 +3167,6 @@ async function saveProgress(
             );
 
 
-        // ==================================================
-        // CHECK IDS
-        // ==================================================
-
         if (
             !teacher.id ||
             !student.id
@@ -2724,10 +3181,6 @@ async function saveProgress(
         }
 
 
-        // ==================================================
-        // VALIDATE SCORE
-        // ==================================================
-
         let numericScore =
             Number(
                 percentageScore
@@ -2740,7 +3193,8 @@ async function saveProgress(
             )
         ) {
 
-            numericScore = 0;
+            numericScore =
+                0;
 
         }
 
@@ -2757,10 +3211,6 @@ async function saveProgress(
             );
 
 
-        // ==================================================
-        // VALIDATE STARS
-        // ==================================================
-
         let numericStars =
             Number(
                 stars
@@ -2773,7 +3223,8 @@ async function saveProgress(
             )
         ) {
 
-            numericStars = 0;
+            numericStars =
+                0;
 
         }
 
@@ -2790,16 +3241,13 @@ async function saveProgress(
             );
 
 
-        // ==================================================
-        // REQUEST
-        // ==================================================
-
         const response =
             await fetch(
                 `${API_BASE}/progress/save`,
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
 
@@ -2835,10 +3283,6 @@ async function saveProgress(
             );
 
 
-        // ==================================================
-        // CHECK HTTP STATUS
-        // ==================================================
-
         if (!response.ok) {
 
             throw new Error(
@@ -2852,37 +3296,39 @@ async function saveProgress(
             await response.json();
 
 
-        // ==================================================
-        // LOG SAVED DATA
-        // ==================================================
-
         console.log(
             "=========================================="
         );
 
+
         console.log(
             "DRAG & DROP LETTERS PROGRESS SAVED"
         );
+
 
         console.log(
             "Student:",
             student.id
         );
 
+
         console.log(
             "Score:",
             numericScore
         );
+
 
         console.log(
             "Stars:",
             numericStars
         );
 
+
         console.log(
             "Response:",
             data
         );
+
 
         console.log(
             "=========================================="
