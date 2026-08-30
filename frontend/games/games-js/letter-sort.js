@@ -1,6 +1,7 @@
 // ==========================================================
 // KINDERQUEST - LETTER SORT
 // FULL UPDATED VERSION
+// DESKTOP + TABLET + ANDROID TOUCH DRAG
 // ==========================================================
 //
 // SOUND FLOW:
@@ -24,6 +25,11 @@
 //      ↓
 // REWARD CARD
 //
+// MOBILE:
+// - Tap letter → tap slot
+// - Touch drag → slot
+// - Desktop drag → slot
+//
 // IMPORTANT:
 // - NO SOUND PER CORRECT LETTER
 // - NO WRONG SOUND
@@ -44,7 +50,8 @@
 // API
 // ==========================================================
 
-const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+const API_BASE =
+    "https://kiddoquest-backend.onrender.com/api";
 
 
 // ==========================================================
@@ -147,61 +154,40 @@ let backendSaveInProgress = false;
 // ==========================================================
 
 let loadingScreen;
-
 let loadingBarFill;
 
 let scoreElement;
-
 let starsElement;
-
 let livesElement;
-
 let levelElement;
 
 let lettersContainer;
-
 let letterSlots;
 
 let levelRewardModal;
-
 let rewardLevelTitle;
-
 let rewardStarText;
-
 let nextLevelBtn;
 
 let hintBtn;
-
 let hintCount;
-
 let restartBtn;
 
 let gameOverModal;
-
 let gameOverLevel;
-
 let gameOverScore;
-
 let gameOverStars;
-
 let gameOverAgainBtn;
-
 let gameOverBackBtn;
 
 let completeModal;
-
 let finalStarsDisplay;
-
 let finalScore;
-
 let finalStars;
-
 let playAgainBtn;
-
 let backBtn;
 
 let noStudentOverlay;
-
 let playingStudentName;
 
 let topBackButton;
@@ -214,6 +200,35 @@ let truck;
 // ==========================================================
 
 let backgroundMusicStarted = false;
+
+
+// ==========================================================
+// MOBILE TOUCH DRAG VARIABLES
+// ==========================================================
+
+let touchDragCard = null;
+
+let touchDragLetter = null;
+
+let touchDragClone = null;
+
+let touchDragActive = false;
+
+let touchDragStarted = false;
+
+let touchStartX = 0;
+
+let touchStartY = 0;
+
+let touchCurrentX = 0;
+
+let touchCurrentY = 0;
+
+let touchDragThreshold = 8;
+
+let touchDragPointerId = null;
+
+let touchDragTargetSlot = null;
 
 
 // ==========================================================
@@ -360,13 +375,6 @@ function initializeDOM() {
 // ==========================================================
 // START BACKGROUND MUSIC
 // ==========================================================
-//
-// Uses the existing soundManager.js.
-//
-// No custom playStar().
-// No custom audio.
-// No correct/wrong sound here.
-//
 
 function startGameBackgroundMusic() {
 
@@ -382,6 +390,7 @@ function startGameBackgroundMusic() {
         return;
 
     }
+
 
     try {
 
@@ -404,13 +413,8 @@ function startGameBackgroundMusic() {
 
 
 // ==========================================================
-// START MUSIC AFTER USER INTERACTION
+// ENSURE BACKGROUND MUSIC
 // ==========================================================
-//
-// Browsers may block autoplay.
-// If the initial call is blocked, the first user
-// interaction will try again.
-//
 
 function ensureBackgroundMusic() {
 
@@ -911,7 +915,7 @@ function getTeacherId() {
 
 
 // ==========================================================
-// INITIAL LOADING ONLY
+// INITIAL LOADING
 // ==========================================================
 
 function runInitialLoading() {
@@ -1187,10 +1191,6 @@ function initializeButtons() {
 // ==========================================================
 // FIRST USER INTERACTION
 // ==========================================================
-//
-// This helps browsers allow background music when
-// autoplay is blocked on page load.
-//
 
 document.addEventListener(
     "pointerdown",
@@ -1207,7 +1207,7 @@ document.addEventListener(
 
 
 // ==========================================================
-// SLOTS
+// INITIALIZE SLOTS
 // ==========================================================
 
 function initializeSlots() {
@@ -1271,9 +1271,11 @@ function initializeSlots() {
 
 
                     const letter =
-                        event.dataTransfer.getData(
-                            "text/plain"
-                        );
+                        event.dataTransfer
+                            ? event.dataTransfer.getData(
+                                "text/plain"
+                            )
+                            : "";
 
 
                     if (!letter) {
@@ -1396,6 +1398,8 @@ function clearAllGameState() {
 
     placedLetters = [];
 
+    clearTouchDrag();
+
 }
 
 
@@ -1466,9 +1470,7 @@ function loadLevel(levelNumber) {
 
     resetTrain();
 
-
     updateAllUI();
-
 
     createLetterCards();
 
@@ -1571,6 +1573,10 @@ function createLetterCards() {
             );
 
 
+            // ==================================================
+            // DESKTOP DRAG
+            // ==================================================
+
             card.addEventListener(
                 "dragstart",
                 function (event) {
@@ -1621,6 +1627,10 @@ function createLetterCards() {
             );
 
 
+            // ==================================================
+            // CLICK / TAP
+            // ==================================================
+
             card.addEventListener(
                 "click",
                 function () {
@@ -1641,6 +1651,10 @@ function createLetterCards() {
                 }
             );
 
+
+            // ==================================================
+            // KEYBOARD
+            // ==================================================
 
             card.addEventListener(
                 "keydown",
@@ -1673,6 +1687,13 @@ function createLetterCards() {
             );
 
 
+            // ==================================================
+            // MOBILE / TABLET TOUCH DRAG
+            // ==================================================
+
+            initializeTouchDrag(card, letter);
+
+
             lettersContainer.appendChild(
                 card
             );
@@ -1687,9 +1708,8 @@ function createLetterCards() {
 // SELECT LETTER
 // ==========================================================
 //
-// IMPORTANT:
-// NO CLICK SOUND HERE.
-//
+// NO SOUND HERE.
+// ==========================================================
 
 function selectLetter(
     card,
@@ -1728,7 +1748,556 @@ function selectLetter(
 
 
 // ==========================================================
-// PLACE LETTER
+// MOBILE / TABLET TOUCH DRAG
+// ==========================================================
+
+function initializeTouchDrag(
+    card,
+    letter
+) {
+
+    if (!card) {
+        return;
+    }
+
+
+    card.addEventListener(
+        "pointerdown",
+        function (event) {
+
+            if (!canInteract()) {
+                return;
+            }
+
+
+            if (
+                event.pointerType !== "touch" &&
+                event.pointerType !== "pen"
+            ) {
+
+                return;
+
+            }
+
+
+            ensureBackgroundMusic();
+
+
+            touchDragCard =
+                card;
+
+            touchDragLetter =
+                letter;
+
+            touchDragPointerId =
+                event.pointerId;
+
+            touchStartX =
+                event.clientX;
+
+            touchStartY =
+                event.clientY;
+
+            touchCurrentX =
+                event.clientX;
+
+            touchCurrentY =
+                event.clientY;
+
+            touchDragStarted =
+                false;
+
+            touchDragActive =
+                true;
+
+            touchDragTargetSlot =
+                null;
+
+
+            selectedLetter =
+                letter;
+
+
+            card.classList.add(
+                "touch-pressed"
+            );
+
+
+            try {
+
+                card.setPointerCapture(
+                    event.pointerId
+                );
+
+            }
+
+            catch (error) {
+
+                // Ignore if pointer capture is unavailable.
+
+            }
+
+
+            event.preventDefault();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    card.addEventListener(
+        "pointermove",
+        function (event) {
+
+            if (!touchDragActive) {
+                return;
+            }
+
+
+            if (
+                event.pointerId !==
+                touchDragPointerId
+            ) {
+
+                return;
+
+            }
+
+
+            touchCurrentX =
+                event.clientX;
+
+            touchCurrentY =
+                event.clientY;
+
+
+            const distance =
+                Math.sqrt(
+                    Math.pow(
+                        touchCurrentX -
+                        touchStartX,
+                        2
+                    ) +
+                    Math.pow(
+                        touchCurrentY -
+                        touchStartY,
+                        2
+                    )
+                );
+
+
+            if (
+                !touchDragStarted &&
+                distance >= touchDragThreshold
+            ) {
+
+                touchDragStarted =
+                    true;
+
+                createTouchDragClone();
+
+            }
+
+
+            if (touchDragStarted) {
+
+                moveTouchDragClone(
+                    touchCurrentX,
+                    touchCurrentY
+                );
+
+
+                updateTouchDragTarget(
+                    touchCurrentX,
+                    touchCurrentY
+                );
+
+            }
+
+
+            event.preventDefault();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    card.addEventListener(
+        "pointerup",
+        function (event) {
+
+            if (!touchDragActive) {
+                return;
+            }
+
+
+            if (
+                event.pointerId !==
+                touchDragPointerId
+            ) {
+
+                return;
+
+            }
+
+
+            touchCurrentX =
+                event.clientX;
+
+            touchCurrentY =
+                event.clientY;
+
+
+            if (touchDragStarted) {
+
+                const target =
+                    getSlotAtPoint(
+                        touchCurrentX,
+                        touchCurrentY
+                    );
+
+
+                if (
+                    target &&
+                    canInteract()
+                ) {
+
+                    placeLetterInSlot(
+                        touchDragLetter,
+                        target
+                    );
+
+                }
+
+            }
+
+            else {
+
+                selectLetter(
+                    card,
+                    letter
+                );
+
+            }
+
+
+            clearTouchDrag();
+
+
+            try {
+
+                card.releasePointerCapture(
+                    event.pointerId
+                );
+
+            }
+
+            catch (error) {
+
+                // Ignore.
+
+            }
+
+
+            event.preventDefault();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+    card.addEventListener(
+        "pointercancel",
+        function () {
+
+            clearTouchDrag();
+
+        },
+        {
+            passive: false
+        }
+    );
+
+}
+
+
+// ==========================================================
+// CREATE TOUCH DRAG CLONE
+// ==========================================================
+
+function createTouchDragClone() {
+
+    if (
+        !touchDragCard ||
+        !touchDragLetter
+    ) {
+
+        return;
+
+    }
+
+
+    touchDragCard.classList.add(
+        "touch-dragging"
+    );
+
+
+    touchDragClone =
+        touchDragCard.cloneNode(true);
+
+
+    touchDragClone.classList.remove(
+        "selected"
+    );
+
+
+    touchDragClone.classList.remove(
+        "touch-pressed"
+    );
+
+
+    touchDragClone.classList.add(
+        "touch-drag-clone"
+    );
+
+
+    touchDragClone.style.position =
+        "fixed";
+
+    touchDragClone.style.left =
+        "0px";
+
+    touchDragClone.style.top =
+        "0px";
+
+    touchDragClone.style.margin =
+        "0";
+
+    touchDragClone.style.pointerEvents =
+        "none";
+
+    touchDragClone.style.zIndex =
+        "999999";
+
+
+    const rect =
+        touchDragCard.getBoundingClientRect();
+
+
+    touchDragClone.style.width =
+        rect.width + "px";
+
+    touchDragClone.style.height =
+        rect.height + "px";
+
+
+    document.body.appendChild(
+        touchDragClone
+    );
+
+
+    moveTouchDragClone(
+        touchCurrentX,
+        touchCurrentY
+    );
+
+}
+
+
+// ==========================================================
+// MOVE TOUCH DRAG CLONE
+// ==========================================================
+
+function moveTouchDragClone(
+    x,
+    y
+) {
+
+    if (!touchDragClone) {
+        return;
+    }
+
+
+    const width =
+        touchDragClone.offsetWidth || 80;
+
+    const height =
+        touchDragClone.offsetHeight || 80;
+
+
+    touchDragClone.style.left =
+        (x - width / 2) + "px";
+
+    touchDragClone.style.top =
+        (y - height / 2) + "px";
+
+}
+
+
+// ==========================================================
+// GET SLOT AT POINT
+// ==========================================================
+
+function getSlotAtPoint(
+    x,
+    y
+) {
+
+    const elements =
+        document.elementsFromPoint
+            ? document.elementsFromPoint(
+                x,
+                y
+            )
+            : [];
+
+
+    for (
+        const element of elements
+    ) {
+
+        if (
+            element &&
+            element.classList &&
+            element.classList.contains(
+                "letter-slot"
+            )
+        ) {
+
+            return element;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+// ==========================================================
+// UPDATE TOUCH DRAG TARGET
+// ==========================================================
+
+function updateTouchDragTarget(
+    x,
+    y
+) {
+
+    const target =
+        getSlotAtPoint(
+            x,
+            y
+        );
+
+
+    if (
+        touchDragTargetSlot &&
+        touchDragTargetSlot !== target
+    ) {
+
+        touchDragTargetSlot.classList.remove(
+            "drag-over"
+        );
+
+    }
+
+
+    touchDragTargetSlot =
+        target;
+
+
+    if (target) {
+
+        if (
+            target.dataset.position !==
+            undefined &&
+            placedLetters[
+                Number(
+                    target.dataset.position
+                )
+            ] !== null
+        ) {
+
+            target.classList.remove(
+                "drag-over"
+            );
+
+            return;
+
+        }
+
+
+        target.classList.add(
+            "drag-over"
+        );
+
+    }
+
+}
+
+
+// ==========================================================
+// CLEAR TOUCH DRAG
+// ==========================================================
+
+function clearTouchDrag() {
+
+    if (touchDragCard) {
+
+        touchDragCard.classList.remove(
+            "touch-pressed"
+        );
+
+        touchDragCard.classList.remove(
+            "touch-dragging"
+        );
+
+    }
+
+
+    if (touchDragTargetSlot) {
+
+        touchDragTargetSlot.classList.remove(
+            "drag-over"
+        );
+
+    }
+
+
+    if (touchDragClone) {
+
+        touchDragClone.remove();
+
+    }
+
+
+    touchDragCard = null;
+
+    touchDragLetter = null;
+
+    touchDragClone = null;
+
+    touchDragActive = false;
+
+    touchDragStarted = false;
+
+    touchDragPointerId = null;
+
+    touchDragTargetSlot = null;
+
+}
+
+
+// ==========================================================
+// PLACE LETTER IN SLOT
 // ==========================================================
 
 function placeLetterInSlot(
@@ -1805,12 +2374,8 @@ function placeLetterInSlot(
 // CORRECT LETTER
 // ==========================================================
 //
-// IMPORTANT:
 // NO SOUND HERE.
-//
-// Sound is played ONLY after ALL 5 letters
-// have been correctly sorted.
-//
+// ==========================================================
 
 function handleCorrectAnswer(
     letter,
@@ -1879,9 +2444,8 @@ function handleCorrectAnswer(
 
 
     // ======================================================
-    // NO CORRECT SOUND HERE
+    // NO CORRECT SOUND
     // ======================================================
-
 
     saveLocalProgress();
 
@@ -1917,9 +2481,8 @@ function handleCorrectAnswer(
 // WRONG LETTER
 // ==========================================================
 //
-// IMPORTANT:
-// NO WRONG SOUND.
-//
+// NO SOUND.
+// ==========================================================
 
 function handleWrongAnswer(slot) {
 
@@ -1957,9 +2520,8 @@ function handleWrongAnswer(slot) {
 
 
     // ======================================================
-    // NO WRONG SOUND HERE
+    // NO WRONG SOUND
     // ======================================================
-
 
     saveLocalProgress();
 
@@ -2087,14 +2649,8 @@ function moveTrainToFinish() {
 // COMPLETE LEVEL
 // ==========================================================
 //
-// THIS IS THE ONLY PLACE WHERE playCorrect()
-// IS USED.
-//
-// It happens AFTER:
-// 1. All 5 letters are correct
-// 2. Train finishes moving
-// 3. Star is awarded
-//
+// ONLY PLACE WHERE playCorrect() IS USED.
+// ==========================================================
 
 function completeLevel() {
 
@@ -2115,7 +2671,7 @@ function completeLevel() {
 
 
     // ======================================================
-    // +1 STAR PER COMPLETED LEVEL
+    // +1 STAR
     // ======================================================
 
     stars++;
@@ -2133,7 +2689,7 @@ function completeLevel() {
 
 
     // ======================================================
-    // STAR REWARD SOUND ONLY
+    // STAR REWARD SOUND
     // ======================================================
 
     if (
@@ -2328,6 +2884,8 @@ function showGameOver() {
     selectedLetter = null;
 
 
+    clearTouchDrag();
+
     closeReward();
 
 
@@ -2370,7 +2928,8 @@ function showGameOver() {
 
                     card.classList.remove(
                         "selected",
-                        "dragging"
+                        "dragging",
+                        "touch-dragging"
                     );
 
                 }
@@ -2380,7 +2939,6 @@ function showGameOver() {
 
 
     saveLocalProgress();
-
 
     saveProgressToBackend();
 
@@ -2462,6 +3020,8 @@ function showComplete() {
     selectedLetter = null;
 
 
+    clearTouchDrag();
+
     closeReward();
 
 
@@ -2527,16 +3087,10 @@ function showComplete() {
 
 
     // ======================================================
-    // IMPORTANT:
     // NO playCorrect() HERE.
-    //
-    // The sound already played when the final
-    // level's +1 STAR reward was given.
     // ======================================================
 
-
     saveLocalProgress();
-
 
     saveProgressToBackend();
 
@@ -2580,9 +3134,11 @@ function closeComplete() {
 //
 // NO LOADING
 // NO PAGE RELOAD
-//
+// ==========================================================
 
 function restartGame() {
+
+    clearTouchDrag();
 
     closeReward();
 
@@ -2624,7 +3180,6 @@ function restartGame() {
 
 
     resetTrain();
-
 
     updateAllUI();
 
@@ -2679,7 +3234,6 @@ function useHint() {
 
 
     hints--;
-
 
     updateHints();
 
@@ -3154,8 +3708,10 @@ async function saveProgressToBackend() {
             "LETTER SORT: Progress not saved. Teacher data is missing."
         );
 
+
         backendSaveInProgress =
             false;
+
 
         return;
 
@@ -3205,8 +3761,10 @@ async function saveProgressToBackend() {
             "LETTER SORT: Progress not saved. Student is missing."
         );
 
+
         backendSaveInProgress =
             false;
+
 
         return;
 
@@ -3232,8 +3790,10 @@ async function saveProgressToBackend() {
             teacher
         );
 
+
         backendSaveInProgress =
             false;
+
 
         return;
 
@@ -3247,8 +3807,10 @@ async function saveProgressToBackend() {
             student
         );
 
+
         backendSaveInProgress =
             false;
+
 
         return;
 
@@ -3439,6 +4001,7 @@ async function saveProgressToBackend() {
             backendSaveInProgress =
                 false;
 
+
             return;
 
         }
@@ -3577,5 +4140,29 @@ document.addEventListener(
 
         }
 
+    }
+);
+
+
+// ==========================================================
+// PREVENT MOBILE PAGE SCROLL WHILE TOUCH DRAGGING
+// ==========================================================
+
+document.addEventListener(
+    "touchmove",
+    function (event) {
+
+        if (
+            touchDragActive &&
+            touchDragStarted
+        ) {
+
+            event.preventDefault();
+
+        }
+
+    },
+    {
+        passive: false
     }
 );

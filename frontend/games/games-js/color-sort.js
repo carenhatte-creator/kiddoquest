@@ -52,6 +52,7 @@ console.log("color-sort.js loaded");
 // ===================================
 
 const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+
 const MAX_LIVES = 3;
 
 const TOTAL_OBJECTS = 15;
