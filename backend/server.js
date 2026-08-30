@@ -24,10 +24,13 @@ const app = express();
 // MIDDLEWARE
 // =====================================
 
+// CORS
 app.use(cors());
 
+// JSON
 app.use(express.json());
 
+// URL Encoded
 app.use(express.urlencoded({ extended: true }));
 
 // Logger
@@ -35,19 +38,15 @@ const logger = require("./middleware/logger");
 app.use(logger);
 
 // =====================================
-// HOME
+// HOME / HEALTH CHECK
 // =====================================
 
 app.get("/", (req, res) => {
-
     res.json({
-
         success: true,
-
-        message: "KinderQuest Backend Running"
-
+        message: "KinderQuest Backend Running",
+        status: "online"
     });
-
 });
 
 // =====================================
@@ -76,6 +75,19 @@ app.use("/api/reports", reportRoutes);
 app.use("/api/games", gameRoutes);
 
 // =====================================
+// 404 ROUTE
+// =====================================
+
+app.use((req, res) => {
+    console.log("404:", req.method, req.originalUrl);
+
+    res.status(404).json({
+        success: false,
+        message: "Route not found"
+    });
+});
+
+// =====================================
 // ERROR HANDLER
 // =====================================
 
@@ -84,41 +96,34 @@ const errorHandler = require("./middleware/errorHandler");
 app.use(errorHandler);
 
 // =====================================
-// 404
+// PORT
 // =====================================
 
-app.use((req, res) => {
+// Render provides the PORT through environment variables.
+// Local development will use the configured PORT or 5001.
 
-    console.log("404:", req.method, req.originalUrl);
-
-    res.status(404).json({
-
-        success: false,
-
-        message: "Route not found"
-
-    });
-
-});
+const PORT = process.env.PORT || config.PORT || 5001;
 
 // =====================================
 // START SERVER
 // =====================================
 
-const PORT = config.PORT || 5001;
+// 0.0.0.0 allows Render to access the server.
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, "0.0.0.0", () => {
 
     console.log("");
     console.log("===================================");
     console.log("KinderQuest Backend Started");
-    console.log(`URL: http://localhost:${PORT}`);
+    console.log(`Port: ${PORT}`);
     console.log("===================================");
 
 });
 
+// =====================================
+// SERVER ERROR
+// =====================================
+
 server.on("error", (err) => {
-
-    console.error(err);
-
+    console.error("Server Error:", err);
 });
