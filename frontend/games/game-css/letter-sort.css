@@ -1,733 +1,1495 @@
-/* ==========================================================
+/* ==========================================
    KINDERQUEST - LETTER SORT
-   FULL RESPONSIVE CSS
-   DESKTOP + TABLET + ANDROID
-   ========================================================== */
+   FULL UPDATED VERSION
+========================================== */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
-    width: 100%;
     min-height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #EAF8FF;
-    overflow-x: hidden;
-    overscroll-behavior: none;
-}
-
-
-/* ==========================================================
-   MAIN GAME
-   ========================================================== */
-
-.game-container {
-    width: 100%;
     min-height: 100vh;
-    position: relative;
-    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(
+        180deg,
+        #dff5ff 0%,
+        #eefaf0 100%
+    );
+    color: #333;
+    overflow-x: hidden;
 }
 
 
-/* ==========================================================
-   HEADER
-   ========================================================== */
+/* ==========================================
+   PAGE
+========================================== */
 
-.header {
+.page-wrap {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 14px 22px;
-    background: #ffffff;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-    position: relative;
-    z-index: 50;
-}
-
-.header-left,
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.header-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-}
-
-.student-name {
-    font-size: 20px;
-    font-weight: 700;
-    color: #1565C0;
-    white-space: nowrap;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 16px 16px 25px;
 }
 
 
-/* ==========================================================
-   TOP BUTTONS
-   ========================================================== */
-
-.top-back-button,
-#topBackButton {
-    border: none;
-    background: #E3F2FD;
-    color: #1565C0;
-    border-radius: 12px;
-    padding: 10px 15px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    min-height: 44px;
-    touch-action: manipulation;
-}
-
-.top-back-button:hover,
-#topBackButton:hover {
-    background: #BBDEFB;
-}
-
-.top-back-button:active,
-#topBackButton:active {
-    transform: scale(0.97);
-}
-
-
-/* ==========================================================
-   GAME INFO
-   ========================================================== */
-
-.game-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.info-box {
-    min-width: 100px;
-    padding: 9px 14px;
-    border-radius: 14px;
-    background: #F5FAFF;
-    border: 2px solid #D7ECFA;
-    text-align: center;
-}
-
-.info-label {
-    display: block;
-    font-size: 12px;
-    color: #607D8B;
-    font-weight: 700;
-    margin-bottom: 2px;
-}
-
-.info-value {
-    display: block;
-    font-size: 19px;
-    font-weight: 800;
-    color: #1565C0;
-}
-
-
-/* ==========================================================
+/* ==========================================
    LOADING
-   ========================================================== */
+========================================== */
 
 #loadingScreen {
     position: fixed;
     inset: 0;
-    z-index: 100000;
+    background: #8bd3f7;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #EAF8FF;
+    z-index: 99999;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
-.loading-content {
-    width: min(90%, 420px);
-    text-align: center;
-}
-
-.loading-content h1 {
-    color: #1565C0;
-    margin-bottom: 20px;
-}
-
-.loading-bar {
-    width: 100%;
-    height: 18px;
-    background: #D7ECFA;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-#loadingBarFill {
-    width: 0%;
-    height: 100%;
-    background: #42A5F5;
-    border-radius: 20px;
-    transition: width 0.15s ease;
-}
-
-
-/* ==========================================================
-   GAME AREA
-   ========================================================== */
-
-.game-area {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 25px 20px 40px;
-    position: relative;
-}
-
-
-/* ==========================================================
-   TITLE
-   ========================================================== */
-
-.game-title {
-    text-align: center;
-    color: #1565C0;
-    font-size: clamp(28px, 4vw, 42px);
-    font-weight: 800;
-    margin-bottom: 8px;
-}
-
-.game-instruction {
-    text-align: center;
-    color: #546E7A;
-    font-size: clamp(15px, 2vw, 19px);
-    margin-bottom: 22px;
-}
-
-
-/* ==========================================================
-   LETTER CARDS AREA
-   ========================================================== */
-
-#lettersContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    min-height: 105px;
-    margin: 10px auto 25px;
-    padding: 8px;
-}
-
-
-/* ==========================================================
-   LETTER CARD
-   ========================================================== */
-
-.letter-card {
-    width: 76px;
-    height: 76px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 18px;
-    background: #ffffff;
-    border: 3px solid #42A5F5;
-    color: #1565C0;
-    font-size: 36px;
-    font-weight: 900;
-    cursor: grab;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: none;
-
-    box-shadow:
-        0 5px 0 #90CAF9,
-        0 8px 15px rgba(0, 0, 0, 0.10);
-
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease,
-        background 0.15s ease,
-        border-color 0.15s ease;
-
-    position: relative;
-    z-index: 10;
-}
-
-.letter-card:hover {
-    transform: translateY(-4px);
-
-    box-shadow:
-        0 8px 0 #90CAF9,
-        0 12px 18px rgba(0, 0, 0, 0.12);
-}
-
-.letter-card:active {
-    cursor: grabbing;
-}
-
-.letter-card.selected {
-    transform: translateY(-5px) scale(1.05);
-    background: #FFF8D6;
-    border-color: #FFC107;
-
-    box-shadow:
-        0 6px 0 #FFD54F,
-        0 12px 20px rgba(0, 0, 0, 0.12);
-}
-
-.letter-card.dragging {
-    opacity: 0.45;
-    transform: scale(0.95);
-}
-
-.letter-card.touch-pressed {
-    transform: scale(0.96);
-}
-
-.letter-card.touch-dragging {
-    opacity: 0.35;
-}
-
-.letter-card.hint-letter {
-    animation: hintPulse 0.6s ease-in-out infinite alternate;
-}
-
-@keyframes hintPulse {
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(1.12);
-    }
-}
-
-
-/* ==========================================================
-   TOUCH DRAG CLONE
-   ========================================================== */
-
-.touch-drag-clone {
-    position: fixed !important;
-    pointer-events: none !important;
-    z-index: 999999 !important;
-    opacity: 0.92 !important;
-    transform: scale(1.08) rotate(3deg);
-
-    box-shadow:
-        0 12px 25px rgba(0, 0, 0, 0.22) !important;
-}
-
-
-/* ==========================================================
-   SLOTS AREA
-   ========================================================== */
-
-.slots-section {
-    width: 100%;
-    margin: 0 auto;
-}
-
-.slots-title {
-    text-align: center;
-    color: #455A64;
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 14px;
-}
-
-#letterSlotsContainer,
-.letter-slots,
-.slots-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-
-/* ==========================================================
-   LETTER SLOT
-   ========================================================== */
-
-.letter-slot {
-    width: 90px;
-    height: 90px;
-    border-radius: 20px;
-    background: #ffffff;
-    border: 4px dashed #90CAF9;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: relative;
-
-    color: #78909C;
-    font-size: 17px;
-    font-weight: 700;
-
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: none;
-
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease,
-        border-color 0.15s ease,
-        box-shadow 0.15s ease;
-}
-
-.letter-slot.drag-over {
-    background: #E3F2FD;
-    border-color: #2196F3;
-    transform: scale(1.06);
-
-    box-shadow:
-        0 0 0 5px rgba(33, 150, 243, 0.12);
-}
-
-.letter-slot.correct {
-    background: #E8F5E9;
-    border: 4px solid #66BB6A;
-    color: #2E7D32;
-
-    animation: correctSlot 0.35s ease;
-}
-
-.letter-slot.wrong {
-    background: #FFEBEE;
-    border-color: #EF5350;
-
-    animation: wrongSlot 0.35s ease;
-}
-
-.letter-slot.hint-highlight {
-    background: #FFF8D6;
-    border-color: #FFC107;
-
-    box-shadow:
-        0 0 0 6px rgba(255, 193, 7, 0.12);
-
-    animation: hintSlot 0.5s ease-in-out infinite alternate;
-}
-
-
-/* ==========================================================
-   SLOT ANIMATIONS
-   ========================================================== */
-
-@keyframes correctSlot {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.12);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes wrongSlot {
-    0% {
-        transform: translateX(0);
-    }
-
-    25% {
-        transform: translateX(-7px);
-    }
-
-    50% {
-        transform: translateX(7px);
-    }
-
-    75% {
-        transform: translateX(-5px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@keyframes hintSlot {
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(1.06);
-    }
-}
-
-
-/* ==========================================================
-   SLOT NUMBER
-   ========================================================== */
-
-.slot-number {
-    font-size: 18px;
-    color: #90A4AE;
-    font-weight: 800;
-}
-
-
-/* ==========================================================
-   PLACED LETTER
-   ========================================================== */
-
-.placed-letter {
-    font-size: 42px;
-    font-weight: 900;
-    color: #2E7D32;
-
-    animation: placedLetterPop 0.3s ease;
-}
-
-@keyframes placedLetterPop {
-    0% {
-        transform: scale(0.5);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-
-/* ==========================================================
-   CONTROLS
-   ========================================================== */
-
-.controls {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 25px;
-}
-
-.game-button {
-    min-width: 130px;
-    min-height: 48px;
-    padding: 10px 18px;
-
-    border: none;
-    border-radius: 14px;
-
-    font-size: 16px;
-    font-weight: 800;
-
-    cursor: pointer;
-    touch-action: manipulation;
-
-    transition:
-        transform 0.15s ease,
-        opacity 0.15s ease;
-}
-
-.game-button:hover {
-    transform: translateY(-2px);
-}
-
-.game-button:active {
-    transform: scale(0.96);
-}
-
-.game-button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-}
-
-
-/* ==========================================================
-   HINT BUTTON
-   ========================================================== */
-
-#hintBtn {
-    background: #FFF3CD;
-    color: #8A6500;
-    border: 2px solid #FFD54F;
-}
-
-
-/* ==========================================================
-   RESTART BUTTON
-   ========================================================== */
-
-#restartBtn {
-    background: #E3F2FD;
-    color: #1565C0;
-    border: 2px solid #90CAF9;
-}
-
-
-/* ==========================================================
-   TRAIN AREA
-   ========================================================== */
-
-.train-area {
-    width: 100%;
-    height: 100px;
-    position: relative;
-    overflow: hidden;
-    margin-top: 25px;
-}
-
-#truck {
-    position: absolute;
-    left: 4%;
-    bottom: 5px;
-    width: 140px;
-    max-width: 25vw;
-    z-index: 5;
-
-    transition:
-        left 1.2s ease;
-}
-
-.track {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    height: 8px;
-
-    background: #78909C;
-    border-radius: 8px;
-}
-
-
-/* ==========================================================
-   MODALS
-   ========================================================== */
-
-#levelRewardModal,
-#gameOverModal,
-#completeModal {
-    position: fixed;
-    inset: 0;
-    z-index: 90000;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(0, 0, 0, 0.48);
-
+#loadingScreen.loading-hidden {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 }
 
-#levelRewardModal:not(.hidden),
-#gameOverModal:not(.hidden),
-#completeModal:not(.hidden) {
-    display: flex;
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
+.loading-content {
+    width: 380px;
+    max-width: 85%;
+    text-align: center;
+}
+
+.loading-bar-container {
+    width: 100%;
+    height: 24px;
+    background: #11323f;
+    border: 2px solid rgba(255,255,255,.7);
+    border-radius: 20px;
+    padding: 3px;
+    overflow: hidden;
+}
+
+.loading-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        #ffe600,
+        #ffb700
+    );
+    border-radius: 20px;
+    transition: width .12s linear;
+}
+
+.loading-text {
+    margin-top: 12px;
+    color: white;
+    font-size: 22px;
+    font-weight: 900;
+    text-shadow:
+        -2px -2px 0 #1b3640,
+        2px -2px 0 #1b3640,
+        -2px 2px 0 #1b3640,
+        2px 2px 0 #1b3640;
 }
 
 
-/* ==========================================================
-   MODAL CARD
-   ========================================================== */
+/* ==========================================
+   TOP CARD
+========================================== */
 
-.modal-card {
-    width: min(92vw, 480px);
+.top-card {
+    background: white;
+    border: 3px dashed #FFD54F;
+    border-radius: 24px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.06);
+}
 
-    background: #ffffff;
+.back-circle-btn {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #FFC107;
+    color: #5C4400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 800;
+    box-shadow: 0 4px 0 #E0A200;
+    transition: .15s;
+}
 
-    border-radius: 25px;
+.back-circle-btn:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #E0A200;
+}
 
-    padding: 30px 24px;
+.top-card-text {
+    flex: 1;
+    text-align: center;
+}
+
+.top-card-text h1 {
+    font-size: 23px;
+    font-weight: 900;
+    color: #333;
+}
+
+.top-card-text p {
+    margin-top: 3px;
+    font-size: 12px;
+    color: #777;
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   STATS
+========================================== */
+
+.top-card-stats {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.stat-pill {
+    min-height: 42px;
+    padding: 7px 11px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.score-pill {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+
+.star-pill {
+    background: #fff8d7;
+    color: #c28b00;
+}
+
+.lives-pill {
+    background: #ffeded;
+    color: #d32f2f;
+}
+
+.stat-label {
+    font-size: 12px;
+}
+
+.stat-pill strong {
+    font-size: 15px;
+}
+
+
+/* ==========================================
+   PLAYING AS - FIXED
+========================================== */
+
+.playing-as {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    background: white;
+
+    border: 2px solid #4e9914;
+    border-radius: 30px;
+
+    padding: 8px 16px;
+    margin-bottom: 10px;
+
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #555;
+
+    white-space: nowrap;
+    width: fit-content;
+    min-width: 215px;
+
+    line-height: 1.2;
+}
+
+.playing-as .playing-label {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.playing-as #playingStudentName {
+    display: inline-block;
+    color: #4e9914;
+    font-weight: 800;
+    white-space: nowrap;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ==========================================
+   GAME INFO
+========================================== */
+
+.game-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.level-box {
+    background: #4e9914;
+    color: white;
+    padding: 7px 14px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 2px 0 #39770c;
+}
+
+.level-box strong {
+    margin-left: 3px;
+}
+
+
+/* ==========================================
+   TRUCK SCENE
+========================================== */
+
+.truck-scene {
+    position: relative;
+    height: 230px;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-bottom: 14px;
+
+    background: linear-gradient(
+        180deg,
+        #a3ddff 0%,
+        #d2f0ff 50%,
+        #bde29b 50%,
+        #a6d488 100%
+    );
+}
+
+
+/* ==========================================
+   CLOUDS
+========================================== */
+
+.cloud {
+    position: absolute;
+    width: 90px;
+    height: 30px;
+    background: rgba(255,255,255,.8);
+    border-radius: 50%;
+
+    box-shadow:
+        20px 6px 0 -4px rgba(255,255,255,.8),
+        -18px 4px 0 -6px rgba(255,255,255,.8);
+}
+
+.cloud-one {
+    top: 12px;
+    left: 30px;
+}
+
+.cloud-two {
+    top: 22px;
+    right: 120px;
+    width: 70px;
+    height: 24px;
+}
+
+.cloud-three {
+    top: 8px;
+    right: 40px;
+    width: 55px;
+    height: 20px;
+}
+
+
+/* ==========================================
+   TREES
+========================================== */
+
+.tree {
+    position: absolute;
+    bottom: 46px;
+    font-size: 40px;
+    filter: drop-shadow(0 3px 2px rgba(0,0,0,.15));
+}
+
+.tree-1 {
+    left: 6px;
+    bottom: 42px;
+    font-size: 46px;
+}
+
+.tree-2 {
+    left: 50px;
+    bottom: 40px;
+    font-size: 34px;
+}
+
+.tree-3 {
+    right: 200px;
+    bottom: 44px;
+    font-size: 38px;
+}
+
+
+/* ==========================================
+   HILL
+========================================== */
+
+.hill {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 55px;
+    background: #97c96f;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    transform: scaleX(1.3);
+}
+
+
+/* ==========================================
+   ROAD
+========================================== */
+
+.road {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 28px;
+    height: 14px;
+    background: #6b6b6b;
+}
+
+.road::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 5px;
+    height: 3px;
+
+    background-image: repeating-linear-gradient(
+        90deg,
+        white 0 18px,
+        transparent 18px 34px
+    );
+}
+
+
+/* ==========================================
+   TRUCK
+========================================== */
+
+.truck {
+    position: absolute;
+    left: 4%;
+    bottom: 36px;
+    display: flex;
+    align-items: flex-end;
+    z-index: 5;
+    transition: left 1.2s ease;
+}
+
+.truck-cargo {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 10px;
+
+    background: linear-gradient(
+        180deg,
+        #FFE082,
+        #FFC107
+    );
+
+    border: 3px solid #F0A500;
+    border-radius: 10px 4px 4px 10px;
+
+    box-shadow:
+        0 4px 0 #E0A200,
+        inset 0 3px 0 rgba(255,255,255,.35);
+
+    margin-right: -3px;
+}
+
+.letter-slot {
+    position: relative;
+    width: 58px;
+    height: 74px;
+
+    background: rgba(255,255,255,.9);
+    border: 3px dashed #F0A500;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        transform .2s,
+        background .2s,
+        border-color .2s;
+}
+
+.letter-slot.drag-over {
+    transform: scale(1.06);
+    background: #FFFBE8;
+    border-color: white;
+}
+
+.letter-slot.correct {
+    background: #f8fff2;
+    border-color: #4CAF50;
+}
+
+.letter-slot.wrong {
+    border-color: #e53935;
+    animation: shake .35s;
+}
+
+.slot-number {
+    position: absolute;
+    bottom: -12px;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+    background: #2196F3;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.placed-letter {
+    font-size: 36px !important;
+    font-weight: 900;
+}
+
+
+/* ==========================================
+   TRUCK CAB
+========================================== */
+
+.truck-cab {
+    width: 62px;
+    height: 82px;
+    position: relative;
+    flex-shrink: 0;
+
+    background: linear-gradient(
+        180deg,
+        #4FC3F7,
+        #1E88E5
+    );
+
+    border-radius: 4px 16px 8px 4px;
+
+    box-shadow:
+        inset -3px 0 0 rgba(255,255,255,.25);
+}
+
+.truck-window {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 30px;
+
+    background: #E3F2FD;
+    border: 3px solid #0D47A1;
+
+    border-radius: 4px 12px 4px 4px;
+}
+
+.truck-bumper {
+    position: absolute;
+    bottom: 8px;
+    left: -4px;
+    width: 10px;
+    height: 20px;
+    background: #C0C0C0;
+    border-radius: 3px;
+}
+
+.truck-headlight {
+    position: absolute;
+    bottom: 20px;
+    right: -3px;
+    width: 8px;
+    height: 10px;
+    background: #FFF176;
+    border-radius: 2px;
+}
+
+
+/* ==========================================
+   WHEELS
+========================================== */
+
+.truck-wheels {
+    position: absolute;
+    left: 4px;
+    right: 6px;
+    bottom: -14px;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 12px;
+}
+
+.wheel {
+    width: 26px;
+    height: 26px;
+    position: relative;
+
+    border-radius: 50%;
+    background: #2b2b2b;
+    border: 4px solid #555;
+}
+
+.wheel .hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 8px;
+    height: 8px;
+
+    background: #bbb;
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+
+/* ==========================================
+   FINISH
+========================================== */
+
+.finish {
+    position: absolute;
+    right: 14px;
+    bottom: 28px;
+    z-index: 3;
+    text-align: center;
+}
+
+.bunting {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin-bottom: 2px;
+}
+
+.bunting span {
+    width: 0;
+    height: 0;
+
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 10px solid #E53935;
+}
+
+.bunting span:nth-child(2) {
+    border-top-color: #FFC107;
+}
+
+.bunting span:nth-child(3) {
+    border-top-color: #4CAF50;
+}
+
+.bunting span:nth-child(4) {
+    border-top-color: #2196F3;
+}
+
+.bunting span:nth-child(5) {
+    border-top-color: #E91E63;
+}
+
+.finish-flag {
+    font-size: 34px;
+}
+
+.finish-post {
+    width: 4px;
+    height: 32px;
+    margin: 0 auto;
+    background: #89532c;
+}
+
+.finish-label {
+    margin-top: 2px;
+    padding: 3px 8px;
+    background: #89532c;
+    color: white;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   LETTER CARDS
+========================================== */
+
+.letters-section {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.letters-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.letter-card {
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fffdf1;
+    border: 3px solid #e2bd59;
+    border-radius: 14px;
+
+    font-size: 36px;
+    font-weight: 900;
+
+    cursor: grab;
+    user-select: none;
+
+    box-shadow:
+        0 4px 0 #d2a63f,
+        0 6px 10px rgba(0,0,0,.12);
+
+    transition:
+        transform .2s,
+        opacity .2s,
+        box-shadow .2s;
+}
+
+.letter-card:hover {
+    transform: translateY(-5px);
+}
+
+.letter-card:active {
+    cursor: grabbing;
+    transform: scale(.94);
+}
+
+.letter-card.selected {
+    transform: translateY(-7px) scale(1.05);
+
+    border-color: #4CAF50;
+
+    box-shadow:
+        0 5px 0 #388E3C,
+        0 8px 14px rgba(76,175,80,.25);
+}
+
+.letter-card.dragging {
+    opacity: .5;
+}
+
+.instruction {
+    margin-top: 8px;
+    color: #555;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   HINT
+========================================== */
+
+.hint-highlight {
+    animation:
+        hintPulse 1.2s ease-in-out;
+}
+
+.hint-letter {
+    animation:
+        hintCardPulse 1.2s ease-in-out;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.game-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.hint-btn,
+.control-btn {
+    border: none;
+    border-radius: 12px;
+
+    padding: 9px 16px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: transform .15s;
+}
+
+.hint-btn {
+    background: #fff3a8;
+    border: 3px solid #d5b75d;
+}
+
+.control-btn {
+    background: #5aaa18;
+    color: white;
+    box-shadow: 0 3px 0 #43820d;
+}
+
+.hint-btn:hover,
+.control-btn:hover {
+    transform: translateY(-2px);
+}
+
+.hint-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* ==========================================
+   REWARD MODAL
+========================================== */
+
+.reward-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 70000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(25,60,35,.58);
+    overflow: hidden;
+
+    opacity: 1;
+    visibility: visible;
+}
+
+.reward-modal.hidden {
+    display: none !important;
+}
+
+.reward-overlay-glow {
+    position: absolute;
+
+    width: 380px;
+    height: 380px;
+
+    border-radius: 50%;
+
+    background: rgba(255,215,0,.18);
+    filter: blur(35px);
+
+    animation: rewardGlow 1.8s ease-in-out infinite;
+}
+
+.reward-card {
+    position: relative;
+
+    width: 390px;
+    max-width: 92%;
+
+    padding: 30px 26px 25px;
+
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #fffdf0 100%
+    );
+
+    border: 4px solid #FFD54F;
+    border-radius: 30px;
 
     text-align: center;
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.22);
+        0 20px 50px rgba(0,0,0,.28);
 
-    animation: modalPop 0.25s ease;
+    animation:
+        rewardCardPop .55s
+        cubic-bezier(.175,.885,.32,1.275);
+
+    z-index: 2;
 }
 
-@keyframes modalPop {
+.reward-stars-animation {
+    height: 88px;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 4px;
+}
+
+.reward-star {
+    position: absolute;
+    display: block;
+
+    filter:
+        drop-shadow(
+            0 4px 3px rgba(0,0,0,.18)
+        );
+}
+
+.star-main {
+    font-size: 74px;
+
+    animation:
+        mainStarPop .75s
+        cubic-bezier(.175,.885,.32,1.275);
+
+    z-index: 3;
+}
+
+.star-left {
+    font-size: 38px;
+    left: 74px;
+    top: 27px;
+
+    animation:
+        sideStarLeft .75s ease-out;
+}
+
+.star-right {
+    font-size: 38px;
+    right: 74px;
+    top: 27px;
+
+    animation:
+        sideStarRight .75s ease-out;
+}
+
+.reward-level-title {
+    color: #4e9914;
+    font-size: 27px;
+    font-weight: 900;
+    margin-top: 2px;
+
+    animation:
+        rewardTextIn .45s .35s both;
+}
+
+.reward-star-text {
+    display: inline-block;
+
+    margin-top: 8px;
+    padding: 7px 18px;
+
+    border-radius: 30px;
+
+    background: #fff1a8;
+    color: #a87300;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    animation:
+        rewardTextIn .45s .5s both;
+}
+
+.reward-message {
+    margin-top: 10px;
+    color: #777;
+    font-size: 14px;
+    font-weight: 600;
+
+    animation:
+        rewardTextIn .45s .62s both;
+}
+
+.reward-next-btn {
+    width: 100%;
+
+    border: none;
+    border-radius: 16px;
+
+    padding: 13px 18px;
+    margin-top: 18px;
+
+    background: #5aaa18;
+    color: white;
+
+    font-size: 17px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 0 #43820d;
+
+    animation:
+        rewardButtonIn .5s .75s both;
+
+    transition:
+        transform .15s,
+        box-shadow .15s;
+}
+
+.reward-next-btn:hover {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #43820d;
+}
+
+.reward-next-btn:active {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #43820d;
+}
+
+
+/* ==========================================
+   REWARD SPARKLES
+========================================== */
+
+.reward-burst {
+    position: absolute;
+    z-index: 1;
+    font-size: 30px;
+    opacity: 0;
+}
+
+.burst-one {
+    top: 23%;
+    left: 34%;
+    animation: burstFloat 1.4s .1s infinite;
+}
+
+.burst-two {
+    top: 30%;
+    right: 31%;
+    animation: burstFloat 1.4s .35s infinite;
+}
+
+.burst-three {
+    bottom: 27%;
+    left: 28%;
+    animation: burstFloat 1.4s .55s infinite;
+}
+
+.burst-four {
+    bottom: 25%;
+    right: 27%;
+    animation: burstFloat 1.4s .75s infinite;
+}
+
+
+/* ==========================================
+   MODALS
+========================================== */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.45);
+}
+
+.modal.hidden {
+    display: none !important;
+}
+
+.result-card {
+    width: 370px;
+    max-width: 90%;
+
+    padding: 26px;
+
+    background: white;
+    border-radius: 24px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.25);
+
+    animation: pop .25s ease;
+}
+
+.result-card h2 {
+    margin: 8px 0;
+    font-size: 25px;
+}
+
+.result-card p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.big-icon {
+    font-size: 64px;
+}
+
+
+/* ==========================================
+   GAME OVER
+========================================== */
+
+.game-over-card {
+    border-top: 8px solid #FFB300;
+}
+
+.game-over-card h2 {
+    color: #F57C00;
+}
+
+.game-over-stars {
+    font-size: 30px;
+    margin-bottom: 4px;
+}
+
+.game-over-info {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 8px;
+    margin: 18px 0;
+}
+
+.game-over-stat {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 10px 5px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.game-over-stat span {
+    color: #777;
+    font-size: 11px;
+}
+
+.game-over-stat strong {
+    color: #333;
+    font-size: 17px;
+}
+
+
+/* ==========================================
+   COMPLETE
+========================================== */
+
+.complete-card {
+    border-top: 8px solid #4CAF50;
+}
+
+.complete-card h2 {
+    color: #4c9414;
+}
+
+.final-stars-display {
+    min-height: 38px;
+    margin: 5px 0 10px;
+
+    color: #f4b400;
+    font-size: 29px;
+    letter-spacing: 3px;
+
+    word-break: break-word;
+
+    animation:
+        finalStarsPop .7s ease;
+}
+
+.final-result-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.final-stat {
+    background: #f5f9ed;
+    border-radius: 14px;
+    padding: 12px;
+}
+
+.final-stat span {
+    display: block;
+    color: #777;
+    font-size: 12px;
+}
+
+.final-stat strong {
+    display: inline-block;
+    margin-top: 4px;
+    color: #4e9914;
+    font-size: 23px;
+}
+
+.final-stat small {
+    color: #777;
+}
+
+.finish-message {
+    margin-bottom: 8px;
+    padding: 10px;
+
+    border-radius: 12px;
+
+    background: #fff8d7;
+    color: #9a7200;
+
+    font-weight: 800;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   MODAL BUTTONS
+========================================== */
+
+.primary-btn,
+.secondary-btn {
+    width: 100%;
+
+    border: none;
+    border-radius: 14px;
+
+    padding: 12px;
+    margin-top: 8px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.primary-btn {
+    background: #5aaa18;
+    color: white;
+    box-shadow: 0 4px 0 #43820d;
+}
+
+.primary-btn:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #43820d;
+}
+
+.secondary-btn {
+    background: #eeeeee;
+    color: #444;
+}
+
+.secondary-btn:hover {
+    background: #dddddd;
+}
+
+
+/* ==========================================
+   NO STUDENT
+========================================== */
+
+.no-student-overlay {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+    z-index: 80000;
+
+    background: rgba(0,0,0,.6);
+
+    align-items: center;
+    justify-content: center;
+}
+
+.no-student-overlay.show {
+    display: flex;
+}
+
+.no-student-card {
+    width: 340px;
+    max-width: 90%;
+
+    padding: 40px;
+
+    text-align: center;
+
+    background: white;
+
+    border: 6px solid #FFD54F;
+    border-radius: 32px;
+
+    box-shadow: 0 10px 0 #F0A500;
+}
+
+.no-student-icon {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.no-student-card h2 {
+    margin-bottom: 12px;
+    color: #FF6F3C;
+    font-size: 22px;
+}
+
+.no-student-card p {
+    margin-bottom: 22px;
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.no-student-card button {
+    width: 100%;
+    padding: 15px;
+
+    border: 4px solid #1565C0;
+    border-radius: 20px;
+
+    background: #2196F3;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow: 0 6px 0 #1565C0;
+}
+
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-6px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes pop {
     from {
+        transform: scale(.92);
         opacity: 0;
-        transform: scale(0.85);
     }
 
     to {
-        opacity: 1;
         transform: scale(1);
+        opacity: 1;
     }
 }
 
-.modal-card h2 {
-    color: #1565C0;
-    font-size: 30px;
-    margin-bottom: 12px;
+@keyframes rewardGlow {
+    0%,100% {
+        transform: scale(.9);
+        opacity: .5;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
 }
 
-.modal-card p {
-    color: #546E7A;
-    font-size: 18px;
-    line-height: 1.5;
-    margin-bottom: 18px;
-}
-
-
-/* ==========================================================
-   STAR REWARD
-   ========================================================== */
-
-#rewardStarText {
-    font-size: 32px;
-    font-weight: 900;
-    color: #F9A825;
-
-    margin: 15px 0 22px;
-
-    animation: starReward 0.7s ease;
-}
-
-@keyframes starReward {
+@keyframes rewardCardPop {
     0% {
-        transform: scale(0.4) rotate(-10deg);
+        transform: scale(.55) translateY(25px);
         opacity: 0;
     }
 
     70% {
-        transform: scale(1.2) rotate(5deg);
+        transform: scale(1.05) translateY(-4px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes mainStarPop {
+    0% {
+        transform: scale(0) rotate(-30deg);
+        opacity: 0;
+    }
+
+    55% {
+        transform: scale(1.35) rotate(12deg);
+        opacity: 1;
+    }
+
+    75% {
+        transform: scale(.9) rotate(-5deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes sideStarLeft {
+    0% {
+        transform: translate(45px,20px) scale(0);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translate(-8px,-5px) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes sideStarRight {
+    0% {
+        transform: translate(-45px,20px) scale(0);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translate(8px,-5px) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes rewardTextIn {
+    from {
+        transform: translateY(15px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes rewardButtonIn {
+    from {
+        transform: translateY(20px) scale(.92);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes burstFloat {
+    0% {
+        transform: scale(.4) translateY(15px) rotate(0deg);
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1) translateY(-8px) rotate(15deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(.5) translateY(-30px) rotate(-15deg);
+        opacity: 0;
+    }
+}
+
+@keyframes finalStarsPop {
+    0% {
+        transform: scale(.5);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.15);
         opacity: 1;
     }
 
@@ -736,469 +1498,134 @@ body {
     }
 }
 
-
-/* ==========================================================
-   MODAL BUTTONS
-   ========================================================== */
-
-#nextLevelBtn,
-#gameOverAgainBtn,
-#playAgainBtn {
-    border: none;
-
-    background: #42A5F5;
-    color: #ffffff;
-
-    border-radius: 14px;
-
-    min-height: 50px;
-
-    padding: 10px 25px;
-
-    font-size: 17px;
-    font-weight: 800;
-
-    cursor: pointer;
-    touch-action: manipulation;
-}
-
-#nextLevelBtn:hover,
-#gameOverAgainBtn:hover,
-#playAgainBtn:hover {
-    background: #1E88E5;
-}
-
-#gameOverBackButton,
-#gameOverBackBtn,
-#backBtn {
-    border: 2px solid #90CAF9;
-
-    background: #E3F2FD;
-    color: #1565C0;
-
-    border-radius: 14px;
-
-    min-height: 50px;
-
-    padding: 10px 25px;
-
-    font-size: 17px;
-    font-weight: 800;
-
-    cursor: pointer;
-    touch-action: manipulation;
-
-    margin-left: 8px;
-}
-
-
-/* ==========================================================
-   FINAL STARS
-   ========================================================== */
-
-#finalStarsDisplay {
-    font-size: 42px;
-    letter-spacing: 5px;
-    margin: 12px 0 20px;
-}
-
-
-/* ==========================================================
-   NO STUDENT OVERLAY
-   ========================================================== */
-
-#noStudentOverlay {
-    position: fixed;
-    inset: 0;
-
-    z-index: 95000;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(0, 0, 0, 0.5);
-
-    padding: 20px;
-}
-
-.no-student-card {
-    width: min(92vw, 430px);
-
-    background: #ffffff;
-
-    border-radius: 22px;
-
-    padding: 30px;
-
-    text-align: center;
-
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.2);
-}
-
-.no-student-card h2 {
-    color: #1565C0;
-    margin-bottom: 10px;
-}
-
-
-/* ==========================================================
-   HIDDEN
-   ========================================================== */
-
-.hidden {
-    display: none !important;
-}
-
-
-/* ==========================================================
-   TABLET
-   ========================================================== */
-
-@media (max-width: 900px) {
-
-    .header {
-        padding: 12px 15px;
-        gap: 8px;
+@keyframes hintPulse {
+    0%,100% {
+        transform: scale(1);
+        box-shadow: none;
     }
 
-    .student-name {
-        font-size: 17px;
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 6px rgba(255,193,7,.25);
+    }
+}
+
+@keyframes hintCardPulse {
+    0%,100% {
+        transform: translateY(0);
     }
 
-    .game-area {
-        padding: 20px 15px 35px;
-    }
-
-    .letter-card {
-        width: 72px;
-        height: 72px;
-        font-size: 34px;
-    }
-
-    .letter-slot {
-        width: 82px;
-        height: 82px;
-    }
-
-    .placed-letter {
-        font-size: 38px;
-    }
-
-    #truck {
-        width: 125px;
-        max-width: 22vw;
+    50% {
+        transform: translateY(-7px) scale(1.08);
     }
 }
 
 
-/* ==========================================================
-   SMALL TABLET / LARGE PHONE
-   ========================================================== */
+/* ==========================================
+   RESPONSIVE
+========================================== */
 
-@media (max-width: 650px) {
+@media (max-width:700px) {
 
-    .header {
+    .top-card {
         flex-wrap: wrap;
-        justify-content: center;
     }
 
-    .header-left,
-    .header-right,
-    .header-center {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .header-center {
+    .top-card-text {
         order: -1;
-    }
-
-    .game-info {
         width: 100%;
     }
 
-    .info-box {
-        flex: 1;
-        min-width: 85px;
+    .top-card-stats {
+        width: 100%;
+        justify-content: center;
     }
 
-    #lettersContainer {
-        gap: 11px;
-        margin-bottom: 18px;
-    }
-
-    .letter-card {
-        width: 62px;
-        height: 62px;
-        border-radius: 15px;
-        font-size: 30px;
-        border-width: 3px;
-    }
-
-    #letterSlotsContainer,
-    .letter-slots,
-    .slots-container {
-        gap: 10px;
+    .truck-cargo {
+        gap: 4px;
+        padding: 0 6px;
     }
 
     .letter-slot {
-        width: 64px;
-        height: 64px;
-        border-radius: 15px;
-        border-width: 3px;
+        width: 44px;
+        height: 58px;
     }
 
-    .placed-letter {
-        font-size: 31px;
-    }
-
-    .slot-number {
-        font-size: 14px;
-    }
-
-    .game-title {
-        font-size: 29px;
-    }
-
-    .game-instruction {
-        font-size: 15px;
-        padding: 0 10px;
-    }
-
-    .game-button {
-        min-width: 115px;
-        min-height: 46px;
-    }
-
-    #truck {
-        width: 110px;
-        max-width: 28vw;
-    }
-}
-
-
-/* ==========================================================
-   ANDROID PHONE
-   ========================================================== */
-
-@media (max-width: 480px) {
-
-    body {
-        font-size: 14px;
-    }
-
-    .game-area {
-        padding: 15px 10px 30px;
-    }
-
-    .header {
-        padding: 10px;
-    }
-
-    .student-name {
-        font-size: 16px;
-        max-width: 90vw;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .game-info {
-        gap: 6px;
-    }
-
-    .info-box {
-        padding: 7px 8px;
-        min-width: 75px;
-        border-radius: 11px;
-    }
-
-    .info-label {
-        font-size: 10px;
-    }
-
-    .info-value {
-        font-size: 16px;
-    }
-
-    .game-title {
+    .letter-card {
+        width: 56px;
+        height: 56px;
         font-size: 26px;
-        margin-bottom: 5px;
     }
 
-    .game-instruction {
-        font-size: 14px;
-        margin-bottom: 15px;
+    .truck-cab {
+        width: 46px;
+        height: 66px;
     }
 
-    #lettersContainer {
-        gap: 8px;
-        min-height: 80px;
-        margin-bottom: 15px;
+    .tree-2,
+    .tree-3 {
+        display: none;
     }
 
-    .letter-card {
-        width: 55px;
-        height: 55px;
-        border-radius: 13px;
-        font-size: 27px;
-
-        box-shadow:
-            0 4px 0 #90CAF9,
-            0 6px 10px rgba(0, 0, 0, 0.08);
+    .reward-card {
+        padding: 25px 20px 22px;
     }
 
-    #letterSlotsContainer,
-    .letter-slots,
-    .slots-container {
-        gap: 7px;
-    }
-
-    .letter-slot {
-        width: 55px;
-        height: 55px;
-        border-radius: 13px;
-        border-width: 3px;
-    }
-
-    .placed-letter {
-        font-size: 27px;
-    }
-
-    .slot-number {
-        font-size: 12px;
-    }
-
-    .controls {
-        gap: 8px;
-        margin-top: 18px;
-    }
-
-    .game-button {
-        min-width: 105px;
-        min-height: 44px;
-        padding: 8px 12px;
-        font-size: 14px;
-        border-radius: 12px;
-    }
-
-    .train-area {
-        height: 80px;
-        margin-top: 18px;
-    }
-
-    #truck {
-        width: 95px;
-        max-width: 30vw;
-    }
-
-    .modal-card {
-        padding: 25px 18px;
-        border-radius: 20px;
-    }
-
-    .modal-card h2 {
-        font-size: 25px;
-    }
-
-    .modal-card p {
-        font-size: 16px;
-    }
-
-    #rewardStarText {
-        font-size: 28px;
-    }
-
-    #finalStarsDisplay {
-        font-size: 32px;
-        letter-spacing: 3px;
-    }
-
-    #nextLevelBtn,
-    #gameOverAgainBtn,
-    #playAgainBtn,
-    #gameOverBackButton,
-    #gameOverBackBtn,
-    #backBtn {
-        width: 100%;
-        margin: 5px 0;
-        min-height: 48px;
-    }
-}
-
-
-/* ==========================================================
-   VERY SMALL PHONE
-   ========================================================== */
-
-@media (max-width: 360px) {
-
-    .letter-card {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-    }
-
-    .letter-slot {
-        width: 50px;
-        height: 50px;
-    }
-
-    .placed-letter {
-        font-size: 24px;
-    }
-
-    .info-box {
-        min-width: 68px;
-    }
-
-    .info-value {
-        font-size: 14px;
-    }
-
-    .game-title {
+    .reward-level-title {
         font-size: 23px;
     }
+
+    .star-left {
+        left: 50px;
+    }
+
+    .star-right {
+        right: 50px;
+    }
 }
 
+@media (max-width:450px) {
 
-/* ==========================================================
-   TOUCH SUPPORT
-   ========================================================== */
+    .stat-pill {
+        padding: 6px 8px;
+    }
 
-button,
-.letter-card,
-.letter-slot {
-    -webkit-user-select: none;
-    user-select: none;
-}
+    .stat-label {
+        display: none;
+    }
 
-button {
-    touch-action: manipulation;
-}
+    .game-over-info {
+        gap: 5px;
+    }
 
-.letter-card {
-    touch-action: none;
-}
+    .reward-card {
+        width: 340px;
+    }
 
-.letter-slot {
-    touch-action: none;
-}
+    .star-main {
+        font-size: 64px;
+    }
 
+    .star-left,
+    .star-right {
+        font-size: 32px;
+    }
 
-/* ==========================================================
-   REDUCED MOTION
-   ========================================================== */
+    .star-left {
+        left: 38px;
+    }
 
-@media (prefers-reduced-motion: reduce) {
+    .star-right {
+        right: 38px;
+    }
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    .playing-as {
+        min-width: 0;
+        max-width: 100%;
+        padding: 8px 13px;
+    }
+
+    .playing-as #playingStudentName {
+        max-width: 150px;
     }
 }
