@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KiddoQuest Dashboard</title>
+
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- DASHBOARD CSS -->
+    <link
+        rel="stylesheet"
+        href="css/dashboard.css"
+    >
+
+    <!-- SHARED SIDEBAR CSS -->
+    <link
+        rel="stylesheet"
+        href="css/sidebar.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="dashboard-container">
+
+
+    <!-- ======================================================
+         SIDEBAR
+    ======================================================= -->
+
+    <aside class="sidebar">
+
+        <!-- LOGO -->
+
+        <div class="brand">
+
+            <img
+                src="image/logo.png"
+                alt="KiddoQuest Logo"
+            >
+
+        </div>
+
+
+        <!-- TEACHER PROFILE -->
+
+        <div class="teacher">
+
+            <div class="teacher-avatar-wrap">
+
+                <div
+                    id="sidebarAvatar"
+                    class="sidebar-avatar"
+                >
+                    T
+                </div>
+
+                <img
+                    id="sidebarAvatarImg"
+                    class="sidebar-avatar-img"
+                    alt="Teacher"
+                    hidden
+                >
+
+            </div>
+
+            <span id="teacherName">
+                Teacher
+            </span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav>
+
+            <a
+                href="dashboard.html"
+                class="active"
+            >
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a href="students.html">
+                <i class="fa-solid fa-users"></i>
+                <span>Students</span>
+            </a>
+
+
+            <a href="minigames.html">
+                <i class="fa-solid fa-gamepad"></i>
+                <span>Mini Games</span>
+            </a>
+
+
+            <a href="progress.html">
+                <i class="fa-solid fa-chart-simple"></i>
+                <span>Progress</span>
+            </a>
+
+
+            <a href="reports.html">
+                <i class="fa-regular fa-file-lines"></i>
+                <span>Reports</span>
+            </a>
+
+
+            <a href="settings.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+
+            <a
+                href="#"
+                id="logout"
+            >
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ======================================================
+         MAIN CONTENT
+    ======================================================= -->
+
+    <main class="content">
+
+
+        <!-- ==================================================
+             WELCOME HEADER
+        =================================================== -->
+
+        <section class="header">
+
+            <div>
+
+                <h1>
+                    🌈 Welcome to KiddoQuest!
+                </h1>
+
+                <p>
+                    Monitor your pupils' learning progress and game performance.
+                </p>
+
+            </div>
+
+            <div class="dashboard-date">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <span id="currentDate">
+                    Today
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             SUMMARY CARDS
+        =================================================== -->
+
+        <section class="cards">
+
+
+            <!-- TOTAL STUDENTS -->
+
+            <div class="card blue">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-child"></i>
+                    </div>
+
+                </div>
+
+                <div class="card-label">
+                    Total Students
+                </div>
+
+                <div
+                    class="card-value"
+                    id="totalStudents"
+                >
+                    0
+                </div>
+
+                <div class="card-description">
+                    Registered pupils
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL MINI GAMES -->
+
+            <div class="card yellow">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+
+                </div>
+
+                <div class="card-label">
+                    Mini Games
+                </div>
+
+                <div
+                    class="card-value"
+                    id="totalGames"
+                >
+                    0
+                </div>
+
+                <div class="card-description">
+                    Available learning games
+                </div>
+
+            </div>
+
+
+            <!-- AVERAGE PROGRESS -->
+
+            <div class="card green">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+
+                </div>
+
+                <div class="card-label">
+                    Average Progress
+                </div>
+
+                <div
+                    class="card-value"
+                    id="averageProgress"
+                >
+                    0%
+                </div>
+
+                <div class="card-description">
+                    Overall learning progress
+                </div>
+
+            </div>
+
+
+            <!-- AVERAGE SCORE -->
+
+            <div class="card pink">
+
+                <div class="card-top">
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+
+                </div>
+
+                <div class="card-label">
+                    Average Score
+                </div>
+
+                <div
+                    class="card-value"
+                    id="averageScore"
+                >
+                    0%
+                </div>
+
+                <div class="card-description">
+                    Overall game performance
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             MONITORING AREA
+        =================================================== -->
+
+        <section class="monitoring-grid">
+
+
+            <!-- ==================================================
+                 RECENT ACTIVITIES
+            =================================================== -->
+
+            <div class="panel recent-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            📝 Recent Activities
+                        </h2>
+
+                        <p>
+                            Latest learning activities of your pupils
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-clock-rotate-left panel-header-icon"></i>
+
+                </div>
+
+
+                <div
+                    id="recentActivity"
+                    class="activity-list"
+                >
+
+                    <div class="empty-activity">
+
+                        <i class="fa-regular fa-folder-open"></i>
+
+                        <p>
+                            No recent activity yet.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 PROGRESS OVERVIEW
+            =================================================== -->
+
+            <div class="panel progress-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            📊 Progress Overview
+                        </h2>
+
+                        <p>
+                            Learning progress by category
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-chart-simple panel-header-icon"></i>
+
+                </div>
+
+
+                <div class="category-progress">
+
+
+                    <!-- ALPHABET -->
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+
+                            <div class="category-name">
+
+                                <span class="category-icon alphabet">
+                                    ABC
+                                </span>
+
+                                <span>
+                                    Alphabet
+                                </span>
+
+                            </div>
+
+                            <strong id="alphabetProgress">
+                                0%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-track">
+
+                            <div
+                                id="alphabetBar"
+                                class="progress-fill alphabet-fill"
+                                style="width: 0%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NUMBERS -->
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+
+                            <div class="category-name">
+
+                                <span class="category-icon numbers">
+                                    123
+                                </span>
+
+                                <span>
+                                    Numbers
+                                </span>
+
+                            </div>
+
+                            <strong id="numbersProgress">
+                                0%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-track">
+
+                            <div
+                                id="numbersBar"
+                                class="progress-fill numbers-fill"
+                                style="width: 0%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COLORS -->
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+
+                            <div class="category-name">
+
+                                <span class="category-icon colors">
+                                    <i class="fa-solid fa-palette"></i>
+                                </span>
+
+                                <span>
+                                    Colors
+                                </span>
+
+                            </div>
+
+                            <strong id="colorsProgress">
+                                0%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-track">
+
+                            <div
+                                id="colorsBar"
+                                class="progress-fill colors-fill"
+                                style="width: 0%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SHAPES -->
+
+                    <div class="progress-item">
+
+                        <div class="progress-info">
+
+                            <div class="category-name">
+
+                                <span class="category-icon shapes">
+                                    <i class="fa-solid fa-shapes"></i>
+                                </span>
+
+                                <span>
+                                    Shapes
+                                </span>
+
+                            </div>
+
+                            <strong id="shapesProgress">
+                                0%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-track">
+
+                            <div
+                                id="shapesBar"
+                                class="progress-fill shapes-fill"
+                                style="width: 0%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             FOOTER
+        =================================================== -->
+
+        <footer class="dashboard-footer">
+
+            <span>
+                © 2026 KiddoQuest
+            </span>
+
+            <span>
+                Interactive Learning Game with Progress Monitoring
+            </span>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="js/logout.js"></script>
+
+<script src="js/games-list.js"></script>
+
+<script src="js/dashboard.js"></script>
+
+
+</body>
+
+</html>

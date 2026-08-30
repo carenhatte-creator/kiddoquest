@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Number Sequence</title>
+
+    <link
+        rel="stylesheet"
+        href="../game-css/number-sequence.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ==========================================
+         INITIAL LOADING ONLY
+         ========================================== -->
+
+    <div id="loadingScreen">
+
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill"
+                ></div>
+
+            </div>
+
+            <div class="loading-text">
+                Loading Number Sequence...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         GAME CONTAINER
+         ========================================== -->
+
+    <div class="game-container">
+
+
+        <!-- ======================================
+             HEADER
+             ====================================== -->
+
+        <header class="game-header">
+
+            <button
+                class="back-btn"
+                type="button"
+                onclick="goBack()"
+            >
+                ← Back
+            </button>
+
+
+            <div class="game-title">
+
+                <span class="title-icon">
+                    🔢
+                </span>
+
+                <h1>
+                    Number Sequence
+                </h1>
+
+            </div>
+
+
+            <div
+                class="hearts"
+                id="hearts"
+                aria-label="Lives"
+            >
+
+                <span id="heart1">❤️</span>
+                <span id="heart2">❤️</span>
+                <span id="heart3">❤️</span>
+
+            </div>
+
+        </header>
+
+
+        <!-- ======================================
+             PLAYER / QUESTION / SCORE
+             ====================================== -->
+
+        <section class="info-bar">
+
+
+            <div class="player-info">
+
+                <div class="player-icon">
+                    👦
+                </div>
+
+                <div>
+
+                    <small>
+                        Player
+                    </small>
+
+                    <strong id="playerName">
+                        Player
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="question-info">
+
+                <small>
+                    Question
+                </small>
+
+                <strong>
+
+                    <span id="questionNumber">
+                        1
+                    </span>
+
+                    / 10
+
+                </strong>
+
+            </div>
+
+
+            <div class="score-info">
+
+                <small>
+                    ⭐ Stars
+                </small>
+
+                <strong>
+
+                    <span class="star-icon">
+                        ⭐
+                    </span>
+
+                    <span id="score">
+                        0
+                    </span>
+
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             PROGRESS
+             ====================================== -->
+
+        <div class="progress-container">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+
+        <!-- ======================================
+             GAME AREA
+             ====================================== -->
+
+        <main class="game-area">
+
+            <div
+                class="level-badge"
+                id="levelBadge"
+            >
+                EASY
+            </div>
+
+
+            <h2 id="questionText">
+                Which number comes next?
+            </h2>
+
+
+            <p class="instruction">
+                Choose the missing number to complete the sequence!
+            </p>
+
+
+            <!-- NUMBER PATH -->
+
+            <div
+                class="number-path"
+                id="numberPath"
+            ></div>
+
+
+            <!-- ANSWERS -->
+
+            <div
+                class="choices"
+                id="choices"
+            ></div>
+
+
+            <!-- FEEDBACK -->
+
+            <div
+                class="feedback"
+                id="feedback"
+            ></div>
+
+
+            <!-- NEXT BUTTON -->
+
+            <button
+                type="button"
+                class="next-btn"
+                id="nextBtn"
+            >
+                Next →
+            </button>
+
+        </main>
+
+
+        <!-- ======================================
+             RESULT SCREEN
+             ====================================== -->
+
+        <div
+            class="result-screen"
+            id="resultScreen"
+        >
+
+            <div class="result-card">
+
+
+                <div
+                    class="result-icon"
+                    id="resultIcon"
+                >
+                    🏆
+                </div>
+
+
+                <h2 id="resultTitle">
+                    Great Job!
+                </h2>
+
+
+                <p id="resultMessage">
+                    You completed the Number Sequence game!
+                </p>
+
+
+                <div class="final-stars">
+
+                    <div class="final-stars-label">
+                        Stars Earned
+                    </div>
+
+                    <div
+                        id="finalStars"
+                        class="stars-display"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="final-score">
+
+                    <span>
+                        Final Score
+                    </span>
+
+                    <strong id="finalScore">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="result-buttons">
+
+                    <button
+                        class="play-again-btn"
+                        type="button"
+                        onclick="restartGame()"
+                    >
+                        🔄 Play Again
+                    </button>
+
+
+                    <button
+                        class="menu-btn"
+                        type="button"
+                        onclick="goBack()"
+                    >
+                        🏠 Back to Games
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SOUND MANAGER
+         ========================================== -->
+
+    <script src="../../js/soundManager.js"></script>
+
+
+    <!-- ==========================================
+         GAME JS
+         ========================================== -->
+
+    <script src="../games-js/number-sequence.js"></script>
+
+</body>
+
+</html>

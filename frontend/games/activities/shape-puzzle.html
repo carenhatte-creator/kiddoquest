@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KinderQuest - Shape Puzzle</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../game-css/shape-puzzle.css"
+    >
+</head>
+
+<body>
+
+    <!-- =====================================================
+         LOADING
+    ====================================================== -->
+
+    <div id="loadingScreen" class="loading-screen">
+
+        <div class="loading-content">
+
+            <div class="loading-icon"></div>
+
+            <div class="loading-title">
+                
+            </div>
+
+            <div class="loading-bar-container">
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill"
+                ></div>
+            </div>
+
+            <div class="loading-text">
+                Let's build the shapes!
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         GAME
+    ====================================================== -->
+
+    <main
+        id="gameScreen"
+        class="game-container"
+    >
+
+        <!-- HEADER -->
+
+        <header class="game-header">
+
+            <button
+                type="button"
+                id="backButton"
+                class="back-button"
+            >
+                ← Back
+            </button>
+
+
+            <div class="title-area">
+
+                <h1>
+                    🧩 Shape Puzzle
+                </h1>
+
+                <div class="player-name">
+                    Playing as:
+                    <strong id="playingStudentName">
+                        Student
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="status-area">
+
+                <div class="status-box">
+
+                    <span>LEVEL</span>
+
+                    <strong id="level">
+                        1
+                    </strong>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <span>SCORE</span>
+
+                    <strong id="score">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="status-box lives-box">
+
+                    <span>HEARTS</span>
+
+                    <strong id="lives">
+                        ❤️❤️❤️
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             QUESTION
+        ================================================== -->
+
+        <section class="question-card">
+
+            <div class="question-number">
+
+                PUZZLE
+
+                <span id="questionNumber">
+                    1
+                </span>
+
+                /
+
+                <span id="totalQuestions">
+                    10
+                </span>
+
+            </div>
+
+
+            <h2 id="instruction">
+                Complete the shape!
+            </h2>
+
+
+            <p class="helper-text">
+                Look at the missing part and choose the piece that fits.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             PUZZLE
+        ================================================== -->
+
+        <section class="puzzle-section">
+
+            <div
+                id="puzzleArea"
+                class="puzzle-area"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             CHOICES
+        ================================================== -->
+
+        <section class="choices-section">
+
+            <div class="choices-title">
+                🧩 Choose the missing piece
+            </div>
+
+            <div
+                id="choices"
+                class="choices"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             FEEDBACK
+        ================================================== -->
+
+        <div
+            id="feedback"
+            class="feedback"
+        >
+
+            <span id="feedbackIcon">
+                ⭐
+            </span>
+
+            <span id="feedbackText">
+                Great job!
+            </span>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         RESULT
+    ====================================================== -->
+
+    <div
+        id="resultScreen"
+        class="result-screen"
+    >
+
+        <div class="result-card">
+
+            <div class="result-icon">
+                🏆
+            </div>
+
+            <h2>
+                Puzzle Complete!
+            </h2>
+
+            <p>
+                Great work building the shapes!
+            </p>
+
+
+            <div class="result-player">
+
+                Playing as:
+
+                <strong id="resultPlayer">
+                    Student
+                </strong>
+
+            </div>
+
+
+            <div class="final-score">
+
+                SCORE
+
+                <strong id="finalScore">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div
+                id="finalStars"
+                class="final-stars"
+            >
+                ☆☆☆
+            </div>
+
+
+            <p
+                id="resultMessage"
+                class="result-message"
+            >
+                Keep learning shapes!
+            </p>
+
+
+            <div class="result-buttons">
+
+                <button
+                    type="button"
+                    id="playAgainButton"
+                    class="play-again-button"
+                >
+                    🔄 Play Again
+                </button>
+
+
+                <button
+                    type="button"
+                    id="resultBackButton"
+                    class="result-back-button"
+                >
+                    ← Back
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SOUND
+    ====================================================== -->
+
+    <script src="../../js/soundManager.js"></script>
+
+
+    <!-- =====================================================
+         GAME
+    ====================================================== -->
+
+    <script src="../games-js/shape-puzzle.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KinderQuest Register</title>
+
+    <link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <section class="register-card">
+
+            <!-- LOGO -->
+            <div class="logo-area">
+                <img
+                    src="image/logo.png"
+                    class="logo"
+                    alt="KinderQuest Logo"
+                >
+            </div>
+
+
+            <!-- HEADING -->
+            <div class="register-heading">
+
+                <h1>Create Teacher Account</h1>
+
+                <p>
+                    Create an account to get started.
+                </p>
+
+            </div>
+
+
+            <!-- REGISTER FORM -->
+            <form id="registerForm">
+
+                <!-- FULL NAME -->
+                <div class="input-group">
+
+                    <label for="fullname">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullname"
+                        name="fullname"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- USERNAME -->
+                <div class="input-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CREATE ACCOUNT -->
+                <button
+                    type="submit"
+                    id="registerBtn">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <!-- MESSAGE -->
+            <div
+                id="message"
+                class="message">
+            </div>
+
+
+            <!-- LOGIN -->
+            <div class="login-section">
+
+                <p class="login-text">
+                    Already have an account?
+                </p>
+
+                <a
+                    href="login.html"
+                    class="login-btn">
+                    Login Here
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- CACHE VERSION -->
+    <script src="./js/register.js"></script>
+
+</body>
+</html>

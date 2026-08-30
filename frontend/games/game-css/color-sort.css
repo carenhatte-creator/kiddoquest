@@ -1,0 +1,1248 @@
+/* ===================================
+   KinderQuest - Color Sort
+=================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #dff5ff;
+    color: #333;
+    min-height: 100vh;
+}
+
+
+.game-page {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* ===================================
+   HEADER
+=================================== */
+
+.game-header {
+    height: 105px;
+    background: #fffaf0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 30px;
+
+    position: relative;
+    z-index: 20;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+.back-btn {
+    text-decoration: none;
+
+    background: #ffffff;
+
+    border: 3px solid #e39a32;
+
+    color: #74431d;
+
+    padding: 12px 24px;
+
+    border-radius: 15px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    box-shadow:
+        0 4px 0 #b56d20;
+
+    transition: 0.2s;
+}
+
+
+.back-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+.title-area {
+    text-align: center;
+}
+
+
+.small-title {
+    font-size: 11px;
+
+    letter-spacing: 5px;
+
+    color: #9b682c;
+
+    font-weight: bold;
+}
+
+
+.title-area h1 {
+    font-size: 30px;
+
+    color: #75431e;
+
+    margin: 3px 0;
+}
+
+
+.title-area p {
+    font-size: 14px;
+
+    color: #777;
+}
+
+
+/* ===================================
+   LIVES
+=================================== */
+
+.lives {
+    display: flex;
+
+    gap: 9px;
+
+    padding-right: 5px;
+}
+
+
+.heart {
+    width: 25px;
+    height: 25px;
+
+    position: relative;
+
+    transform: rotate(-45deg);
+
+    background: #e94b65;
+
+    display: inline-block;
+}
+
+
+.heart::before,
+.heart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+
+    background: #e94b65;
+}
+
+
+.heart::before {
+    top: -13px;
+    left: 0;
+}
+
+
+.heart::after {
+    left: 13px;
+    top: 0;
+}
+
+
+.heart:not(.active) {
+    background: #d5d5d5;
+}
+
+
+.heart:not(.active)::before,
+.heart:not(.active)::after {
+    background: #d5d5d5;
+}
+
+
+/* ===================================
+   GAME STATS
+=================================== */
+
+.player-bar {
+    width: calc(100% - 60px);
+
+    margin: 18px auto 10px;
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    padding: 14px 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.07);
+}
+
+
+.game-stat {
+    min-width: 120px;
+
+    background: #f5f9ff;
+
+    padding: 9px 18px;
+
+    border-radius: 15px;
+
+    text-align: center;
+}
+
+
+.game-stat span {
+    display: block;
+
+    font-size: 12px;
+
+    color: #777;
+}
+
+
+.game-stat strong {
+    font-size: 20px;
+
+    color: #222;
+}
+
+
+.stars-stat {
+    border: 2px solid #ffd35a;
+
+    background: #fffaf0;
+}
+
+
+.star-icon {
+    display: inline !important;
+
+    color: #f2b500 !important;
+
+    font-size: 20px !important;
+}
+
+
+/* ===================================
+   PROGRESS
+=================================== */
+
+.progress-container {
+    width: calc(100% - 60px);
+
+    height: 10px;
+
+    background: #cbe9f6;
+
+    border-radius: 20px;
+
+    margin: 10px auto 15px;
+
+    overflow: hidden;
+}
+
+
+.progress-bar {
+    height: 100%;
+
+    width: 0%;
+
+    background: #4aa9ef;
+
+    border-radius: 20px;
+
+    transition:
+        width 0.4s ease;
+}
+
+
+/* ===================================
+   CLASSROOM
+=================================== */
+
+.classroom {
+    position: relative;
+
+    width: calc(100% - 60px);
+
+    min-height: 650px;
+
+    margin: auto;
+
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #9ee6ed 0%,
+            #bfeef0 57%,
+            #a6d77a 57%,
+            #a6d77a 100%
+        );
+
+    box-shadow:
+        0 7px 20px rgba(0, 0, 0, 0.12);
+
+    padding-top: 1px;
+}
+
+
+/* ===================================
+   SUN
+=================================== */
+
+.sun {
+    position: absolute;
+
+    width: 75px;
+    height: 75px;
+
+    background: #ffd96a;
+
+    border-radius: 50%;
+
+    right: 90px;
+    top: 40px;
+
+    box-shadow:
+        0 0 0 10px rgba(255, 255, 255, 0.25);
+}
+
+
+/* ===================================
+   CLOUDS
+=================================== */
+
+.cloud {
+    position: absolute;
+
+    width: 95px;
+    height: 30px;
+
+    background: #ffffff;
+
+    border-radius: 30px;
+
+    opacity: 0.8;
+}
+
+
+.cloud::before,
+.cloud::after {
+    content: "";
+
+    position: absolute;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+}
+
+
+.cloud::before {
+    width: 48px;
+    height: 48px;
+
+    left: 15px;
+    bottom: 8px;
+}
+
+
+.cloud::after {
+    width: 55px;
+    height: 55px;
+
+    left: 45px;
+    bottom: 5px;
+}
+
+
+.cloud-one {
+    left: 80px;
+    top: 55px;
+}
+
+
+.cloud-two {
+    right: 230px;
+    top: 105px;
+
+    transform: scale(0.75);
+}
+
+
+/* ===================================
+   INSTRUCTION
+=================================== */
+
+.instruction {
+    position: relative;
+
+    width: fit-content;
+
+    max-width: 90%;
+
+    margin: 28px auto 0;
+
+    background: #ffffff;
+
+    border: 4px solid #e1a34a;
+
+    border-radius: 18px;
+
+    padding: 12px 25px;
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    color: #67401f;
+
+    box-shadow:
+        0 5px 0 #b7782d;
+
+    z-index: 5;
+
+    text-align: center;
+}
+
+
+/* ===================================
+   OBJECT AREA
+=================================== */
+
+.object-area {
+    position: relative;
+
+    width: calc(100% - 90px);
+
+    min-height: 185px;
+
+    margin: 25px auto 0;
+
+    background: rgba(255, 255, 255, 0.58);
+
+    border: 3px dashed #b5d7df;
+
+    border-radius: 25px;
+
+    padding: 22px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    align-content: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+
+    z-index: 5;
+}
+
+
+/* ===================================
+   OBJECT
+=================================== */
+
+.color-object {
+    width: 82px;
+    height: 82px;
+
+    background: #ffffff;
+
+    border-radius: 17px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    cursor: grab;
+
+    box-shadow:
+        0 7px 0 #c7d4d8;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease;
+}
+
+
+.color-object:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 11px 0 #c7d4d8;
+}
+
+
+.color-object:active {
+    cursor: grabbing;
+}
+
+
+.color-object.dragging {
+    opacity: 0.55;
+
+    transform: scale(1.08);
+}
+
+
+.color-object img {
+    width: 65px;
+    height: 65px;
+
+    object-fit: contain;
+
+    pointer-events: none;
+
+    user-select: none;
+}
+
+
+/* ===================================
+   COLOR BOX AREA
+=================================== */
+
+.color-box-area {
+    position: relative;
+
+    width: calc(100% - 90px);
+
+    margin: 27px auto 0;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 15px;
+
+    z-index: 7;
+}
+
+
+/* ===================================
+   COLOR BOX
+=================================== */
+
+.color-box {
+    min-height: 225px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border-radius: 22px;
+
+    border: 6px solid;
+
+    padding: 16px 10px;
+
+    text-align: center;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+.color-box h2 {
+    font-size: 19px;
+
+    margin-bottom: 10px;
+
+    font-weight: bold;
+}
+
+
+.box-content {
+    width: 100%;
+
+    min-height: 150px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    align-content: flex-start;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    padding: 5px;
+}
+
+
+/* ===================================
+   BOX COLORS
+=================================== */
+
+.red-box {
+    border-color: #e53935;
+
+    box-shadow:
+        0 6px 0 #b71c1c;
+}
+
+
+.red-box h2 {
+    color: #df2525;
+}
+
+
+.yellow-box {
+    border-color: #f0c900;
+
+    box-shadow:
+        0 6px 0 #c49f00;
+}
+
+
+.yellow-box h2 {
+    color: #c69f00;
+}
+
+
+.green-box {
+    border-color: #3fa34d;
+
+    box-shadow:
+        0 6px 0 #2c7d38;
+}
+
+
+.green-box h2 {
+    color: #29943b;
+}
+
+
+.blue-box {
+    border-color: #2584dc;
+
+    box-shadow:
+        0 6px 0 #1761a8;
+}
+
+
+.blue-box h2 {
+    color: #176fc5;
+}
+
+
+.orange-box {
+    border-color: #f58a00;
+
+    box-shadow:
+        0 6px 0 #c96700;
+}
+
+
+.orange-box h2 {
+    color: #ed7600;
+}
+
+
+/* ===================================
+   DRAG OVER
+=================================== */
+
+.color-box.drag-over {
+    transform: translateY(-8px) scale(1.02);
+
+    background: #fffef0;
+}
+
+
+/* ===================================
+   SORTED OBJECT
+=================================== */
+
+.color-box .color-object {
+    width: 62px;
+    height: 62px;
+
+    cursor: default;
+
+    box-shadow:
+        0 4px 0 #c7d4d8;
+
+    transform: none;
+}
+
+
+.color-box .color-object img {
+    width: 50px;
+    height: 50px;
+}
+
+
+/* ===================================
+   FLOOR
+=================================== */
+
+.floor {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 90px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.08) 0,
+            rgba(255, 255, 255, 0.08) 2px,
+            transparent 2px,
+            transparent 80px
+        ),
+        #78b85f;
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+/* ===================================
+   FEEDBACK
+=================================== */
+
+.feedback {
+    position: fixed;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.8);
+
+    background: #ffffff;
+
+    padding: 18px 35px;
+
+    border-radius: 20px;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 100;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.2);
+
+    transition:
+        0.25s ease;
+}
+
+
+.feedback.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+}
+
+
+.feedback.correct {
+    color: #3b8e37;
+
+    border: 4px solid #78c873;
+}
+
+
+.feedback.wrong {
+    color: #c33d3d;
+
+    border: 4px solid #ed8585;
+}
+
+
+/* ===================================
+   GAME OVERLAY
+=================================== */
+
+.game-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(39, 73, 89, 0.55);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 200;
+}
+
+
+.game-overlay.hidden {
+    display: none;
+}
+
+
+/* ===================================
+   RESULT CARD
+=================================== */
+
+.result-card {
+    width: min(450px, 90%);
+
+    background: #ffffff;
+
+    border-radius: 28px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+
+.result-stars {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    color: #f2b500;
+
+    font-size: 35px;
+}
+
+
+.result-card h2 {
+    color: #70431f;
+
+    font-size: 32px;
+
+    margin: 12px 0;
+}
+
+
+.result-card p {
+    color: #666;
+
+    font-size: 17px;
+}
+
+
+.final-score {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 45px;
+
+    margin: 25px 0;
+}
+
+
+.final-score div span {
+    display: block;
+
+    color: #777;
+}
+
+
+.final-score strong {
+    display: block;
+
+    color: #176ec7;
+
+    font-size: 30px;
+
+    margin-top: 4px;
+}
+
+
+.result-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+.result-buttons button,
+.menu-btn {
+    border: none;
+
+    text-decoration: none;
+
+    padding: 13px 22px;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.result-buttons button {
+    background: #4eaa68;
+
+    color: #ffffff;
+}
+
+
+.menu-btn {
+    background: #4ba0e8;
+
+    color: #ffffff;
+}
+
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media (max-width: 1000px) {
+
+    .color-box-area {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+    .classroom {
+        min-height: 800px;
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .game-header {
+        height: auto;
+
+        gap: 12px;
+
+        padding: 12px;
+    }
+
+
+    .back-btn {
+        padding: 9px 13px;
+
+        font-size: 14px;
+    }
+
+
+    .title-area h1 {
+        font-size: 22px;
+    }
+
+
+    .title-area p {
+        display: none;
+    }
+
+
+    .lives {
+        gap: 6px;
+    }
+
+
+    .heart,
+    .heart::before,
+    .heart::after {
+        width: 18px;
+        height: 18px;
+    }
+
+
+    .heart::before {
+        top: -9px;
+    }
+
+
+    .heart::after {
+        left: 9px;
+    }
+
+
+    .player-bar {
+        width: calc(100% - 20px);
+
+        gap: 8px;
+
+        padding: 10px;
+    }
+
+
+    .game-stat {
+        min-width: 85px;
+
+        padding: 7px;
+    }
+
+
+    .classroom {
+        width: calc(100% - 20px);
+
+        min-height: 950px;
+    }
+
+
+    .object-area {
+        width: calc(100% - 30px);
+
+        min-height: 250px;
+    }
+
+
+    .color-box-area {
+        width: calc(100% - 30px);
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .instruction {
+        font-size: 15px;
+
+        padding: 10px 15px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .title-area h1 {
+        font-size: 18px;
+    }
+
+
+    .small-title {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+    }
+
+
+    .game-stat {
+        min-width: 75px;
+    }
+
+
+    .game-stat span {
+        font-size: 10px;
+    }
+
+
+    .game-stat strong {
+        font-size: 16px;
+    }
+
+
+    .object-area {
+        gap: 8px;
+
+        padding: 14px;
+    }
+
+
+    .color-object {
+        width: 60px;
+        height: 60px;
+    }
+
+
+    .color-object img {
+        width: 48px;
+        height: 48px;
+    }
+
+
+    .color-box-area {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 10px;
+    }
+
+
+    .color-box {
+        min-height: 190px;
+
+        border-width: 5px;
+    }
+
+
+    .color-box h2 {
+        font-size: 14px;
+    }
+
+
+    .box-content {
+        min-height: 120px;
+    }
+
+
+    .color-box .color-object {
+        width: 50px;
+        height: 50px;
+    }
+
+
+    .color-box .color-object img {
+        width: 40px;
+        height: 40px;
+    }
+
+}
+
+
+/* ==========================================================
+   ⭐ STAR REWARD (Option G - Growing Star)
+   ==========================================================
+   Gumagamit ng "hidden" class - awtomatikong nagre-restart
+   ang animation kada pag-alis/pagdagdag nito, walang extra
+   JS trick na kailangan.
+========================================================== */
+
+.star-reward {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 999;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.star-reward.hidden {
+    display: none;
+}
+
+.star-reward .reward-star {
+    font-size: 20px;
+    opacity: 0;
+    animation: starRewardGrow 0.8s ease forwards;
+}
+
+@keyframes starRewardGrow {
+    0%   { opacity: 0; font-size: 20px; }
+    60%  { opacity: 1; font-size: 64px; filter: drop-shadow(0 0 16px rgba(255, 201, 60, 0.7)); }
+    100% { opacity: 1; font-size: 58px; filter: drop-shadow(0 0 10px rgba(255, 201, 60, 0.5)); }
+}
+
+.star-reward .reward-text {
+    margin-top: 4px;
+    font-weight: 700;
+    font-size: 22px;
+    color: #ef8c00;
+    text-shadow: 1px 2px 0 rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    white-space: nowrap;
+    animation: starRewardTextFade 0.5s ease 0.5s forwards;
+}
+
+@keyframes starRewardTextFade {
+    0%   { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ===== LOADING SCREEN ===== */
+
+#loadingScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #8bd3f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading-content { text-align: center; width: 380px; max-width: 85%; }
+
+.loading-bar-container {
+    width: 100%; height: 24px;
+    background: #11323f;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 3px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    margin-bottom: 12px;
+    border: 2px solid rgba(255,255,255,0.6);
+}
+
+.loading-bar-fill {
+    width: 0%; height: 100%;
+    background: linear-gradient(90deg, #ffe600, #ffb700);
+    border-radius: 12px;
+    transition: width 0.3s linear;
+}
+
+.loading-text {
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: -2px -2px 0 #1b3640, 2px -2px 0 #1b3640, -2px 2px 0 #1b3640, 2px 2px 0 #1b3640;
+}

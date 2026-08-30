@@ -1,0 +1,1100 @@
+/* =========================================================
+   KINDERQUEST
+   SHAPE TOWN BUILDER
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Fredoka", "Arial Rounded MT Bold", Arial, sans-serif;
+    background: #eaf7ff;
+    color: #30344a;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #8bd3f7;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+.loading-screen.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loading-content {
+    width: min(390px, 85vw);
+    text-align: center;
+}
+
+.loading-bar-container {
+    width: 100%;
+    height: 22px;
+
+    padding: 4px;
+
+    background: #1a2b4c;
+
+    border-radius: 999px;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.18);
+}
+
+.loading-bar-fill {
+    width: 0;
+    height: 100%;
+
+    border-radius: 999px;
+
+    background: #ffd43b;
+
+    transition: width .06s linear;
+}
+
+.loading-text {
+    margin-top: 16px;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #ffffff;
+
+    text-shadow: 0 2px 4px rgba(0,0,0,.25);
+}
+
+
+/* =========================================================
+   GAME SCREEN
+========================================================= */
+
+#gameScreen {
+    min-height: 100vh;
+
+    padding: 16px 22px 24px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #dff4ff 0%,
+            #f8fdff 100%
+        );
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topBar {
+    width: min(1180px, 100%);
+
+    margin: 0 auto 12px;
+
+    min-height: 68px;
+
+    display: grid;
+
+    grid-template-columns:
+        150px
+        1fr
+        220px;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.gameTitle {
+    text-align: center;
+
+    font-size:
+        clamp(24px, 3vw, 36px);
+
+    font-weight: 900;
+
+    color: #1976d2;
+}
+
+.backButton {
+    border: 0;
+
+    cursor: pointer;
+
+    padding: 12px 20px;
+
+    border-radius: 16px;
+
+    background: white;
+
+    color: #1976d2;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 5px 0 #b8d8ef,
+        0 8px 16px rgba(40,80,110,.10);
+
+    transition: .15s;
+}
+
+.backButton:hover {
+    transform: translateY(-2px);
+}
+
+.backButton:active {
+    transform: translateY(3px);
+
+    box-shadow:
+        0 2px 0 #b8d8ef;
+}
+
+.playerBox {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 9px 15px;
+
+    text-align: center;
+
+    box-shadow:
+        0 5px 14px rgba(50,80,100,.10);
+}
+
+.playerLabel {
+    display: block;
+
+    font-size: 12px;
+
+    color: #7b8495;
+
+    font-weight: 700;
+}
+
+.playerBox strong {
+    display: block;
+
+    color: #1976d2;
+
+    font-size: 18px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.statusBar {
+    width: min(1180px, 100%);
+
+    margin: 0 auto 14px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        1fr;
+
+    gap: 12px;
+}
+
+.statusCard {
+    background: white;
+
+    border-radius: 16px;
+
+    min-height: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    box-shadow:
+        0 5px 14px rgba(50,80,100,.09);
+}
+
+.statusLabel {
+    font-size: 14px;
+
+    color: #7b8495;
+
+    font-weight: 700;
+}
+
+.statusCard strong {
+    font-size: 20px;
+
+    color: #1976d2;
+}
+
+#lives {
+    display: flex;
+
+    gap: 4px;
+}
+
+.life {
+    font-size: 24px;
+
+    line-height: 1;
+
+    color: #ef5350;
+
+    transition: .2s;
+}
+
+.life.lost {
+    color: #d9dee5;
+
+    transform: scale(.82);
+}
+
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.gameLayout {
+    width: min(1180px, 100%);
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.65fr)
+        minmax(300px, .75fr);
+
+    gap: 18px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   BUILDER PANEL
+========================================================= */
+
+.builderPanel {
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 16px;
+
+    box-shadow:
+        0 8px 24px rgba(50,80,100,.12);
+
+    min-width: 0;
+}
+
+.pictureHeader {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 2px 8px 8px;
+}
+
+.smallTitle {
+    font-size: 13px;
+
+    color: #8a94a6;
+
+    font-weight: 700;
+}
+
+.pictureHeader h1 {
+    font-size: 27px;
+
+    color: #30344a;
+}
+
+.pictureEmoji {
+    width: 52px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #fff5bd;
+
+    color: #946f00;
+
+    font-weight: 900;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   TOWN AREA
+========================================================= */
+
+.townArea {
+    width: 100%;
+
+    height:
+        clamp(
+            370px,
+            55vh,
+            520px
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f9fdff 0%,
+            #eefaff 72%,
+            #dcf4d9 72%,
+            #dcf4d9 100%
+        );
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+#townSvg {
+    width: 88%;
+
+    height: 88%;
+
+    max-width: 720px;
+
+    max-height: 500px;
+
+    display: block;
+}
+
+
+/* =========================================================
+   WHITE BUILDING PARTS
+========================================================= */
+
+.build-part {
+    fill: #ffffff;
+
+    stroke: #596273;
+
+    stroke-width: 5;
+
+    cursor: pointer;
+
+    transition:
+        fill .25s ease,
+        transform .18s ease,
+        filter .18s ease;
+}
+
+.build-part:hover {
+    filter: brightness(.96);
+}
+
+.build-part.correct {
+    stroke: #3f5064;
+}
+
+
+/* =========================================================
+   WRONG ANIMATION
+========================================================= */
+
+.build-part.wrong {
+    animation:
+        wrongPart .4s ease;
+}
+
+@keyframes wrongPart {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-7px);
+    }
+
+    50% {
+        transform: translateX(7px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+
+/* =========================================================
+   CONTROL PANEL
+========================================================= */
+
+.controlPanel {
+    background: white;
+
+    border-radius: 24px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 8px 24px rgba(50,80,100,.12);
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 500px;
+}
+
+.instructionCard {
+    background: #eef8ff;
+
+    border-radius: 18px;
+
+    padding: 17px;
+
+    margin-bottom: 18px;
+}
+
+#instructionTitle {
+    color: #1976d2;
+
+    font-size: 22px;
+
+    font-weight: 900;
+
+    margin-bottom: 7px;
+}
+
+#instructionText {
+    color: #687386;
+
+    font-size: 15px;
+
+    line-height: 1.45;
+}
+
+.chooseTitle {
+    font-size: 17px;
+
+    font-weight: 900;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   SHAPE CHOICES
+========================================================= */
+
+.shapeChoices {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 11px;
+}
+
+.shape-choice {
+    border: 3px solid #e4e8ee;
+
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: 9px;
+
+    cursor: pointer;
+
+    min-height: 105px;
+
+    transition:
+        transform .15s,
+        border-color .15s,
+        box-shadow .15s;
+}
+
+.shape-choice:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 7px 15px rgba(40,70,90,.10);
+}
+
+.shape-choice.selected {
+    border-color: #1976d2;
+
+    box-shadow:
+        0 0 0 4px rgba(25,118,210,.14);
+}
+
+.shape-visual {
+    width: 55px;
+
+    height: 55px;
+
+    margin: auto;
+}
+
+.shape-visual svg {
+    width: 100%;
+
+    height: 100%;
+}
+
+.shape-label {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    color: #424b5d;
+}
+
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+
+.feedback {
+    min-height: 50px;
+
+    margin-top: auto;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 10px;
+
+    font-size: 16px;
+
+    font-weight: 800;
+}
+
+.feedback.info {
+    background: #eef8ff;
+
+    color: #1976d2;
+}
+
+.feedback.correct {
+    background: #e5f9ea;
+
+    color: #29934b;
+}
+
+.feedback.wrong {
+    background: #fff0ef;
+
+    color: #df4b43;
+}
+
+
+/* =========================================================
+   STAR REWARD
+========================================================= */
+
+.starReward {
+    position: fixed;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 5000;
+
+    text-align: center;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    color: #f5ad00;
+
+    pointer-events: none;
+
+    animation:
+        rewardPop .9s ease forwards;
+}
+
+.rewardStar {
+    font-size: 90px;
+
+    line-height: 1;
+
+    animation:
+        starSpin .9s ease;
+}
+
+@keyframes rewardPop {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -40%)
+            scale(.4);
+    }
+
+    35% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.15);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -65%)
+            scale(1);
+    }
+
+}
+
+@keyframes starSpin {
+
+    0% {
+        transform:
+            rotate(-25deg)
+            scale(.4);
+    }
+
+    50% {
+        transform:
+            rotate(15deg)
+            scale(1.15);
+    }
+
+    100% {
+        transform:
+            rotate(0)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+.modalOverlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 4000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(25,45,65,.48);
+}
+
+.resultCard {
+    width: min(440px, 94vw);
+
+    background: white;
+
+    border-radius: 28px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    box-shadow:
+        0 18px 50px rgba(20,40,60,.22);
+
+    animation:
+        cardIn .3s ease;
+}
+
+@keyframes cardIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(.85);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+
+}
+
+.resultIcon,
+.trophy {
+    width: 76px;
+
+    height: 76px;
+
+    margin: 0 auto 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fff3b0;
+
+    color: #f3ae00;
+
+    font-size: 48px;
+}
+
+.resultCard h2 {
+    font-size: 30px;
+
+    color: #1976d2;
+
+    margin-bottom: 8px;
+}
+
+.resultCard p {
+    color: #687386;
+
+    font-size: 17px;
+
+    margin-bottom: 18px;
+}
+
+.finalPlayer {
+    background: #eef8ff;
+
+    border-radius: 15px;
+
+    padding: 10px;
+
+    margin-bottom: 12px;
+}
+
+.finalPlayer span {
+    display: block;
+
+    color: #8a94a6;
+
+    font-size: 12px;
+}
+
+.finalPlayer strong {
+    display: block;
+
+    color: #1976d2;
+
+    font-size: 20px;
+}
+
+.finalScoreBox {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 14px 18px;
+
+    background: #f7f9fc;
+
+    border-radius: 15px;
+
+    margin-bottom: 15px;
+}
+
+.finalScoreBox span {
+    color: #7c8798;
+}
+
+.finalScoreBox strong {
+    font-size: 25px;
+
+    color: #30344a;
+}
+
+.starsBox {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-bottom: 22px;
+}
+
+.final-star {
+    font-size: 48px;
+
+    color: #dce1e8;
+
+    transform:
+        scale(.7);
+}
+
+.final-star.earned {
+    color: #ffc928;
+
+    animation:
+        earnedStar .55s ease forwards;
+}
+
+@keyframes earnedStar {
+
+    0% {
+        transform:
+            scale(.3)
+            rotate(-25deg);
+    }
+
+    60% {
+        transform:
+            scale(1.2)
+            rotate(10deg);
+    }
+
+    100% {
+        transform:
+            scale(1)
+            rotate(0);
+    }
+
+}
+
+.resultButtons {
+    display: grid;
+
+    gap: 10px;
+}
+
+.primaryButton,
+.secondaryButton {
+    width: 100%;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    padding: 14px;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .15s;
+}
+
+.primaryButton {
+    background: #1976d2;
+
+    color: white;
+
+    box-shadow:
+        0 5px 0 #11579e;
+}
+
+.secondaryButton {
+    background: #edf1f5;
+
+    color: #4f5969;
+}
+
+.primaryButton:hover,
+.secondaryButton:hover {
+    transform:
+        translateY(-2px);
+}
+
+.primaryButton:active,
+.secondaryButton:active {
+    transform:
+        translateY(3px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    #gameScreen {
+        padding: 10px;
+    }
+
+    .topBar {
+        grid-template-columns:
+            110px
+            1fr
+            150px;
+    }
+
+    .gameTitle {
+        font-size: 24px;
+    }
+
+    .gameLayout {
+        grid-template-columns: 1fr;
+    }
+
+    .controlPanel {
+        min-height: auto;
+    }
+
+    .townArea {
+        height: 430px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .topBar {
+        grid-template-columns:
+            1fr
+            1fr;
+    }
+
+    .gameTitle {
+        grid-column: 1 / -1;
+
+        grid-row: 1;
+    }
+
+    .backButton {
+        grid-row: 2;
+    }
+
+    .playerBox {
+        grid-row: 2;
+    }
+
+    .statusBar {
+        grid-template-columns:
+            1fr
+            1fr
+            1fr;
+    }
+
+    .statusCard {
+        flex-direction: column;
+
+        gap: 2px;
+
+        padding: 8px;
+    }
+
+    .statusLabel {
+        font-size: 11px;
+    }
+
+    .statusCard strong {
+        font-size: 17px;
+    }
+
+    .townArea {
+        height: 350px;
+    }
+
+    .pictureHeader h1 {
+        font-size: 22px;
+    }
+
+}

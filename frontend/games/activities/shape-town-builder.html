@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shape Town Builder | KinderQuest</title>
+
+    <link rel="stylesheet" href="../game-css/shape-town-builder.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         LOADING SCREEN
+    ====================================================== -->
+
+    <div id="loadingScreen" class="loading-screen">
+
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill"
+                ></div>
+            </div>
+
+            <div class="loading-text">
+                Loading Shape Town Builder...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         GAME
+    ====================================================== -->
+
+    <main id="gameScreen">
+
+        <!-- TOP BAR -->
+
+        <header class="topBar">
+
+            <button id="backButton" class="backButton">
+                ← Back
+            </button>
+
+            <div class="gameTitle">
+                Shape Town Builder
+            </div>
+
+            <div class="playerBox">
+                <span class="playerLabel">Player</span>
+                <strong id="playerName">Player</strong>
+            </div>
+
+        </header>
+
+
+        <!-- STATUS -->
+
+        <section class="statusBar">
+
+            <div class="statusCard">
+                <span class="statusLabel">Level</span>
+
+                <strong>
+                    <span id="levelNumber">1</span>/4
+                </strong>
+            </div>
+
+
+            <div class="statusCard scoreCard">
+
+                <span class="statusLabel">
+                    Score
+                </span>
+
+                <strong id="score">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="statusCard livesCard">
+
+                <span class="statusLabel">
+                    Lives
+                </span>
+
+                <div id="lives">
+
+                    <span class="life active">
+                        ♥
+                    </span>
+
+                    <span class="life active">
+                        ♥
+                    </span>
+
+                    <span class="life active">
+                        ♥
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- GAME AREA -->
+
+        <section class="gameLayout">
+
+            <!-- LEFT -->
+
+            <div class="builderPanel">
+
+                <div class="pictureHeader">
+
+                    <div>
+
+                        <div class="smallTitle">
+                            Build
+                        </div>
+
+                        <h1 id="pictureName">
+                            My House
+                        </h1>
+
+                    </div>
+
+
+                    <div
+                        id="pictureEmoji"
+                        class="pictureEmoji">
+
+                        House
+
+                    </div>
+
+                </div>
+
+
+                <!-- WHITE BUILDING -->
+
+                <div class="townArea">
+
+                    <svg
+                        id="townSvg"
+                        viewBox="0 0 600 430"
+                        preserveAspectRatio="xMidYMid meet"
+                        aria-label="Shape building area">
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <aside class="controlPanel">
+
+                <div class="instructionCard">
+
+                    <div id="instructionTitle">
+                        Build the My House!
+                    </div>
+
+                    <p id="instructionText">
+                        Choose a colored shape, then click
+                        the matching white part.
+                    </p>
+
+                </div>
+
+
+                <div class="chooseTitle">
+                    Choose a Shape
+                </div>
+
+
+                <div
+                    id="shapeChoices"
+                    class="shapeChoices">
+                </div>
+
+
+                <div
+                    id="feedback"
+                    class="feedback">
+
+                    Choose a shape to begin!
+
+                </div>
+
+            </aside>
+
+        </section>
+
+
+        <!-- STAR REWARD -->
+
+        <div
+            id="starReward"
+            class="starReward hidden">
+
+            <div class="rewardStar">
+                ★
+            </div>
+
+            <div>
+                Great Job!
+            </div>
+
+        </div>
+
+
+        <!-- LEVEL COMPLETE -->
+
+        <div
+            id="levelComplete"
+            class="modalOverlay hidden">
+
+            <div class="resultCard levelCard">
+
+                <div class="resultIcon">
+                    ★
+                </div>
+
+                <h2>
+                    Great Job!
+                </h2>
+
+                <p id="levelCompleteText">
+                    You built it!
+                </p>
+
+                <button
+                    id="nextLevelButton"
+                    class="primaryButton">
+
+                    Next Level →
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- GAME OVER -->
+
+        <div
+            id="gameOver"
+            class="modalOverlay hidden">
+
+            <div class="resultCard">
+
+                <div class="trophy">
+                    ★
+                </div>
+
+                <h2 id="finalTitle">
+                    Amazing!
+                </h2>
+
+                <p id="finalMessage">
+                    You built Shape Town!
+                </p>
+
+
+                <div class="finalPlayer">
+
+                    <span>
+                        Player
+                    </span>
+
+                    <strong id="finalPlayer">
+                        Player
+                    </strong>
+
+                </div>
+
+
+                <div class="finalScoreBox">
+
+                    <span>
+                        Final Score
+                    </span>
+
+                    <strong id="finalScore">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="starsBox">
+
+                    <span class="final-star">
+                        ★
+                    </span>
+
+                    <span class="final-star">
+                        ★
+                    </span>
+
+                    <span class="final-star">
+                        ★
+                    </span>
+
+                </div>
+
+
+                <div class="resultButtons">
+
+                    <button
+                        id="playAgainButton"
+                        class="primaryButton">
+
+                        Play Again
+
+                    </button>
+
+
+                    <button
+                        id="finalBackButton"
+                        class="secondaryButton">
+
+                        ← Back
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         SHARED SOUND MANAGER
+         IMPORTANT:
+         MUST BE BEFORE THE GAME JS
+    ====================================================== -->
+
+    <script src="../../js/soundManager.js"></script>
+
+    <!-- =====================================================
+         SHAPE TOWN BUILDER GAME
+    ====================================================== -->
+
+    <script src="../games-js/shape-town-builder.js"></script>
+
+</body>
+</html>

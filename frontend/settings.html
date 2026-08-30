@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest | Settings</title>
+
+
+    <!-- =================================
+         FONT AWESOME
+    ================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =================================
+         SIDEBAR CSS
+    ================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/sidebar.css"
+    >
+
+
+    <!-- =================================
+         SETTINGS CSS
+    ================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/settings.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =================================
+     SIDEBAR
+================================== -->
+
+<aside class="sidebar">
+
+
+    <!-- =================================
+         LOGO ONLY
+    ================================== -->
+
+    <div class="brand">
+
+        <img
+            src="image/logo.png"
+            alt="KinderQuest Logo"
+        >
+
+    </div>
+
+
+
+    <!-- =================================
+         TEACHER PROFILE
+    ================================== -->
+
+    <div class="teacher">
+
+
+        <div class="teacher-avatar-wrap">
+
+            <div
+                id="sidebarAvatar"
+                class="sidebar-avatar"
+            >
+                T
+            </div>
+
+
+            <img
+                id="sidebarAvatarImg"
+                class="sidebar-avatar-img"
+                alt="Teacher"
+                hidden
+            >
+
+        </div>
+
+
+        <span id="teacherName">
+            Teacher
+        </span>
+
+
+    </div>
+
+
+
+    <!-- =================================
+         NAVIGATION
+    ================================== -->
+
+    <nav>
+
+
+        <!-- DASHBOARD -->
+
+        <a href="dashboard.html">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+
+        <!-- STUDENTS -->
+
+        <a href="students.html">
+
+            <i class="fa-solid fa-users"></i>
+
+            <span>
+                Students
+            </span>
+
+        </a>
+
+
+
+        <!-- MINI GAMES -->
+
+        <a href="minigames.html">
+
+            <i class="fa-solid fa-gamepad"></i>
+
+            <span>
+                Mini Games
+            </span>
+
+        </a>
+
+
+
+        <!-- PROGRESS -->
+
+        <a href="progress.html">
+
+            <i class="fa-solid fa-chart-simple"></i>
+
+            <span>
+                Progress
+            </span>
+
+        </a>
+
+
+
+        <!-- REPORTS -->
+
+        <a href="reports.html">
+
+            <i class="fa-regular fa-file-lines"></i>
+
+            <span>
+                Reports
+            </span>
+
+        </a>
+
+
+
+        <!-- SETTINGS -->
+
+        <a
+            href="settings.html"
+            class="active"
+        >
+
+            <i class="fa-solid fa-gear"></i>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+
+        <!-- LOGOUT -->
+
+        <a
+            href="#"
+            id="logout"
+        >
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>
+                Logout
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+</aside>
+
+
+
+
+
+<!-- =================================
+     MAIN CONTENT
+================================== -->
+
+<main class="main-content">
+
+
+    <!-- =================================
+         HEADER
+    ================================== -->
+
+    <div class="settings-header">
+
+
+        <h1>
+
+            <i class="fa-solid fa-gear"></i>
+            Settings
+
+        </h1>
+
+
+        <p>
+
+            Manage your profile, game sounds, and student progress.
+
+        </p>
+
+
+    </div>
+
+
+
+
+
+    <!-- =================================
+         TEACHER PROFILE
+    ================================== -->
+
+    <section class="settings-card profile-card">
+
+
+        <div class="card-title">
+
+
+            <div class="title-icon">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Teacher Profile
+                </h2>
+
+
+                <p>
+                    Manage your profile information.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="profile-content">
+
+
+            <!-- PROFILE PICTURE -->
+
+            <div class="profile-picture-section">
+
+
+                <div class="profile-picture-wrapper">
+
+
+                    <!-- DEFAULT AVATAR -->
+
+                    <div
+                        id="defaultAvatar"
+                        class="default-avatar"
+                    >
+                        T
+                    </div>
+
+
+
+                    <!-- PROFILE IMAGE -->
+
+                    <img
+                        id="profilePreview"
+                        alt="Teacher Profile"
+                    >
+
+
+                </div>
+
+
+
+                <input
+                    type="file"
+                    id="profileImageInput"
+                    accept="image/*"
+                    hidden
+                >
+
+
+
+                <button
+                    type="button"
+                    id="changeProfileBtn"
+                    class="change-profile-btn"
+                >
+
+                    <i class="fa-solid fa-camera"></i>
+                    Change Profile Picture
+
+                </button>
+
+
+
+                <p class="profile-note">
+
+                    Choose an image from your computer.
+
+                </p>
+
+
+            </div>
+
+
+
+
+
+            <!-- PROFILE INFORMATION -->
+
+            <div class="profile-info">
+
+
+                <!-- FULL NAME -->
+
+                <div class="profile-field">
+
+
+                    <label>
+                        Full Name
+                    </label>
+
+
+                    <div
+                        class="profile-value"
+                        id="fullNameDisplay"
+                    >
+                        Teacher
+                    </div>
+
+
+                </div>
+
+
+
+
+
+                <!-- USERNAME -->
+
+                <div class="profile-field">
+
+
+                    <label>
+                        Username
+                    </label>
+
+
+                    <div
+                        class="profile-value"
+                        id="usernameDisplay"
+                    >
+                        —
+                    </div>
+
+
+                </div>
+
+
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="profile-field password-field">
+
+
+                    <label>
+                        Password
+                    </label>
+
+
+                    <button
+                        type="button"
+                        id="openPasswordBtn"
+                        class="password-btn"
+                    >
+
+                        <i class="fa-solid fa-lock"></i>
+                        Change Password
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+
+    <!-- =================================
+         CHANGE PASSWORD
+    ================================== -->
+
+    <section
+        class="settings-card password-card"
+        id="passwordSection"
+    >
+
+
+        <div class="card-title">
+
+
+            <div class="title-icon">
+
+                <i class="fa-solid fa-lock"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Change Password
+                </h2>
+
+
+                <p>
+                    Update your teacher account password.
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <form
+            id="passwordForm"
+            class="password-form"
+        >
+
+
+            <div class="password-input-group">
+
+
+                <label for="currentPassword">
+                    Current Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="currentPassword"
+                    placeholder="Enter current password"
+                    autocomplete="current-password"
+                    required
+                >
+
+
+            </div>
+
+
+
+            <div class="password-input-group">
+
+
+                <label for="newPassword">
+                    New Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="newPassword"
+                    placeholder="Enter new password"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+            </div>
+
+
+
+            <div class="password-input-group">
+
+
+                <label for="confirmPassword">
+                    Confirm New Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm new password"
+                    autocomplete="new-password"
+                    required
+                >
+
+
+            </div>
+
+
+
+            <div class="password-actions">
+
+
+                <button
+                    type="button"
+                    id="cancelPasswordBtn"
+                    class="cancel-password-btn"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+                    Cancel
+
+                </button>
+
+
+
+                <button
+                    type="submit"
+                    class="save-password-btn"
+                >
+
+                    <i class="fa-solid fa-lock"></i>
+                    Change Password
+
+                </button>
+
+
+            </div>
+
+
+
+            <p
+                id="passwordMessage"
+                class="password-message"
+            ></p>
+
+
+        </form>
+
+
+    </section>
+
+
+
+
+
+    <!-- =================================
+         SOUND SETTINGS
+    ================================== -->
+
+    <section class="settings-card">
+
+
+        <div class="card-title">
+
+
+            <div class="title-icon">
+
+                <i class="fa-solid fa-volume-high"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Sound
+                </h2>
+
+
+                <p>
+                    Control sound effects in the games.
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- SOUND EFFECTS -->
+
+        <div class="setting-row">
+
+
+            <div class="setting-info">
+
+
+                <h3>
+
+                    <i class="fa-solid fa-volume-high"></i>
+                    Sound Effects
+
+                </h3>
+
+
+                <p>
+                    Turn game sound effects on or off.
+                </p>
+
+
+            </div>
+
+
+
+            <label class="switch">
+
+
+                <input
+                    type="checkbox"
+                    id="soundToggle"
+                    checked
+                >
+
+
+                <span class="slider"></span>
+
+
+            </label>
+
+
+        </div>
+
+
+
+        <!-- BACKGROUND MUSIC -->
+
+        <div class="setting-row">
+
+
+            <div class="setting-info">
+
+
+                <h3>
+
+                    <i class="fa-solid fa-music"></i>
+                    Background Music
+
+                </h3>
+
+
+                <p>
+                    Play background music while students are playing.
+                </p>
+
+
+            </div>
+
+
+
+            <label class="switch">
+
+
+                <input
+                    type="checkbox"
+                    id="musicToggle"
+                    checked
+                >
+
+
+                <span class="slider"></span>
+
+
+            </label>
+
+
+        </div>
+
+
+
+        <!-- VOLUME -->
+
+        <div class="setting-row volume-row">
+
+
+            <div class="setting-info">
+
+
+                <h3>
+
+                    <i class="fa-solid fa-volume-low"></i>
+                    Volume
+
+                </h3>
+
+
+                <p>
+                    Adjust the game volume.
+                </p>
+
+
+            </div>
+
+
+
+            <div class="volume-control">
+
+
+                <span id="volumeIcon">
+
+                    <i class="fa-solid fa-volume-low"></i>
+
+                </span>
+
+
+                <input
+                    type="range"
+                    id="volumeSlider"
+                    min="0"
+                    max="100"
+                    value="70"
+                >
+
+
+                <span id="volumeValue">
+                    70%
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+
+    <!-- =================================
+         PROGRESS
+    ================================== -->
+
+    <section class="settings-card">
+
+
+        <div class="card-title">
+
+
+            <div class="title-icon">
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Progress
+                </h2>
+
+
+                <p>
+                    Manage student game progress.
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="reset-box">
+
+
+            <div>
+
+
+                <h3>
+
+                    <i class="fa-solid fa-trash-can"></i>
+                    Reset All Progress
+
+                </h3>
+
+
+                <p>
+
+                    Remove all game progress for your students.
+                    Student accounts will not be deleted.
+
+                </p>
+
+
+            </div>
+
+
+
+            <button
+                type="button"
+                id="resetProgressBtn"
+                class="reset-btn"
+            >
+
+                <i class="fa-solid fa-rotate-left"></i>
+                Reset Progress
+
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+
+    <!-- =================================
+         ABOUT
+    ================================== -->
+
+    <section class="settings-card">
+
+
+        <div class="card-title">
+
+
+            <div class="title-icon">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    About KiddoQuest
+                </h2>
+
+
+                <p>
+                    Information about the learning game.
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="about-content">
+
+
+            <h3>
+                KiddoQuest
+            </h3>
+
+
+            <p>
+
+                An interactive learning game with progress monitoring for kindergarten pupils.
+
+            </p>
+
+
+            <span>
+                Version 1.0
+            </span>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+
+    <!-- SAVE MESSAGE -->
+
+    <div
+        id="saveMessage"
+        class="save-message"
+    >
+
+        Settings saved successfully.
+
+    </div>
+
+
+</main>
+
+
+
+
+
+<!-- =================================
+     JAVASCRIPT
+================================== -->
+
+<script src="js/settings.js"></script>
+
+<script src="js/logout.js"></script>
+
+
+</body>
+
+</html>

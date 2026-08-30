@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Color Memory</title>
+
+    <link
+        rel="stylesheet"
+        href="../game-css/color-memory.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         LOADING SCREEN
+    ========================================== -->
+
+    <div id="loadingScreen">
+
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill"
+                ></div>
+
+            </div>
+
+            <div class="loading-text">
+                Loading...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MAIN GAME
+    ========================================== -->
+
+    <main class="game-container">
+
+        <section class="game-area">
+
+
+            <!-- =================================
+                 HEADER
+            ================================== -->
+
+            <header class="game-header">
+
+                <button
+                    type="button"
+                    class="back-btn"
+                    id="backToColorsButton"
+                >
+                    ← Back
+                </button>
+
+
+                <div class="header-content">
+
+                    <h1>
+                        🌈 Color Memory
+                    </h1>
+
+
+                    <div
+                        id="playerName"
+                        class="player-name"
+                    >
+
+                        <span class="player-icon">
+                            👤
+                        </span>
+
+                        <span class="player-label">
+                            Playing as:
+                        </span>
+
+                        <span
+                            id="playingStudentName"
+                            class="player-fullname"
+                        >
+                            Student
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================
+                 GAME INFORMATION
+            ================================== -->
+
+            <section class="game-info">
+
+
+                <div class="info-box score-box">
+
+                    <span class="info-label">
+                        ⭐ Score
+                    </span>
+
+                    <span
+                        id="score"
+                        class="info-value"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        🎯 Round
+                    </span>
+
+                    <span
+                        id="questionNumber"
+                        class="info-value"
+                    >
+                        1 / 10
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        ❤️ Lives
+                    </span>
+
+                    <span
+                        id="lives"
+                        class="info-value"
+                    >
+                        ❤️❤️❤️
+                    </span>
+
+                </div>
+
+
+                <div class="info-box streak-box">
+
+                    <span class="info-label">
+                        🔥 Streak
+                    </span>
+
+                    <span
+                        id="streak"
+                        class="info-value streak-value"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 PROGRESS
+            ================================== -->
+
+            <div class="progress-wrapper">
+
+                <div class="progress-label-row">
+
+                    <span>
+                        🌟 Game Progress
+                    </span>
+
+                    <span id="progressText">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <div class="progress-container">
+
+                    <div
+                        id="progressBar"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 QUESTION
+            ================================== -->
+
+            <section class="question-section">
+
+                <div
+                    id="phaseBadge"
+                    class="question-badge"
+                >
+                    👀 Watch Carefully!
+                </div>
+
+
+                <h2 id="questionText">
+                    Remember the colors!
+                </h2>
+
+
+                <p id="instructionText">
+                    Watch the color sequence carefully.
+                </p>
+
+            </section>
+
+
+            <!-- =================================
+                 MEMORY AREA
+            ================================== -->
+
+            <section class="memory-section">
+
+                <div
+                    id="memoryArea"
+                    class="memory-area"
+                ></div>
+
+            </section>
+
+
+            <!-- =================================
+                 PLAYER TURN
+            ================================== -->
+
+            <section
+                id="playerSection"
+                class="player-section hidden"
+            >
+
+                <div class="turn-icon">
+                    🎨
+                </div>
+
+
+                <h3>
+                    Your Turn!
+                </h3>
+
+
+                <p>
+                    Tap the colors in the same order.
+                </p>
+
+
+                <div
+                    id="colorChoices"
+                    class="color-choices"
+                ></div>
+
+            </section>
+
+
+            <!-- =================================
+                 FEEDBACK
+            ================================== -->
+
+            <div
+                id="feedback"
+                class="feedback"
+            ></div>
+
+
+            <!-- =================================
+                 NEXT BUTTON
+            ================================== -->
+
+            <button
+                id="nextButton"
+                class="next-button hidden"
+                type="button"
+            >
+                Next →
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         CELEBRATION
+    ========================================== -->
+
+    <div
+        id="celebration"
+        class="celebration hidden"
+    >
+
+        <div class="celebration-content">
+
+            <div class="celebration-stars">
+                ⭐ ⭐ ⭐
+            </div>
+
+            <div
+                id="celebrationEmoji"
+                class="celebration-emoji"
+            >
+                🎉
+            </div>
+
+            <h2 id="celebrationText">
+                Amazing!
+            </h2>
+
+            <p id="celebrationSubtext">
+                You remembered the colors!
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         RESULT SCREEN
+    ========================================== -->
+
+    <section
+        id="resultScreen"
+        class="result-screen hidden"
+    >
+
+        <div class="result-card">
+
+            <div class="result-icon">
+                🏆
+            </div>
+
+
+            <h2>
+                Great Job!
+            </h2>
+
+
+            <p>
+                You completed Color Memory!
+            </p>
+
+
+            <div class="final-player">
+
+                👤
+
+                <span id="finalStudentName">
+                    Student
+                </span>
+
+            </div>
+
+
+            <div class="final-score">
+
+                <span>
+                    Your Score
+                </span>
+
+                <strong id="finalScore">
+                    0 / 10
+                </strong>
+
+            </div>
+
+
+            <div class="final-stat">
+
+                <span>
+                    🔥 Best Streak
+                </span>
+
+                <strong id="finalStreak">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div
+                id="finalStars"
+                class="final-stars"
+            >
+                ⭐
+            </div>
+
+
+            <button
+                id="playAgainButton"
+                class="play-again-button"
+                type="button"
+            >
+                🔄 Play Again
+            </button>
+
+
+            <a
+                href="../colors.html"
+                class="back-games-button"
+            >
+                🎨 Back to Color Games
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         NO STUDENT
+    ========================================== -->
+
+    <div
+        id="noStudentOverlay"
+        class="no-student-overlay hidden"
+    >
+
+        <div class="no-student-card">
+
+            <div class="no-student-icon">
+                👤
+            </div>
+
+
+            <h2>
+                No Student Selected
+            </h2>
+
+
+            <p>
+                Please select a student before starting the game.
+            </p>
+
+
+            <a
+                href="../colors.html"
+                class="back-games-button"
+            >
+                ← Go Back
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         STAR REWARD
+    ========================================== -->
+
+    <div
+        id="starReward"
+        class="star-reward hidden"
+    >
+
+        <div class="reward-star">
+            ⭐
+        </div>
+
+        <div class="reward-text">
+            🎉 Great Job!
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+    <script src="../../js/soundManager.js"></script>
+    <script src="../games-js/color-memory.js"></script>
+
+</body>
+
+</html>

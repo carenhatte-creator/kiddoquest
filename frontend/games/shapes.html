@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest | Shape Games</title>
+
+    <link
+        rel="stylesheet"
+        href="game-css/game.css"
+    >
+</head>
+
+<body>
+
+    <main class="game-container">
+
+        <header class="game-header">
+
+            <a
+                href="../minigames.html"
+                class="back-btn"
+            >
+                ← Back
+            </a>
+
+            <h1>
+                🔷 Shape Games
+            </h1>
+
+        </header>
+
+        <section class="game-list">
+
+            <!-- Shadow Match -->
+            <article class="activity-card">
+
+                <div class="icon">
+                    🌑
+                </div>
+
+                <h2>
+                    Shadow Match
+                </h2>
+
+                <p>
+                    Drag each colorful shape to its matching shadow.
+                </p>
+
+                <button
+                    type="button"
+                    onclick="startGame('shadow-match')"
+                >
+                    ▶ Play
+                </button>
+
+            </article>
+
+            <!-- Shape Hunt -->
+            <article class="activity-card">
+
+                <div class="icon">
+                    🔍
+                </div>
+
+                <h2>
+                    Shape Hunt
+                </h2>
+
+                <p>
+                    Look around the scene and find the correct shape.
+                </p>
+
+                <button
+                    type="button"
+                    onclick="startGame('shape-hunt')"
+                >
+                    ▶ Play
+                </button>
+
+            </article>
+
+            <!-- Shape Puzzle -->
+            <article class="activity-card">
+
+                <div class="icon">
+                    🧩
+                </div>
+
+                <h2>
+                    Shape Puzzle
+                </h2>
+
+                <p>
+                    Put the shape pieces together to finish the picture.
+                </p>
+
+                <button
+                    type="button"
+                    onclick="startGame('puzzle')"
+                >
+                    ▶ Play
+                </button>
+
+            </article>
+
+            <!-- Shape Town Builder -->
+            <article class="activity-card">
+
+                <div class="icon">
+                    🏠
+                </div>
+
+                <h2>
+                    Shape Town Builder
+                </h2>
+
+                <p>
+                    Use colorful shapes to build a happy little house.
+                </p>
+
+                <button
+                    type="button"
+                    onclick="startGame('shape-town-builder')"
+                >
+                    ▶ Play
+                </button>
+
+            </article>
+
+        </section>
+
+    </main>
+
+    <script
+        src="games-js/shapes.js"
+    ></script>
+
+</body>
+</html>

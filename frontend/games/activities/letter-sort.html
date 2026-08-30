@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Sort | KinderQuest</title>
+    <link rel="stylesheet" href="../game-css/letter-sort.css">
+</head>
+
+<body>
+
+    <!-- INITIAL LOADING ONLY -->
+    <div id="loadingScreen">
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+                <div id="loadingBarFill" class="loading-bar-fill"></div>
+            </div>
+
+            <div id="loadingText" class="loading-text">Loading Letter Sort...</div>
+
+        </div>
+    </div>
+
+
+    <!-- MAIN GAME -->
+    <div class="page-wrap">
+
+        <!-- TOP HEADER -->
+        <header class="top-card">
+
+            <a href="../alphabet.html"
+               class="back-circle-btn"
+               id="topBackButton">
+                ←
+            </a>
+
+            <div class="top-card-text">
+                <h1>Letter Sort</h1>
+                <p>Put the letters in the correct order.</p>
+            </div>
+
+            <div class="top-card-stats">
+
+                <div class="stat-pill score-pill">
+                    <span class="stat-label">Score</span>
+                    <strong id="score">0</strong>
+                </div>
+
+                <div class="stat-pill star-pill">
+                    <span class="stat-label">⭐</span>
+                    <strong id="stars">0</strong>
+                </div>
+
+                <div class="stat-pill lives-pill">
+                    <span id="lives">❤️ ❤️ ❤️</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PLAYING AS -->
+        <div class="playing-as" id="playingAs">
+            <span class="playing-label">🧒 Playing as:</span>
+            <strong id="playingStudentName">Student</strong>
+        </div>
+
+
+        <!-- LEVEL -->
+        <div class="game-info">
+            <div class="level-box">
+                Level
+                <strong id="level">1</strong>
+                <span>/ 5</span>
+            </div>
+        </div>
+
+
+        <!-- TRUCK SCENE -->
+        <main class="truck-scene">
+
+            <div class="cloud cloud-one"></div>
+            <div class="cloud cloud-two"></div>
+            <div class="cloud cloud-three"></div>
+
+            <div class="tree tree-1">🌳</div>
+            <div class="tree tree-2">🌲</div>
+            <div class="tree tree-3">🌳</div>
+
+            <!-- TRUCK -->
+            <div class="truck" id="truck">
+
+                <div class="truck-cargo">
+
+                    <div class="letter-slot" data-position="0">
+                        <span class="slot-number">1</span>
+                    </div>
+
+                    <div class="letter-slot" data-position="1">
+                        <span class="slot-number">2</span>
+                    </div>
+
+                    <div class="letter-slot" data-position="2">
+                        <span class="slot-number">3</span>
+                    </div>
+
+                    <div class="letter-slot" data-position="3">
+                        <span class="slot-number">4</span>
+                    </div>
+
+                    <div class="letter-slot" data-position="4">
+                        <span class="slot-number">5</span>
+                    </div>
+
+                </div>
+
+                <div class="truck-cab">
+                    <div class="truck-window"></div>
+                    <div class="truck-bumper"></div>
+                    <div class="truck-headlight"></div>
+                </div>
+
+                <div class="truck-wheels">
+                    <div class="wheel"><span class="hub"></span></div>
+                    <div class="wheel"><span class="hub"></span></div>
+                    <div class="wheel"><span class="hub"></span></div>
+                    <div class="wheel"><span class="hub"></span></div>
+                </div>
+
+            </div>
+
+
+            <!-- FINISH -->
+            <div class="finish">
+
+                <div class="bunting">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="finish-flag">🏁</div>
+                <div class="finish-post"></div>
+                <div class="finish-label">FINISH</div>
+
+            </div>
+
+            <div class="hill"></div>
+            <div class="road"></div>
+
+        </main>
+
+
+        <!-- LETTERS -->
+        <section class="letters-section">
+
+            <div id="lettersContainer" class="letters-container"></div>
+
+            <p class="instruction">
+                🖐️ Drag a letter to the correct position.
+                <br>
+                You can also click a letter and then click a slot.
+            </p>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="game-footer">
+
+            <button id="hintBtn"
+                    class="hint-btn"
+                    type="button">
+                💡 Hint
+                <span id="hintCount">3</span>
+            </button>
+
+            <button id="restartBtn"
+                    class="control-btn"
+                    type="button">
+                🔄 Restart
+            </button>
+
+        </footer>
+
+    </div>
+
+
+    <!-- LEVEL REWARD -->
+    <div id="levelRewardModal" class="reward-modal hidden">
+
+        <div class="reward-overlay-glow"></div>
+
+        <div class="reward-burst burst-one">✨</div>
+        <div class="reward-burst burst-two">✨</div>
+        <div class="reward-burst burst-three">✨</div>
+        <div class="reward-burst burst-four">✨</div>
+
+        <div class="reward-card">
+
+            <div class="reward-stars-animation">
+                <span class="reward-star star-left">⭐</span>
+                <span class="reward-star star-main">⭐</span>
+                <span class="reward-star star-right">⭐</span>
+            </div>
+
+            <div id="rewardLevelTitle" class="reward-level-title">
+                Level 1 Complete!
+            </div>
+
+            <div id="rewardStarText" class="reward-star-text">
+                +1 STAR
+            </div>
+
+            <div class="reward-message">
+                Great job! Keep going!
+            </div>
+
+            <button id="nextLevelBtn"
+                    class="reward-next-btn"
+                    type="button">
+                Next Level →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- NO STUDENT -->
+    <div id="noStudentOverlay" class="no-student-overlay">
+
+        <div class="no-student-card">
+
+            <div class="no-student-icon">🧒</div>
+
+            <h2>Please select a student first!</h2>
+
+            <p>
+                Kailangan mo munang pumili ng estudyante
+                sa Students page bago maglaro.
+            </p>
+
+            <a href="../../students.html">
+                <button type="button">
+                    👦 Go to Students
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME OVER -->
+    <div id="gameOverModal" class="modal hidden">
+
+        <div class="result-card game-over-card">
+
+            <div class="big-icon">💛</div>
+            <div class="game-over-stars">⭐</div>
+
+            <h2>Game Over</h2>
+
+            <p>
+                You ran out of hearts.
+                Try again!
+            </p>
+
+            <div class="game-over-info">
+
+                <div class="game-over-stat">
+                    <span>Level</span>
+                    <strong id="gameOverLevel">1</strong>
+                </div>
+
+                <div class="game-over-stat">
+                    <span>Score</span>
+                    <strong id="gameOverScore">0</strong>
+                </div>
+
+                <div class="game-over-stat">
+                    <span>Stars</span>
+                    <strong id="gameOverStars">0</strong>
+                </div>
+
+            </div>
+
+            <button id="gameOverAgainBtn"
+                    class="primary-btn"
+                    type="button">
+                🔄 Play Again
+            </button>
+
+            <button id="gameOverBackBtn"
+                    class="secondary-btn"
+                    type="button">
+                ← Back
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FINAL FINISH -->
+    <div id="completeModal" class="modal hidden">
+
+        <div class="result-card complete-card">
+
+            <div class="big-icon">🏆</div>
+
+            <div id="finalStarsDisplay"
+                 class="final-stars-display">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <h2>Letter Sort Champion!</h2>
+
+            <p>
+                Amazing! You completed all 5 levels!
+            </p>
+
+            <div class="final-result-stats">
+
+                <div class="final-stat">
+                    <span>Score</span>
+                    <strong id="finalScore">0</strong>
+                </div>
+
+                <div class="final-stat">
+                    <span>⭐ Stars</span>
+                    <strong id="finalStars">0</strong>
+                    <small>/ 5</small>
+                </div>
+
+            </div>
+
+            <div class="finish-message">
+                🎉 All Levels Completed! 🎉
+            </div>
+
+            <button id="playAgainBtn"
+                    class="primary-btn"
+                    type="button">
+                🔄 Play Again
+            </button>
+
+            <button id="backBtn"
+                    class="secondary-btn"
+                    type="button">
+                ← Back
+            </button>
+
+        </div>
+
+    </div>
+
+     <script src="../../js/soundManager.js"></script>
+    <script src="../games-js/letter-sort.js"></script>
+
+</body>
+</html>

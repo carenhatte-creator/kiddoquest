@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Color Path</title>
+
+    <link
+        rel="stylesheet"
+        href="../game-css/color-path.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         LOADING SCREEN
+    ========================================== -->
+
+    <div id="loadingScreen">
+
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill"
+                ></div>
+
+            </div>
+
+            <div class="loading-text">
+                Loading...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MAIN GAME
+    ========================================== -->
+
+    <main class="game-container">
+
+        <!-- HEADER -->
+
+        <header class="game-header">
+
+            <a
+                href="../colors.html"
+                class="back-btn"
+            >
+                ←
+            </a>
+
+
+            <div class="title-area">
+
+                <div class="small-title">
+                    KINDERQUEST
+                </div>
+
+                <h1>
+                    🌈 Color Path
+                </h1>
+
+                <div
+                    id="playerName"
+                    class="player-name"
+                >
+
+                    👤
+
+                    <span>
+                        Playing as:
+                    </span>
+
+                    <strong id="playingStudentName">
+                        Student
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             GAME STATS
+        ====================================== -->
+
+        <section class="game-info">
+
+            <div class="info-card">
+
+                <span>
+                    ⭐ SCORE
+                </span>
+
+                <strong id="score">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>
+                    ⭐ STARS
+                </span>
+
+                <strong id="stars">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>
+                    ❤️ LIVES
+                </span>
+
+                <strong id="lives">
+                    ❤️❤️❤️
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PROGRESS
+        ====================================== -->
+
+        <div class="progress-container">
+
+            <div
+                id="progressBar"
+                class="progress-bar"
+            ></div>
+
+        </div>
+
+
+        <!-- =====================================
+             INSTRUCTION
+        ====================================== -->
+
+        <section class="instruction-card">
+
+            <div
+                id="roundBadge"
+                class="round-badge"
+            >
+                Round 1 / 10
+            </div>
+
+
+            <h2 id="questionText">
+                Find the matching colors!
+            </h2>
+
+
+            <p id="instructionText">
+                Touch all the tiles that match the color below.
+            </p>
+
+
+            <!-- VISUAL COLOR TARGET -->
+
+            <div class="target-area">
+
+                <div class="target-label">
+                    🎨 Find this color
+                </div>
+
+                <div
+                    id="targetColor"
+                    class="target-color"
+                    aria-label="Color to find"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             COLOR TILE AREA
+        ====================================== -->
+
+        <section class="color-card">
+
+            <div
+                id="pathGrid"
+                class="path-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- =====================================
+             FEEDBACK
+        ====================================== -->
+
+        <div
+            id="feedback"
+            class="feedback"
+        ></div>
+
+
+        <!-- =====================================
+             NEXT BUTTON
+        ====================================== -->
+
+        <button
+            id="nextButton"
+            class="next-button hidden"
+            type="button"
+        >
+            Next →
+        </button>
+
+    </main>
+
+
+    <!-- =========================================
+         STAR REWARD
+    ========================================== -->
+
+    <div
+        id="starReward"
+        class="star-reward hidden"
+    >
+
+        <div class="reward-star">
+            ⭐
+        </div>
+
+        <div class="reward-text">
+            🎉 Great Job!
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         RESULT SCREEN
+    ========================================== -->
+
+    <section
+        id="resultScreen"
+        class="result-screen hidden"
+    >
+
+        <div class="result-card">
+
+            <div class="result-trophy">
+                🏆
+            </div>
+
+            <h2>
+                Amazing Job!
+            </h2>
+
+            <p>
+                You completed Color Path!
+            </p>
+
+
+            <div class="final-student">
+
+                👤
+
+                <strong id="finalStudentName">
+                    Student
+                </strong>
+
+            </div>
+
+
+            <div class="final-result">
+
+                <div>
+
+                    <span>
+                        Score
+                    </span>
+
+                    <strong id="finalScore">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Stars
+                    </span>
+
+                    <strong id="finalStars">
+                        0 ⭐
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="finalStarDisplay"
+                class="final-star-display"
+            >
+                ⭐
+            </div>
+
+
+            <button
+                id="playAgainButton"
+                class="play-again-button"
+                type="button"
+            >
+                🔄 Play Again
+            </button>
+
+
+            <a
+                href="../colors.html"
+                class="back-games-button"
+            >
+                🎨 Color Games
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         NO STUDENT
+    ========================================== -->
+
+    <div
+        id="noStudentOverlay"
+        class="no-student-overlay hidden"
+    >
+
+        <div class="no-student-card">
+
+            <div class="no-student-icon">
+                👤
+            </div>
+
+            <h2>
+                No Student Selected
+            </h2>
+
+            <p>
+                Please select a student before starting the game.
+            </p>
+
+            <a
+                href="../colors.html"
+                class="back-games-button"
+            >
+                ← Go Back
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SOUND MANAGER
+    ========================================== -->
+
+    <script src="../../js/soundManager.js"></script>
+
+    <!-- =========================================
+         GAME SCRIPT
+    ========================================== -->
+
+    <script src="../games-js/color-path.js"></script>
+
+</body>
+
+</html>

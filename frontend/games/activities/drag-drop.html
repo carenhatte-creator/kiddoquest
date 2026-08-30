@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Drag & Drop Letters | KinderQuest</title>
+
+    <link rel="stylesheet" href="../game-css/drag-drop.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         INITIAL LOADING
+         LOADING LANG SA PAGPASOK SA GAME PAGE
+    ====================================================== -->
+
+    <div id="loadingScreen">
+
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill">
+                </div>
+
+            </div>
+
+            <div class="loading-text">
+                Loading Drag & Drop Letters...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN GAME
+    ====================================================== -->
+
+    <div class="page-wrap">
+
+        <!-- HEADER -->
+
+        <header class="top-card">
+
+            <a
+                href="../alphabet.html"
+                class="back-btn">
+                ←
+            </a>
+
+            <div class="title-area">
+
+                <h1>
+                    <span>Drag</span>
+                    &amp;
+                    <b>Drop</b>
+                    <em>Letters</em>
+                </h1>
+
+                <p>
+                    Complete the word by dragging the missing letters.
+                </p>
+
+            </div>
+
+
+            <div class="stat-box lives-box">
+
+                <div id="lives">
+                    ❤️ ❤️ ❤️
+                </div>
+
+                <small>
+                    Lives
+                </small>
+
+            </div>
+
+
+            <div class="stat-box score-box">
+
+                <div>
+                    ⭐
+                    <span id="score">
+                        0
+                    </span>
+                </div>
+
+                <small>
+                    Score
+                </small>
+
+            </div>
+
+        </header>
+
+
+        <!-- STUDENT -->
+
+        <div class="playing-as">
+
+            🧒 Playing as:
+
+            <strong id="playingStudentName">
+                Student
+            </strong>
+
+        </div>
+
+
+        <!-- =================================================
+             GAME CARD
+        ================================================== -->
+
+        <main class="game-card">
+
+            <div class="word-badge">
+
+                Word
+
+                <span id="questionNumber">
+                    1
+                </span>
+
+                / 10
+
+            </div>
+
+
+            <div class="picture-area">
+
+                <img
+                    id="wordImage"
+                    src="../../image/apple-colored.png"
+                    alt="Apple"
+                    draggable="false">
+
+            </div>
+
+
+            <div
+                id="wordContainer"
+                class="word-container">
+            </div>
+
+
+            <p
+                id="instructionText"
+                class="instruction">
+
+                Drag the correct letters into the blanks.
+
+            </p>
+
+
+            <div
+                id="lettersContainer"
+                class="letters-container">
+            </div>
+
+
+            <div
+                id="feedback"
+                class="feedback">
+            </div>
+
+        </main>
+
+
+        <!-- CONTROLS -->
+
+        <div class="controls">
+
+            <button
+                id="hintBtn"
+                class="hint-btn"
+                type="button">
+
+                💡 Hint
+
+                <span id="hintCount">
+                    3
+                </span>
+
+            </button>
+
+
+            <button
+                id="restartBtn"
+                class="restart-btn"
+                type="button">
+
+                🔄 Restart
+
+            </button>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="progress-area">
+
+            <span>
+                ⭐
+            </span>
+
+            <div class="progress-track">
+
+                <div id="progressBar"></div>
+
+            </div>
+
+            <span>
+                🏁
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STAR REWARD
+         SOUND:
+         playCorrect() AY TINATAWAG SA JS KASABAY NG REWARD
+    ====================================================== -->
+
+    <div
+        id="starReward"
+        class="star-reward hidden">
+
+        <div class="reward-stars">
+            ⭐⭐⭐
+        </div>
+
+        <div class="reward-star">
+            ⭐
+        </div>
+
+        <div class="reward-text">
+            Great Job!
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         RESULT SCREEN
+         STAY LANG ANG CARD
+         WALANG LOADING
+    ====================================================== -->
+
+    <div
+        id="resultScreen"
+        class="modal hidden">
+
+        <div class="result-card">
+
+            <div
+                id="resultTrophy"
+                class="result-trophy">
+                🏆
+            </div>
+
+
+            <h2 id="resultTitle">
+                Great Job!
+            </h2>
+
+
+            <p id="resultMessage">
+                You completed all the words!
+            </p>
+
+
+            <div class="final-score">
+
+                ⭐
+
+                <span id="finalScore">
+                    0
+                </span>
+
+            </div>
+
+
+            <div
+                id="finalStars"
+                class="final-stars">
+                ⭐
+            </div>
+
+
+            <button
+                id="playAgainButton"
+                class="primary-btn"
+                type="button">
+
+                ▶ Play Again
+
+            </button>
+
+
+            <button
+                id="backButton"
+                class="secondary-btn"
+                type="button">
+
+                ← Back to Alphabet
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         NO STUDENT
+    ====================================================== -->
+
+    <div
+        id="noStudentOverlay"
+        class="modal hidden">
+
+        <div class="result-card">
+
+            <div class="result-trophy">
+                🧒
+            </div>
+
+
+            <h2>
+                Please select a student first!
+            </h2>
+
+
+            <p>
+                Kailangan munang pumili ng student bago maglaro.
+            </p>
+
+
+            <button
+                id="studentBackButton"
+                class="primary-btn"
+                type="button">
+
+                Go to Students
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SOUND MANAGER
+         IMPORTANT:
+         ITO ANG SHARED SOUND MANAGER MO.
+         DAPAT BAGO ANG GAME JS.
+    ====================================================== -->
+
+    
+
+     <script src="../../js/soundManager.js"></script>
+    <script src="../games-js/drag-drop.js"></script>
+
+</body>
+
+</html>

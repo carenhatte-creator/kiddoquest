@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Pairing Number</title>
+
+    <link
+        rel="stylesheet"
+        href="../game-css/pairing-number.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         INITIAL LOADING ONLY
+    =========================================== -->
+
+    <div id="loadingScreen">
+
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill"
+                ></div>
+
+            </div>
+
+            <div class="loading-text">
+                Loading Pairing Number...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <main class="game-page">
+
+        <!-- HEADER -->
+        <header class="game-header">
+
+            <a
+                href="../numbers.html"
+                class="back-btn"
+            >
+                ← Back
+            </a>
+
+
+            <div class="title-area">
+
+                <div class="small-title">
+                    NUMBER GAME
+                </div>
+
+                <h1>
+                    Pairing Number
+                </h1>
+
+                <p>
+                    Find the number that matches!
+                </p>
+
+            </div>
+
+
+            <!-- LIVES -->
+            <div
+                class="lives"
+                id="lives"
+            >
+
+                <span class="heart active">
+                    ❤️
+                </span>
+
+                <span class="heart active">
+                    ❤️
+                </span>
+
+                <span class="heart active">
+                    ❤️
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- GAME STATS -->
+        <section class="player-bar">
+
+            <div class="game-stat player-stat">
+
+                <span>
+                    Player
+                </span>
+
+                <strong id="playerName">
+                    Player
+                </strong>
+
+            </div>
+
+
+            <div class="game-stat">
+
+                <span>
+                    Question
+                </span>
+
+                <strong>
+
+                    <span id="questionNumber">
+                        1
+                    </span>
+
+                    / 10
+
+                </strong>
+
+            </div>
+
+
+            <div class="game-stat stars-stat">
+
+                <span>
+                    Stars
+                </span>
+
+                <strong>
+
+                    <span class="star-icon">
+                        ⭐
+                    </span>
+
+                    <span id="starCount">
+                        0
+                    </span>
+
+                </strong>
+
+            </div>
+
+
+            <div class="game-stat">
+
+                <span>
+                    Score
+                </span>
+
+                <strong id="score">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROGRESS -->
+        <div class="progress-container">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+
+        <!-- CLASSROOM -->
+        <section class="classroom">
+
+            <!-- CLOUDS -->
+            <div class="cloud cloud-one"></div>
+
+            <div class="cloud cloud-two"></div>
+
+
+            <!-- SUN -->
+            <div class="sun"></div>
+
+
+            <!-- NUMBER BOARD -->
+            <div class="board-area">
+
+                <div class="board">
+
+                    <div class="board-label">
+                        FIND MY NUMBER
+                    </div>
+
+                    <div
+                        class="target-number"
+                        id="targetNumber"
+                    >
+                        5
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TEACHER -->
+            <div class="teacher">
+
+                <img
+                    id="teacherImage"
+                    src="../../image/teacher.png"
+                    alt="Teacher"
+                >
+
+            </div>
+
+
+            <!-- FLOOR -->
+            <div class="floor"></div>
+
+
+            <!-- ANSWERS -->
+            <section class="answer-area">
+
+                <div class="instruction">
+                    Which number is the same?
+                </div>
+
+                <div
+                    class="number-choices"
+                    id="numberChoices"
+                ></div>
+
+            </section>
+
+        </section>
+
+
+        <!-- FEEDBACK -->
+        <div
+            class="feedback"
+            id="feedback"
+        ></div>
+
+
+        <!-- RESULT -->
+        <div
+            class="game-overlay hidden"
+            id="gameOverlay"
+        >
+
+            <div class="result-card">
+
+                <div class="result-stars">
+
+                    <span>⭐</span>
+
+                    <span>⭐</span>
+
+                    <span>⭐</span>
+
+                </div>
+
+
+                <h2 id="resultTitle">
+                    Great Job!
+                </h2>
+
+
+                <p id="resultMessage">
+                    You completed the game!
+                </p>
+
+
+                <div class="final-score">
+
+                    <div>
+
+                        <span>
+                            Score
+                        </span>
+
+                        <strong id="finalScore">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Stars
+                        </span>
+
+                        <strong id="finalStars">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-buttons">
+
+                    <button
+                        type="button"
+                        id="playAgainBtn"
+                    >
+                        🔄 Play Again
+                    </button>
+
+
+                    <a
+                        href="../numbers.html"
+                        class="menu-btn"
+                    >
+                        🏠 Number Games
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ==================================================
+         SHARED SOUND MANAGER
+         DAPAT MAUNA ITO
+    =================================================== -->
+    <script src="../../js/soundManager.js"></script>
+
+    <script src="../games-js/pairing-number.js"></script>
+
+</body>
+
+</html>

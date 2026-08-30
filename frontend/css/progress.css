@@ -1,0 +1,655 @@
+/* ===========================
+   GOOGLE FONT
+=========================== */
+
+@import url(
+    'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap'
+);
+
+
+/* ===========================
+   RESET
+=========================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+}
+
+
+body{
+
+    background:#f5f8ff;
+
+}
+
+
+/* ===========================
+   PAGE HEADER
+=========================== */
+
+.page-header{
+
+    margin-bottom:25px;
+
+}
+
+
+.page-header h1{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#2388e8;
+
+    font-size:32px;
+
+    font-weight:700;
+
+    margin-bottom:6px;
+
+}
+
+
+.page-header h1 i{
+
+    font-size:30px;
+
+}
+
+
+.page-header p{
+
+    color:#607d8b;
+
+    font-size:15px;
+
+}
+
+
+/* ===========================
+   SEARCH
+=========================== */
+
+.search-container{
+
+    margin-bottom:24px;
+
+}
+
+
+.search-box{
+
+    width:100%;
+
+    max-width:460px;
+
+    height:50px;
+
+    display:flex;
+
+    align-items:center;
+
+    background:#ffffff;
+
+    border:2px solid #dbe5ff;
+
+    border-radius:12px;
+
+    padding:0 15px;
+
+    transition:.25s;
+
+}
+
+
+.search-box:focus-within{
+
+    border-color:#4f7cff;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(79,124,255,.10);
+
+}
+
+
+.search-box i{
+
+    color:#4f7cff;
+
+    margin-right:10px;
+
+    font-size:15px;
+
+}
+
+
+.search-box input{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    font-size:14px;
+
+    color:#333;
+
+}
+
+
+.search-box input::placeholder{
+
+    color:#9aa5b1;
+
+}
+
+
+/* ===========================
+   TABLE CONTAINER
+=========================== */
+
+.table-container{
+
+    width:100%;
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    overflow-x:auto;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.08);
+
+}
+
+
+/* ===========================
+   TABLE
+=========================== */
+
+table{
+
+    width:100%;
+
+    min-width:1050px;
+
+    border-collapse:collapse;
+
+}
+
+
+/* ===========================
+   TABLE HEADER
+=========================== */
+
+thead{
+
+    background:#4f7cff;
+
+    color:#ffffff;
+
+}
+
+
+thead th{
+
+    padding:17px 14px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+}
+
+
+thead th:first-child{
+
+    text-align:left;
+
+    padding-left:25px;
+
+}
+
+
+thead th i{
+
+    margin-right:5px;
+
+}
+
+
+/* ===========================
+   TABLE BODY
+=========================== */
+
+tbody td{
+
+    padding:15px 14px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    border-bottom:
+        1px solid #edf0f5;
+
+    color:#333;
+
+    white-space:nowrap;
+
+    vertical-align:middle;
+
+}
+
+
+tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+
+tbody tr:nth-child(even){
+
+    background:#fafcff;
+
+}
+
+
+tbody tr:hover{
+
+    background:#eef5ff;
+
+}
+
+
+/* ===========================
+   STUDENT NAME
+=========================== */
+
+tbody td:first-child{
+
+    text-align:left;
+
+    padding-left:25px;
+
+    font-weight:600;
+
+    color:#263238;
+
+}
+
+
+.student-name-cell{
+
+    font-weight:600;
+
+    color:#263238;
+
+}
+
+
+/* ===========================
+   CATEGORY
+=========================== */
+
+.category-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:85px;
+
+    padding:6px 12px;
+
+    border-radius:18px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+
+/* ALPHABET */
+
+.category-alphabet{
+
+    background:#e8f1ff;
+
+    color:#3974d8;
+
+}
+
+
+/* NUMBERS */
+
+.category-numbers{
+
+    background:#eaf8ef;
+
+    color:#299052;
+
+}
+
+
+/* COLORS */
+
+.category-colors{
+
+    background:#fff1e6;
+
+    color:#df7924;
+
+}
+
+
+/* SHAPES */
+
+.category-shapes{
+
+    background:#f3eaff;
+
+    color:#7a4dc2;
+
+}
+
+
+/* ===========================
+   ACTIVITY
+=========================== */
+
+.activity-name{
+
+    text-align:left;
+
+    min-width:180px;
+
+    max-width:260px;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+    font-weight:500;
+
+    color:#37474f;
+
+}
+
+
+/* ===========================
+   SCORE
+=========================== */
+
+.score-cell{
+
+    font-weight:700;
+
+}
+
+
+.score-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:60px;
+
+    padding:6px 11px;
+
+    border-radius:18px;
+
+    background:#eef3ff;
+
+    color:#4169e1;
+
+    font-weight:700;
+
+}
+
+
+/* ===========================
+   STATUS
+=========================== */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:105px;
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+
+/* NOT STARTED */
+
+.not-started{
+
+    background:#f1f3f5;
+
+    color:#8b949e;
+
+}
+
+
+/* NEEDS PRACTICE */
+
+.needs-practice{
+
+    background:#fff3cd;
+
+    color:#d98b00;
+
+}
+
+
+/* IN PROGRESS */
+
+.in-progress{
+
+    background:#e3f2fd;
+
+    color:#1976d2;
+
+}
+
+
+/* COMPLETED */
+
+.completed{
+
+    background:#e8f5e9;
+
+    color:#2e9d50;
+
+}
+
+
+/* ===========================
+   STARS
+=========================== */
+
+.stars-cell{
+
+    min-width:115px;
+
+}
+
+
+.star-count{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:90px;
+
+    padding:6px 10px;
+
+    border-radius:18px;
+
+    background:#fff8df;
+
+    color:#d99a00;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+
+/* ===========================
+   LAST PLAYED
+=========================== */
+
+.date-cell{
+
+    min-width:145px;
+
+    color:#455a64;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+}
+
+
+.date-cell small{
+
+    display:block;
+
+    margin-top:2px;
+
+    color:#9aa5b1;
+
+    font-size:11px;
+
+}
+
+
+/* ===========================
+   EMPTY MESSAGE
+=========================== */
+
+.empty-row{
+
+    padding:40px !important;
+
+    text-align:center !important;
+
+    color:#8b949e !important;
+
+    font-size:14px !important;
+
+}
+
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:1100px){
+
+    .table-container{
+
+        overflow-x:auto;
+
+        border-radius:14px;
+
+    }
+
+
+    table{
+
+        min-width:1050px;
+
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .page-header h1{
+
+        font-size:26px;
+
+    }
+
+
+    .page-header h1 i{
+
+        font-size:24px;
+
+    }
+
+
+    .page-header p{
+
+        font-size:14px;
+
+    }
+
+
+    .search-box{
+
+        max-width:100%;
+
+    }
+
+
+    .table-container{
+
+        border-radius:12px;
+
+    }
+
+}

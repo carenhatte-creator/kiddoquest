@@ -1,0 +1,1469 @@
+/* =========================================================
+   KinderQuest - Color Match
+   FULL COLOR MATCH GAME STYLE
+========================================================= */
+
+
+/* =========================================================
+   GOOGLE FONT
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+    font-family: 'Fredoka', sans-serif;
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 5% 12%,
+            rgba(255, 214, 79, 0.28) 0,
+            rgba(255, 214, 79, 0.28) 80px,
+            transparent 81px
+        ),
+        radial-gradient(
+            circle at 96% 88%,
+            rgba(79, 195, 247, 0.18) 0,
+            rgba(79, 195, 247, 0.18) 100px,
+            transparent 101px
+        ),
+        linear-gradient(
+            180deg,
+            #dff6ff 0%,
+            #edfaff 45%,
+            #f5fbf8 100%
+        );
+
+    color: #303030;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   GAME CONTAINER
+========================================================= */
+
+.game-container {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 20px 20px 50px;
+}
+
+
+/* =========================================================
+   GAME AREA
+========================================================= */
+
+.game-area {
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.game-header {
+    position: relative;
+
+    width: 100%;
+    max-width: 1000px;
+
+    min-height: 100px;
+
+    margin: 0 auto 18px;
+
+    padding: 16px 170px 16px 105px;
+
+    background: #ffffff;
+
+    border: 3px dashed #ffca28;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 7px 0 rgba(255, 202, 40, 0.15),
+        0 10px 25px rgba(67, 120, 150, 0.10);
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
+.game-header h1 {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #252525;
+
+    font-size: 38px;
+    font-weight: 700;
+
+    line-height: 1.1;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   HEADER COLOR ICON
+========================================================= */
+
+.game-header h1::first-letter {
+    font-size: 34px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-btn {
+    position: absolute;
+
+    left: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffc107;
+
+    color: #333;
+
+    text-decoration: none;
+
+    border-radius: 50%;
+
+    border: 3px solid #e5a900;
+
+    box-shadow:
+        0 4px 0 #d69e00,
+        0 6px 12px rgba(0, 0, 0, 0.12);
+
+    font-size: 26px;
+    font-weight: 700;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   BACK BUTTON HOVER
+========================================================= */
+
+.back-btn:hover {
+    background: #ffd54f;
+
+    transform:
+        translateY(-50%)
+        scale(1.06);
+
+    box-shadow:
+        0 5px 0 #d69e00,
+        0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================================
+   BACK BUTTON ACTIVE
+========================================================= */
+
+.back-btn:active {
+    transform:
+        translateY(-45%)
+        scale(0.97);
+
+    box-shadow:
+        0 2px 0 #d69e00,
+        0 4px 8px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   PLAYER NAME
+========================================================= */
+
+#playerName {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    min-height: 30px;
+
+    padding: 5px 14px;
+
+    background: #f5fff1;
+
+    border: 2px solid #59b83b;
+
+    border-radius: 18px;
+
+    color: #444;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PLAYER ICON
+========================================================= */
+
+#playerName .player-icon {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   PLAYER LABEL
+========================================================= */
+
+#playerName .player-label {
+    color: #555;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   PLAYER FULL NAME
+========================================================= */
+
+#playerName .player-fullname {
+    color: #31951c;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   GAME INFO
+========================================================= */
+
+.game-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   INFO BOX
+========================================================= */
+
+.info-box {
+    min-height: 64px;
+
+    background: #ffffff;
+
+    border: 2px solid #d7eafa;
+
+    border-radius: 17px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 2px;
+
+    box-shadow:
+        0 5px 14px rgba(67, 120, 150, 0.08);
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   INFO LABEL
+========================================================= */
+
+.info-label {
+    color: #555;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   INFO VALUE
+========================================================= */
+
+.info-value {
+    color: #1989df;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   QUESTION INFO
+========================================================= */
+
+.question-info .info-value {
+    color: #1989df;
+}
+
+
+/* =========================================================
+   PROGRESS CONTAINER
+========================================================= */
+
+.progress-container {
+    width: 100%;
+
+    height: 13px;
+
+    margin-bottom: 22px;
+
+    background: #dcebf2;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #42a5f5,
+            #29b6f6
+        );
+
+    border-radius: 20px;
+
+    transition: width 0.35s ease;
+}
+
+
+/* =========================================================
+   QUESTION SECTION
+========================================================= */
+
+.question-section {
+    width: 100%;
+
+    padding: 18px 20px 20px;
+
+    margin-bottom: 15px;
+
+    background: #ffffff;
+
+    border: 3px dashed #9ed8ff;
+
+    border-radius: 22px;
+
+    text-align: center;
+
+    box-shadow:
+        0 8px 18px rgba(67, 120, 150, 0.07);
+}
+
+
+/* =========================================================
+   QUESTION BADGE
+========================================================= */
+
+.question-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 17px;
+
+    margin-bottom: 8px;
+
+    background: #fff3bd;
+
+    color: #665000;
+
+    border-radius: 18px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   QUESTION TEXT
+========================================================= */
+
+.question-section h2 {
+    color: #282828;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+
+/* =========================================================
+   INSTRUCTION TEXT
+========================================================= */
+
+.question-section p {
+    color: #666;
+
+    font-size: 15px;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   OBJECT SECTION
+========================================================= */
+
+.object-section {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    margin: 10px 0 12px;
+}
+
+
+/* =========================================================
+   OBJECT AREA
+========================================================= */
+
+.object-area {
+    width: 100%;
+
+    min-height: 205px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+
+    border: none;
+
+    box-shadow: none;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   OBJECT BUTTON
+========================================================= */
+
+.object-button {
+    width: 190px;
+    height: 190px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px;
+
+    background: #ffffff;
+
+    border: 3px solid #b8c9d8;
+
+    border-radius: 11px;
+
+    box-shadow:
+        0 4px 0 #d6e0e8,
+        0 8px 16px rgba(0, 0, 0, 0.10);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+/* =========================================================
+   OBJECT BUTTON HOVER
+========================================================= */
+
+.object-button:hover {
+    transform: translateY(-3px) scale(1.02);
+
+    box-shadow:
+        0 6px 0 #d6e0e8,
+        0 12px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   OBJECT BUTTON ACTIVE
+========================================================= */
+
+.object-button:active {
+    transform: translateY(1px) scale(0.99);
+
+    box-shadow:
+        0 2px 0 #d6e0e8,
+        0 5px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   OBJECT IMAGE
+========================================================= */
+
+.object-button img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+    border-radius: 6px;
+
+    user-select: none;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CORRECT OBJECT
+========================================================= */
+
+.object-button.correct-object {
+    border-color: #66bb6a;
+
+    box-shadow:
+        0 4px 0 #4caf50,
+        0 8px 18px rgba(76, 175, 80, 0.20);
+
+    animation: correctPop 0.5s ease;
+}
+
+
+@keyframes correctPop {
+
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.08);
+    }
+
+    70% {
+        transform: scale(0.98);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   WRONG OBJECT SHAKE
+========================================================= */
+
+.object-button.shake {
+    animation: shakeObject 0.4s ease;
+}
+
+
+@keyframes shakeObject {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-8px);
+    }
+
+    40% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-6px);
+    }
+
+    80% {
+        transform: translateX(6px);
+    }
+
+}
+
+
+/* =========================================================
+   COLOR SECTION
+========================================================= */
+
+.color-section {
+    width: 100%;
+
+    text-align: center;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   COLOR SECTION TITLE
+========================================================= */
+
+.color-section h3 {
+    margin-bottom: 10px;
+
+    color: #333;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   COLOR CHOICES
+========================================================= */
+
+.color-choices {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    padding: 0 5px;
+}
+
+
+/* =========================================================
+   COLOR CHOICE BUTTON
+========================================================= */
+
+.color-choice {
+    min-width: 94px;
+
+    height: 50px;
+
+    padding: 8px 18px;
+
+    border: 3px solid rgba(255, 255, 255, 0.9);
+
+    border-radius: 14px;
+
+    color: #ffffff;
+
+    font-family: 'Fredoka', sans-serif;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+
+/* =========================================================
+   COLOR CHOICE HOVER
+========================================================= */
+
+.color-choice:hover:not(:disabled) {
+    transform: translateY(-3px) scale(1.03);
+
+    filter: brightness(1.05);
+
+    box-shadow:
+        0 7px 12px rgba(0, 0, 0, 0.17);
+}
+
+
+/* =========================================================
+   COLOR CHOICE ACTIVE
+========================================================= */
+
+.color-choice:active:not(:disabled) {
+    transform: translateY(1px) scale(0.98);
+}
+
+
+/* =========================================================
+   SELECTED COLOR
+========================================================= */
+
+.color-choice.selected {
+    outline: 4px solid rgba(255, 193, 7, 0.35);
+
+    transform: translateY(-3px) scale(1.04);
+
+    box-shadow:
+        0 0 0 3px #ffc107,
+        0 7px 13px rgba(0, 0, 0, 0.18);
+}
+
+
+/* =========================================================
+   DISABLED COLOR
+========================================================= */
+
+.color-choice:disabled {
+    cursor: default;
+
+    opacity: 0.65;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+
+.feedback {
+    min-height: 34px;
+
+    margin: 10px auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   FEEDBACK STATES
+========================================================= */
+
+.feedback.correct {
+    color: #2e9b35;
+}
+
+
+.feedback.wrong {
+    color: #e53935;
+}
+
+
+.feedback.warning {
+    color: #ef8c00;
+}
+
+
+.feedback.instruction {
+    color: #1989df;
+}
+
+
+/* =========================================================
+   NEXT BUTTON
+========================================================= */
+
+.next-button {
+    display: block;
+
+    margin: 8px auto 0;
+
+    min-width: 135px;
+
+    padding: 12px 25px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #42a5f5;
+
+    color: #ffffff;
+
+    font-family: 'Fredoka', sans-serif;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 0 #1976d2,
+        0 7px 12px rgba(33, 150, 243, 0.18);
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease;
+}
+
+
+/* =========================================================
+   NEXT BUTTON HOVER
+========================================================= */
+
+.next-button:hover {
+    background: #2196f3;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   RESULT SCREEN
+========================================================= */
+
+.result-screen {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(39, 83, 105, 0.45);
+
+    backdrop-filter: blur(4px);
+}
+
+
+/* =========================================================
+   RESULT CARD
+========================================================= */
+
+.result-card {
+    width: 100%;
+
+    max-width: 420px;
+
+    padding: 32px 28px;
+
+    background: #ffffff;
+
+    border-radius: 28px;
+
+    border: 4px solid #ffd54f;
+
+    box-shadow:
+        0 10px 0 rgba(255, 193, 7, 0.18),
+        0 20px 45px rgba(0, 0, 0, 0.18);
+
+    text-align: center;
+
+    animation: resultAppear 0.35s ease;
+}
+
+
+@keyframes resultAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   RESULT ICON
+========================================================= */
+
+.result-icon {
+    font-size: 62px;
+
+    margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   RESULT TITLE
+========================================================= */
+
+.result-card h2 {
+    color: #252525;
+
+    font-size: 30px;
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================================================
+   RESULT DESCRIPTION
+========================================================= */
+
+.result-card > p {
+    color: #666;
+
+    font-size: 16px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   FINAL SCORE
+========================================================= */
+
+.final-score {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+    padding: 12px;
+
+    margin-bottom: 12px;
+
+    background: #f2faff;
+
+    border-radius: 16px;
+}
+
+
+.final-score span {
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+.final-score strong {
+    color: #1989df;
+
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   FINAL STARS
+========================================================= */
+
+.final-stars {
+    font-size: 29px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   PLAY AGAIN BUTTON
+========================================================= */
+
+.play-again-button {
+    width: 100%;
+
+    padding: 13px 20px;
+
+    margin-bottom: 10px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #66bb6a;
+
+    color: #ffffff;
+
+    font-family: 'Fredoka', sans-serif;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 0 #43a047;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease;
+}
+
+
+.play-again-button:hover {
+    background: #4caf50;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   BACK TO COLOR GAMES
+========================================================= */
+
+.back-games-button {
+    width: 100%;
+
+    display: block;
+
+    padding: 12px 20px;
+
+    background: #42a5f5;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    border-radius: 15px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 0 #1976d2;
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease;
+}
+
+
+.back-games-button:hover {
+    background: #2196f3;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .game-container {
+        padding: 15px 15px 40px;
+    }
+
+
+    .game-header {
+        padding-left: 90px;
+        padding-right: 20px;
+    }
+
+
+    .game-header h1 {
+        font-size: 32px;
+    }
+
+
+    .game-info {
+        gap: 10px;
+    }
+
+
+    .info-box {
+        min-height: 60px;
+    }
+
+
+    .question-section h2 {
+        font-size: 24px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .game-container {
+        padding: 10px 10px 35px;
+    }
+
+
+    .game-header {
+        min-height: 125px;
+
+        margin-bottom: 12px;
+
+        padding:
+            14px 12px 12px 78px;
+
+        border-radius: 20px;
+    }
+
+
+    .game-header h1 {
+        font-size: 28px;
+
+        white-space: normal;
+
+        line-height: 1.1;
+    }
+
+
+    .back-btn {
+        left: 12px;
+
+        width: 52px;
+        height: 52px;
+
+        font-size: 23px;
+    }
+
+
+    #playerName {
+        font-size: 14px;
+
+        padding: 6px 11px;
+    }
+
+
+    .game-info {
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+
+        margin-bottom: 10px;
+    }
+
+
+    .info-box {
+        min-height: 53px;
+    }
+
+
+    .progress-container {
+        height: 10px;
+
+        margin-bottom: 14px;
+    }
+
+
+    .question-section {
+        padding: 15px 12px 17px;
+
+        border-radius: 18px;
+    }
+
+
+    .question-section h2 {
+        font-size: 21px;
+    }
+
+
+    .question-section p {
+        font-size: 13px;
+    }
+
+
+    .object-area {
+        min-height: 195px;
+    }
+
+
+    .object-button {
+        width: 175px;
+        height: 175px;
+    }
+
+
+    .color-choices {
+        gap: 8px;
+    }
+
+
+    .color-choice {
+        min-width: 82px;
+
+        height: 46px;
+
+        padding: 7px 12px;
+
+        font-size: 14px;
+    }
+
+
+    .feedback {
+        font-size: 15px;
+    }
+
+
+    .result-card {
+        padding: 25px 20px;
+    }
+
+
+    .star-reward-card {
+        min-width: 160px;
+
+        padding: 18px 24px;
+    }
+
+
+    .reward-star {
+        font-size: 62px;
+    }
+
+
+    .reward-text {
+        font-size: 21px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .game-header {
+        padding-left: 70px;
+    }
+
+
+    .game-header h1 {
+        font-size: 24px;
+    }
+
+
+    .back-btn {
+        width: 48px;
+        height: 48px;
+
+        font-size: 20px;
+    }
+
+
+    #playerName {
+        font-size: 13px;
+    }
+
+
+    .object-button {
+        width: 160px;
+        height: 160px;
+    }
+
+
+    .color-choice {
+        min-width: 75px;
+
+        font-size: 13px;
+    }
+
+}
+
+/* ==========================================================
+   ⭐ STAR REWARD (Option G - Growing Star)
+   ==========================================================
+   Gumagamit ng "hidden" class - awtomatikong nagre-restart
+   ang animation kada pag-alis/pagdagdag nito, walang extra
+   JS trick na kailangan.
+========================================================== */
+
+.star-reward {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 999;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.star-reward.hidden {
+    display: none;
+}
+
+.star-reward .reward-star {
+    font-size: 20px;
+    opacity: 0;
+    animation: starRewardGrow 0.8s ease forwards;
+}
+
+@keyframes starRewardGrow {
+    0%   { opacity: 0; font-size: 20px; }
+    60%  { opacity: 1; font-size: 64px; filter: drop-shadow(0 0 16px rgba(255, 201, 60, 0.7)); }
+    100% { opacity: 1; font-size: 58px; filter: drop-shadow(0 0 10px rgba(255, 201, 60, 0.5)); }
+}
+
+.star-reward .reward-text {
+    margin-top: 4px;
+    font-weight: 700;
+    font-size: 22px;
+    color: #ef8c00;
+    text-shadow: 1px 2px 0 rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    white-space: nowrap;
+    animation: starRewardTextFade 0.5s ease 0.5s forwards;
+}
+
+@keyframes starRewardTextFade {
+    0%   { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ===== LOADING SCREEN ===== */
+
+#loadingScreen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #8bd3f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading-content { text-align: center; width: 380px; max-width: 85%; }
+
+.loading-bar-container {
+    width: 100%; height: 24px;
+    background: #11323f;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 3px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    margin-bottom: 12px;
+    border: 2px solid rgba(255,255,255,0.6);
+}
+
+.loading-bar-fill {
+    width: 0%; height: 100%;
+    background: linear-gradient(90deg, #ffe600, #ffb700);
+    border-radius: 12px;
+    transition: width 0.3s linear;
+}
+
+.loading-text {
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: -2px -2px 0 #1b3640, 2px -2px 0 #1b3640, -2px 2px 0 #1b3640, 2px 2px 0 #1b3640;
+}

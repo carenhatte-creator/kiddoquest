@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Shape Hunt</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../game-css/shape-hunt.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         INITIAL LOADING ONLY
+         SAME STYLE ACROSS ALL KINDERQUEST GAMES
+    ====================================================== -->
+
+    <div id="loadingScreen">
+
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill"
+                ></div>
+
+            </div>
+
+            <div class="loading-text">
+                Loading Shape Hunt...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         GAME
+    ====================================================== -->
+
+    <main
+        class="game-container"
+        id="gameScreen"
+    >
+
+        <header class="game-header">
+
+            <button
+                type="button"
+                class="back-btn"
+                id="backButton"
+            >
+                ← Back
+            </button>
+
+
+            <div class="title-area">
+
+                <h1>🔎 Shape Hunt</h1>
+
+                <div class="player-name">
+
+                    <span>Playing as:</span>
+
+                    <strong id="playingStudentName">
+                        Student
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-area">
+
+                <div class="status-box">
+
+                    <span>LEVEL</span>
+
+                    <strong id="level">
+                        1
+                    </strong>
+
+                </div>
+
+
+                <div class="status-box">
+
+                    <span>SCORE</span>
+
+                    <strong id="score">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="status-box lives-box">
+
+                    <span>HEARTS</span>
+
+                    <strong id="lives">
+                        ❤️❤️❤️
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="question-card">
+
+            <div class="question-small">
+
+                QUESTION
+
+                <span id="questionNumber">
+                    1
+                </span>
+
+                /
+
+                <span id="totalQuestions">
+                    9
+                </span>
+
+            </div>
+
+
+            <h2>
+                Find all the objects with this shape:
+            </h2>
+
+
+            <div class="target-area">
+
+                <div
+                    id="shapeIcon"
+                    class="target-circle"
+                ></div>
+
+                <strong id="shapeName">
+                    CIRCLE
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <section
+            class="playground"
+            id="playground"
+        >
+
+            <div class="cloud cloud-1"></div>
+
+            <div class="cloud cloud-2"></div>
+
+            <div class="sun"></div>
+
+
+            <div class="wall">
+
+                <div class="picture-frame">
+
+                    <span>★</span>
+
+                </div>
+
+
+                <div
+                    class="picture-frame second-frame"
+                >
+
+                    <span>●</span>
+
+                </div>
+
+
+                <div class="shelf">
+
+                    <span>📚</span>
+
+                    <span>🧸</span>
+
+                    <span>📦</span>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="objectArea"
+                class="object-area"
+            ></div>
+
+
+            <div class="floor">
+
+                <div class="rug"></div>
+
+                <div
+                    class="floor-line floor-line-1"
+                ></div>
+
+                <div
+                    class="floor-line floor-line-2"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEEDBACK -->
+
+        <div
+            id="feedback"
+            class="feedback"
+        >
+
+            <span id="feedbackIcon">
+                ⭐
+            </span>
+
+            <span id="feedbackText">
+                Great job!
+            </span>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         STAR ANIMATION
+    ====================================================== -->
+
+    <div
+        id="starAnimationLayer"
+        class="star-animation-layer"
+    ></div>
+
+
+    <!-- =====================================================
+         RESULT SCREEN
+    ====================================================== -->
+
+    <div
+        id="resultScreen"
+        class="result-screen"
+    >
+
+        <div class="result-card">
+
+            <div class="result-icon">
+                🏆
+            </div>
+
+
+            <h2>
+                Great Job!
+            </h2>
+
+
+            <p>
+                You completed Shape Hunt!
+            </p>
+
+
+            <div class="result-player">
+
+                Playing as:
+
+                <strong id="resultPlayer">
+                    Student
+                </strong>
+
+            </div>
+
+
+            <div class="final-score">
+
+                Score
+
+                <strong id="finalScore">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div
+                id="finalStars"
+                class="final-stars"
+            >
+                ☆☆☆
+            </div>
+
+
+            <p
+                id="resultMessage"
+                class="result-message"
+            >
+                Keep trying!
+            </p>
+
+
+            <div class="result-buttons">
+
+                <button
+                    type="button"
+                    id="playAgainButton"
+                    class="play-again-button"
+                >
+                    🔄 Play Again
+                </button>
+
+
+                <button
+                    type="button"
+                    id="resultBackButton"
+                    class="result-back-button"
+                >
+                    ← Back
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SOUND MANAGER
+    ====================================================== -->
+
+    <script src="../../js/soundManager.js"></script>
+
+
+    <!-- =====================================================
+         SHAPE HUNT
+    ====================================================== -->
+
+    <script src="../games-js/shape-hunt.js"></script>
+
+
+</body>
+
+</html>

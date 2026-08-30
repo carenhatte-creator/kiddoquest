@@ -1,0 +1,1113 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #dff5ff;
+    color: #333;
+    min-height: 100vh;
+}
+
+.game-page {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+
+/* =========================
+   INITIAL LOADING
+   SAME STYLE ACROSS ALL KINDERQUEST GAMES
+========================= */
+
+#loadingScreen {
+    position: fixed;
+    inset: 0;
+    background: #8bd3f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+#loadingScreen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content {
+    width: 380px;
+    max-width: 85%;
+    text-align: center;
+}
+
+.loading-bar-container {
+    width: 100%;
+    height: 24px;
+    background: #11323f;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 3px;
+    border: 2px solid rgba(255,255,255,.7);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.3);
+}
+
+.loading-bar-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(
+        90deg,
+        #ffe600,
+        #ffb700
+    );
+    transition: width .3s linear;
+}
+
+.loading-text {
+    margin-top: 12px;
+    color: white;
+    font-size: 23px;
+    font-weight: 900;
+    text-shadow:
+        -2px -2px 0 #1b3640,
+        2px -2px 0 #1b3640,
+        -2px 2px 0 #1b3640,
+        2px 2px 0 #1b3640;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.game-header {
+    height: 105px;
+    background: #fffaf0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 30px;
+
+    position: relative;
+    z-index: 20;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.back-btn {
+    text-decoration: none;
+
+    background: #ffffff;
+    border: 3px solid #e39a32;
+
+    color: #74431d;
+
+    padding: 12px 24px;
+
+    border-radius: 15px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    box-shadow: 0 4px 0 #b56d20;
+
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+}
+
+.title-area {
+    text-align: center;
+}
+
+.small-title {
+    font-size: 11px;
+    letter-spacing: 5px;
+
+    color: #9b682c;
+
+    font-weight: bold;
+}
+
+.title-area h1 {
+    font-size: 30px;
+
+    color: #75431e;
+
+    margin: 3px 0;
+}
+
+.title-area p {
+    font-size: 14px;
+    color: #777;
+}
+
+
+/* =========================
+   HEARTS
+========================= */
+
+.lives {
+    display: flex;
+    gap: 9px;
+    padding-right: 5px;
+}
+
+.heart {
+    width: 25px;
+    height: 25px;
+
+    position: relative;
+
+    transform: rotate(-45deg);
+
+    background: #e94b65;
+
+    display: inline-block;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+
+    background: #e94b65;
+}
+
+.heart::before {
+    top: -13px;
+    left: 0;
+}
+
+.heart::after {
+    left: 13px;
+    top: 0;
+}
+
+.heart:not(.active) {
+    background: #d5d5d5;
+}
+
+.heart:not(.active)::before,
+.heart:not(.active)::after {
+    background: #d5d5d5;
+}
+
+
+/* =========================
+   GAME STATS
+========================= */
+
+.player-bar {
+    width: calc(100% - 60px);
+
+    margin: 18px auto 10px;
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    padding: 14px 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 25px;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+}
+
+.game-stat {
+    min-width: 120px;
+
+    background: #f5f9ff;
+
+    padding: 9px 18px;
+
+    border-radius: 15px;
+
+    text-align: center;
+}
+
+.game-stat span {
+    display: block;
+
+    font-size: 12px;
+
+    color: #777;
+}
+
+.game-stat strong {
+    font-size: 20px;
+
+    color: #222;
+}
+
+.stars-stat {
+    border: 2px solid #ffd35a;
+
+    background: #fffaf0;
+}
+
+.star-icon {
+    display: inline !important;
+
+    color: #f2b500 !important;
+
+    font-size: 20px !important;
+}
+
+.player-stat {
+    border: 2px solid #4aa9ef;
+
+    background: #f0f9ff;
+}
+
+.player-stat strong {
+    color: #176ec7;
+
+    font-size: 18px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-container {
+    width: calc(100% - 60px);
+
+    height: 10px;
+
+    background: #cbe9f6;
+
+    border-radius: 20px;
+
+    margin: 10px auto 15px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+
+    width: 10%;
+
+    background: #4aa9ef;
+
+    border-radius: 20px;
+
+    transition: width 0.4s ease;
+}
+
+
+/* =========================
+   CLASSROOM
+========================= */
+
+.classroom {
+    position: relative;
+
+    width: calc(100% - 60px);
+
+    height: 600px;
+
+    margin: auto;
+
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #9ee6ed 0%,
+            #bfeef0 57%,
+            #a6d77a 57%,
+            #a6d77a 77%,
+            #83c567 77%,
+            #83c567 100%
+        );
+
+    box-shadow:
+        0 7px 20px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================
+   SUN
+========================= */
+
+.sun {
+    position: absolute;
+
+    width: 75px;
+    height: 75px;
+
+    background: #ffd96a;
+
+    border-radius: 50%;
+
+    right: 90px;
+    top: 40px;
+
+    box-shadow:
+        0 0 0 10px rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================
+   CLOUDS
+========================= */
+
+.cloud {
+    position: absolute;
+
+    width: 95px;
+    height: 30px;
+
+    background: #ffffff;
+
+    border-radius: 30px;
+
+    opacity: 0.8;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+
+    position: absolute;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 48px;
+    height: 48px;
+
+    left: 15px;
+    bottom: 8px;
+}
+
+.cloud::after {
+    width: 55px;
+    height: 55px;
+
+    left: 45px;
+    bottom: 5px;
+}
+
+.cloud-one {
+    left: 80px;
+    top: 55px;
+}
+
+.cloud-two {
+    right: 230px;
+    top: 105px;
+
+    transform: scale(0.75);
+}
+
+
+/* =========================
+   NUMBER BOARD
+========================= */
+
+.board-area {
+    position: absolute;
+
+    top: 55px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 390px;
+
+    z-index: 5;
+}
+
+.board {
+    width: 100%;
+
+    height: 225px;
+
+    background: #dba35b;
+
+    border: 9px solid #704124;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 0 #4e2d1b,
+        0 12px 15px rgba(0, 0, 0, 0.2);
+
+    text-align: center;
+
+    padding-top: 18px;
+}
+
+.board-label {
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.target-number {
+    width: 130px;
+    height: 130px;
+
+    margin: 12px auto 0;
+
+    background: #fff6dc;
+
+    border: 6px solid #8b5a2b;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 82px;
+
+    font-weight: bold;
+
+    color: #71431f;
+
+    text-shadow:
+        2px 3px 0 #e5c99c;
+}
+
+
+/* =========================
+   TEACHER
+   ONE TEACHER ONLY
+========================= */
+
+.teacher {
+    position: absolute;
+
+    /*
+       Mas malapit sa board
+    */
+    right: 18%;
+
+    /*
+       Nakatayo sa harap
+    */
+    bottom: 70px;
+
+    /*
+       MALAKING TEACHER
+    */
+    width: 380px;
+    height: 500px;
+
+    z-index: 15;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    pointer-events: none;
+}
+
+.teacher img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    object-position: center bottom;
+
+    visibility: visible;
+
+    opacity: 1;
+}
+
+
+/* =========================
+   FLOOR
+========================= */
+
+.floor {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    height: 140px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.08) 0,
+            rgba(255, 255, 255, 0.08) 2px,
+            transparent 2px,
+            transparent 80px
+        ),
+        #78b85f;
+
+    z-index: 2;
+}
+
+
+/* =========================
+   ANSWER AREA
+========================= */
+
+.answer-area {
+    position: absolute;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    bottom: 25px;
+
+    width: min(700px, 90%);
+
+    z-index: 30;
+
+    text-align: center;
+}
+
+.instruction {
+    display: inline-block;
+
+    background: #ffffff;
+
+    border: 4px solid #e1a34a;
+
+    border-radius: 18px;
+
+    padding: 12px 25px;
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    color: #67401f;
+
+    box-shadow:
+        0 5px 0 #b7782d;
+
+    margin-bottom: 15px;
+}
+
+.number-choices {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+}
+
+.number-choice {
+    width: 105px;
+    height: 90px;
+
+    border: 4px solid #318bd3;
+
+    border-radius: 18px;
+
+    background: #ffffff;
+
+    color: #1671bf;
+
+    font-size: 45px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 0 #2470ad;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.number-choice:hover {
+    transform: translateY(-7px);
+}
+
+.number-choice:active {
+    transform: translateY(3px);
+
+    box-shadow:
+        0 2px 0 #2470ad;
+}
+
+.number-choice.correct {
+    background: #bdecb8;
+
+    border-color: #55a94e;
+
+    color: #32772d;
+
+    box-shadow:
+        0 5px 0 #40863b;
+}
+
+.number-choice.wrong {
+    background: #ffd0d0;
+
+    border-color: #e35d5d;
+
+    color: #a93232;
+
+    box-shadow:
+        0 5px 0 #b73c3c;
+
+    animation: shake 0.35s ease;
+}
+
+
+/* =========================
+   SHAKE
+========================= */
+
+@keyframes shake {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-8px);
+    }
+
+    50% {
+        transform: translateX(8px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback {
+    position: fixed;
+
+    left: 50%;
+    top: 52%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0.8);
+
+    background: #ffffff;
+
+    padding: 18px 35px;
+
+    border-radius: 20px;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 50;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.2);
+
+    transition: 0.25s ease;
+}
+
+.feedback.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+}
+
+.feedback.correct-feedback {
+    color: #3b8e37;
+
+    border: 4px solid #78c873;
+}
+
+.feedback.wrong-feedback {
+    color: #c33d3d;
+
+    border: 4px solid #ed8585;
+}
+
+
+/* =========================
+   RESULT OVERLAY
+========================= */
+
+.game-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(39, 73, 89, 0.55);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 100;
+}
+
+.game-overlay.hidden {
+    display: none;
+}
+
+.result-card {
+    width: min(450px, 90%);
+
+    background: #ffffff;
+
+    border-radius: 28px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+.result-stars {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    color: #f2b500;
+
+    font-size: 35px;
+}
+
+.result-card h2 {
+    color: #70431f;
+
+    font-size: 32px;
+
+    margin: 12px 0;
+}
+
+.result-card p {
+    color: #666;
+
+    font-size: 17px;
+}
+
+.final-score {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 45px;
+
+    margin: 25px 0;
+}
+
+.final-score div span {
+    display: block;
+
+    color: #777;
+}
+
+.final-score strong {
+    display: block;
+
+    color: #176ec7;
+
+    font-size: 30px;
+
+    margin-top: 4px;
+}
+
+.result-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+.result-buttons button,
+.menu-btn {
+    border: none;
+
+    text-decoration: none;
+
+    padding: 13px 22px;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.result-buttons button {
+    background: #4eaa68;
+
+    color: #ffffff;
+}
+
+.menu-btn {
+    background: #4ba0e8;
+
+    color: #ffffff;
+}
+
+
+/* =========================
+   LARGE TABLET
+========================= */
+
+@media (max-width: 1100px) {
+
+    .teacher {
+        right: 10%;
+
+        width: 330px;
+        height: 440px;
+
+        bottom: 75px;
+    }
+
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 800px) {
+
+    .game-header {
+        height: auto;
+
+        gap: 12px;
+
+        padding: 12px;
+    }
+
+    .back-btn {
+        padding: 9px 13px;
+
+        font-size: 14px;
+    }
+
+    .title-area h1 {
+        font-size: 22px;
+    }
+
+    .title-area p {
+        display: none;
+    }
+
+    .heart,
+    .heart::before,
+    .heart::after {
+        width: 18px;
+        height: 18px;
+    }
+
+    .heart::before {
+        top: -9px;
+    }
+
+    .heart::after {
+        left: 9px;
+    }
+
+    .player-bar {
+        width: calc(100% - 20px);
+
+        gap: 8px;
+
+        padding: 10px;
+    }
+
+    .game-stat {
+        min-width: 85px;
+
+        padding: 7px;
+    }
+
+    .player-stat strong {
+        font-size: 15px;
+    }
+
+    .classroom {
+        width: calc(100% - 20px);
+
+        height: 570px;
+    }
+
+    .board-area {
+        width: 300px;
+
+        top: 45px;
+    }
+
+    .board {
+        height: 190px;
+    }
+
+    .target-number {
+        width: 105px;
+        height: 105px;
+
+        font-size: 65px;
+    }
+
+
+    /* BIG TEACHER ON TABLET */
+
+    .teacher {
+        right: 3%;
+
+        bottom: 115px;
+
+        width: 210px;
+        height: 285px;
+    }
+
+
+    .number-choice {
+        width: 80px;
+        height: 70px;
+
+        font-size: 35px;
+    }
+
+    .instruction {
+        font-size: 15px;
+
+        padding: 10px 15px;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 500px) {
+
+    .title-area h1 {
+        font-size: 18px;
+    }
+
+    .small-title {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+    }
+
+    .game-stat {
+        min-width: 75px;
+    }
+
+    .game-stat span {
+        font-size: 10px;
+    }
+
+    .game-stat strong {
+        font-size: 16px;
+    }
+
+    .player-stat strong {
+        font-size: 13px;
+    }
+
+    .board-area {
+        width: 250px;
+    }
+
+
+    /* TEACHER MOBILE */
+
+    .teacher {
+        width: 135px;
+        height: 185px;
+
+        right: 1%;
+
+        bottom: 125px;
+    }
+
+
+    .number-choice {
+        width: 65px;
+        height: 60px;
+
+        font-size: 30px;
+    }
+
+}

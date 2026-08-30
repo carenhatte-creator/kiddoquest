@@ -1,0 +1,1139 @@
+/* ==========================================================
+   KinderQuest - SHAPE HUNT
+   FULL CSS
+   LOADING + GAME + RESULT
+========================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Fredoka", sans-serif;
+    min-height: 100vh;
+    background: #dff4ff;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* ==========================================================
+   INITIAL LOADING
+   SAME STYLE ACROSS ALL KINDERQUEST GAMES
+========================================================== */
+
+#loadingScreen {
+    position: fixed;
+    inset: 0;
+    background: #8bd3f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+#loadingScreen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content {
+    width: 380px;
+    max-width: 85%;
+    text-align: center;
+}
+
+.loading-bar-container {
+    width: 100%;
+    height: 24px;
+    background: #11323f;
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 3px;
+    border: 2px solid rgba(255,255,255,.7);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.3);
+}
+
+.loading-bar-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(
+        90deg,
+        #ffe600,
+        #ffb700
+    );
+    transition: width .3s linear;
+}
+
+.loading-text {
+    margin-top: 12px;
+    color: white;
+    font-size: 23px;
+    font-weight: 900;
+    text-shadow:
+        -2px -2px 0 #1b3640,
+        2px -2px 0 #1b3640,
+        -2px 2px 0 #1b3640,
+        2px 2px 0 #1b3640;
+}
+
+
+/* ==========================================================
+   GAME
+========================================================== */
+
+.game-container {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 18px;
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.game-header {
+    width: 100%;
+    min-height: 82px;
+
+    display: grid;
+
+    grid-template-columns:
+        180px
+        1fr
+        auto;
+
+    align-items: center;
+
+    gap: 18px;
+
+    background: #ffffff;
+
+    border: 3px solid #d7e7ef;
+
+    border-radius: 22px;
+
+    padding: 12px 18px;
+
+    box-shadow:
+        0 5px 0 #c5dbe5;
+}
+
+.back-btn {
+    border: 0;
+
+    border-radius: 14px;
+
+    padding: 13px 20px;
+
+    background: #5b9ded;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 0 #397bc8;
+
+    transition:
+        transform .15s ease;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+}
+
+.back-btn:active {
+    transform: translateY(2px);
+
+    box-shadow:
+        0 2px 0 #397bc8;
+}
+
+.title-area {
+    text-align: center;
+}
+
+.title-area h1 {
+    font-size: 29px;
+    color: #31536b;
+}
+
+.player-name {
+    margin-top: 3px;
+
+    color: #718795;
+
+    font-size: 14px;
+}
+
+.player-name strong {
+    color: #31536b;
+}
+
+.status-area {
+    display: flex;
+    gap: 8px;
+}
+
+.status-box {
+    min-width: 75px;
+
+    text-align: center;
+
+    padding: 8px 10px;
+
+    background: #f3f9fc;
+
+    border-radius: 13px;
+
+    border: 2px solid #dcecf2;
+}
+
+.status-box span {
+    display: block;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    color: #7d929d;
+}
+
+.status-box strong {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 20px;
+
+    color: #31536b;
+}
+
+.lives-box strong {
+    font-size: 16px;
+}
+
+
+/* ==========================================================
+   QUESTION
+========================================================== */
+
+.question-card {
+    width: min(850px, 100%);
+
+    margin: 16px auto;
+
+    text-align: center;
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 15px 20px;
+
+    border: 3px solid #d7e7ef;
+
+    box-shadow:
+        0 4px 0 #c5dbe5;
+}
+
+.question-small {
+    color: #8298a4;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.question-card h2 {
+    margin-top: 4px;
+
+    color: #31536b;
+
+    font-size: 21px;
+}
+
+.target-area {
+    margin-top: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.target-area strong {
+    color: #31536b;
+
+    font-size: 20px;
+}
+
+
+/* ==========================================================
+   TARGET SHAPES
+========================================================== */
+
+#shapeIcon {
+    width: 38px;
+    height: 38px;
+
+    border: 5px solid #5b9ded;
+
+    background: #e9f5ff;
+}
+
+.target-circle {
+    border-radius: 50%;
+}
+
+.target-square {
+    border-radius: 5px;
+}
+
+.target-rectangle {
+    width: 52px !important;
+
+    border-radius: 5px;
+}
+
+.target-triangle {
+    width: 0 !important;
+    height: 0 !important;
+
+    background: transparent !important;
+
+    border-left: 21px solid transparent !important;
+    border-right: 21px solid transparent !important;
+
+    border-bottom: 40px solid #5b9ded !important;
+
+    border-top: 0 !important;
+}
+
+
+/* ==========================================================
+   PLAYGROUND
+========================================================== */
+
+.playground {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 1250px;
+
+    height: 520px;
+
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    border: 4px solid #c8e1ec;
+
+    background:
+        linear-gradient(
+            #c9efff 0%,
+            #e9f9ff 55%,
+            #d8efbd 55%,
+            #d8efbd 100%
+        );
+
+    box-shadow:
+        0 7px 0 #bad3dc;
+}
+
+
+/* ==========================================================
+   CLOUDS
+========================================================== */
+
+.cloud {
+    position: absolute;
+
+    width: 90px;
+    height: 32px;
+
+    background: white;
+
+    border-radius: 30px;
+
+    opacity: .9;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+
+    position: absolute;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 38px;
+    height: 38px;
+
+    left: 17px;
+    top: -18px;
+}
+
+.cloud::after {
+    width: 45px;
+    height: 45px;
+
+    right: 10px;
+    top: -25px;
+}
+
+.cloud-1 {
+    top: 30px;
+    left: 90px;
+}
+
+.cloud-2 {
+    top: 70px;
+    right: 130px;
+
+    transform: scale(.75);
+}
+
+
+/* ==========================================================
+   SUN
+========================================================== */
+
+.sun {
+    position: absolute;
+
+    width: 70px;
+    height: 70px;
+
+    top: 28px;
+    right: 35px;
+
+    border-radius: 50%;
+
+    background: #ffd75a;
+
+    border: 5px solid #f0bd3e;
+}
+
+
+/* ==========================================================
+   WALL
+========================================================== */
+
+.wall {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 105px;
+
+    height: 155px;
+
+    background: #f7e9cf;
+
+    border-top: 4px solid #dfc9a6;
+
+    border-bottom: 4px solid #d9c19c;
+}
+
+
+/* ==========================================================
+   PICTURE FRAMES
+========================================================== */
+
+.picture-frame {
+    position: absolute;
+
+    left: 7%;
+    top: 25px;
+
+    width: 80px;
+    height: 70px;
+
+    background: white;
+
+    border: 8px solid #d7a85b;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #f4c64d;
+
+    font-size: 30px;
+}
+
+.second-frame {
+    left: 18%;
+
+    border-color: #76b6d8;
+
+    color: #76b6d8;
+}
+
+
+/* ==========================================================
+   SHELF
+========================================================== */
+
+.shelf {
+    position: absolute;
+
+    right: 8%;
+    bottom: 20px;
+
+    width: 190px;
+    height: 65px;
+
+    background: #d6a76a;
+
+    border-radius: 8px;
+
+    border-bottom: 8px solid #b98548;
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    font-size: 28px;
+}
+
+
+/* ==========================================================
+   OBJECT AREA
+========================================================== */
+
+.object-area {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 245px;
+    bottom: 0;
+
+    z-index: 5;
+}
+
+
+/* ==========================================================
+   OBJECT BUTTON
+========================================================== */
+
+.hunt-object {
+    position: absolute;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 82px;
+    height: 82px;
+
+    padding: 6px;
+
+    border: 0;
+
+    background: white;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 4px 0 #b8ccd5;
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease,
+        opacity .2s ease;
+}
+
+.hunt-object:hover {
+    transform:
+        translate(-50%, -50%)
+        scale(1.08);
+
+    box-shadow:
+        0 6px 0 #a5bbc5;
+}
+
+.hunt-object:active {
+    transform:
+        translate(-50%, -50%)
+        scale(.96);
+}
+
+.hunt-object img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+
+    user-select: none;
+}
+
+
+/* ==========================================================
+   FOUND
+========================================================== */
+
+.hunt-object.found {
+    pointer-events: none;
+
+    opacity: .35;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.82);
+
+    box-shadow:
+        0 0 0 4px #73cf8a;
+}
+
+.hunt-object.found::after {
+    content: "✓";
+
+    position: absolute;
+
+    right: -8px;
+    top: -10px;
+
+    width: 29px;
+    height: 29px;
+
+    border-radius: 50%;
+
+    background: #55c875;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   WRONG
+========================================================== */
+
+.hunt-object.wrong {
+    animation:
+        wrongShake .35s ease;
+
+    box-shadow:
+        0 0 0 4px #ee7777;
+}
+
+@keyframes wrongShake {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            translateX(0);
+    }
+
+    25% {
+        transform:
+            translate(-50%, -50%)
+            translateX(-8px);
+    }
+
+    50% {
+        transform:
+            translate(-50%, -50%)
+            translateX(8px);
+    }
+
+    75% {
+        transform:
+            translate(-50%, -50%)
+            translateX(-5px);
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            translateX(0);
+    }
+}
+
+
+/* ==========================================================
+   FLOOR
+========================================================== */
+
+.floor {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    height: 115px;
+
+    background: #d8efbd;
+
+    z-index: 1;
+}
+
+.rug {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 20px;
+
+    transform:
+        translateX(-50%);
+
+    width: 280px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background: #b9dba3;
+
+    border: 5px solid #a3cb8a;
+}
+
+.floor-line {
+    position: absolute;
+
+    height: 3px;
+
+    background: #c1dda9;
+
+    opacity: .7;
+}
+
+.floor-line-1 {
+    width: 120px;
+
+    left: 8%;
+
+    bottom: 35px;
+}
+
+.floor-line-2 {
+    width: 150px;
+
+    right: 7%;
+
+    bottom: 60px;
+}
+
+
+/* ==========================================================
+   FEEDBACK
+========================================================== */
+
+.feedback {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 22px;
+
+    transform:
+        translate(-50%, 120px);
+
+    z-index: 100;
+
+    background: white;
+
+    border: 3px solid #dcecf2;
+
+    border-radius: 18px;
+
+    padding: 12px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: #31536b;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 5px 0 #c6dce4;
+
+    opacity: 0;
+
+    transition:
+        transform .25s ease,
+        opacity .25s ease;
+}
+
+.feedback.show {
+    transform:
+        translate(-50%, 0);
+
+    opacity: 1;
+}
+
+#feedbackIcon {
+    font-size: 25px;
+}
+
+
+/* ==========================================================
+   STAR ANIMATION
+========================================================== */
+
+.star-animation-layer {
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 300;
+
+    overflow: hidden;
+}
+
+.flying-star {
+    position: fixed;
+
+    font-size: 38px;
+
+    pointer-events: none;
+
+    animation:
+        starFly .85s ease-out forwards;
+}
+
+@keyframes starFly {
+
+    0% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(.5)
+            rotate(0deg);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -100px)
+            scale(1.25)
+            rotate(160deg);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -180px)
+            scale(.7)
+            rotate(320deg);
+    }
+}
+
+
+/* ==========================================================
+   RESULT
+========================================================== */
+
+.result-screen {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(35, 67, 82, .45);
+}
+
+.result-card {
+    width: min(470px, 100%);
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    border: 4px solid #d8e9ef;
+
+    box-shadow:
+        0 8px 0 #bfd5dd;
+
+    animation:
+        resultPop .35s ease;
+}
+
+@keyframes resultPop {
+
+    from {
+        transform: scale(.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.result-icon {
+    font-size: 55px;
+}
+
+.result-card h2 {
+    margin-top: 5px;
+
+    color: #31536b;
+
+    font-size: 30px;
+}
+
+.result-card p {
+    color: #738792;
+
+    margin-top: 5px;
+}
+
+.result-player {
+    margin-top: 18px;
+
+    color: #7b8e98;
+}
+
+.result-player strong {
+    color: #31536b;
+}
+
+.final-score {
+    margin-top: 18px;
+
+    color: #7b8e98;
+}
+
+.final-score strong {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #31536b;
+
+    font-size: 35px;
+}
+
+.final-stars {
+    margin-top: 10px;
+
+    font-size: 38px;
+
+    letter-spacing: 4px;
+
+    animation:
+        starsBounce .8s ease;
+}
+
+@keyframes starsBounce {
+
+    0% {
+        transform: scale(.5);
+    }
+
+    70% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.result-message {
+    font-size: 17px;
+
+    font-weight: 600;
+
+    color: #5b7380 !important;
+}
+
+.result-buttons {
+    margin-top: 22px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.play-again-button,
+.result-back-button {
+    border: 0;
+
+    border-radius: 13px;
+
+    padding: 12px 18px;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .15s ease;
+}
+
+.play-again-button {
+    background: #63c77b;
+
+    color: white;
+
+    box-shadow:
+        0 4px 0 #42a85c;
+}
+
+.result-back-button {
+    background: #5b9ded;
+
+    color: white;
+
+    box-shadow:
+        0 4px 0 #397bc8;
+}
+
+.play-again-button:hover,
+.result-back-button:hover {
+    transform:
+        translateY(-2px);
+}
+
+.play-again-button:active,
+.result-back-button:active {
+    transform:
+        translateY(2px);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 900px) {
+
+    .game-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .status-area {
+        justify-content: center;
+    }
+
+    .playground {
+        height: 500px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .game-container {
+        padding: 8px;
+    }
+
+    .game-header {
+        padding: 10px;
+    }
+
+    .title-area h1 {
+        font-size: 23px;
+    }
+
+    .status-box {
+        min-width: 65px;
+    }
+
+    .question-card h2 {
+        font-size: 17px;
+    }
+
+    .playground {
+        height: 570px;
+    }
+
+    .hunt-object {
+        width: 65px;
+        height: 65px;
+    }
+
+    .result-buttons {
+        flex-direction: column;
+    }
+
+    .play-again-button,
+    .result-back-button {
+        width: 100%;
+    }
+
+}

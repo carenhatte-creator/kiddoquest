@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest | Color Sort</title>
+
+    <link
+        rel="stylesheet"
+        href="../game-css/color-sort.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-bar-container">
+                <div id="loadingBarFill" class="loading-bar-fill"></div>
+            </div>
+            <div class="loading-text">Loading...</div>
+        </div>
+    </div>
+
+
+    <main class="game-page">
+
+        <!-- =====================================
+             HEADER
+        ====================================== -->
+
+        <header class="game-header">
+
+            <a
+                href="../colors.html"
+                class="back-btn"
+            >
+                ← Back
+            </a>
+
+
+            <div class="title-area">
+
+                <div class="small-title">
+                    KINDERQUEST
+                </div>
+
+                <h1>
+                    🎨 Color Sort
+                </h1>
+
+                <p>
+                    Sort the objects into the correct color box!
+                </p>
+
+            </div>
+
+
+            <div class="lives" id="lives">
+
+                <span class="heart active"></span>
+                <span class="heart active"></span>
+                <span class="heart active"></span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             GAME STATS
+        ====================================== -->
+
+        <section class="player-bar">
+
+
+            <!-- PLAYER -->
+
+            <div class="game-stat player-stat">
+
+                <span>
+                    PLAYER
+                </span>
+
+                <strong id="playingStudentName">
+                    Student
+                </strong>
+
+            </div>
+
+
+            <!-- SCORE -->
+
+            <div class="game-stat">
+
+                <span>
+                    SCORE
+                </span>
+
+                <strong id="score">
+                    0
+                </strong>
+
+            </div>
+
+
+            <!-- STARS -->
+
+            <div class="game-stat stars-stat">
+
+                <span>
+                    STARS
+                </span>
+
+                <strong>
+
+                    <span
+                        class="star-icon"
+                        id="stars"
+                    >
+                        0
+                    </span>
+
+                    ⭐
+
+                </strong>
+
+            </div>
+
+
+            <!-- OBJECTS -->
+
+            <div class="game-stat">
+
+                <span>
+                    OBJECTS
+                </span>
+
+                <strong>
+
+                    <span id="sortedCount">
+                        0
+                    </span>
+
+                    / 15
+
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PROGRESS
+        ====================================== -->
+
+        <div class="progress-container">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+
+        <!-- =====================================
+             CLASSROOM / GAME AREA
+        ====================================== -->
+
+        <section class="classroom">
+
+
+            <!-- SUN -->
+
+            <div class="sun"></div>
+
+
+            <!-- CLOUDS -->
+
+            <div class="cloud cloud-one"></div>
+
+            <div class="cloud cloud-two"></div>
+
+
+            <!-- INSTRUCTION -->
+
+            <div class="instruction">
+
+                🎨 Drag each object to the matching color box!
+
+            </div>
+
+
+            <!-- =================================
+                 OBJECT AREA
+            ================================== -->
+
+            <div
+                class="object-area"
+                id="objectContainer"
+            >
+            </div>
+
+
+            <!-- =================================
+                 COLOR BOXES
+            ================================== -->
+
+            <div class="color-box-area">
+
+
+                <div
+                    class="color-box red-box"
+                    data-color="red"
+                >
+
+                    <h2>
+                        RED
+                    </h2>
+
+                    <div class="box-content"></div>
+
+                </div>
+
+
+                <div
+                    class="color-box yellow-box"
+                    data-color="yellow"
+                >
+
+                    <h2>
+                        YELLOW
+                    </h2>
+
+                    <div class="box-content"></div>
+
+                </div>
+
+
+                <div
+                    class="color-box green-box"
+                    data-color="green"
+                >
+
+                    <h2>
+                        GREEN
+                    </h2>
+
+                    <div class="box-content"></div>
+
+                </div>
+
+
+                <div
+                    class="color-box blue-box"
+                    data-color="blue"
+                >
+
+                    <h2>
+                        BLUE
+                    </h2>
+
+                    <div class="box-content"></div>
+
+                </div>
+
+
+                <div
+                    class="color-box orange-box"
+                    data-color="orange"
+                >
+
+                    <h2>
+                        ORANGE
+                    </h2>
+
+                    <div class="box-content"></div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- FLOOR -->
+
+            <div class="floor"></div>
+
+        </section>
+
+
+        <!-- =====================================
+             FEEDBACK
+        ====================================== -->
+
+        <div
+            class="feedback"
+            id="feedback"
+        ></div>
+
+
+        <!-- =====================================
+             RESULT OVERLAY
+        ====================================== -->
+
+        <div
+            class="game-overlay hidden"
+            id="gameOverlay"
+        >
+
+            <div class="result-card">
+
+                <div class="result-stars">
+                    ⭐ ⭐ ⭐
+                </div>
+
+                <h2>
+                    Great Job! 🎉
+                </h2>
+
+                <p>
+                    You finished Color Sort!
+                </p>
+
+
+                <div class="final-score">
+
+
+                    <div>
+
+                        <span>
+                            Score
+                        </span>
+
+                        <strong id="finalScore">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Stars
+                        </span>
+
+                        <strong id="finalStars">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="result-buttons">
+
+                    <button
+                        type="button"
+                        onclick="restartGame()"
+                    >
+                        🔄 Play Again
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="menu-btn"
+                        onclick="backToColors()"
+                    >
+                        🎨 Color Games
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =====================================
+         ⭐ SHARED SOUND MANAGER
+         MUST LOAD BEFORE COLOR SORT JS
+    ====================================== -->
+
+    <script src="../../js/soundManager.js"></script>
+
+    <script src="../games-js/color-sort.js"></script>
+
+
+    <!-- ⭐ STAR REWARD -->
+
+    <div
+        id="starReward"
+        class="star-reward hidden"
+    >
+
+        <div class="reward-star">⭐</div>
+
+        <div class="reward-text">
+            🎉 Great Job!
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Simple Addition | KinderQuest</title>
+
+    <link
+        rel="stylesheet"
+        href="../game-css/number-addition.css"
+    >
+</head>
+
+<body>
+
+<!-- ==========================================
+     INITIAL LOADING
+========================================== -->
+
+<div id="loadingScreen">
+
+    <div class="loading-content">
+
+        <div class="loading-bar-container">
+
+            <div
+                id="loadingBarFill"
+                class="loading-bar-fill"
+            ></div>
+
+        </div>
+
+        <div class="loading-text">
+            Loading Simple Addition...
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="game-container">
+
+    <!-- ==========================================
+         HEADER
+    ========================================== -->
+
+    <header class="game-header">
+
+        <div class="header-left">
+
+            <a
+                href="../numbers.html"
+                class="back-btn"
+                id="backBtn"
+            >
+
+                <span>⬅</span>
+                <span>Back</span>
+
+            </a>
+
+            <h1>➕ Simple Addition</h1>
+
+        </div>
+
+
+        <div
+            class="playing-as"
+            id="playingAs"
+        >
+
+            🧒 Playing as:
+
+            <strong id="playingStudentName">
+                —
+            </strong>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==========================================
+         NO STUDENT SELECTED
+    ========================================== -->
+
+    <div
+        class="no-student-overlay"
+        id="noStudentOverlay"
+    >
+
+        <div class="no-student-card">
+
+            <div class="no-student-icon">
+                🧒
+            </div>
+
+            <h2>
+                Please select a student first!
+            </h2>
+
+            <p>
+                Please choose a student from the
+                Students page before playing.
+            </p>
+
+            <a
+                href="../../students.html"
+                id="goStudentsBtn"
+            >
+
+                <button type="button">
+                    👦 Go to Students
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SCORE BOARD
+    ========================================== -->
+
+    <div class="score-board">
+
+        <div class="score-card lives-card">
+
+            <div class="score-icon">
+                ❤️
+            </div>
+
+            <span id="lives">
+                ❤️❤️❤️
+            </span>
+
+            <p>Lives</p>
+
+        </div>
+
+
+        <div class="score-card score-main-card">
+
+            <div class="score-icon">
+                ⭐
+            </div>
+
+            <span id="score">
+                0
+            </span>
+
+            <p>Score</p>
+
+        </div>
+
+
+        <div class="score-card">
+
+            <div class="score-icon">
+                📖
+            </div>
+
+            <span id="questionNumber">
+                1 / 10
+            </span>
+
+            <p>Question</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         PROGRESS
+    ========================================== -->
+
+    <div class="progress-wrapper">
+
+        <div class="progress-label">
+
+            <span>
+                Progress
+            </span>
+
+            <span id="progressText">
+                0 / 10
+            </span>
+
+        </div>
+
+
+        <div class="progress-box">
+
+            <div
+                class="progress-fill"
+                id="progressFill"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         QUESTION
+    ========================================== -->
+
+    <section class="question-box">
+
+        <div class="question-badge">
+            🧮 COUNT AND ADD
+        </div>
+
+        <p class="question-title">
+            How many altogether?
+        </p>
+
+        <p class="question-help">
+            Count the pictures and choose the correct answer.
+        </p>
+
+
+        <div
+            class="equation-row"
+            id="equationRow"
+        >
+
+            <div class="object-card">
+
+                <div
+                    class="object-group"
+                    id="groupA"
+                ></div>
+
+            </div>
+
+
+            <div class="equation-symbol">
+                +
+            </div>
+
+
+            <div class="object-card">
+
+                <div
+                    class="object-group"
+                    id="groupB"
+                ></div>
+
+            </div>
+
+
+            <div class="equation-symbol">
+                =
+            </div>
+
+
+            <div class="equation-question">
+                ?
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         ANSWER AREA
+    ========================================== -->
+
+    <section class="answer-section">
+
+        <h2>
+            Choose the answer
+        </h2>
+
+
+        <div
+            class="choices"
+            id="choices"
+        >
+
+            <button
+                class="choice-btn choice-one"
+                id="choice1"
+                type="button"
+            ></button>
+
+
+            <button
+                class="choice-btn choice-two"
+                id="choice2"
+                type="button"
+            ></button>
+
+
+            <button
+                class="choice-btn choice-three"
+                id="choice3"
+                type="button"
+            ></button>
+
+
+            <button
+                class="choice-btn choice-four"
+                id="choice4"
+                type="button"
+            ></button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         RESULT
+    ========================================== -->
+
+    <div
+        class="result"
+        id="result"
+    ></div>
+
+
+    <!-- ==========================================
+         NEXT BUTTON
+    ========================================== -->
+
+    <button
+        class="next-btn"
+        id="nextBtn"
+        type="button"
+    >
+
+        Next →
+
+    </button>
+
+</div>
+
+
+<!-- ==========================================
+     FINISH SCREEN
+========================================== -->
+
+<div
+    class="finish-screen"
+    id="finishScreen"
+>
+
+    <div class="finish-card">
+
+        <div
+            class="finish-icon"
+            id="finishEmoji"
+        >
+            🎉
+        </div>
+
+
+        <h2 id="finishTitle">
+            Congratulations!
+        </h2>
+
+
+        <p
+            class="finish-message"
+            id="finishMessage"
+        >
+            You completed the game!
+        </p>
+
+
+        <p class="final-score-label">
+            Final Score
+        </p>
+
+
+        <div
+            class="final-score"
+            id="finalScore"
+        >
+            0
+        </div>
+
+
+        <div class="final-stars-title">
+            ⭐ Stars Earned ⭐
+        </div>
+
+
+        <div
+            class="final-stars"
+            id="finalStars"
+        >
+            —
+        </div>
+
+
+        <div class="finish-buttons">
+
+            <button
+                type="button"
+                id="playAgainBtn"
+                class="play-again-btn"
+            >
+                🔄 Play Again
+            </button>
+
+
+            <a
+                href="../numbers.html"
+                id="finishBackBtn"
+            >
+
+                <button
+                    type="button"
+                    class="back-home-btn"
+                >
+                    🏠 Back
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="../../js/soundManager.js"></script>
+
+<script src="../games-js/number-addition.js"></script>
+
+</body>
+
+</html>

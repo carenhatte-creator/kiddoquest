@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Number Games</title>
+
+    <link
+        rel="stylesheet"
+        href="game-css/game.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="game-header">
+
+        <a
+            href="../minigames.html"
+            class="back-btn"
+        >
+            ← Back
+        </a>
+
+        <h1>
+            🔢 Number Games
+        </h1>
+
+    </header>
+
+
+    <!-- GAME LIST -->
+
+    <div class="game-list">
+
+
+        <!-- COUNTING GAME -->
+
+        <div class="activity-card">
+
+            <div class="icon">
+                🔢
+            </div>
+
+            <h2>
+                Counting Game
+            </h2>
+
+            <p>
+                Count the objects and choose the correct number.
+            </p>
+
+            <button
+                type="button"
+                onclick="startGame('counting-game')"
+            >
+                ▶ Play
+            </button>
+
+        </div>
+
+
+        <!-- SIMPLE ADDITION -->
+
+        <div class="activity-card">
+
+            <div class="icon">
+                ➕
+            </div>
+
+            <h2>
+                Simple Addition
+            </h2>
+
+            <p>
+                Solve simple addition problems.
+            </p>
+
+            <button
+                type="button"
+                onclick="startGame('addition')"
+            >
+                ▶ Play
+            </button>
+
+        </div>
+
+
+        <!-- NUMBER SEQUENCE -->
+
+        <div class="activity-card">
+
+            <div class="icon">
+                🔢
+            </div>
+
+            <h2>
+                Number Sequence
+            </h2>
+
+            <p>
+                Find the missing number in the sequence.
+            </p>
+
+            <button
+                type="button"
+                onclick="startGame('sequence')"
+            >
+                ▶ Play
+            </button>
+
+        </div>
+
+
+        <!-- PAIRING NUMBER -->
+
+        <div class="activity-card">
+
+            <div class="icon">
+                🔢
+            </div>
+
+            <h2>
+                Pairing Number
+            </h2>
+
+            <p>
+                Find the number that matches the number on the board.
+            </p>
+
+            <button
+                type="button"
+                onclick="startGame('pairing')"
+            >
+                ▶ Play
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+    <script src="games-js/numbers.js"></script>
+
+</body>
+
+</html>

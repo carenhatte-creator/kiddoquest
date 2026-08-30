@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KiddoQuest Progress</title>
+
+
+    <!-- FONT AWESOME -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- PROGRESS CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/progress.css"
+    >
+
+
+    <!-- SHARED SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/sidebar.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard-container">
+
+
+    <!-- ==========================================
+         SIDEBAR
+    =========================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="brand">
+
+            <img
+                src="image/logo.png"
+                alt="KiddoQuest Logo"
+            >
+
+        </div>
+
+
+        <!-- TEACHER -->
+
+        <div class="teacher">
+
+            <div class="teacher-avatar-wrap">
+
+                <div
+                    id="sidebarAvatar"
+                    class="sidebar-avatar"
+                >
+                    T
+                </div>
+
+
+                <img
+                    id="sidebarAvatarImg"
+                    class="sidebar-avatar-img"
+                    alt="Teacher"
+                    hidden
+                >
+
+            </div>
+
+
+            <span id="teacherName">
+                Teacher
+            </span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav>
+
+
+            <a href="dashboard.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="students.html">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Students
+                </span>
+
+            </a>
+
+
+            <a href="minigames.html">
+
+                <i class="fa-solid fa-gamepad"></i>
+
+                <span>
+                    Mini Games
+                </span>
+
+            </a>
+
+
+            <a
+                href="progress.html"
+                class="active"
+            >
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+                <span>
+                    Progress
+                </span>
+
+            </a>
+
+
+            <a href="reports.html">
+
+                <i class="fa-regular fa-file-lines"></i>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+
+            <a href="settings.html">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+            <a
+                href="#"
+                id="logout"
+            >
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+    </aside>
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    =========================================== -->
+
+    <main class="content">
+
+
+        <!-- ==========================================
+             PAGE HEADER
+        =========================================== -->
+
+        <div class="page-header">
+
+            <h1>
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+                Student Learning Progress
+
+            </h1>
+
+
+            <p>
+
+                Monitor your students' learning performance and activity progress.
+
+            </p>
+
+        </div>
+
+
+        <!-- ==========================================
+             SEARCH
+        =========================================== -->
+
+        <div class="search-container">
+
+            <div class="search-box">
+
+                <i
+                    class="fa-solid fa-magnifying-glass"
+                ></i>
+
+
+                <input
+                    type="text"
+                    id="searchStudent"
+                    placeholder="Search student or activity..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             TABLE
+        ========================================== -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Student Name
+                        </th>
+
+
+                        <th>
+                            Category
+                        </th>
+
+
+                        <th>
+                            Activity
+                        </th>
+
+
+                        <th>
+                            Score
+                        </th>
+
+
+                        <th>
+                            Status
+                        </th>
+
+
+                        <th>
+
+                            <i
+                                class="fa-solid fa-star"
+                            ></i>
+
+                            Stars
+
+                        </th>
+
+
+                        <th>
+                            Last Played
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="progressTable">
+
+                    <!--
+                        Progress records are loaded
+                        dynamically by progress.js.
+                    -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+<!-- ==========================================
+     JAVASCRIPT
+========================================== -->
+
+<script
+    src="js/logout.js"
+></script>
+
+
+<script
+    src="js/progress.js"
+></script>
+
+
+</body>
+
+</html>

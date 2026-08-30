@@ -1,0 +1,730 @@
+/* =========================================
+   KinderQuest - ALPHABET GAMES
+   CLEAN CHILD-FRIENDLY DESIGN
+   NO HEAVY ANIMATION
+========================================= */
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+    font-family: "Fredoka", Arial, sans-serif;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(234, 248, 255, 0.78),
+            rgba(255, 247, 224, 0.82)
+        );
+
+    color: #333;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   GAME CONTAINER
+========================================= */
+
+.game-container {
+    min-height: 100vh;
+
+    padding: 35px 40px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.game-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    margin-bottom: 40px;
+
+    padding: 10px 20px;
+}
+
+
+/* =========================================
+   HEADER TITLE
+========================================= */
+
+.game-header h1 {
+    color: #168bdc;
+
+    font-size: 40px;
+
+    font-weight: 600;
+
+    text-align: center;
+
+    letter-spacing: 0.3px;
+
+    text-shadow:
+        2px 3px 0 rgba(22, 139, 220, 0.12);
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-btn {
+    position: absolute;
+
+    left: 20px;
+
+    top: 10px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #2196f3;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    padding: 12px 24px;
+
+    border-radius: 18px;
+
+    font-size: 17px;
+
+    font-weight: 500;
+
+    box-shadow:
+        0 4px 0 #1976d2;
+
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+}
+
+
+/* =========================================
+   BACK BUTTON HOVER
+========================================= */
+
+.back-btn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.04);
+}
+
+
+/* =========================================
+   BACK BUTTON ACTIVE
+========================================= */
+
+.back-btn:active {
+    transform: translateY(2px);
+
+    box-shadow: none;
+}
+
+
+/* =========================================
+   GAME LIST
+========================================= */
+
+.game-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 30px;
+
+    width: 100%;
+
+    max-width: 1050px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   ACTIVITY CARD
+========================================= */
+
+.activity-card {
+    min-height: 330px;
+
+    padding: 32px 30px;
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: 2px solid transparent;
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================
+   SIMPLE CARD DECORATION
+========================================= */
+
+.activity-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.50);
+
+    top: -48px;
+
+    right: -25px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   LETTER MATCHING CARD
+   ORANGE / YELLOW
+========================================= */
+
+.activity-card:nth-child(1) {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 255, 255, 0.75) 0 7px,
+            transparent 8px
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(255, 255, 255, 0.60) 0 9px,
+            transparent 10px
+        ),
+        linear-gradient(
+            145deg,
+            #fffdf2 0%,
+            #fff5d5 55%,
+            #ffebba 100%
+        );
+
+    border-color: #ffc65c;
+
+    border-top: 9px solid #ff9800;
+}
+
+
+/* =========================================
+   LETTER SORT CARD
+   GREEN
+========================================= */
+
+.activity-card:nth-child(2) {
+    background:
+        radial-gradient(
+            circle at 14% 20%,
+            rgba(255, 255, 255, 0.75) 0 7px,
+            transparent 8px
+        ),
+        radial-gradient(
+            circle at 86% 80%,
+            rgba(255, 255, 255, 0.60) 0 9px,
+            transparent 10px
+        ),
+        linear-gradient(
+            145deg,
+            #f7fff8 0%,
+            #e8f8e9 55%,
+            #d6f0d8 100%
+        );
+
+    border-color: #81c784;
+
+    border-top: 9px solid #4caf50;
+}
+
+
+/* =========================================
+   DRAG & DROP CARD
+   BLUE
+========================================= */
+
+.activity-card:nth-child(3) {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 255, 255, 0.75) 0 7px,
+            transparent 8px
+        ),
+        radial-gradient(
+            circle at 86% 80%,
+            rgba(255, 255, 255, 0.60) 0 9px,
+            transparent 10px
+        ),
+        linear-gradient(
+            145deg,
+            #f5fcff 0%,
+            #e2f5ff 55%,
+            #ccecff 100%
+        );
+
+    border-color: #64b5f6;
+
+    border-top: 9px solid #2196f3;
+}
+
+
+/* =========================================
+   LETTER MEMORY CARD
+   PURPLE
+========================================= */
+
+.activity-card:nth-child(4) {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 255, 255, 0.75) 0 7px,
+            transparent 8px
+        ),
+        radial-gradient(
+            circle at 86% 80%,
+            rgba(255, 255, 255, 0.60) 0 9px,
+            transparent 10px
+        ),
+        linear-gradient(
+            145deg,
+            #fcf9ff 0%,
+            #f1eaff 55%,
+            #e5d8ff 100%
+        );
+
+    border-color: #9575cd;
+
+    border-top: 9px solid #673ab7;
+}
+
+
+/* =========================================
+   ICON AREA
+========================================= */
+
+.icon {
+    width: 100px;
+
+    height: 88px;
+
+    border-radius: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 52px;
+
+    margin-bottom: 18px;
+
+    position: relative;
+
+    z-index: 1;
+
+    border: 3px solid #ffffff;
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   MATCHING ICON
+========================================= */
+
+.activity-card:nth-child(1) .icon {
+    background:
+        linear-gradient(
+            145deg,
+            #fff8e6,
+            #ffe4a8
+        );
+}
+
+
+/* =========================================
+   SORT ICON
+========================================= */
+
+.activity-card:nth-child(2) .icon {
+    background:
+        linear-gradient(
+            145deg,
+            #f1fff2,
+            #ccefd0
+        );
+}
+
+
+/* =========================================
+   DRAG & DROP ICON
+========================================= */
+
+.activity-card:nth-child(3) .icon {
+    background:
+        linear-gradient(
+            145deg,
+            #effaff,
+            #c9eaff
+        );
+}
+
+
+/* =========================================
+   MEMORY ICON
+========================================= */
+
+.activity-card:nth-child(4) .icon {
+    background:
+        linear-gradient(
+            145deg,
+            #faf6ff,
+            #dfd0ff
+        );
+}
+
+
+/* =========================================
+   CARD TITLE
+========================================= */
+
+.activity-card h2 {
+    position: relative;
+
+    z-index: 1;
+
+    color: #292929;
+
+    font-size: 27px;
+
+    font-weight: 600;
+
+    margin-bottom: 9px;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* =========================================
+   CARD DESCRIPTION
+========================================= */
+
+.activity-card p {
+    position: relative;
+
+    z-index: 1;
+
+    max-width: 380px;
+
+    color: #5f5f5f;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    margin-bottom: 23px;
+}
+
+
+/* =========================================
+   PLAY BUTTON
+========================================= */
+
+.activity-card button {
+    position: relative;
+
+    z-index: 2;
+
+    min-width: 125px;
+
+    border: none;
+
+    padding: 13px 28px;
+
+    border-radius: 17px;
+
+    color: #ffffff;
+
+    font-family: "Fredoka", Arial, sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+}
+
+
+/* =========================================
+   MATCHING BUTTON
+========================================= */
+
+.activity-card:nth-child(1) button {
+    background: #ff9800;
+
+    box-shadow:
+        0 4px 0 #df8100;
+}
+
+
+/* =========================================
+   SORT BUTTON
+========================================= */
+
+.activity-card:nth-child(2) button {
+    background: #4caf50;
+
+    box-shadow:
+        0 4px 0 #388e3c;
+}
+
+
+/* =========================================
+   DRAG & DROP BUTTON
+========================================= */
+
+.activity-card:nth-child(3) button {
+    background: #2196f3;
+
+    box-shadow:
+        0 4px 0 #1976d2;
+}
+
+
+/* =========================================
+   MEMORY BUTTON
+========================================= */
+
+.activity-card:nth-child(4) button {
+    background: #673ab7;
+
+    box-shadow:
+        0 4px 0 #512da8;
+}
+
+
+/* =========================================
+   BUTTON HOVER
+========================================= */
+
+.activity-card button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.04);
+}
+
+
+/* =========================================
+   BUTTON ACTIVE
+========================================= */
+
+.activity-card button:active {
+    transform: translateY(2px);
+
+    box-shadow: none;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .game-container {
+        padding: 30px 25px;
+    }
+
+
+    .game-list {
+        grid-template-columns: 1fr;
+
+        max-width: 600px;
+    }
+
+
+    .game-header {
+        padding-top: 60px;
+    }
+
+
+    .game-header h1 {
+        font-size: 30px;
+    }
+
+
+    .back-btn {
+        left: 15px;
+
+        top: 10px;
+
+        padding: 10px 20px;
+
+        font-size: 16px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+
+    .game-container {
+        padding: 25px 15px;
+    }
+
+
+    .game-header {
+        margin-bottom: 30px;
+
+        padding-top: 55px;
+    }
+
+
+    .game-header h1 {
+        font-size: 27px;
+    }
+
+
+    .activity-card {
+        min-height: 300px;
+
+        padding: 28px 20px;
+
+        border-radius: 24px;
+    }
+
+
+    .icon {
+        width: 88px;
+
+        height: 78px;
+
+        font-size: 44px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .activity-card h2 {
+        font-size: 24px;
+    }
+
+
+    .activity-card p {
+        font-size: 15px;
+
+        max-width: 300px;
+    }
+
+
+    .activity-card button {
+        min-width: 115px;
+
+        padding: 12px 23px;
+
+        font-size: 16px;
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+
+    .game-container {
+        padding: 20px 12px;
+    }
+
+
+    .game-header h1 {
+        font-size: 24px;
+    }
+
+
+    .activity-card {
+        min-height: 285px;
+
+        padding: 25px 15px;
+    }
+
+
+    .icon {
+        width: 82px;
+
+        height: 72px;
+
+        font-size: 40px;
+    }
+
+
+    .activity-card h2 {
+        font-size: 22px;
+    }
+
+
+    .activity-card p {
+        font-size: 14px;
+    }
+
+}

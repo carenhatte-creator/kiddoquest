@@ -1,0 +1,949 @@
+/* =========================================
+   KINDERQUEST SETTINGS
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f4f9ff;
+
+    color: #333;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.main-content {
+
+    margin-left: 250px;
+
+    min-height: 100vh;
+
+    padding: 35px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.settings-header {
+
+    margin-bottom: 25px;
+}
+
+.settings-header h1 {
+
+    font-size: 30px;
+
+    color: #246fa8;
+
+    margin-bottom: 8px;
+}
+
+.settings-header p {
+
+    color: #777;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.settings-card {
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid #e1edf5;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================
+   CARD TITLE
+========================================= */
+
+.card-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding-bottom: 20px;
+
+    border-bottom:
+        1px solid #edf2f6;
+}
+
+.title-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #e8f5ff;
+
+    border-radius: 14px;
+
+    font-size: 25px;
+}
+
+.card-title h2 {
+
+    color: #333;
+
+    font-size: 21px;
+
+    margin-bottom: 4px;
+}
+
+.card-title p {
+
+    color: #888;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+.profile-content {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 50px;
+
+    padding-top: 25px;
+}
+
+.profile-picture-section {
+
+    width: 220px;
+
+    text-align: center;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   PROFILE CIRCLE
+========================================= */
+
+.profile-picture-wrapper {
+
+    width: 140px;
+
+    height: 140px;
+
+    margin:
+        0 auto 15px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border:
+        5px solid #e3f3ff;
+
+    background: #e8f5ff;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.10);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================
+   DEFAULT AVATAR
+========================================= */
+
+.default-avatar {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #5b9bd5;
+
+    color: #ffffff;
+
+    font-size: 58px;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   PROFILE IMAGE
+========================================= */
+
+#profilePreview {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: none;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================
+   PROFILE BUTTON
+========================================= */
+
+.change-profile-btn {
+
+    border: none;
+
+    background: #55aee8;
+
+    color: white;
+
+    padding:
+        11px 17px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.change-profile-btn:hover {
+
+    background: #3d98d2;
+
+    transform:
+        translateY(-2px);
+}
+
+.profile-note {
+
+    margin-top: 9px;
+
+    color: #999;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   PROFILE INFORMATION
+========================================= */
+
+.profile-info {
+
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(180px, 1fr));
+
+    gap: 20px;
+}
+
+.profile-field label {
+
+    display: block;
+
+    font-size: 13px;
+
+    color: #777;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+.profile-value {
+
+    min-height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 15px;
+
+    background: #f6fbff;
+
+    border:
+        1px solid #dcecf7;
+
+    border-radius: 10px;
+
+    color: #333;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CHANGE PASSWORD BUTTON
+========================================= */
+
+.password-btn {
+
+    width: 100%;
+
+    min-height: 45px;
+
+    border:
+        1px solid #dcecf7;
+
+    background: #f6fbff;
+
+    color: #246fa8;
+
+    border-radius: 10px;
+
+    padding: 0 15px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.password-btn:hover {
+
+    background: #eaf6ff;
+
+    border-color: #b8ddf3;
+}
+
+
+/* =========================================
+   PASSWORD SECTION
+========================================= */
+
+.password-card {
+
+    display: none;
+}
+
+.password-card.show {
+
+    display: block;
+}
+
+.password-form {
+
+    max-width: 650px;
+
+    padding-top: 25px;
+}
+
+.password-input-group {
+
+    margin-bottom: 18px;
+}
+
+.password-input-group label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    color: #555;
+}
+
+.password-input-group input {
+
+    width: 100%;
+
+    height: 46px;
+
+    padding: 0 14px;
+
+    border:
+        1px solid #d8e7f0;
+
+    border-radius: 10px;
+
+    background: #fafdff;
+
+    outline: none;
+
+    font-size: 14px;
+
+    color: #333;
+}
+
+.password-input-group input:focus {
+
+    border-color: #55aee8;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(85, 174, 232, 0.12);
+}
+
+
+/* =========================================
+   PASSWORD ACTIONS
+========================================= */
+
+.password-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.cancel-password-btn,
+.save-password-btn {
+
+    border: none;
+
+    padding:
+        11px 18px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.cancel-password-btn {
+
+    background: #e8eef2;
+
+    color: #555;
+}
+
+.save-password-btn {
+
+    background: #55aee8;
+
+    color: white;
+}
+
+.save-password-btn:hover {
+
+    background: #3d98d2;
+}
+
+
+/* =========================================
+   PASSWORD MESSAGE
+========================================= */
+
+.password-message {
+
+    margin-top: 15px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    display: none;
+}
+
+.password-message.success {
+
+    display: block;
+
+    color: #3b9b32;
+}
+
+.password-message.error {
+
+    display: block;
+
+    color: #d84848;
+}
+
+
+/* =========================================
+   SETTING ROW
+========================================= */
+
+.setting-row {
+
+    min-height: 85px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-bottom:
+        1px solid #edf2f6;
+}
+
+.setting-row:last-child {
+
+    border-bottom: none;
+}
+
+.setting-info h3 {
+
+    font-size: 17px;
+
+    color: #333;
+
+    margin-bottom: 5px;
+}
+
+.setting-info p {
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   SWITCH
+========================================= */
+
+.switch {
+
+    position: relative;
+
+    width: 54px;
+
+    height: 30px;
+
+    flex-shrink: 0;
+}
+
+.switch input {
+
+    display: none;
+}
+
+.slider {
+
+    position: absolute;
+
+    inset: 0;
+
+    cursor: pointer;
+
+    background: #cbd5df;
+
+    border-radius: 30px;
+
+    transition: .25s;
+}
+
+.slider::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 22px;
+
+    height: 22px;
+
+    left: 4px;
+
+    top: 4px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: .25s;
+
+    box-shadow:
+        0 2px 5px
+        rgba(0, 0, 0, .2);
+}
+
+.switch input:checked + .slider {
+
+    background: #55b83e;
+}
+
+.switch input:checked + .slider::before {
+
+    transform:
+        translateX(24px);
+}
+
+
+/* =========================================
+   VOLUME
+========================================= */
+
+.volume-control {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 280px;
+}
+
+.volume-control input[type="range"] {
+
+    width: 180px;
+
+    cursor: pointer;
+
+    accent-color: #55aee8;
+}
+
+#volumeValue {
+
+    width: 42px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #4d91bd;
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+.reset-box {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-top: 20px;
+}
+
+.reset-box h3 {
+
+    font-size: 17px;
+
+    margin-bottom: 6px;
+}
+
+.reset-box p {
+
+    max-width: 650px;
+
+    color: #888;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.reset-btn {
+
+    border: none;
+
+    background: #e85c5c;
+
+    color: white;
+
+    padding:
+        11px 18px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+.reset-btn:hover {
+
+    background: #d84848;
+}
+
+
+/* =========================================
+   ABOUT
+========================================= */
+
+.about-content {
+
+    padding-top: 20px;
+}
+
+.about-content h3 {
+
+    color: #246fa8;
+
+    font-size: 18px;
+
+    margin-bottom: 8px;
+}
+
+.about-content p {
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-bottom: 10px;
+}
+
+.about-content span {
+
+    display: inline-block;
+
+    background: #e8f5ff;
+
+    color: #4d91bd;
+
+    padding:
+        6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   SAVE MESSAGE
+========================================= */
+
+.save-message {
+
+    position: fixed;
+
+    right: 30px;
+
+    bottom: 30px;
+
+    background: #55b83e;
+
+    color: white;
+
+    padding:
+        12px 20px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+
+    pointer-events: none;
+
+    transition: .3s;
+
+    z-index: 9999;
+}
+
+.save-message.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .main-content {
+
+        margin-left: 0;
+
+        padding:
+            25px 18px;
+    }
+
+    .settings-header h1 {
+
+        font-size: 25px;
+    }
+
+    .profile-content {
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 25px;
+    }
+
+    .profile-info {
+
+        width: 100%;
+    }
+
+    .setting-row {
+
+        align-items: flex-start;
+
+        padding:
+            18px 0;
+    }
+
+    .volume-control {
+
+        min-width: 0;
+
+        width: 180px;
+    }
+
+    .volume-control input[type="range"] {
+
+        width: 110px;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .settings-card {
+
+        padding: 18px;
+    }
+
+    .profile-info {
+
+        grid-template-columns: 1fr;
+    }
+
+    .setting-row {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .volume-control {
+
+        width: 100%;
+    }
+
+    .volume-control input[type="range"] {
+
+        flex: 1;
+
+        width: auto;
+    }
+
+    .reset-box {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .reset-btn {
+
+        width: 100%;
+    }
+
+    .password-actions {
+
+        flex-direction: column;
+    }
+
+    .cancel-password-btn,
+    .save-password-btn {
+
+        width: 100%;
+    }
+}

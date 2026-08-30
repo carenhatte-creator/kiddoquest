@@ -1,0 +1,1389 @@
+/* =========================================================
+   KinderQuest - Color Path
+========================================================= */
+
+
+/* =========================================================
+   FONT
+========================================================= */
+
+@import url(
+    'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap'
+);
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+
+    min-height: 100vh;
+
+    font-family: "Fredoka", sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 8% 10%,
+            rgba(255, 213, 79, 0.35),
+            transparent 100px
+        ),
+
+        radial-gradient(
+            circle at 92% 85%,
+            rgba(79, 195, 247, 0.25),
+            transparent 120px
+        ),
+
+        linear-gradient(
+            180deg,
+            #dff7ff,
+            #f7fcff
+        );
+
+    color: #303030;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.game-container {
+
+    width: 100%;
+
+    max-width: 1050px;
+
+    min-height: 100vh;
+
+    margin: 0 auto;
+
+    padding: 20px 20px 50px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.game-header {
+
+    position: relative;
+
+    min-height: 125px;
+
+    padding: 18px 30px 18px 110px;
+
+    margin-bottom: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ffffff;
+
+    border: 3px dashed #64b5f6;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 7px 0 rgba(66, 165, 245, 0.15),
+        0 10px 25px rgba(50, 100, 130, 0.10);
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-btn {
+
+    position: absolute;
+
+    left: 18px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 58px;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    background: #ffc107;
+
+    color: #333;
+
+    border: 3px solid #e5a900;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 4px 0 #d69e00,
+        0 6px 12px rgba(0,0,0,0.12);
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    transition: 0.18s ease;
+}
+
+
+.back-btn:hover {
+
+    background: #ffd54f;
+
+    transform:
+        translateY(-50%)
+        scale(1.06);
+}
+
+
+.back-btn:active {
+
+    transform:
+        translateY(-45%)
+        scale(0.97);
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.title-area {
+    text-align: center;
+}
+
+
+.small-title {
+
+    color: #42a5f5;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.game-header h1 {
+
+    margin: 3px 0 8px;
+
+    font-size: 36px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PLAYER NAME
+========================================================= */
+
+.player-name {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 14px;
+
+    background: #f1ffe9;
+
+    border: 2px solid #66bb6a;
+
+    border-radius: 20px;
+
+    color: #555;
+
+    font-size: 15px;
+}
+
+
+.player-name strong {
+    color: #2e8b31;
+}
+
+
+/* =========================================================
+   GAME INFO
+========================================================= */
+
+.game-info {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 14px;
+}
+
+
+.info-card {
+
+    min-height: 70px;
+
+    background: #ffffff;
+
+    border: 2px solid #d7eafa;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 2px;
+
+    box-shadow:
+        0 5px 14px rgba(50,100,130,0.08);
+}
+
+
+.info-card span {
+
+    color: #666;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.info-card strong {
+
+    color: #1989df;
+
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-container {
+
+    width: 100%;
+
+    height: 13px;
+
+    margin-bottom: 20px;
+
+    background: #d9e9f1;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.progress-bar {
+
+    width: 0;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #42a5f5,
+            #66bb6a
+        );
+
+    border-radius: 20px;
+
+    transition:
+        width 0.35s ease;
+}
+
+
+/* =========================================================
+   INSTRUCTION
+========================================================= */
+
+.instruction-card {
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 3px dashed #ffd54f;
+
+    border-radius: 22px;
+}
+
+
+.round-badge {
+
+    display: inline-block;
+
+    padding: 6px 15px;
+
+    margin-bottom: 8px;
+
+    background: #fff3bd;
+
+    color: #6b5600;
+
+    border-radius: 18px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.instruction-card h2 {
+
+    font-size: 25px;
+
+    margin-bottom: 5px;
+}
+
+
+.instruction-card p {
+
+    color: #666;
+
+    font-size: 15px;
+
+    margin-bottom: 14px;
+}
+
+
+/* =========================================================
+   TARGET COLOR
+========================================================= */
+
+.target-area {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+}
+
+
+.target-label {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #555;
+}
+
+
+.target-color {
+
+    width: 76px;
+
+    height: 76px;
+
+    border-radius: 50%;
+
+    border: 6px solid #ffffff;
+
+    box-shadow:
+        0 5px 0 rgba(0,0,0,0.12),
+        0 7px 18px rgba(0,0,0,0.15);
+
+    animation:
+        targetPulse 1.2s ease-in-out infinite;
+}
+
+
+@keyframes targetPulse {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   COLOR CARD
+========================================================= */
+
+.color-card {
+
+    position: relative;
+
+    padding: 22px;
+
+    background: #ffffff;
+
+    border: 3px solid #b3e5fc;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 8px 18px rgba(50,100,130,0.08);
+}
+
+
+/* =========================================================
+   COLOR GRID
+========================================================= */
+
+.path-grid {
+
+    width: 100%;
+
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 13px;
+
+    padding: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f1faff,
+            #eefbf0
+        );
+
+    border-radius: 22px;
+}
+
+
+/* =========================================================
+   COLOR TILE
+========================================================= */
+
+.path-tile {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    min-width: 55px;
+
+    border: 4px solid #ffffff;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 0 rgba(0,0,0,0.12),
+        0 8px 14px rgba(0,0,0,0.10);
+
+    transition:
+        transform 0.16s ease,
+        filter 0.16s ease,
+        opacity 0.16s ease;
+}
+
+
+.path-tile:hover:not(:disabled) {
+
+    transform:
+        translateY(-4px)
+        scale(1.04);
+
+    filter: brightness(1.06);
+}
+
+
+.path-tile:active:not(:disabled) {
+
+    transform:
+        translateY(2px)
+        scale(0.97);
+}
+
+
+/* =========================================================
+   CORRECT TILE
+========================================================= */
+
+.path-tile.correct {
+
+    animation:
+        correctTile 0.28s ease;
+
+    opacity: 0;
+
+    transform: scale(0.2);
+
+    pointer-events: none;
+}
+
+
+@keyframes correctTile {
+
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    60% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.2);
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   WRONG TILE
+========================================================= */
+
+.path-tile.wrong {
+
+    animation:
+        wrongTile 0.35s ease;
+}
+
+
+@keyframes wrongTile {
+
+    20% {
+        transform: translateX(-7px);
+    }
+
+    40% {
+        transform: translateX(7px);
+    }
+
+    60% {
+        transform: translateX(-5px);
+    }
+
+    80% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================================
+   DISABLED
+========================================================= */
+
+.path-tile:disabled {
+
+    cursor: default;
+}
+
+
+/* =========================================================
+   FEEDBACK
+========================================================= */
+
+.feedback {
+
+    min-height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 10px 0;
+
+    text-align: center;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+.feedback.correct {
+    color: #2e9b35;
+}
+
+
+.feedback.wrong {
+    color: #e53935;
+}
+
+
+/* =========================================================
+   NEXT BUTTON
+========================================================= */
+
+.next-button {
+
+    display: block;
+
+    margin: 8px auto 0;
+
+    padding: 12px 28px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #42a5f5;
+
+    color: #ffffff;
+
+    font-family: "Fredoka", sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 0 #1976d2;
+
+    transition: 0.18s ease;
+}
+
+
+.next-button:hover {
+
+    background: #2196f3;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   RESULT SCREEN
+========================================================= */
+
+.result-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(39,83,105,0.48);
+
+    backdrop-filter: blur(4px);
+}
+
+
+.result-card {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 30px 25px;
+
+    background: #ffffff;
+
+    border: 4px solid #ffd54f;
+
+    border-radius: 28px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.18);
+
+    animation:
+        resultAppear 0.35s ease;
+}
+
+
+@keyframes resultAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(0.9)
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+.result-trophy {
+    font-size: 65px;
+}
+
+
+.result-card h2 {
+
+    font-size: 30px;
+
+    margin: 5px 0;
+}
+
+
+.result-card > p {
+
+    color: #666;
+
+    margin-bottom: 14px;
+}
+
+
+/* =========================================================
+   FINAL STUDENT
+========================================================= */
+
+.final-student {
+
+    margin-bottom: 18px;
+
+    padding: 8px 15px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    background: #f1ffe9;
+
+    border: 2px solid #66bb6a;
+
+    border-radius: 20px;
+
+    color: #555;
+}
+
+
+.final-student strong {
+    color: #2e8b31;
+}
+
+
+/* =========================================================
+   FINAL RESULT
+========================================================= */
+
+.final-result {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+}
+
+
+.final-result div {
+
+    padding: 12px;
+
+    background: #f2faff;
+
+    border-radius: 15px;
+}
+
+
+.final-result span {
+
+    display: block;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+.final-result strong {
+
+    display: block;
+
+    color: #1989df;
+
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   FINAL STARS
+========================================================= */
+
+.final-star-display {
+
+    font-size: 45px;
+
+    margin: 14px 0;
+}
+
+
+/* =========================================================
+   RESULT BUTTONS
+========================================================= */
+
+.play-again-button,
+.back-games-button {
+
+    width: 100%;
+
+    display: block;
+
+    padding: 13px 20px;
+
+    border-radius: 15px;
+
+    font-family: "Fredoka", sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+
+.play-again-button {
+
+    margin-bottom: 10px;
+
+    border: none;
+
+    background: #66bb6a;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 4px 0 #43a047;
+
+    cursor: pointer;
+}
+
+
+.back-games-button {
+
+    background: #42a5f5;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 4px 0 #1976d2;
+}
+
+
+/* =========================================================
+   NO STUDENT
+========================================================= */
+
+.no-student-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 3000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(39,83,105,0.48);
+
+    backdrop-filter: blur(4px);
+}
+
+
+.no-student-card {
+
+    width: 100%;
+
+    max-width: 400px;
+
+    padding: 30px 25px;
+
+    background: #ffffff;
+
+    border: 4px solid #ffd54f;
+
+    border-radius: 25px;
+
+    text-align: center;
+}
+
+
+.no-student-icon {
+    font-size: 55px;
+}
+
+
+.no-student-card h2 {
+    margin: 8px 0;
+}
+
+
+.no-student-card p {
+
+    color: #666;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   STAR REWARD
+========================================================= */
+
+.star-reward {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    font-family: "Fredoka", sans-serif;
+}
+
+
+.star-reward.hidden {
+    display: none;
+}
+
+
+.star-reward .reward-star {
+
+    font-size: 20px;
+
+    opacity: 0;
+
+    animation:
+        starRewardGrow
+        0.8s ease
+        forwards;
+}
+
+
+@keyframes starRewardGrow {
+
+    0% {
+        opacity: 0;
+        font-size: 20px;
+    }
+
+    60% {
+        opacity: 1;
+        font-size: 64px;
+        filter:
+            drop-shadow(
+                0 0 16px
+                rgba(255, 201, 60, 0.7)
+            );
+    }
+
+    100% {
+        opacity: 1;
+        font-size: 58px;
+        filter:
+            drop-shadow(
+                0 0 10px
+                rgba(255, 201, 60, 0.5)
+            );
+    }
+}
+
+
+.star-reward .reward-text {
+
+    margin-top: 4px;
+
+    font-weight: 700;
+
+    font-size: 22px;
+
+    color: #ef8c00;
+
+    text-shadow:
+        1px 2px 0
+        rgba(255,255,255,0.6);
+
+    opacity: 0;
+
+    white-space: nowrap;
+
+    animation:
+        starRewardTextFade
+        0.5s ease
+        0.5s forwards;
+}
+
+
+@keyframes starRewardTextFade {
+
+    0% {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
+#loadingScreen {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: #8bd3f7;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transition:
+        opacity 0.5s ease,
+        visibility 0.5s ease;
+}
+
+
+#loadingScreen.finished {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+
+.loading-content {
+
+    text-align: center;
+
+    width: 380px;
+
+    max-width: 85%;
+}
+
+
+.loading-bar-container {
+
+    width: 100%;
+
+    height: 24px;
+
+    background: #11323f;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    padding: 3px;
+
+    box-shadow:
+        inset 0 2px 4px rgba(0,0,0,0.4);
+
+    margin-bottom: 12px;
+
+    border:
+        2px solid
+        rgba(255,255,255,0.6);
+}
+
+
+.loading-bar-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffe600,
+            #ffb700
+        );
+
+    border-radius: 12px;
+
+    transition:
+        width 0.3s linear;
+}
+
+
+.loading-text {
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    color: #ffffff;
+
+    text-shadow:
+        -2px -2px 0 #1b3640,
+        2px -2px 0 #1b3640,
+        -2px 2px 0 #1b3640,
+        2px 2px 0 #1b3640;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .game-container {
+        padding: 12px 12px 35px;
+    }
+
+
+    .game-header {
+
+        min-height: 135px;
+
+        padding:
+            15px 15px 15px 80px;
+    }
+
+
+    .game-header h1 {
+        font-size: 29px;
+    }
+
+
+    .back-btn {
+
+        width: 52px;
+
+        height: 52px;
+
+        left: 12px;
+    }
+
+
+    .game-info {
+        gap: 8px;
+    }
+
+
+    .info-card {
+        min-height: 62px;
+    }
+
+
+    .color-card {
+        padding: 12px;
+    }
+
+
+    .path-grid {
+
+        gap: 7px;
+
+        padding: 10px;
+    }
+
+
+    .path-tile {
+
+        border-width: 3px;
+
+        border-radius: 12px;
+
+        min-width: 45px;
+    }
+
+
+    .target-color {
+
+        width: 68px;
+
+        height: 68px;
+    }
+
+
+    .reward-star {
+        font-size: 90px;
+    }
+
+
+    .reward-text {
+        font-size: 28px;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .game-header {
+        padding-left: 72px;
+    }
+
+
+    .game-header h1 {
+        font-size: 25px;
+    }
+
+
+    .player-name {
+
+        font-size: 13px;
+
+        padding: 5px 9px;
+    }
+
+
+    .game-info {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .instruction-card h2 {
+        font-size: 21px;
+    }
+
+
+    .path-grid {
+        gap: 5px;
+    }
+
+
+    .path-tile {
+
+        min-width: 35px;
+
+        border-radius: 9px;
+    }
+}

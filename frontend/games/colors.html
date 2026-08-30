@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Color Games</title>
+
+
+    <!-- =====================================
+         COLOR GAMES CSS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="game-css/game.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <header class="game-header">
+
+        <a
+            href="../minigames.html"
+            class="back-btn"
+        >
+            ← Back
+        </a>
+
+
+        <h1>
+            🎨 Color Games
+        </h1>
+
+    </header>
+
+
+
+    <!-- =====================================
+         GAME LIST
+    ====================================== -->
+
+    <div class="game-list">
+
+
+        <!-- =================================
+             COLOR MATCH
+        ================================== -->
+
+        <div class="activity-card">
+
+            <div class="icon">
+                🎨
+            </div>
+
+
+            <h2>
+                Color Match
+            </h2>
+
+
+            <p>
+                Match the correct colors.
+            </p>
+
+
+            <button
+                type="button"
+                onclick="startGame('matching')"
+            >
+                ▶ Play
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================
+             COLOR SORT
+        ================================== -->
+
+        <div class="activity-card">
+
+            <div class="icon">
+                🟦
+            </div>
+
+
+            <h2>
+                Color Sort
+            </h2>
+
+
+            <p>
+                Sort the objects into the correct color box.
+            </p>
+
+
+            <button
+                type="button"
+                onclick="startGame('sort')"
+            >
+                ▶ Play
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================
+             COLOR MEMORY
+        ================================== -->
+
+        <div class="activity-card">
+
+            <div class="icon">
+                🧠
+            </div>
+
+
+            <h2>
+                Color Memory
+            </h2>
+
+
+            <p>
+                Remember the color sequence and repeat it.
+            </p>
+
+
+            <button
+                type="button"
+                onclick="startGame('memory')"
+            >
+                ▶ Play
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================
+             COLOR PATH
+        ================================== -->
+
+        <div class="activity-card">
+
+            <div class="icon">
+                🟢
+            </div>
+
+
+            <h2>
+                Color Path
+            </h2>
+
+
+            <p>
+                Follow the correct color path to reach the finish.
+            </p>
+
+
+            <button
+                type="button"
+                onclick="startGame('path')"
+            >
+                ▶ Play
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script src="games-js/colors.js"></script>
+
+
+</body>
+
+</html>

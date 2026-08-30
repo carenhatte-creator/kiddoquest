@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Mini Games</title>
+
+
+    <!-- =====================================
+         FREDOKA FONT
+    ====================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================
+         FONT AWESOME
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- =====================================
+         SIDEBAR CSS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/sidebar.css"
+    >
+
+
+    <!-- =====================================
+         MINI GAMES CSS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="games/game-css/minigames.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- =====================================
+             LOGO
+        ====================================== -->
+
+        <div class="brand">
+
+            <img
+                src="image/logo.png"
+                alt="KinderQuest Logo"
+            >
+
+        </div>
+
+
+        <!-- =====================================
+             TEACHER PROFILE
+        ====================================== -->
+
+        <div class="teacher">
+
+            <div class="teacher-avatar-wrap">
+
+                <div
+                    id="sidebarAvatar"
+                    class="sidebar-avatar"
+                >
+                    T
+                </div>
+
+
+                <img
+                    id="sidebarAvatarImg"
+                    class="sidebar-avatar-img"
+                    alt="Teacher"
+                    hidden
+                >
+
+            </div>
+
+
+            <span id="teacherName">
+                Teacher
+            </span>
+
+        </div>
+
+
+        <!-- =====================================
+             NAVIGATION
+        ====================================== -->
+
+        <nav>
+
+
+            <!-- DASHBOARD -->
+
+            <a href="dashboard.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <!-- STUDENTS -->
+
+            <a href="students.html">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Students
+                </span>
+
+            </a>
+
+
+            <!-- MINI GAMES -->
+
+            <a
+                href="minigames.html"
+                class="active"
+            >
+
+                <i class="fa-solid fa-gamepad"></i>
+
+                <span>
+                    Mini Games
+                </span>
+
+            </a>
+
+
+            <!-- PROGRESS -->
+
+            <a href="progress.html">
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+                <span>
+                    Progress
+                </span>
+
+            </a>
+
+
+            <!-- REPORTS -->
+
+            <a href="reports.html">
+
+                <i class="fa-regular fa-file-lines"></i>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+
+            <!-- SETTINGS -->
+
+            <a href="settings.html">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+            <!-- LOGOUT -->
+
+            <a
+                href="#"
+                id="logout"
+            >
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =====================================
+             HEADER
+        ====================================== -->
+
+        <div class="header">
+
+            <h1>
+
+                <i class="fa-solid fa-gamepad"></i>
+
+                Mini Games
+
+            </h1>
+
+
+            <p>
+                Choose a learning category to start playing.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
+             GAME CARDS
+        ====================================== -->
+
+        <div class="games-container">
+
+
+            <!-- =================================
+                 ALPHABET
+            ================================== -->
+
+            <div class="game-card alphabet">
+
+
+                <div class="game-icon">
+                    🔤
+                </div>
+
+
+                <h2>
+                    Alphabet
+                </h2>
+
+
+                <p>
+                    Learn and play with letters.
+                </p>
+
+
+                <a href="games/alphabet.html">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    Play
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================
+                 NUMBERS
+            ================================== -->
+
+            <div class="game-card numbers">
+
+
+                <div class="game-icon">
+                    🔢
+                </div>
+
+
+                <h2>
+                    Numbers
+                </h2>
+
+
+                <p>
+                    Practice counting and numbers.
+                </p>
+
+
+                <a href="games/numbers.html">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    Play
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================
+                 COLORS
+            ================================== -->
+
+            <div class="game-card colors">
+
+
+                <div class="game-icon">
+                    🎨
+                </div>
+
+
+                <h2>
+                    Colors
+                </h2>
+
+
+                <p>
+                    Identify and match different colors.
+                </p>
+
+
+                <a href="games/colors.html">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    Play
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================
+                 SHAPES
+            ================================== -->
+
+            <div class="game-card shapes">
+
+
+                <div class="game-icon">
+                    🔷
+                </div>
+
+
+                <h2>
+                    Shapes
+                </h2>
+
+
+                <p>
+                    Discover basic shapes and patterns.
+                </p>
+
+
+                <a href="games/shapes.html">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    Play
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <!-- Shared Logout -->
+
+    <script src="js/logout.js"></script>
+
+
+    <!-- Mini Games JavaScript -->
+
+    <script src="js/minigames.js?v=2"></script>
+
+
+    <!-- =====================================
+         TEACHER NAME & AVATAR
+    ====================================== -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+
+            // =====================================
+            // GET LOGGED-IN TEACHER
+            // =====================================
+
+            const teacherData =
+                localStorage.getItem("teacher");
+
+
+            // =====================================
+            // CHECK LOGIN
+            // =====================================
+
+            if (!teacherData) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+            }
+
+
+            // =====================================
+            // PARSE TEACHER DATA
+            // =====================================
+
+            let teacher;
+
+            try {
+
+                teacher =
+                    JSON.parse(teacherData);
+
+            } catch (error) {
+
+                console.error(
+                    "Invalid teacher data:",
+                    error
+                );
+
+                localStorage.removeItem("teacher");
+
+                window.location.href =
+                    "login.html";
+
+                return;
+            }
+
+
+            // =====================================
+            // DISPLAY TEACHER NAME
+            // =====================================
+
+            const teacherName =
+                document.getElementById(
+                    "teacherName"
+                );
+
+
+            if (teacherName) {
+
+                const username =
+                    typeof teacher.username === "string"
+                        ? teacher.username.trim()
+                        : "";
+
+
+                const fullname =
+                    typeof teacher.fullname === "string"
+                        ? teacher.fullname.trim()
+                        : "";
+
+
+                teacherName.textContent =
+                    username ||
+                    fullname ||
+                    "Teacher";
+
+            }
+
+
+            // =====================================
+            // GET AVATAR ELEMENTS
+            // =====================================
+
+            const avatarText =
+                document.getElementById(
+                    "sidebarAvatar"
+                );
+
+
+            const avatarImg =
+                document.getElementById(
+                    "sidebarAvatarImg"
+                );
+
+
+            // =====================================
+            // TEACHER INITIAL
+            // =====================================
+
+            if (avatarText) {
+
+                const avatarName =
+                    teacher.fullname ||
+                    teacher.username ||
+                    "Teacher";
+
+
+                avatarText.textContent =
+                    avatarName
+                        .trim()
+                        .charAt(0)
+                        .toUpperCase();
+
+            }
+
+
+            // =====================================
+            // PROFILE PICTURE
+            // =====================================
+
+            if (avatarImg) {
+
+                const teacherId =
+                    teacher.id ||
+                    teacher.teacher_id;
+
+
+                if (teacherId) {
+
+                    const savedPicture =
+                        localStorage.getItem(
+                            `profilePicture_${teacherId}`
+                        );
+
+
+                    if (savedPicture) {
+
+                        avatarImg.src =
+                            savedPicture;
+
+                        avatarImg.hidden =
+                            false;
+
+
+                        if (avatarText) {
+
+                            avatarText.style.display =
+                                "none";
+
+                        }
+
+                    } else {
+
+                        avatarImg.hidden =
+                            true;
+
+
+                        if (avatarText) {
+
+                            avatarText.style.display =
+                                "flex";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

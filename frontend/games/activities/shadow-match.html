@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KinderQuest - Shadow Match</title>
+
+    <link
+        rel="stylesheet"
+        href="../game-css/shadow-match.css"
+    >
+
+</head>
+
+
+<body>
+
+<!-- ==========================================
+     INITIAL LOADING ONLY
+     SAME STYLE ACROSS ALL KINDERQUEST GAMES
+=========================================== -->
+
+<div id="loadingScreen">
+
+    <div class="loading-content">
+
+        <div class="loading-bar-container">
+
+            <div
+                id="loadingBarFill"
+                class="loading-bar-fill"
+            ></div>
+
+        </div>
+
+        <div class="loading-text">
+            Loading Shadow Match...
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="game-container">
+
+
+    <!-- =================================
+         HEADER
+    ================================== -->
+
+    <header class="game-header">
+
+        <button
+            class="back-btn"
+            id="backBtn"
+            type="button"
+            aria-label="Back"
+        >
+            ←
+        </button>
+
+
+        <div class="game-title">
+
+            <h1>
+                🌟 Shadow Match
+            </h1>
+
+            <p>
+                Drag each shape to its matching shadow!
+            </p>
+
+        </div>
+
+
+        <div class="game-stats">
+
+            <div class="stat">
+                ⭐
+                <span id="score">0</span>
+            </div>
+
+            <div class="stat">
+                ❤️
+                <span id="lives">3</span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================
+         PLAYER
+    ================================== -->
+
+    <div class="player-badge">
+
+        🧒 Playing:
+        <span id="studentName">
+            Player
+        </span>
+
+    </div>
+
+
+    <!-- =================================
+         INSTRUCTION
+    ================================== -->
+
+    <div class="instruction">
+
+        🖐️ Drag the colorful shapes to their
+        matching shadows!
+
+    </div>
+
+
+    <!-- =================================
+         GAME AREA
+    ================================== -->
+
+    <main class="game-area">
+
+
+        <section class="shadow-board">
+
+            <h2>
+                🌑 Match the Shadows
+            </h2>
+
+            <div
+                id="shadowContainer"
+                class="shadow-container"
+            ></div>
+
+        </section>
+
+
+        <section class="shape-board">
+
+            <h2>
+                🎨 Shapes
+            </h2>
+
+            <div
+                id="shapeContainer"
+                class="shape-container"
+            ></div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =================================
+         CONTROLS
+    ================================== -->
+
+    <div class="controls">
+
+        <button
+            class="control-btn hint-btn"
+            id="hintBtn"
+            type="button"
+        >
+            💡 Hint
+            <span id="hintCount">3</span>
+        </button>
+
+
+        <button
+            class="control-btn restart-btn"
+            id="restartBtn"
+            type="button"
+        >
+            🔄 Restart
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<!-- =================================
+     FINISH MODAL
+================================== -->
+
+<div
+    class="modal hidden"
+    id="winModal"
+>
+
+    <div class="modal-content">
+
+
+        <div class="celebration">
+            🎉 ⭐ 🎉
+        </div>
+
+
+        <h2>
+            Great Job!
+        </h2>
+
+
+        <p>
+            You matched all the shapes!
+        </p>
+
+
+        <div class="final-score">
+
+            ⭐
+            <span id="finalScore">
+                0
+            </span>
+
+        </div>
+
+
+        <div class="finish-buttons">
+
+            <button
+                class="finish-btn play-again-btn"
+                id="playAgainBtn"
+                type="button"
+            >
+                ▶ Play Again
+            </button>
+
+
+            <button
+                class="finish-btn back-finish-btn"
+                id="finishBackBtn"
+                type="button"
+            >
+                ← Back
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================
+     SHARED SOUND MANAGER
+================================== -->
+
+
+    <script src="../../js/soundManager.js"></script>
+
+
+<!-- =================================
+     SHADOW MATCH JAVASCRIPT
+================================== -->
+
+<script src="../games-js/shadow-match.js"></script>
+
+
+</body>
+
+</html>

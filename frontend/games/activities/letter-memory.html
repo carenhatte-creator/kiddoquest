@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Letter Memory | KinderQuest</title>
+
+    <link
+        rel="stylesheet"
+        href="../game-css/letter-memory.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         INITIAL LOADING ONLY
+    =========================================== -->
+
+    <div id="loadingScreen">
+
+        <div class="loading-content">
+
+            <div class="loading-bar-container">
+
+                <div
+                    id="loadingBarFill"
+                    class="loading-bar-fill"
+                ></div>
+
+            </div>
+
+            <div class="loading-text">
+                Loading Letter Memory...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         MAIN GAME
+    =========================================== -->
+
+    <main
+        id="gameContainer"
+        class="game-container"
+    >
+
+        <!-- HEADER -->
+
+        <header class="game-header">
+
+            <div class="header-left">
+
+                <a
+                    href="../alphabet.html"
+                    class="back-btn"
+                    id="backBtn"
+                >
+                    ← Back
+                </a>
+
+                <h1>
+                    🧠 Letter Memory
+                </h1>
+
+            </div>
+
+
+            <div class="playing-as">
+
+                👤 Playing as:
+
+                <strong id="playingStudentName">
+                    Student
+                </strong>
+
+            </div>
+
+        </header>
+
+
+        <!-- SCORE BOARD -->
+
+        <section class="score-board">
+
+            <!-- SCORE -->
+
+            <div class="score-card score-card-main">
+
+                <div class="score-icon">
+                    ⭐
+                </div>
+
+                <span id="score">
+                    0
+                </span>
+
+                <p>
+                    Score
+                </p>
+
+            </div>
+
+
+            <!-- LIVES -->
+
+            <div class="score-card lives-card">
+
+                <div class="score-icon">
+                    ❤️
+                </div>
+
+                <span id="lives">
+                    ❤️❤️❤️❤️❤️
+                </span>
+
+                <p>
+                    Lives
+                </p>
+
+            </div>
+
+
+            <!-- MATCHES -->
+
+            <div class="score-card question-card">
+
+                <div class="score-icon">
+                    🧩
+                </div>
+
+                <span>
+
+                    <span id="matchedPairs">
+                        0
+                    </span>
+
+                    /
+
+                    <span id="totalPairs">
+                        3
+                    </span>
+
+                </span>
+
+                <p>
+                    Matches
+                </p>
+
+            </div>
+
+
+            <!-- STARS -->
+
+            <div class="score-card stars-card">
+
+                <div class="score-icon">
+                    🌟
+                </div>
+
+                <span id="stars">
+                    0
+                </span>
+
+                <p>
+                    Stars
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROGRESS -->
+
+        <div class="progress-area">
+
+            <div class="progress-info">
+
+                <span>
+                    Level:
+                    <strong id="levelText">
+                        Easy
+                    </strong>
+                </span>
+
+                <span id="progressText">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress-box">
+
+                <div
+                    id="progressBar"
+                    class="progress-fill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIVITY BOARD -->
+
+        <section class="activity-board">
+
+            <div class="instruction">
+
+                <span id="instructionText">
+                    Find the matching letters!
+                </span>
+
+            </div>
+
+
+            <p
+                id="subInstruction"
+                class="sub-instruction"
+            >
+                Turn over two cards and find the same letters.
+            </p>
+
+
+            <!-- MEMORY BOARD -->
+
+            <div
+                id="memoryBoard"
+                class="memory-board"
+            ></div>
+
+
+            <!-- ======================================
+                 STAR REWARD ANIMATION
+            ======================================= -->
+
+            <div
+                id="starReward"
+                class="star-reward hidden"
+                aria-hidden="true"
+            >
+
+                <div class="star-reward-star">
+                    ⭐
+                </div>
+
+                <div class="star-reward-text">
+                    +1 Star!
+                </div>
+
+            </div>
+
+
+            <!-- FEEDBACK -->
+
+            <div
+                id="feedback"
+                class="feedback hidden"
+            >
+
+                <div
+                    id="feedbackIcon"
+                    class="feedback-icon"
+                >
+                    ⭐
+                </div>
+
+                <div>
+
+                    <h3 id="feedbackTitle">
+                        Great Job!
+                    </h3>
+
+                    <p id="feedbackText">
+                        You found the letter!
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- NEXT LEVEL -->
+
+            <button
+                id="nextButton"
+                class="next-btn hidden"
+                type="button"
+            >
+                Next Level →
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         NO STUDENT OVERLAY
+    =========================================== -->
+
+    <div
+        id="noStudentOverlay"
+        class="no-student-overlay"
+    >
+
+        <div class="no-student-card">
+
+            <div class="no-student-icon">
+                👩‍🎓
+            </div>
+
+            <h2>
+                No Student Selected
+            </h2>
+
+            <p>
+                Please select a student before playing this game.
+            </p>
+
+            <button
+                type="button"
+                onclick="window.location.href='../minigames.html'"
+            >
+                Back to Games
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         GAME OVER SCREEN
+    =========================================== -->
+
+    <div
+        id="gameOverScreen"
+        class="result-screen hidden"
+    >
+
+        <div class="result-card game-over-card">
+
+            <div class="result-emoji">
+                💛
+            </div>
+
+            <h2>
+                Keep Practicing!
+            </h2>
+
+            <p class="result-description">
+                You ran out of lives. Try again!
+            </p>
+
+
+            <div class="result-stats">
+
+                <div class="result-stat">
+
+                    <span>
+                        ⭐
+                    </span>
+
+                    <strong id="gameOverScore">
+                        0
+                    </strong>
+
+                    <small>
+                        Score
+                    </small>
+
+                </div>
+
+
+                <div class="result-stat">
+
+                    <span>
+                        🧩
+                    </span>
+
+                    <strong id="gameOverPairs">
+                        0
+                    </strong>
+
+                    <small>
+                        Matches
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="gameOverAgainButton"
+                class="result-btn"
+                type="button"
+            >
+                🔄 Try Again
+            </button>
+
+
+            <button
+                id="gameOverBackButton"
+                class="result-btn secondary"
+                type="button"
+            >
+                ← Alphabet Games
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         FINISH SCREEN
+    =========================================== -->
+
+    <div
+        id="resultScreen"
+        class="result-screen hidden"
+    >
+
+        <div class="result-card">
+
+            <div
+                id="resultStarsDisplay"
+                class="result-stars-display"
+            >
+                ⭐⭐⭐
+            </div>
+
+            <div
+                id="resultEmoji"
+                class="result-emoji"
+            >
+                🏆
+            </div>
+
+            <h2 id="resultTitle">
+                Great Job!
+            </h2>
+
+            <p class="result-description">
+                You completed Letter Memory!
+            </p>
+
+
+            <div class="result-stats">
+
+                <div class="result-stat">
+
+                    <span>
+                        ⭐
+                    </span>
+
+                    <strong id="finalScore">
+                        0
+                    </strong>
+
+                    <small>
+                        Score
+                    </small>
+
+                </div>
+
+
+                <div class="result-stat">
+
+                    <span>
+                        🧩
+                    </span>
+
+                    <strong id="finalPairs">
+                        0
+                    </strong>
+
+                    <small>
+                        Matches
+                    </small>
+
+                </div>
+
+
+                <div class="result-stat">
+
+                    <span>
+                        🌟
+                    </span>
+
+                    <strong id="finalStars">
+                        0
+                    </strong>
+
+                    <small>
+                        Stars
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="playAgainButton"
+                class="result-btn"
+                type="button"
+            >
+                🔄 Play Again
+            </button>
+
+
+            <button
+                id="resultBackButton"
+                class="result-btn secondary"
+                type="button"
+            >
+                ← Alphabet Games
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SCRIPTS
+         SOUND MANAGER FIRST
+    =========================================== -->
+
+    <script src="../../js/soundManager.js"></script>
+
+    <script src="../games-js/letter-memory.js"></script>
+
+</body>
+
+</html>
