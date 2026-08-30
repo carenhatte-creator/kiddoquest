@@ -678,6 +678,89 @@ function loadQuestion() {
 
 
 // ==========================================================
+// LIVE STAR REWARD
+//
+// PLAIN FLOATING STAR — NO CARD.
+// USED ON CORRECT ANSWERS INSTEAD OF THE
+// WHITE .feedback POPUP CARD.
+// ==========================================================
+
+function showStarReward() {
+
+    const star =
+        document.createElement(
+            "div"
+        );
+
+
+    star.className =
+        "live-star-reward";
+
+
+    star.textContent =
+        "⭐ +1 Star";
+
+
+    document.body.appendChild(
+        star
+    );
+
+
+    const target =
+        document.querySelector(
+            ".board-area"
+        ) ||
+        document.body;
+
+
+    const rect =
+        target.getBoundingClientRect();
+
+
+    star.style.left =
+        (
+            rect.left +
+            rect.width / 2
+        ) +
+        "px";
+
+
+    star.style.top =
+        (
+            rect.top +
+            rect.height / 2
+        ) +
+        "px";
+
+
+    requestAnimationFrame(
+        function () {
+
+            star.classList.add(
+                "show"
+            );
+
+        }
+    );
+
+
+    setTimeout(
+        function () {
+
+            if (star.parentNode) {
+
+                star.remove();
+
+            }
+
+        },
+        1000
+    );
+
+}
+
+
+// ==========================================================
 // CHECK ANSWER
 // ==========================================================
 
@@ -749,10 +832,9 @@ function checkAnswer(
         playGameCorrect();
 
 
-        showFeedback(
-            "Correct! ⭐ Great job!",
-            true
-        );
+        // STAR ANIMATION (NO CARD)
+
+        showStarReward();
 
 
         setTimeout(
