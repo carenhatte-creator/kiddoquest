@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // IMPORTANT:
     // Do NOT put Markdown brackets here.
-    const PROGRESS_API = "http://localhost:5001/api/progress/save";
+    const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
 
     // ======================================================

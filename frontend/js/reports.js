@@ -4,7 +4,7 @@
 // FULL UPDATED VERSION
 // ==========================================================
 
-const API_BASE = "http://localhost:5001/api";
+const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
 // ==========================================================
 // DOM ELEMENTS

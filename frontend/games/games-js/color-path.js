@@ -151,9 +151,7 @@ document.addEventListener(
             3;
 
 
-        const API_BASE =
-            "http://localhost:5001/api";
-
+        const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
         // =====================================================
         // COLORS

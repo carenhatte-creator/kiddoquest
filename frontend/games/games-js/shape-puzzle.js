@@ -15,8 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const POINTS_PER_PUZZLE = 10;
     const TOTAL_QUESTIONS = 10;
 
-    const PROGRESS_API =
-        "http://localhost:5001/api/progress";
+    const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
 
     // =====================================================

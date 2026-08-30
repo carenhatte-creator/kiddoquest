@@ -2,8 +2,7 @@
 // KINDERQUEST - TEACHER REGISTER
 // REGISTER → TEACHER LOGIN
 // =========================================================
-
-const API_BASE = "http://localhost:5001/api";
+const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
 const registerForm = document.getElementById("registerForm");
 const registerBtn = document.getElementById("registerBtn");

@@ -35,8 +35,7 @@ const COLORS = [
 const MAX_LIVES = 3;
 const MAX_HINTS = 3;
 
-const API_BASE =
-    "http://localhost:5001/api";
+const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
 
 let score = 0;

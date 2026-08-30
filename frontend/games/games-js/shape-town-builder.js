@@ -18,7 +18,7 @@
     const POINTS_PER_PART = 10;
     const LEVEL_BONUS = 20;
 
-    const API_BASE = "http://localhost:5001/api";
+   const API_BASE = "https://kiddoquest-backend.onrender.com/api";
     const SAVE_URL = API_BASE + "/progress/save";
 
 

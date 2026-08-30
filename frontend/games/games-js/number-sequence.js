@@ -23,8 +23,7 @@ console.log("number-sequence.js loaded");
 // API
 // ==========================================
 
-const API_BASE =
-    "http://localhost:5001/api";
+const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
 
 // ==========================================

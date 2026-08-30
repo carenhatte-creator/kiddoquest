@@ -4,8 +4,7 @@
 // =================================
 
 
-const PROGRESS_API =
-    "http://localhost:5001/api/progress";
+const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
 
 const progressTable =
