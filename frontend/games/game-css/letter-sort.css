@@ -11,13 +11,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-
 html,
 body {
     width: 100%;
     min-height: 100%;
 }
-
 
 body {
     margin: 0;
@@ -57,7 +55,6 @@ body {
     z-index: 50;
 }
 
-
 .header-left,
 .header-right {
     display: flex;
@@ -65,14 +62,12 @@ body {
     gap: 12px;
 }
 
-
 .header-center {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
 }
-
 
 .student-name {
     font-size: 20px;
@@ -100,12 +95,10 @@ body {
     touch-action: manipulation;
 }
 
-
 .top-back-button:hover,
 #topBackButton:hover {
     background: #BBDEFB;
 }
-
 
 .top-back-button:active,
 #topBackButton:active {
@@ -125,7 +118,6 @@ body {
     gap: 10px;
 }
 
-
 .info-box {
     min-width: 100px;
     padding: 9px 14px;
@@ -135,7 +127,6 @@ body {
     text-align: center;
 }
 
-
 .info-label {
     display: block;
     font-size: 12px;
@@ -143,7 +134,6 @@ body {
     font-weight: 700;
     margin-bottom: 2px;
 }
-
 
 .info-value {
     display: block;
@@ -167,18 +157,15 @@ body {
     background: #EAF8FF;
 }
 
-
 .loading-content {
     width: min(90%, 420px);
     text-align: center;
 }
 
-
 .loading-content h1 {
     color: #1565C0;
     margin-bottom: 20px;
 }
-
 
 .loading-bar {
     width: 100%;
@@ -187,7 +174,6 @@ body {
     border-radius: 20px;
     overflow: hidden;
 }
-
 
 #loadingBarFill {
     width: 0%;
@@ -223,7 +209,6 @@ body {
     margin-bottom: 8px;
 }
 
-
 .game-instruction {
     text-align: center;
     color: #546E7A;
@@ -256,27 +241,18 @@ body {
 .letter-card {
     width: 76px;
     height: 76px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 18px;
-
     background: #ffffff;
-
     border: 3px solid #42A5F5;
-
     color: #1565C0;
-
     font-size: 36px;
     font-weight: 900;
-
     cursor: grab;
-
     user-select: none;
     -webkit-user-select: none;
-
     touch-action: none;
 
     box-shadow:
@@ -293,53 +269,46 @@ body {
     z-index: 10;
 }
 
-
 .letter-card:hover {
     transform: translateY(-4px);
+
     box-shadow:
         0 8px 0 #90CAF9,
         0 12px 18px rgba(0, 0, 0, 0.12);
 }
 
-
 .letter-card:active {
     cursor: grabbing;
 }
-
 
 .letter-card.selected {
     transform: translateY(-5px) scale(1.05);
     background: #FFF8D6;
     border-color: #FFC107;
+
     box-shadow:
         0 6px 0 #FFD54F,
         0 12px 20px rgba(0, 0, 0, 0.12);
 }
-
 
 .letter-card.dragging {
     opacity: 0.45;
     transform: scale(0.95);
 }
 
-
 .letter-card.touch-pressed {
     transform: scale(0.96);
 }
-
 
 .letter-card.touch-dragging {
     opacity: 0.35;
 }
 
-
 .letter-card.hint-letter {
     animation: hintPulse 0.6s ease-in-out infinite alternate;
 }
 
-
 @keyframes hintPulse {
-
     from {
         transform: scale(1);
     }
@@ -347,7 +316,6 @@ body {
     to {
         transform: scale(1.12);
     }
-
 }
 
 
@@ -357,13 +325,9 @@ body {
 
 .touch-drag-clone {
     position: fixed !important;
-
     pointer-events: none !important;
-
     z-index: 999999 !important;
-
     opacity: 0.92 !important;
-
     transform: scale(1.08) rotate(3deg);
 
     box-shadow:
@@ -380,7 +344,6 @@ body {
     margin: 0 auto;
 }
 
-
 .slots-title {
     text-align: center;
     color: #455A64;
@@ -388,7 +351,6 @@ body {
     font-weight: 800;
     margin-bottom: 14px;
 }
-
 
 #letterSlotsContainer,
 .letter-slots,
@@ -409,11 +371,8 @@ body {
 .letter-slot {
     width: 90px;
     height: 90px;
-
     border-radius: 20px;
-
     background: #ffffff;
-
     border: 4px dashed #90CAF9;
 
     display: flex;
@@ -423,13 +382,11 @@ body {
     position: relative;
 
     color: #78909C;
-
     font-size: 17px;
     font-weight: 700;
 
     user-select: none;
     -webkit-user-select: none;
-
     touch-action: none;
 
     transition:
@@ -439,42 +396,46 @@ body {
         box-shadow 0.15s ease;
 }
 
-
 .letter-slot.drag-over {
     background: #E3F2FD;
     border-color: #2196F3;
     transform: scale(1.06);
+
     box-shadow:
         0 0 0 5px rgba(33, 150, 243, 0.12);
 }
-
 
 .letter-slot.correct {
     background: #E8F5E9;
     border: 4px solid #66BB6A;
     color: #2E7D32;
+
     animation: correctSlot 0.35s ease;
 }
-
 
 .letter-slot.wrong {
     background: #FFEBEE;
     border-color: #EF5350;
+
     animation: wrongSlot 0.35s ease;
 }
-
 
 .letter-slot.hint-highlight {
     background: #FFF8D6;
     border-color: #FFC107;
+
     box-shadow:
         0 0 0 6px rgba(255, 193, 7, 0.12);
+
     animation: hintSlot 0.5s ease-in-out infinite alternate;
 }
 
 
-@keyframes correctSlot {
+/* ==========================================================
+   SLOT ANIMATIONS
+   ========================================================== */
 
+@keyframes correctSlot {
     0% {
         transform: scale(1);
     }
@@ -486,12 +447,9 @@ body {
     100% {
         transform: scale(1);
     }
-
 }
 
-
 @keyframes wrongSlot {
-
     0% {
         transform: translateX(0);
     }
@@ -511,12 +469,9 @@ body {
     100% {
         transform: translateX(0);
     }
-
 }
 
-
 @keyframes hintSlot {
-
     from {
         transform: scale(1);
     }
@@ -524,7 +479,6 @@ body {
     to {
         transform: scale(1.06);
     }
-
 }
 
 
@@ -551,9 +505,7 @@ body {
     animation: placedLetterPop 0.3s ease;
 }
 
-
 @keyframes placedLetterPop {
-
     0% {
         transform: scale(0.5);
         opacity: 0;
@@ -563,7 +515,6 @@ body {
         transform: scale(1);
         opacity: 1;
     }
-
 }
 
 
@@ -581,11 +532,9 @@ body {
     margin-top: 25px;
 }
 
-
 .game-button {
     min-width: 130px;
     min-height: 48px;
-
     padding: 10px 18px;
 
     border: none;
@@ -595,7 +544,6 @@ body {
     font-weight: 800;
 
     cursor: pointer;
-
     touch-action: manipulation;
 
     transition:
@@ -603,16 +551,13 @@ body {
         opacity 0.15s ease;
 }
 
-
 .game-button:hover {
     transform: translateY(-2px);
 }
 
-
 .game-button:active {
     transform: scale(0.96);
 }
-
 
 .game-button:disabled {
     opacity: 0.45;
@@ -654,21 +599,17 @@ body {
     margin-top: 25px;
 }
 
-
 #truck {
     position: absolute;
     left: 4%;
     bottom: 5px;
-
     width: 140px;
     max-width: 25vw;
-
     z-index: 5;
 
     transition:
         left 1.2s ease;
 }
-
 
 .track {
     position: absolute;
@@ -679,7 +620,6 @@ body {
     height: 8px;
 
     background: #78909C;
-
     border-radius: 8px;
 }
 
@@ -693,7 +633,6 @@ body {
 #completeModal {
     position: fixed;
     inset: 0;
-
     z-index: 90000;
 
     display: none;
@@ -709,7 +648,6 @@ body {
     visibility: hidden;
     pointer-events: none;
 }
-
 
 #levelRewardModal:not(.hidden),
 #gameOverModal:not(.hidden),
@@ -742,9 +680,7 @@ body {
     animation: modalPop 0.25s ease;
 }
 
-
 @keyframes modalPop {
-
     from {
         opacity: 0;
         transform: scale(0.85);
@@ -754,16 +690,13 @@ body {
         opacity: 1;
         transform: scale(1);
     }
-
 }
-
 
 .modal-card h2 {
     color: #1565C0;
     font-size: 30px;
     margin-bottom: 12px;
 }
-
 
 .modal-card p {
     color: #546E7A;
@@ -781,14 +714,13 @@ body {
     font-size: 32px;
     font-weight: 900;
     color: #F9A825;
+
     margin: 15px 0 22px;
 
     animation: starReward 0.7s ease;
 }
 
-
 @keyframes starReward {
-
     0% {
         transform: scale(0.4) rotate(-10deg);
         opacity: 0;
@@ -802,7 +734,6 @@ body {
     100% {
         transform: scale(1);
     }
-
 }
 
 
@@ -816,7 +747,6 @@ body {
     border: none;
 
     background: #42A5F5;
-
     color: #ffffff;
 
     border-radius: 14px;
@@ -826,14 +756,11 @@ body {
     padding: 10px 25px;
 
     font-size: 17px;
-
     font-weight: 800;
 
     cursor: pointer;
-
     touch-action: manipulation;
 }
-
 
 #nextLevelBtn:hover,
 #gameOverAgainBtn:hover,
@@ -841,14 +768,12 @@ body {
     background: #1E88E5;
 }
 
-
 #gameOverBackButton,
 #gameOverBackBtn,
 #backBtn {
     border: 2px solid #90CAF9;
 
     background: #E3F2FD;
-
     color: #1565C0;
 
     border-radius: 14px;
@@ -858,11 +783,9 @@ body {
     padding: 10px 25px;
 
     font-size: 17px;
-
     font-weight: 800;
 
     cursor: pointer;
-
     touch-action: manipulation;
 
     margin-left: 8px;
@@ -900,7 +823,6 @@ body {
     padding: 20px;
 }
 
-
 .no-student-card {
     width: min(92vw, 430px);
 
@@ -915,7 +837,6 @@ body {
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.2);
 }
-
 
 .no-student-card h2 {
     color: #1565C0;
@@ -943,16 +864,13 @@ body {
         gap: 8px;
     }
 
-
     .student-name {
         font-size: 17px;
     }
 
-
     .game-area {
         padding: 20px 15px 35px;
     }
-
 
     .letter-card {
         width: 72px;
@@ -960,23 +878,19 @@ body {
         font-size: 34px;
     }
 
-
     .letter-slot {
         width: 82px;
         height: 82px;
     }
 
-
     .placed-letter {
         font-size: 38px;
     }
-
 
     #truck {
         width: 125px;
         max-width: 22vw;
     }
-
 }
 
 
@@ -991,7 +905,6 @@ body {
         justify-content: center;
     }
 
-
     .header-left,
     .header-right,
     .header-center {
@@ -999,28 +912,23 @@ body {
         justify-content: center;
     }
 
-
     .header-center {
         order: -1;
     }
 
-
     .game-info {
         width: 100%;
     }
-
 
     .info-box {
         flex: 1;
         min-width: 85px;
     }
 
-
     #lettersContainer {
         gap: 11px;
         margin-bottom: 18px;
     }
-
 
     .letter-card {
         width: 62px;
@@ -1030,13 +938,11 @@ body {
         border-width: 3px;
     }
 
-
     #letterSlotsContainer,
     .letter-slots,
     .slots-container {
         gap: 10px;
     }
-
 
     .letter-slot {
         width: 64px;
@@ -1045,39 +951,32 @@ body {
         border-width: 3px;
     }
 
-
     .placed-letter {
         font-size: 31px;
     }
-
 
     .slot-number {
         font-size: 14px;
     }
 
-
     .game-title {
         font-size: 29px;
     }
-
 
     .game-instruction {
         font-size: 15px;
         padding: 0 10px;
     }
 
-
     .game-button {
         min-width: 115px;
         min-height: 46px;
     }
 
-
     #truck {
         width: 110px;
         max-width: 28vw;
     }
-
 }
 
 
@@ -1091,16 +990,13 @@ body {
         font-size: 14px;
     }
 
-
     .game-area {
         padding: 15px 10px 30px;
     }
 
-
     .header {
         padding: 10px;
     }
-
 
     .student-name {
         font-size: 16px;
@@ -1109,11 +1005,9 @@ body {
         text-overflow: ellipsis;
     }
 
-
     .game-info {
         gap: 6px;
     }
-
 
     .info-box {
         padding: 7px 8px;
@@ -1121,28 +1015,23 @@ body {
         border-radius: 11px;
     }
 
-
     .info-label {
         font-size: 10px;
     }
 
-
     .info-value {
         font-size: 16px;
     }
-
 
     .game-title {
         font-size: 26px;
         margin-bottom: 5px;
     }
 
-
     .game-instruction {
         font-size: 14px;
         margin-bottom: 15px;
     }
-
 
     #lettersContainer {
         gap: 8px;
@@ -1150,13 +1039,10 @@ body {
         margin-bottom: 15px;
     }
 
-
     .letter-card {
         width: 55px;
         height: 55px;
-
         border-radius: 13px;
-
         font-size: 27px;
 
         box-shadow:
@@ -1164,39 +1050,31 @@ body {
             0 6px 10px rgba(0, 0, 0, 0.08);
     }
 
-
     #letterSlotsContainer,
     .letter-slots,
     .slots-container {
         gap: 7px;
     }
 
-
     .letter-slot {
         width: 55px;
         height: 55px;
-
         border-radius: 13px;
-
         border-width: 3px;
     }
-
 
     .placed-letter {
         font-size: 27px;
     }
 
-
     .slot-number {
         font-size: 12px;
     }
-
 
     .controls {
         gap: 8px;
         margin-top: 18px;
     }
-
 
     .game-button {
         min-width: 105px;
@@ -1206,45 +1084,37 @@ body {
         border-radius: 12px;
     }
 
-
     .train-area {
         height: 80px;
         margin-top: 18px;
     }
-
 
     #truck {
         width: 95px;
         max-width: 30vw;
     }
 
-
     .modal-card {
         padding: 25px 18px;
         border-radius: 20px;
     }
 
-
     .modal-card h2 {
         font-size: 25px;
     }
-
 
     .modal-card p {
         font-size: 16px;
     }
 
-
     #rewardStarText {
         font-size: 28px;
     }
-
 
     #finalStarsDisplay {
         font-size: 32px;
         letter-spacing: 3px;
     }
-
 
     #nextLevelBtn,
     #gameOverAgainBtn,
@@ -1256,9 +1126,12 @@ body {
         margin: 5px 0;
         min-height: 48px;
     }
-
 }
 
+
+/* ==========================================================
+   VERY SMALL PHONE
+   ========================================================== */
 
 @media (max-width: 360px) {
 
@@ -1268,35 +1141,32 @@ body {
         font-size: 24px;
     }
 
-
     .letter-slot {
         width: 50px;
         height: 50px;
     }
 
-
     .placed-letter {
         font-size: 24px;
     }
-
 
     .info-box {
         min-width: 68px;
     }
 
-
     .info-value {
         font-size: 14px;
     }
 
-
     .game-title {
         font-size: 23px;
     }
-
 }
 
 
+/* ==========================================================
+   TOUCH SUPPORT
+   ========================================================== */
 
 button,
 .letter-card,
@@ -1305,21 +1175,22 @@ button,
     user-select: none;
 }
 
-
 button {
     touch-action: manipulation;
 }
-
 
 .letter-card {
     touch-action: none;
 }
 
-
 .letter-slot {
     touch-action: none;
 }
 
+
+/* ==========================================================
+   REDUCED MOTION
+   ========================================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1330,5 +1201,4 @@ button {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-
 }
