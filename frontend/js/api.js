@@ -2,14 +2,16 @@
 // KinderQuest API
 // ========================================
 
-const API_BASE = "https://kiddoquest-backend.onrender.com/api";;
+// ONLINE BACKEND
+const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+
 
 const api = {
 
     // ==========================
     // GET
     // ==========================
-    async get(url){
+    async get(url) {
 
         const response = await fetch(
             API_BASE + url,
@@ -26,46 +28,44 @@ const api = {
     },
 
 
-
     // ==========================
     // POST
     // ==========================
-    async post(url,data){
+    async post(url, data) {
 
         const response = await fetch(
             API_BASE + url,
             {
-                method:"POST",
+                method: "POST",
 
-                headers:{
-                    "Content-Type":"application/json"
+                headers: {
+                    "Content-Type": "application/json"
                 },
 
-                body:JSON.stringify(data)
+                body: JSON.stringify(data)
             }
         );
 
         return await response.json();
 
     },
-
 
 
     // ==========================
     // PUT
     // ==========================
-    async put(url,data){
+    async put(url, data) {
 
         const response = await fetch(
             API_BASE + url,
             {
-                method:"PUT",
+                method: "PUT",
 
-                headers:{
-                    "Content-Type":"application/json"
+                headers: {
+                    "Content-Type": "application/json"
                 },
 
-                body:JSON.stringify(data)
+                body: JSON.stringify(data)
             }
         );
 
@@ -74,19 +74,18 @@ const api = {
     },
 
 
-
     // ==========================
     // DELETE
     // ==========================
-    async delete(url){
+    async delete(url) {
 
         const response = await fetch(
             API_BASE + url,
             {
-                method:"DELETE",
+                method: "DELETE",
 
-                headers:{
-                    "Content-Type":"application/json"
+                headers: {
+                    "Content-Type": "application/json"
                 }
             }
         );
@@ -98,5 +97,8 @@ const api = {
 };
 
 
-// para magamit sa ibang JS file
+// ========================================
+// MAKE API AVAILABLE TO OTHER JS FILES
+// ========================================
+
 window.api = api;
