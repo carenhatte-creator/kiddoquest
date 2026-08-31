@@ -1,308 +1,856 @@
-const sqlite3 = require("sqlite3").verbose();
-const path = require("path");
+// =========================================================
+// KIDDOQUEST - POSTGRESQL DATABASE
+// PostgreSQL version
+// Compatible with existing controllers
+// =========================================================
 
-const config = require("../config/config");
+const { Pool } = require("pg");
 
-// ======================================
-// SHOW DATABASE PATH
-// ======================================
+// =========================================================
+// DATABASE URL
+// =========================================================
 
-console.log("");
-console.log("===================================");
-console.log("DATABASE LOCATION:");
-console.log(config.DATABASE_PATH);
-console.log("===================================");
-console.log("");
+const DATABASE_URL = process.env.DATABASE_URL;
 
-// ======================================
-// CONNECT DATABASE
-// ======================================
 
-const db = new sqlite3.Database(
-    config.DATABASE_PATH,
-    (err) => {
+// =========================================================
+// CHECK DATABASE URL
+// =========================================================
 
-        if (err) {
+if (!DATABASE_URL) {
 
-            console.log("Database connection failed");
-            console.log(err.message);
-
-        } else {
-
-            console.log("Connected to SQLite Database");
-
-        }
-
-    }
-);
-
-// ======================================
-// CREATE TABLES
-// ======================================
-
-db.serialize(() => {
-
-    // ======================================
-    // TEACHERS
-    // ======================================
-
-    db.run(`
-        CREATE TABLE IF NOT EXISTS teachers (
-
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-            fullname TEXT NOT NULL,
-
-            username TEXT UNIQUE NOT NULL,
-
-            password TEXT NOT NULL,
-
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-
-        )
-    `);
-
-
-    // ======================================
-    // STUDENTS
-    // ======================================
-
-    db.run(`
-        CREATE TABLE IF NOT EXISTS students (
-
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-            teacher_id INTEGER NOT NULL,
-
-            first_name TEXT NOT NULL,
-
-            last_name TEXT NOT NULL,
-
-            age INTEGER,
-
-            gender TEXT,
-
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-            FOREIGN KEY (teacher_id)
-            REFERENCES teachers(id)
-            ON DELETE CASCADE
-
-        )
-    `);
-
-
-    // ======================================
-    // PROGRESS
-    // ======================================
-
-    db.run(`
-        CREATE TABLE IF NOT EXISTS progress (
-
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-            teacher_id INTEGER NOT NULL,
-
-            student_id INTEGER NOT NULL,
-
-            category TEXT NOT NULL,
-
-            activity TEXT NOT NULL,
-
-            score INTEGER DEFAULT 0,
-
-            stars INTEGER DEFAULT 0,
-
-            status TEXT DEFAULT 'Not Started',
-
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-            FOREIGN KEY (teacher_id)
-            REFERENCES teachers(id)
-            ON DELETE CASCADE,
-
-            FOREIGN KEY (student_id)
-            REFERENCES students(id)
-            ON DELETE CASCADE
-
-        )
-    `);
-
-
-    // ======================================
-    // ADD STARS COLUMN TO EXISTING DATABASE
-    // ======================================
-    //
-    // IMPORTANT:
-    // If the progress table already existed before
-    // we added the stars system, CREATE TABLE IF NOT
-    // EXISTS will NOT add the new column.
-    //
-    // This migration checks first.
-    // If stars does not exist, it adds it.
-    //
-    // ======================================
-
-    db.all(
-        `PRAGMA table_info(progress)`,
-        (err, columns) => {
-
-            if (err) {
-
-                console.log(
-                    "Could not check progress table:"
-                );
-
-                console.log(err.message);
-
-                return;
-
-            }
-
-
-            const hasStarsColumn =
-                columns.some(
-                    column =>
-                        column.name === "stars"
-                );
-
-
-            if (!hasStarsColumn) {
-
-                db.run(
-                    `
-                    ALTER TABLE progress
-                    ADD COLUMN stars INTEGER DEFAULT 0
-                    `,
-                    (alterErr) => {
-
-                        if (alterErr) {
-
-                            console.log(
-                                "Could not add stars column:"
-                            );
-
-                            console.log(
-                                alterErr.message
-                            );
-
-                        } else {
-
-                            console.log(
-                                "Stars column added to progress table."
-                            );
-
-                        }
-
-                    }
-                );
-
-            } else {
-
-                console.log(
-                    "Stars column already exists."
-                );
-
-            }
-
-        }
+    console.error("");
+    console.error("===================================");
+    console.error("DATABASE ERROR");
+    console.error("===================================");
+    console.error("DATABASE_URL is not configured.");
+    console.error(
+        "Please add DATABASE_URL to Render Environment Variables."
     );
+    console.error("===================================");
+    console.error("");
+
+}
 
 
-    // ======================================
-    // COUNT STUDENTS
-    // ======================================
+// =========================================================
+// POSTGRESQL CONNECTION POOL
+// =========================================================
 
-    db.get(
-        "SELECT COUNT(*) AS total FROM students",
-        (err, row) => {
+const pool = new Pool({
 
-            if (!err) {
+    connectionString: DATABASE_URL,
 
-                console.log(
-                    "Students in database:",
-                    row.total
-                );
-
-            }
-
+    ssl: DATABASE_URL
+        ? {
+            rejectUnauthorized: false
         }
-    );
+        : false
+
+});
 
 
-    // ======================================
-    // COUNT PROGRESS RECORDS
-    // ======================================
+// =========================================================
+// POSTGRESQL CONNECTION
+// =========================================================
 
-    db.get(
-        "SELECT COUNT(*) AS total FROM progress",
-        (err, row) => {
+pool.on("connect", () => {
 
-            if (!err) {
+    console.log("");
+    console.log("===================================");
+    console.log("Connected to PostgreSQL Database");
+    console.log("===================================");
+    console.log("");
 
-                console.log(
-                    "Progress records in database:",
-                    row.total
-                );
-
-            }
-
-        }
-    );
+});
 
 
-    // ======================================
-    // CHECK STARS COLUMN
-    // ======================================
+pool.on("error", (err) => {
 
-    db.all(
-        `PRAGMA table_info(progress)`,
-        (err, columns) => {
-
-            if (err) {
-
-                console.log(
-                    "Could not verify progress columns:"
-                );
-
-                console.log(
-                    err.message
-                );
-
-                return;
-
-            }
-
-
-            const starsColumn =
-                columns.find(
-                    column =>
-                        column.name === "stars"
-                );
-
-
-            if (starsColumn) {
-
-                console.log(
-                    "Progress stars column: READY"
-                );
-
-            } else {
-
-                console.log(
-                    "Progress stars column: NOT FOUND"
-                );
-
-            }
-
-        }
+    console.error(
+        "Unexpected PostgreSQL pool error:",
+        err
     );
 
 });
 
 
-// ======================================
-// EXPORT DATABASE
-// ======================================
+// =========================================================
+// DATABASE STATUS
+// =========================================================
 
-module.exports = db;
+let databaseReady = false;
+
+let databaseInitialization = null;
+
+
+// =========================================================
+// INITIALIZE DATABASE
+// =========================================================
+
+async function initializeDatabase() {
+
+    // Prevent multiple database initialization
+    if (databaseInitialization) {
+
+        return databaseInitialization;
+
+    }
+
+
+    databaseInitialization = (async () => {
+
+        // =================================================
+        // CHECK DATABASE URL
+        // =================================================
+
+        if (!DATABASE_URL) {
+
+            throw new Error(
+                "DATABASE_URL environment variable is missing."
+            );
+
+        }
+
+
+        // =================================================
+        // GET CLIENT
+        // =================================================
+
+        const client =
+            await pool.connect();
+
+
+        try {
+
+            // =================================================
+            // BEGIN TRANSACTION
+            // =================================================
+
+            await client.query(
+                "BEGIN"
+            );
+
+
+            // =================================================
+            // TEACHERS TABLE
+            // =================================================
+
+            await client.query(`
+
+                CREATE TABLE IF NOT EXISTS teachers (
+
+                    id SERIAL PRIMARY KEY,
+
+                    fullname TEXT NOT NULL,
+
+                    username TEXT UNIQUE NOT NULL,
+
+                    password TEXT NOT NULL,
+
+                    created_at TIMESTAMP
+                    DEFAULT CURRENT_TIMESTAMP
+
+                )
+
+            `);
+
+
+            // =================================================
+            // STUDENTS TABLE
+            // =================================================
+
+            await client.query(`
+
+                CREATE TABLE IF NOT EXISTS students (
+
+                    id SERIAL PRIMARY KEY,
+
+                    teacher_id INTEGER NOT NULL,
+
+                    first_name TEXT NOT NULL,
+
+                    last_name TEXT NOT NULL,
+
+                    age INTEGER,
+
+                    gender TEXT,
+
+                    created_at TIMESTAMP
+                    DEFAULT CURRENT_TIMESTAMP,
+
+                    CONSTRAINT fk_students_teacher
+
+                    FOREIGN KEY (teacher_id)
+
+                    REFERENCES teachers(id)
+
+                    ON DELETE CASCADE
+
+                )
+
+            `);
+
+
+            // =================================================
+            // PROGRESS TABLE
+            // =================================================
+
+            await client.query(`
+
+                CREATE TABLE IF NOT EXISTS progress (
+
+                    id SERIAL PRIMARY KEY,
+
+                    teacher_id INTEGER NOT NULL,
+
+                    student_id INTEGER NOT NULL,
+
+                    category TEXT NOT NULL,
+
+                    activity TEXT NOT NULL,
+
+                    score INTEGER DEFAULT 0,
+
+                    stars INTEGER DEFAULT 0,
+
+                    status TEXT
+                    DEFAULT 'Not Started',
+
+                    created_at TIMESTAMP
+                    DEFAULT CURRENT_TIMESTAMP,
+
+                    CONSTRAINT fk_progress_teacher
+
+                    FOREIGN KEY (teacher_id)
+
+                    REFERENCES teachers(id)
+
+                    ON DELETE CASCADE,
+
+                    CONSTRAINT fk_progress_student
+
+                    FOREIGN KEY (student_id)
+
+                    REFERENCES students(id)
+
+                    ON DELETE CASCADE
+
+                )
+
+            `);
+
+
+            // =================================================
+            // ADD STARS COLUMN IF IT DOES NOT EXIST
+            // =================================================
+
+            await client.query(`
+
+                ALTER TABLE progress
+
+                ADD COLUMN IF NOT EXISTS
+                stars INTEGER DEFAULT 0
+
+            `);
+
+
+            // =================================================
+            // ADD STATUS COLUMN IF IT DOES NOT EXIST
+            // =================================================
+
+            await client.query(`
+
+                ALTER TABLE progress
+
+                ADD COLUMN IF NOT EXISTS
+                status TEXT DEFAULT 'Not Started'
+
+            `);
+
+
+            // =================================================
+            // COUNT TEACHERS
+            // =================================================
+
+            const teacherCount =
+                await client.query(`
+
+                    SELECT COUNT(*) AS total
+
+                    FROM teachers
+
+                `);
+
+
+            // =================================================
+            // COUNT STUDENTS
+            // =================================================
+
+            const studentCount =
+                await client.query(`
+
+                    SELECT COUNT(*) AS total
+
+                    FROM students
+
+                `);
+
+
+            // =================================================
+            // COUNT PROGRESS
+            // =================================================
+
+            const progressCount =
+                await client.query(`
+
+                    SELECT COUNT(*) AS total
+
+                    FROM progress
+
+                `);
+
+
+            // =================================================
+            // COMMIT
+            // =================================================
+
+            await client.query(
+                "COMMIT"
+            );
+
+
+            // =================================================
+            // DATABASE READY
+            // =================================================
+
+            databaseReady = true;
+
+
+            console.log("");
+            console.log("===================================");
+            console.log("POSTGRESQL DATABASE READY");
+            console.log("===================================");
+
+            console.log(
+                "Teachers in database:",
+                teacherCount.rows[0].total
+            );
+
+            console.log(
+                "Students in database:",
+                studentCount.rows[0].total
+            );
+
+            console.log(
+                "Progress records in database:",
+                progressCount.rows[0].total
+            );
+
+            console.log(
+                "Progress stars column: READY"
+            );
+
+            console.log("===================================");
+            console.log("");
+
+
+        } catch (error) {
+
+            // =================================================
+            // ROLLBACK IF ERROR
+            // =================================================
+
+            await client.query(
+                "ROLLBACK"
+            );
+
+
+            console.error("");
+            console.error(
+                "==================================="
+            );
+            console.error(
+                "DATABASE INITIALIZATION FAILED"
+            );
+            console.error(
+                "==================================="
+            );
+
+            console.error(
+                error.message
+            );
+
+            console.error(
+                "==================================="
+            );
+
+            console.error("");
+
+            throw error;
+
+        } finally {
+
+            // =================================================
+            // RELEASE CLIENT
+            // =================================================
+
+            client.release();
+
+        }
+
+    })();
+
+
+    return databaseInitialization;
+
+}
+
+
+// =========================================================
+// CONVERT SQLITE ? PLACEHOLDERS
+// TO POSTGRESQL $1, $2, $3...
+// =========================================================
+
+function convertPlaceholders(sql) {
+
+    let index = 0;
+
+
+    return sql.replace(
+        /\?/g,
+        () => {
+
+            index++;
+
+            return `$${index}`;
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// GET ONE ROW
+//
+// Compatible with:
+//
+// db.get(
+//     sql,
+//     params,
+//     callback
+// );
+//
+// =========================================================
+
+function get(
+    sql,
+    params,
+    callback
+) {
+
+    // =================================================
+    // SUPPORT db.get(sql, callback)
+    // =================================================
+
+    if (
+        typeof params === "function"
+    ) {
+
+        callback = params;
+
+        params = [];
+
+    }
+
+
+    // =================================================
+    // DEFAULT PARAMS
+    // =================================================
+
+    if (!Array.isArray(params)) {
+
+        params = [];
+
+    }
+
+
+    // =================================================
+    // INITIALIZE DATABASE
+    // =================================================
+
+    initializeDatabase()
+
+        .then(() => {
+
+            const postgresSQL =
+                convertPlaceholders(sql);
+
+
+            return pool.query(
+
+                postgresSQL,
+
+                params
+
+            );
+
+        })
+
+        .then(result => {
+
+            // =================================================
+            // RETURN FIRST ROW
+            // =================================================
+
+            callback(
+
+                null,
+
+                result.rows[0] || undefined
+
+            );
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "DATABASE GET ERROR:",
+                error.message
+            );
+
+
+            callback(
+                error
+            );
+
+        });
+
+}
+
+
+// =========================================================
+// GET MULTIPLE ROWS
+//
+// Compatible with:
+//
+// db.all(
+//     sql,
+//     params,
+//     callback
+// );
+//
+// =========================================================
+
+function all(
+    sql,
+    params,
+    callback
+) {
+
+    // =================================================
+    // SUPPORT db.all(sql, callback)
+    // =================================================
+
+    if (
+        typeof params === "function"
+    ) {
+
+        callback = params;
+
+        params = [];
+
+    }
+
+
+    // =================================================
+    // DEFAULT PARAMS
+    // =================================================
+
+    if (!Array.isArray(params)) {
+
+        params = [];
+
+    }
+
+
+    // =================================================
+    // INITIALIZE DATABASE
+    // =================================================
+
+    initializeDatabase()
+
+        .then(() => {
+
+            const postgresSQL =
+                convertPlaceholders(sql);
+
+
+            return pool.query(
+
+                postgresSQL,
+
+                params
+
+            );
+
+        })
+
+        .then(result => {
+
+            // =================================================
+            // RETURN ALL ROWS
+            // =================================================
+
+            callback(
+
+                null,
+
+                result.rows
+
+            );
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "DATABASE ALL ERROR:",
+                error.message
+            );
+
+
+            callback(
+                error
+            );
+
+        });
+
+}
+
+
+// =========================================================
+// RUN INSERT / UPDATE / DELETE
+//
+// Compatible with:
+//
+// db.run(
+//     sql,
+//     params,
+//     callback
+// );
+//
+// =========================================================
+
+function run(
+    sql,
+    params,
+    callback
+) {
+
+    // =================================================
+    // SUPPORT db.run(sql, callback)
+    // =================================================
+
+    if (
+        typeof params === "function"
+    ) {
+
+        callback = params;
+
+        params = [];
+
+    }
+
+
+    // =================================================
+    // DEFAULT PARAMS
+    // =================================================
+
+    if (!Array.isArray(params)) {
+
+        params = [];
+
+    }
+
+
+    // =================================================
+    // INITIALIZE DATABASE
+    // =================================================
+
+    initializeDatabase()
+
+        .then(async () => {
+
+            // =================================================
+            // CONVERT SQL
+            // =================================================
+
+            const postgresSQL =
+                convertPlaceholders(sql);
+
+
+            // =================================================
+            // CHECK IF INSERT
+            // =================================================
+
+            const isInsert =
+                /^\s*INSERT\s+/i.test(
+                    postgresSQL
+                );
+
+
+            let finalSQL =
+                postgresSQL;
+
+
+            // =================================================
+            // POSTGRES RETURNING ID
+            // =================================================
+
+            if (isInsert) {
+
+                finalSQL =
+                    `${postgresSQL} RETURNING id`;
+
+            }
+
+
+            // =================================================
+            // EXECUTE QUERY
+            // =================================================
+
+            const result =
+                await pool.query(
+
+                    finalSQL,
+
+                    params
+
+                );
+
+
+            // =================================================
+            // LAST INSERT ID
+            // =================================================
+
+            let lastID =
+                undefined;
+
+
+            if (
+                isInsert &&
+                result.rows.length > 0
+            ) {
+
+                lastID =
+                    result.rows[0].id;
+
+            }
+
+
+            // =================================================
+            // NUMBER OF CHANGED ROWS
+            // =================================================
+
+            const changes =
+                result.rowCount || 0;
+
+
+            // =================================================
+            // SQLITE-COMPATIBLE CONTEXT
+            // =================================================
+
+            const context = {
+
+                lastID: lastID,
+
+                changes: changes
+
+            };
+
+
+            // =================================================
+            // CALLBACK
+            // =================================================
+
+            callback.call(
+
+                context,
+
+                null
+
+            );
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "DATABASE RUN ERROR:",
+                error.message
+            );
+
+
+            callback(
+                error
+            );
+
+        });
+
+}
+
+
+// =========================================================
+// CLOSE DATABASE
+// =========================================================
+
+async function close() {
+
+    try {
+
+        await pool.end();
+
+        console.log(
+            "PostgreSQL database connection closed."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Error closing PostgreSQL:",
+            error.message
+        );
+
+    }
+
+}
+
+
+// =========================================================
+// EXPORT
+// =========================================================
+
+module.exports = {
+
+    get,
+
+    all,
+
+    run,
+
+    close,
+
+    pool,
+
+    initializeDatabase,
+
+    get databaseReady() {
+
+        return databaseReady;
+
+    }
+
+};

@@ -1,14 +1,30 @@
-const path = require("path");
+// =========================================================
+// KIDDOQUEST - CONFIGURATION
+// PostgreSQL version
+// =========================================================
 
 module.exports = {
 
+    // =====================================================
+    // PORT
+    // =====================================================
+
     PORT: process.env.PORT || 5001,
 
-    DATABASE_PATH: path.join(
-        __dirname,
-        "../database/database.db"
-    ),
 
-    JWT_SECRET: process.env.JWT_SECRET
+    // =====================================================
+    // POSTGRESQL DATABASE
+    // =====================================================
+
+    DATABASE_URL:
+        process.env.DATABASE_URL,
+
+
+    // =====================================================
+    // JWT SECRET
+    // =====================================================
+
+    JWT_SECRET:
+        process.env.JWT_SECRET
 
 };
