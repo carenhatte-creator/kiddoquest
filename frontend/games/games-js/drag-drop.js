@@ -2198,17 +2198,6 @@ function wrongLetterPlaced(
     playWrongSound();
 
 
-    if (feedback) {
-
-        feedback.textContent =
-            "❌ Try again!";
-
-        feedback.className =
-            "feedback wrong";
-
-    }
-
-
     setTimeout(
         () => {
 

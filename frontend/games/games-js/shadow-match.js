@@ -632,7 +632,7 @@ function addDropEvents(slot) {
 
             else {
 
-                wrongMatch();
+                wrongMatch(slot);
 
             }
 
@@ -821,9 +821,15 @@ function correctMatch(
 
 // ===================================
 // WRONG MATCH
+//
+// SIGN: RED BORDER + SHAKE ON THE SLOT
+// THAT WAS DROPPED ON — NO X, NO TEXT.
+// BUILT ENTIRELY IN JS (INLINE STYLE +
+// WEB ANIMATIONS API) SO IT DOESN'T
+// DEPEND ON A SEPARATE CSS FILE.
 // ===================================
 
-function wrongMatch() {
+function wrongMatch(slot) {
 
     lives--;
 
@@ -841,6 +847,53 @@ function wrongMatch() {
     ) {
 
         window.soundManager.playWrong();
+
+    }
+
+
+    if (slot) {
+
+        const previousBorderColor =
+            slot.style.borderColor;
+
+        const previousBoxShadow =
+            slot.style.boxShadow;
+
+
+        slot.style.borderColor =
+            "#e35d5d";
+
+        slot.style.boxShadow =
+            "0 0 0 3px rgba(227, 93, 93, 0.35)";
+
+
+        slot.animate(
+            [
+                { transform: "translateX(0)" },
+                { transform: "translateX(-8px)" },
+                { transform: "translateX(8px)" },
+                { transform: "translateX(-5px)" },
+                { transform: "translateX(0)" }
+            ],
+            {
+                duration: 350,
+                iterations: 1
+            }
+        );
+
+
+        setTimeout(
+            () => {
+
+                slot.style.borderColor =
+                    previousBorderColor;
+
+                slot.style.boxShadow =
+                    previousBoxShadow;
+
+            },
+            400
+        );
 
     }
 
