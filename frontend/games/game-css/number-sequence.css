@@ -13,8 +13,19 @@
 
 body {
     min-height: 100vh;
-    background: #EAF8FF;
-    color: #333;
+    position: relative;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at 8% 10%, rgba(255,255,255,.95) 0 24px, transparent 25px),
+        radial-gradient(circle at 13% 10%, rgba(255,255,255,.95) 0 32px, transparent 33px),
+        radial-gradient(circle at 18% 11%, rgba(255,255,255,.95) 0 22px, transparent 23px),
+        radial-gradient(circle at 84% 17%, rgba(255,255,255,.9) 0 20px, transparent 21px),
+        radial-gradient(circle at 89% 17%, rgba(255,255,255,.9) 0 31px, transparent 32px),
+        radial-gradient(circle at 94% 18%, rgba(255,255,255,.9) 0 21px, transparent 22px),
+        radial-gradient(circle at 7% 78%, rgba(255,214,116,.32) 0 5px, transparent 6px),
+        radial-gradient(circle at 93% 70%, rgba(126,214,185,.28) 0 6px, transparent 7px),
+        linear-gradient(180deg, #DFF4FF 0%, #EEF9FF 48%, #FFF8EA 100%);
+    color: #30445A;
 }
 
 
@@ -87,6 +98,36 @@ body {
 }
 
 
+
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+body::before {
+    width: 90px;
+    height: 90px;
+    left: -30px;
+    bottom: 65px;
+    background: rgba(111, 199, 241, .16);
+    box-shadow:
+        72px -25px 0 rgba(255, 206, 92, .14),
+        1120px -420px 0 rgba(119, 205, 176, .13);
+}
+
+body::after {
+    width: 55px;
+    height: 55px;
+    right: 20px;
+    top: 120px;
+    border: 7px solid rgba(255, 210, 91, .22);
+}
+
 /* ==========================================
    MAIN CONTAINER
    ========================================== */
@@ -95,7 +136,7 @@ body {
     width: 100%;
     max-width: 1100px;
     margin: auto;
-    padding: 20px;
+    padding: 24px 20px 35px;
 }
 
 
@@ -104,25 +145,25 @@ body {
    ========================================== */
 
 .game-header {
-    background: white;
-    border-radius: 22px;
+    background: #FFFFFF;
+    border-radius: 24px;
     padding: 18px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 18px rgba(63, 119, 156, 0.10);
+    border: 2px solid #DCEFFC;
     margin-bottom: 18px;
 }
 
 
 .back-btn {
-    border: none;
-    background: #2196F3;
-    color: white;
-    padding: 11px 18px;
-    border-radius: 13px;
+    border: 2px solid #63B8F2;
+    background: #E8F6FF;
+    color: #1976D2;
+    padding: 10px 17px;
+    border-radius: 14px;
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
@@ -131,7 +172,7 @@ body {
 
 
 .back-btn:hover {
-    background: #1976D2;
+    background: #D9F0FF;
     transform: translateY(-2px);
 }
 
@@ -150,7 +191,7 @@ body {
 
 
 .game-title h1 {
-    color: #1976D2;
+    color: #2379C9;
     font-size: 25px;
 }
 
@@ -163,7 +204,7 @@ body {
 .hearts {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 7px;
     font-size: 25px;
     white-space: nowrap;
 }
@@ -179,15 +220,15 @@ body {
    ========================================== */
 
 .info-bar {
-    background: white;
-    border-radius: 20px;
+    background: #FFFFFF;
+    border-radius: 22px;
     padding: 15px 22px;
     display: grid;
     grid-template-columns: 1fr auto auto;
     align-items: center;
     gap: 35px;
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 5px 18px rgba(63, 119, 156, 0.08);
+    border: 2px solid #E3F3FC;
     margin-bottom: 12px;
 }
 
@@ -202,7 +243,8 @@ body {
 .player-icon {
     width: 50px;
     height: 50px;
-    background: #E3F2FD;
+    background: #E9F7FF;
+    border: 2px solid #D5EEFC;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -229,9 +271,10 @@ body {
 
 .question-info {
     text-align: center;
-    background: #F3F8FF;
+    background: #F2F8FD;
     padding: 8px 16px;
     border-radius: 14px;
+    border: 2px solid #E1EEF7;
 }
 
 
@@ -243,10 +286,10 @@ body {
 
 .score-info {
     text-align: center;
-    background: #FFF8D9;
+    background: #FFF9E5;
     padding: 8px 16px;
     border-radius: 15px;
-    border: 2px solid #FFE082;
+    border: 2px solid #FFE29A;
     min-width: 95px;
 }
 
@@ -280,8 +323,8 @@ body {
 
 .progress-container {
     width: 100%;
-    height: 10px;
-    background: #D8EEF8;
+    height: 11px;
+    background: #DDF1FB;
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 15px;
@@ -291,15 +334,46 @@ body {
 .progress-bar {
     width: 0%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        #42A5F5,
-        #64B5F6
-    );
+    background: #63B8F2;
     border-radius: 20px;
     transition: width 0.35s ease;
 }
 
+
+/* ==========================================
+   REFRESHING VISUAL DETAILS
+   ========================================== */
+
+.game-area::before,
+.game-area::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.game-area::before {
+    width: 90px;
+    height: 22px;
+    top: 18px;
+    left: 24px;
+    border-radius: 30px;
+    background:
+        radial-gradient(circle at 12px 11px, #BFE9FA 0 7px, transparent 8px),
+        radial-gradient(circle at 40px 11px, #CDEFD9 0 7px, transparent 8px),
+        radial-gradient(circle at 68px 11px, #FFE2A3 0 7px, transparent 8px);
+}
+
+.game-area::after {
+    width: 90px;
+    height: 22px;
+    right: 24px;
+    bottom: 18px;
+    border-radius: 30px;
+    background:
+        radial-gradient(circle at 12px 11px, #FFE2A3 0 7px, transparent 8px),
+        radial-gradient(circle at 40px 11px, #CDEFD9 0 7px, transparent 8px),
+        radial-gradient(circle at 68px 11px, #BFE9FA 0 7px, transparent 8px);
+}
 
 /* ==========================================
    GAME AREA
@@ -307,22 +381,22 @@ body {
    ========================================== */
 
 .game-area {
-    background: white;
-    border-radius: 26px;
+    background: rgba(255,255,255,.94);
+    border-radius: 30px;
     min-height: 500px;
-    padding: 35px 30px;
+    padding: 40px 30px 45px;
     text-align: center;
-    box-shadow:
-        0 7px 22px rgba(0, 0, 0, 0.08);
-    border: 3px solid #E3F2FD;
+    box-shadow: 0 6px 20px rgba(63, 119, 156, 0.09);
+    border: 2px solid #DCEFFC;
     position: relative;
 }
 
 
 .level-badge {
     display: inline-block;
-    background: #E3F2FD;
-    color: #1976D2;
+    background: #E7F5FF;
+    color: #2379C9;
+    border: 1px solid #C9E9FA;
     padding: 7px 19px;
     border-radius: 20px;
     font-size: 12px;
@@ -332,15 +406,21 @@ body {
 
 
 .game-area h2 {
-    font-size: 28px;
-    color: #222;
+    font-size: 30px;
+    color: #29445C;
+    letter-spacing: -0.3px;
     margin-bottom: 8px;
 }
 
 
 .instruction {
-    color: #666;
+    color: #71859A;
     font-size: 15px;
+    background: #F8FCFF;
+    display: inline-block;
+    padding: 7px 15px;
+    border-radius: 20px;
+    border: 1px solid #E2F1F8;
     margin-bottom: 30px;
 }
 
@@ -355,38 +435,61 @@ body {
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
-    margin: 20px auto 35px;
-    min-height: 82px;
+    margin: 24px auto 34px;
+    min-height: 105px;
+    padding: 18px 22px;
+    border-radius: 24px;
+    background: #F4FBFF;
+    border: 2px solid #DCEFF8;
 }
 
 
 .number-box {
-    width: 68px;
-    height: 68px;
-    background: #42A5F5;
-    color: white;
-    border-radius: 16px;
+    width: 70px;
+    height: 70px;
+    background: #DDF1FF;
+    color: #2477BD;
+    border: 3px solid #9BD2F4;
+    border-radius: 19px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 29px;
     font-weight: bold;
-    box-shadow: 0 5px 0 #1976D2;
+    box-shadow: none;
 }
 
 
+.number-box:nth-child(1),
+.number-box:nth-child(5) {
+    background: #DDF1FF;
+    border-color: #9BD2F4;
+}
+
+.number-box:nth-child(3) {
+    background: #E6F8ED;
+    border-color: #A9DDBE;
+    color: #398B61;
+}
+
+.number-box:nth-child(7) {
+    background: #FFF1D7;
+    border-color: #F1CC7C;
+    color: #B77908;
+}
+
 .number-box.missing {
-    background: #FFF9E6;
-    color: #F0A500;
-    border: 3px dashed #FFC107;
+    background: #FFF8DE;
+    color: #D99500;
+    border: 2px dashed #F5C84B;
     box-shadow: none;
 }
 
 
 .sequence-line {
     width: 17px;
-    height: 4px;
-    background: #BDBDBD;
+    height: 3px;
+    background: #B9C9D5;
     border-radius: 5px;
 }
 
@@ -406,30 +509,48 @@ body {
 
 
 .choice-btn {
-    width: 90px;
-    height: 65px;
-    background: white;
-    border: 3px solid #DCE8F5;
-    border-radius: 17px;
-    color: #1976D2;
+    width: 94px;
+    height: 66px;
+    background: #FFFFFF;
+    border: 3px solid #CFE4F2;
+    border-radius: 18px;
+    color: #2379C9;
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.07);
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+    box-shadow: none;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 
+.choice-btn:nth-child(1) {
+    background: #F1FAFF;
+    border-color: #9BD2F4;
+}
+
+.choice-btn:nth-child(2) {
+    background: #F1FAF4;
+    border-color: #A9DDBE;
+    color: #398B61;
+}
+
+.choice-btn:nth-child(3) {
+    background: #FFF9E8;
+    border-color: #F1D17E;
+    color: #A87409;
+}
+
+.choice-btn:nth-child(4) {
+    background: #FFF1F3;
+    border-color: #F3B4BD;
+    color: #C65D6B;
+}
+
 .choice-btn:hover:not(:disabled) {
-    transform: translateY(-5px) scale(1.03);
-    border-color: #42A5F5;
-    background: #F3FAFF;
-    box-shadow:
-        0 7px 15px rgba(33, 150, 243, 0.15);
+    transform: translateY(-3px);
+    border-color: #70BDF0;
+    background: #F1FAFF;
+    box-shadow: none;
 }
 
 
@@ -481,8 +602,8 @@ body {
 
 .next-btn {
     display: none;
-    border: none;
-    background: #2196F3;
+    border: 2px solid #4DA8E8;
+    background: #63B8F2;
     color: white;
     padding: 12px 28px;
     border-radius: 14px;
@@ -494,7 +615,7 @@ body {
 
 
 .next-btn:hover {
-    background: #1976D2;
+    background: #4EA9E9;
     transform: translateY(-2px);
 }
 
@@ -754,7 +875,11 @@ body {
 
 
     .game-area {
-        padding: 28px 15px;
+        padding: 32px 15px 38px;
+    }
+
+    .number-path {
+        padding: 14px 8px;
     }
 
 
@@ -785,4 +910,390 @@ body {
         font-size: 21px;
     }
 
+}
+
+/* =========================================================
+   COLORFUL KID-FRIENDLY THEME
+   Design only — loading screen remains unchanged
+   ========================================================= */
+
+/* Main page */
+body {
+    background:
+        radial-gradient(circle at 8% 18%, #FFE7A8 0 10px, transparent 11px),
+        radial-gradient(circle at 92% 13%, #BEEBFF 0 12px, transparent 13px),
+        radial-gradient(circle at 5% 82%, #C9F3D8 0 9px, transparent 10px),
+        radial-gradient(circle at 95% 78%, #FFD0DE 0 10px, transparent 11px),
+        linear-gradient(135deg, #DDF5FF 0%, #EAF8FF 32%, #FFF3F8 68%, #FFF8E5 100%);
+}
+
+/* Header */
+.game-header {
+    background: linear-gradient(100deg, #FFFFFF 0%, #F2FAFF 55%, #FFF9E8 100%);
+    border: 3px solid #B9E4FA;
+    box-shadow: 0 7px 0 #D5EEF9, 0 12px 25px rgba(61, 132, 173, .10);
+}
+
+.back-btn {
+    background: #5BB7F2;
+    color: #FFFFFF;
+    border: 2px solid #3DA3E8;
+    box-shadow: 0 3px 0 #2688C9;
+}
+
+.back-btn:hover {
+    background: #72C4F5;
+}
+
+.title-icon {
+    background: #FFF0B8;
+    border: 2px solid #FFD45C;
+    border-radius: 13px;
+    padding: 7px 9px;
+}
+
+.game-title h1 {
+    color: #1677C8;
+}
+
+/* Hearts */
+.hearts span {
+    filter: drop-shadow(0 2px 0 rgba(220, 71, 103, .15));
+}
+
+/* Player / score cards */
+.info-bar {
+    background: linear-gradient(100deg, #FFFFFF 0%, #F7FCFF 100%);
+    border: 3px solid #CDEBFA;
+    box-shadow: 0 6px 0 #E1F3FB, 0 10px 22px rgba(61, 132, 173, .08);
+}
+
+.player-icon {
+    background: #DDF4FF;
+    border: 3px solid #8ED1F5;
+}
+
+.player-info strong {
+    color: #1476C6;
+}
+
+.question-info {
+    background: #EAF5FF;
+    border: 2px solid #BBDFF6;
+}
+
+.question-info strong {
+    color: #2477B9;
+}
+
+.score-info {
+    background: #FFF3C9;
+    border: 2px solid #FFD76B;
+}
+
+.score-info strong,
+.star-icon {
+    color: #D99A00;
+}
+
+/* Progress */
+.progress-container {
+    background: #D2EEF9;
+    border: 2px solid #B7E2F3;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #56B7F0, #65D6C0, #FFD45C);
+}
+
+/* Main game card */
+.game-area {
+    background:
+        radial-gradient(circle at 8% 12%, rgba(255, 216, 101, .25) 0 7px, transparent 8px),
+        radial-gradient(circle at 93% 16%, rgba(112, 205, 242, .25) 0 8px, transparent 9px),
+        radial-gradient(circle at 7% 88%, rgba(105, 210, 163, .20) 0 9px, transparent 10px),
+        radial-gradient(circle at 94% 88%, rgba(255, 143, 169, .18) 0 8px, transparent 9px),
+        linear-gradient(145deg, #FFFFFF 0%, #F7FCFF 55%, #FFFDF4 100%);
+    border: 3px solid #BFE4F7;
+    box-shadow: 0 7px 0 #DCEFF8, 0 14px 28px rgba(62, 128, 166, .10);
+}
+
+/* Level */
+.level-badge {
+    background: #DDF4FF;
+    color: #147AC8;
+    border: 2px solid #9ED7F5;
+}
+
+/* Question */
+.game-area h2 {
+    color: #24506F;
+}
+
+.instruction {
+    color: #71869A;
+}
+
+/* Number sequence area */
+.number-path {
+    background: linear-gradient(90deg, #F0FAFF, #FFF9E7, #F4FBF7);
+    border: 3px solid #D5ECF8;
+    border-radius: 24px;
+    padding: 20px 18px;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.8);
+}
+
+/* Colorful number cards */
+.number-box {
+    background: #BDE8FF;
+    color: #176FAF;
+    border: 3px solid #68BFF0;
+    border-radius: 18px;
+    box-shadow: 0 4px 0 #83C8EA;
+}
+
+.number-box:nth-child(1) {
+    background: #C9EEFF;
+    border-color: #72C8F1;
+}
+
+.number-box:nth-child(3) {
+    background: #D9F6E6;
+    color: #26805B;
+    border-color: #8AD5AC;
+    box-shadow: 0 4px 0 #A8DEC0;
+}
+
+.number-box:nth-child(5) {
+    background: #FFE9A9;
+    color: #A86F00;
+    border-color: #FFD15A;
+    box-shadow: 0 4px 0 #EBC45A;
+}
+
+.number-box.missing {
+    background: #FFF1C2;
+    color: #E09A00;
+    border: 3px dashed #F4BD32;
+    box-shadow: none;
+}
+
+/* Sequence lines */
+.sequence-line {
+    background: #AFC3D1;
+}
+
+/* Answer choices */
+.choices {
+    gap: 18px;
+}
+
+.choice-btn {
+    background: #FFFFFF;
+    border: 3px solid #D1E5F1;
+    box-shadow: 0 4px 0 #E3EEF4;
+}
+
+/* Each answer has a gentle different color */
+.choice-btn:nth-child(1) {
+    background: #FFE0E5;
+    color: #D94E69;
+    border-color: #FF9FB0;
+    box-shadow: 0 4px 0 #F5B9C4;
+}
+
+.choice-btn:nth-child(2) {
+    background: #DDF4FF;
+    color: #1976B9;
+    border-color: #83C9F0;
+    box-shadow: 0 4px 0 #A9DDF6;
+}
+
+.choice-btn:nth-child(3) {
+    background: #E0F7E9;
+    color: #27865C;
+    border-color: #91D8AE;
+    box-shadow: 0 4px 0 #B6E4C8;
+}
+
+.choice-btn:nth-child(4) {
+    background: #FFF0C5;
+    color: #B77900;
+    border-color: #FFD267;
+    box-shadow: 0 4px 0 #F0D27B;
+}
+
+.choice-btn:hover:not(:disabled) {
+    transform: translateY(-4px);
+    filter: brightness(1.02);
+}
+
+/* Feedback */
+.feedback {
+    border-radius: 16px;
+}
+
+/* Next */
+.next-btn {
+    background: #61C8A0;
+    border: 2px solid #42AF83;
+    box-shadow: 0 3px 0 #32946D;
+}
+
+.next-btn:hover {
+    background: #70D2AA;
+}
+
+/* Result screen */
+.result-screen {
+    background: rgba(55, 104, 132, .42);
+    backdrop-filter: blur(3px);
+}
+
+.result-card {
+    background: linear-gradient(145deg, #FFFFFF, #F3FBFF 60%, #FFF8E6);
+    border: 3px solid #BFE4F7;
+    box-shadow: 0 9px 0 #D8EEF8, 0 18px 35px rgba(39, 91, 120, .18);
+}
+
+.result-card h2 {
+    color: #1677C8;
+}
+
+.play-again-btn {
+    background: #62C79B;
+    box-shadow: 0 3px 0 #3FA579;
+}
+
+.menu-btn {
+    background: #5BB7F2;
+    box-shadow: 0 3px 0 #3D9DD7;
+}
+
+
+/* =========================================================
+   UNIFORM BLUE CARD COLORS
+   Keep the design colorful but consistent.
+   Loading screen is intentionally untouched.
+   ========================================================= */
+
+/* All sequence number cards use the same blue */
+.number-box,
+.number-box:nth-child(1),
+.number-box:nth-child(3),
+.number-box:nth-child(5) {
+    background: #BFE8FF;
+    color: #176FAF;
+    border: 3px solid #65BDF0;
+    box-shadow: 0 4px 0 #8BCDED;
+}
+
+/* Missing number stays yellow as the visual question marker */
+.number-box.missing {
+    background: #FFF1C2;
+    color: #D99500;
+    border: 3px dashed #F4BD32;
+    box-shadow: none;
+}
+
+/* All answer choices use exactly the same blue */
+.choice-btn,
+.choice-btn:nth-child(1),
+.choice-btn:nth-child(2),
+.choice-btn:nth-child(3),
+.choice-btn:nth-child(4) {
+    background: #BFE8FF;
+    color: #176FAF;
+    border: 3px solid #65BDF0;
+    box-shadow: 0 4px 0 #8BCDED;
+}
+
+.choice-btn:hover:not(:disabled) {
+    background: #D9F3FF;
+    color: #176FAF;
+    border-color: #4DAEE7;
+    box-shadow: 0 4px 0 #73C3E9;
+    transform: translateY(-3px);
+}
+
+/* Selected/correct answer remains within the same blue theme */
+.choice-btn.selected,
+.choice-btn.correct {
+    background: #BFE8FF;
+    color: #176FAF;
+    border-color: #4DAEE7;
+}
+
+/* Sequence container and answer area stay visually connected */
+.number-path {
+    background: #EFFAFF;
+    border-color: #C7EAF9;
+}
+
+.choices {
+    background: transparent;
+}
+
+
+/* =========================================================
+   FINAL CARD SIZE
+   All cards slightly larger — loading screen untouched.
+   ========================================================= */
+
+.number-box,
+.number-box:nth-child(1),
+.number-box:nth-child(3),
+.number-box:nth-child(5),
+.number-box:nth-child(7) {
+    width: 90px !important;
+    min-width: 90px !important;
+    height: 90px !important;
+    min-height: 90px !important;
+    font-size: 34px !important;
+    border-radius: 20px !important;
+}
+
+.number-box.missing {
+    width: 90px !important;
+    min-width: 90px !important;
+    height: 90px !important;
+    min-height: 90px !important;
+    font-size: 34px !important;
+}
+
+.choice-btn,
+.choice-btn:nth-child(1),
+.choice-btn:nth-child(2),
+.choice-btn:nth-child(3),
+.choice-btn:nth-child(4) {
+    width: 120px !important;
+    min-width: 120px !important;
+    height: 80px !important;
+    min-height: 80px !important;
+    font-size: 29px !important;
+    border-radius: 19px !important;
+}
+
+.choices {
+    gap: 22px !important;
+}
+
+.question-info,
+.score-info {
+    min-height: 65px;
+    padding: 10px 20px;
+}
+
+.player-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 31px;
+}
+
+.level-badge {
+    padding: 9px 22px;
+}
+
+.number-path {
+    padding: 25px 22px;
 }

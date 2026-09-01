@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -14,9 +16,12 @@
         rel="stylesheet"
         href="../game-css/number-addition.css"
     >
+
 </head>
 
+
 <body>
+
 
 <!-- ==========================================
      INITIAL LOADING
@@ -44,7 +49,13 @@
 </div>
 
 
+
+<!-- ==========================================
+     GAME CONTAINER
+========================================== -->
+
 <div class="game-container">
+
 
     <!-- ==========================================
          HEADER
@@ -61,11 +72,17 @@
             >
 
                 <span>⬅</span>
-                <span>Back</span>
+
+                <span>
+                    Back
+                </span>
 
             </a>
 
-            <h1>➕ Simple Addition</h1>
+
+            <h1>
+                ➕ Simple Addition
+            </h1>
 
         </div>
 
@@ -86,6 +103,7 @@
     </header>
 
 
+
     <!-- ==========================================
          NO STUDENT SELECTED
     ========================================== -->
@@ -101,14 +119,17 @@
                 🧒
             </div>
 
+
             <h2>
                 Please select a student first!
             </h2>
+
 
             <p>
                 Please choose a student from the
                 Students page before playing.
             </p>
+
 
             <a
                 href="../../students.html"
@@ -126,11 +147,13 @@
     </div>
 
 
+
     <!-- ==========================================
          SCORE BOARD
     ========================================== -->
 
     <div class="score-board">
+
 
         <div class="score-card lives-card">
 
@@ -138,13 +161,18 @@
                 ❤️
             </div>
 
+
             <span id="lives">
                 ❤️❤️❤️
             </span>
 
-            <p>Lives</p>
+
+            <p>
+                Lives
+            </p>
 
         </div>
+
 
 
         <div class="score-card score-main-card">
@@ -153,13 +181,18 @@
                 ⭐
             </div>
 
+
             <span id="score">
                 0
             </span>
 
-            <p>Score</p>
+
+            <p>
+                Score
+            </p>
 
         </div>
+
 
 
         <div class="score-card">
@@ -168,15 +201,20 @@
                 📖
             </div>
 
+
             <span id="questionNumber">
                 1 / 10
             </span>
 
-            <p>Question</p>
+
+            <p>
+                Question
+            </p>
 
         </div>
 
     </div>
+
 
 
     <!-- ==========================================
@@ -190,6 +228,7 @@
             <span>
                 Progress
             </span>
+
 
             <span id="progressText">
                 0 / 10
@@ -210,29 +249,39 @@
     </div>
 
 
+
     <!-- ==========================================
          QUESTION
     ========================================== -->
 
     <section class="question-box">
 
+
         <div class="question-badge">
             🧮 COUNT AND ADD
         </div>
 
+
         <p class="question-title">
-            How many altogether?
+            How many in all?
         </p>
+
 
         <p class="question-help">
             Count the pictures and choose the correct answer.
         </p>
 
 
+
+        <!-- ======================================
+             EQUATION
+        ====================================== -->
+
         <div
             class="equation-row"
             id="equationRow"
         >
+
 
             <div class="object-card">
 
@@ -244,9 +293,11 @@
             </div>
 
 
+
             <div class="equation-symbol">
                 +
             </div>
+
 
 
             <div class="object-card">
@@ -259,9 +310,11 @@
             </div>
 
 
+
             <div class="equation-symbol">
                 =
             </div>
+
 
 
             <div class="equation-question">
@@ -273,11 +326,13 @@
     </section>
 
 
+
     <!-- ==========================================
          ANSWER AREA
     ========================================== -->
 
     <section class="answer-section">
+
 
         <h2>
             Choose the answer
@@ -288,6 +343,7 @@
             class="choices"
             id="choices"
         >
+
 
             <button
                 class="choice-btn choice-one"
@@ -321,14 +377,16 @@
     </section>
 
 
+
     <!-- ==========================================
-         RESULT
+         RESULT / FEEDBACK
     ========================================== -->
 
     <div
         class="result"
         id="result"
     ></div>
+
 
 
     <!-- ==========================================
@@ -348,6 +406,7 @@
 </div>
 
 
+
 <!-- ==========================================
      FINISH SCREEN
 ========================================== -->
@@ -357,7 +416,13 @@
     id="finishScreen"
 >
 
+
     <div class="finish-card">
+
+
+        <!-- ======================================
+             FINISH ICON
+        ====================================== -->
 
         <div
             class="finish-icon"
@@ -367,10 +432,20 @@
         </div>
 
 
+
+        <!-- ======================================
+             TITLE
+        ====================================== -->
+
         <h2 id="finishTitle">
             Congratulations!
         </h2>
 
+
+
+        <!-- ======================================
+             MESSAGE
+        ====================================== -->
 
         <p
             class="finish-message"
@@ -379,6 +454,11 @@
             You completed the game!
         </p>
 
+
+
+        <!-- ======================================
+             FINAL SCORE
+        ====================================== -->
 
         <p class="final-score-label">
             Final Score
@@ -393,6 +473,11 @@
         </div>
 
 
+
+        <!-- ======================================
+             STARS
+        ====================================== -->
+
         <div class="final-stars-title">
             ⭐ Stars Earned ⭐
         </div>
@@ -406,16 +491,31 @@
         </div>
 
 
+
+        <!-- ======================================
+             BUTTONS
+             PLAY AGAIN TOP
+             BACK BOTTOM
+        ====================================== -->
+
         <div class="finish-buttons">
+
+
+            <!-- PLAY AGAIN - TOP -->
 
             <button
                 type="button"
                 id="playAgainBtn"
                 class="play-again-btn"
             >
+
                 🔄 Play Again
+
             </button>
 
+
+
+            <!-- BACK - BOTTOM -->
 
             <a
                 href="../numbers.html"
@@ -426,7 +526,9 @@
                     type="button"
                     class="back-home-btn"
                 >
+
                     🏠 Back
+
                 </button>
 
             </a>
@@ -438,9 +540,21 @@
 </div>
 
 
+
+<!-- ==========================================
+     SOUND MANAGER
+========================================== -->
+
 <script src="../../js/soundManager.js"></script>
 
+
+
+<!-- ==========================================
+     GAME JS
+========================================== -->
+
 <script src="../games-js/number-addition.js"></script>
+
 
 </body>
 

@@ -47,7 +47,6 @@ body {
 
 /* ==========================================================
    INITIAL LOADING SCREEN
-   SAME STYLE ACROSS ALL KINDERQUEST GAMES
 ========================================================== */
 
 #loadingScreen {
@@ -120,13 +119,15 @@ body {
 
     border-radius: 12px;
 
-    background: linear-gradient(
-        90deg,
-        #ffe600,
-        #ffb700
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #ffe600,
+            #ffb700
+        );
 
-    transition: width .3s linear;
+    transition:
+        width .3s linear;
 }
 
 
@@ -390,7 +391,8 @@ body {
 
     max-width: 95%;
 
-    padding: 34px 28px;
+    padding:
+        34px 28px;
 
     background: #FFFFFF;
 
@@ -449,7 +451,8 @@ body {
 
     padding: 13px;
 
-    border: 3px solid #1565C0;
+    border:
+        3px solid #1565C0;
 
     border-radius: 17px;
 
@@ -489,11 +492,13 @@ body {
 
     background: #FFFFFF;
 
-    border: 4px solid #FFD54F;
+    border:
+        4px solid #FFD54F;
 
     border-radius: 20px;
 
-    padding: 12px 10px;
+    padding:
+        12px 10px;
 
     text-align: center;
 
@@ -603,7 +608,8 @@ body {
 
     background: #FFFFFF;
 
-    border: 3px solid #DDE6EF;
+    border:
+        3px solid #DDE6EF;
 
     border-radius: 20px;
 }
@@ -639,11 +645,13 @@ body {
 
     background: #FFFFFF;
 
-    border: 5px solid #64C7FF;
+    border:
+        5px solid #64C7FF;
 
     border-radius: 28px;
 
-    padding: 28px 25px 25px;
+    padding:
+        28px 25px 25px;
 
     text-align: center;
 
@@ -663,7 +671,8 @@ body {
 
     background: #E5F6FF;
 
-    border: 2px solid #64C7FF;
+    border:
+        2px solid #64C7FF;
 
     border-radius: 30px;
 
@@ -729,7 +738,8 @@ body {
 
     background: #F8FCFF;
 
-    border: 3px dashed #9AD9FA;
+    border:
+        3px dashed #9AD9FA;
 
     border-radius: 22px;
 
@@ -755,7 +765,8 @@ body {
 
     background: #FFFFFF;
 
-    border: 2px solid #E4EEF5;
+    border:
+        2px solid #E4EEF5;
 
     border-radius: 15px;
 
@@ -772,41 +783,51 @@ body {
     animation-delay: 0.03s;
 }
 
+
 .count-object:nth-child(3) {
     animation-delay: 0.06s;
 }
+
 
 .count-object:nth-child(4) {
     animation-delay: 0.09s;
 }
 
+
 .count-object:nth-child(5) {
     animation-delay: 0.12s;
 }
+
 
 .count-object:nth-child(6) {
     animation-delay: 0.15s;
 }
 
+
 .count-object:nth-child(7) {
     animation-delay: 0.18s;
 }
+
 
 .count-object:nth-child(8) {
     animation-delay: 0.21s;
 }
 
+
 .count-object:nth-child(9) {
     animation-delay: 0.24s;
 }
+
 
 .count-object:nth-child(10) {
     animation-delay: 0.27s;
 }
 
+
 .count-object:nth-child(11) {
     animation-delay: 0.30s;
 }
+
 
 .count-object:nth-child(12) {
     animation-delay: 0.33s;
@@ -908,7 +929,8 @@ body {
 
     min-height: 78px;
 
-    border: 4px solid transparent;
+    border:
+        4px solid transparent;
 
     border-radius: 20px;
 
@@ -1148,10 +1170,6 @@ body {
 
 /* ==========================================================
    LIVE STAR
-
-   PLAIN FLOATING STAR TEXT — NO CARD/PILL
-   (NO BACKGROUND, BORDER, OR BOX-SHADOW).
-   ANIMATION KEYFRAMES UNCHANGED.
 ========================================================== */
 
 .live-star-reward {
@@ -1305,6 +1323,10 @@ body {
 }
 
 
+/* ==========================================================
+   FINISH ICON
+========================================================== */
+
 .finish-icon {
 
     width: 76px;
@@ -1330,6 +1352,10 @@ body {
     font-size: 43px;
 }
 
+
+/* ==========================================================
+   FINISH TITLE
+========================================================== */
 
 .finish-small-title {
 
@@ -1422,23 +1448,32 @@ body {
 }
 
 
+/* ==========================================================
+   FINISH BUTTONS
+   PLAY AGAIN = TOP
+   BACK = BOTTOM
+========================================================== */
+
 .finish-buttons {
 
+    width: 100%;
+
     display: flex;
+
+    flex-direction: column;
 
     gap: 12px;
 }
 
 
-.finish-buttons a {
+/* ==========================================================
+   PLAY AGAIN
+   TOP
+========================================================== */
 
-    flex: 1;
+.finish-buttons .play-again-btn {
 
-    text-decoration: none;
-}
-
-
-.finish-buttons button {
+    order: 1;
 
     width: 100%;
 
@@ -1446,6 +1481,11 @@ body {
 
     padding:
         10px 8px;
+
+    background: #66BB6A;
+
+    border:
+        4px solid #388E3C;
 
     border-radius: 17px;
 
@@ -1456,37 +1496,89 @@ body {
     font-weight: 800;
 
     cursor: pointer;
-}
-
-
-.play-again-btn {
-
-    background: #66BB6A;
-
-    border:
-        4px solid #388E3C;
 
     box-shadow:
         0 5px 0 #2E7D32;
+
+    transition:
+        transform 0.15s ease;
 }
 
 
-.back-home-btn {
+/* ==========================================================
+   BACK
+   BOTTOM
+========================================================== */
+
+.finish-buttons .back-home-btn {
+
+    order: 2;
+
+    width: 100%;
+
+    min-height: 52px;
+
+    padding:
+        10px 8px;
 
     background: #2196F3;
 
     border:
         4px solid #1565C0;
 
+    border-radius: 17px;
+
+    color: #FFFFFF;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
     box-shadow:
         0 5px 0 #0D47A1;
+
+    transition:
+        transform 0.15s ease;
 }
 
+
+/* ==========================================================
+   BACK LINK
+========================================================== */
+
+.finish-buttons a {
+
+    order: 2;
+
+    display: block;
+
+    width: 100%;
+
+    text-decoration: none;
+}
+
+
+/* ==========================================================
+   HOVER
+========================================================== */
 
 .finish-buttons button:hover {
 
     transform:
         translateY(2px);
+}
+
+
+/* ==========================================================
+   ACTIVE
+========================================================== */
+
+.finish-buttons button:active {
+
+    transform:
+        translateY(5px);
 }
 
 
@@ -1502,15 +1594,18 @@ body {
             18px 16px 45px;
     }
 
+
     .game-header {
 
         padding: 13px;
     }
 
+
     .title-area h1 {
 
         font-size: 24px;
     }
+
 
     .count-object {
 
@@ -1518,6 +1613,7 @@ body {
 
         height: 63px;
     }
+
 
     .object-area {
 
@@ -1529,6 +1625,10 @@ body {
 }
 
 
+/* ==========================================================
+   TABLET / SMALL SCREEN
+========================================================== */
+
 @media (max-width: 650px) {
 
     .game-header {
@@ -1538,20 +1638,24 @@ body {
         align-items: stretch;
     }
 
+
     .header-left {
 
         width: 100%;
     }
+
 
     .playing-as {
 
         justify-content: center;
     }
 
+
     .score-board {
 
         gap: 8px;
     }
+
 
     .score-card {
 
@@ -1559,15 +1663,18 @@ body {
             10px 5px;
     }
 
+
     .score-value {
 
         font-size: 22px;
     }
 
+
     .lives-card .score-value {
 
         font-size: 18px;
     }
+
 
     .question-card {
 
@@ -1575,21 +1682,25 @@ body {
             22px 14px 20px;
     }
 
+
     .question-card h2 {
 
         font-size: 22px;
     }
+
 
     .object-area {
 
         min-height: 180px;
     }
 
+
     .choices {
 
         grid-template-columns:
             repeat(2, 1fr);
     }
+
 
     .choice-btn {
 
@@ -1598,13 +1709,34 @@ body {
         font-size: 28px;
     }
 
+
+    /* FINISH BUTTONS STAY VERTICAL */
+
     .finish-buttons {
 
         flex-direction: column;
+
+        gap: 12px;
+    }
+
+
+    .finish-buttons .play-again-btn {
+
+        order: 1;
+    }
+
+
+    .finish-buttons a {
+
+        order: 2;
     }
 
 }
 
+
+/* ==========================================================
+   VERY SMALL SCREEN
+========================================================== */
 
 @media (max-width: 430px) {
 
@@ -1614,10 +1746,12 @@ body {
             12px 10px 35px;
     }
 
+
     .game-header {
 
         border-radius: 19px;
     }
+
 
     .back-btn {
 
@@ -1626,6 +1760,7 @@ body {
 
         font-size: 14px;
     }
+
 
     .title-icon {
 
@@ -1636,20 +1771,24 @@ body {
         font-size: 23px;
     }
 
+
     .title-area h1 {
 
         font-size: 20px;
     }
+
 
     .title-area p {
 
         font-size: 11px;
     }
 
+
     .score-board {
 
         gap: 5px;
     }
+
 
     .score-card {
 
@@ -1658,15 +1797,18 @@ body {
         border-radius: 15px;
     }
 
+
     .score-icon {
 
         font-size: 18px;
     }
 
+
     .score-value {
 
         font-size: 19px;
     }
+
 
     .lives-card .score-value {
 
@@ -1675,20 +1817,24 @@ body {
         letter-spacing: 1px;
     }
 
+
     .score-label {
 
         font-size: 10px;
     }
+
 
     .question-card h2 {
 
         font-size: 20px;
     }
 
+
     .question-instruction {
 
         font-size: 12px;
     }
+
 
     .object-area {
 
@@ -1699,6 +1845,7 @@ body {
         gap: 6px;
     }
 
+
     .count-object {
 
         width: 50px;
@@ -1708,6 +1855,7 @@ body {
         border-radius: 11px;
     }
 
+
     .choice-btn {
 
         min-height: 62px;
@@ -1715,6 +1863,43 @@ body {
         font-size: 25px;
 
         border-width: 3px;
+    }
+
+
+    .finish-card {
+
+        width: 390px;
+
+        max-width: 94%;
+
+        padding:
+            26px 20px;
+    }
+
+
+    .finish-buttons {
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+
+    .finish-buttons .play-again-btn {
+
+        order: 1;
+    }
+
+
+    .finish-buttons a {
+
+        order: 2;
+    }
+
+
+    .finish-buttons .back-home-btn {
+
+        width: 100%;
     }
 
 }

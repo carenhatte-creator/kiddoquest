@@ -6,11 +6,19 @@
 ========================================== */
 
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
-    font-family: "Baloo 2", Arial, sans-serif;
+
+    font-family:
+        "Baloo 2",
+        Arial,
+        sans-serif;
 }
+
 
 
 /* ==========================================
@@ -22,25 +30,30 @@ body {
     min-height: 100vh;
 
     background:
+
         radial-gradient(
             circle at 10% 10%,
             #FFE9A8 0%,
             transparent 35%
         ),
+
         radial-gradient(
             circle at 90% 20%,
             #B5E8FF 0%,
             transparent 35%
         ),
+
         radial-gradient(
             circle at 20% 90%,
             #FFD1E3 0%,
             transparent 35%
         ),
+
         #FFF9EC;
 
     color: #444;
 }
+
 
 
 /* ==========================================
@@ -59,6 +72,7 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     z-index: 99999;
@@ -118,13 +132,15 @@ body {
 
     border-radius: 12px;
 
-    background: linear-gradient(
-        90deg,
-        #ffe600,
-        #ffb700
-    );
+    background:
+        linear-gradient(
+            90deg,
+            #ffe600,
+            #ffb700
+        );
 
-    transition: width .3s linear;
+    transition:
+        width .3s linear;
 }
 
 
@@ -146,6 +162,7 @@ body {
 }
 
 
+
 /* ==========================================
    GAME CONTAINER
 ========================================== */
@@ -163,6 +180,7 @@ body {
         30px
         60px;
 }
+
 
 
 /* ==========================================
@@ -267,6 +285,7 @@ body {
 }
 
 
+
 /* ==========================================
    PLAYING AS
 ========================================== */
@@ -304,6 +323,7 @@ body {
 
     font-weight: 800;
 }
+
 
 
 /* ==========================================
@@ -413,6 +433,7 @@ body {
 }
 
 
+
 /* ==========================================
    SCORE BOARD
 ========================================== */
@@ -484,6 +505,7 @@ body {
 }
 
 
+
 /* ==========================================
    PROGRESS
 ========================================== */
@@ -545,6 +567,7 @@ body {
     transition:
         width 0.35s ease;
 }
+
 
 
 /* ==========================================
@@ -616,6 +639,7 @@ body {
 }
 
 
+
 /* ==========================================
    EQUATION ROW
 ========================================== */
@@ -634,6 +658,7 @@ body {
 
     min-height: 145px;
 }
+
 
 
 /* ==========================================
@@ -726,7 +751,6 @@ body {
 
         transform:
             scale(0.75);
-
     }
 
     100% {
@@ -735,10 +759,10 @@ body {
 
         transform:
             scale(1);
-
     }
 
 }
+
 
 
 /* ==========================================
@@ -782,6 +806,7 @@ body {
 }
 
 
+
 /* ==========================================
    ANSWER SECTION
 ========================================== */
@@ -802,6 +827,7 @@ body {
 
     font-weight: 800;
 }
+
 
 
 /* ==========================================
@@ -956,22 +982,29 @@ body {
 
     0%,
     100% {
-        transform: translateX(0);
+
+        transform:
+            translateX(0);
     }
 
     25% {
-        transform: translateX(-6px);
+
+        transform:
+            translateX(-6px);
     }
 
     75% {
-        transform: translateX(6px);
+
+        transform:
+            translateX(6px);
     }
 
 }
 
 
+
 /* ==========================================
-   RESULT
+   RESULT / FEEDBACK
 ========================================== */
 
 .result {
@@ -998,6 +1031,7 @@ body {
 
     color: #E53935;
 }
+
 
 
 /* ==========================================
@@ -1046,14 +1080,9 @@ body {
 }
 
 
+
 /* ==========================================
    STAR REWARD
-
-   PLAIN FLOATING STAR TEXT — NO CARD/PILL
-   (NO BACKGROUND, BORDER, OR BOX-SHADOW),
-   CENTERED ON ITSELF VIA transform: translateX(-50%)
-   SO IT SITS EXACTLY ON THE POINT THE JS TARGETS.
-   ANIMATION KEYFRAMES UNCHANGED.
 ========================================== */
 
 .live-star-reward {
@@ -1114,7 +1143,6 @@ body {
             translateX(-50%)
             translateY(15px)
             scale(0.7);
-
     }
 
     20% {
@@ -1125,7 +1153,6 @@ body {
             translateX(-50%)
             translateY(0)
             scale(1.12);
-
     }
 
     50% {
@@ -1134,7 +1161,6 @@ body {
             translateX(-50%)
             translateY(-10px)
             scale(1);
-
     }
 
     100% {
@@ -1145,10 +1171,10 @@ body {
             translateX(-50%)
             translateY(-65px)
             scale(1.1);
-
     }
 
 }
+
 
 
 /* ==========================================
@@ -1171,14 +1197,21 @@ body {
     align-items: center;
 
     justify-content: center;
+
+    padding: 20px;
 }
 
+
+
+/* ==========================================
+   FINISH CARD
+========================================== */
 
 .finish-card {
 
     width: 380px;
 
-    max-width: 92%;
+    max-width: 100%;
 
     padding:
         34px
@@ -1209,7 +1242,6 @@ body {
 
         transform:
             scale(0.75);
-
     }
 
     100% {
@@ -1218,11 +1250,15 @@ body {
 
         transform:
             scale(1);
-
     }
 
 }
 
+
+
+/* ==========================================
+   FINISH ICON
+========================================== */
 
 .finish-icon {
 
@@ -1252,6 +1288,11 @@ body {
 }
 
 
+
+/* ==========================================
+   FINISH TITLE
+========================================== */
+
 .finish-card h2 {
 
     color: #FF6F3C;
@@ -1264,6 +1305,11 @@ body {
 }
 
 
+
+/* ==========================================
+   FINISH MESSAGE
+========================================== */
+
 .finish-message {
 
     color: #888;
@@ -1274,6 +1320,11 @@ body {
 }
 
 
+
+/* ==========================================
+   FINAL SCORE LABEL
+========================================== */
+
 .final-score-label {
 
     color: #999;
@@ -1281,8 +1332,15 @@ body {
     font-size: 14px;
 
     font-weight: 700;
+
+    margin-bottom: 2px;
 }
 
+
+
+/* ==========================================
+   FINAL SCORE
+========================================== */
 
 .final-score {
 
@@ -1298,6 +1356,11 @@ body {
 }
 
 
+
+/* ==========================================
+   FINAL STARS TITLE
+========================================== */
+
 .final-stars-title {
 
     color: #777;
@@ -1307,6 +1370,11 @@ body {
     font-weight: 800;
 }
 
+
+
+/* ==========================================
+   FINAL STARS
+========================================== */
 
 .final-stars {
 
@@ -1324,21 +1392,36 @@ body {
 }
 
 
+
 /* ==========================================
    FINISH BUTTONS
+   VERTICAL
+   PLAY AGAIN = TOP
+   BACK = BOTTOM
 ========================================== */
 
 .finish-buttons {
 
+    width: 100%;
+
     display: flex;
+
+    flex-direction: column;
 
     gap: 12px;
 }
 
 
+
+/* ==========================================
+   ALL FINISH BUTTONS
+========================================== */
+
 .finish-buttons button {
 
-    flex: 1;
+    width: 100%;
+
+    min-height: 58px;
 
     padding:
         13px
@@ -1353,10 +1436,22 @@ body {
     font-weight: 800;
 
     cursor: pointer;
+
+    transition:
+        transform 0.15s;
 }
 
 
+
+/* ==========================================
+   PLAY AGAIN
+   TOP
+   GREEN
+========================================== */
+
 .play-again-btn {
+
+    order: 1;
 
     background: #66BB6A;
 
@@ -1368,7 +1463,30 @@ body {
 }
 
 
+
+/* ==========================================
+   BACK
+   BOTTOM
+   BLUE
+========================================== */
+
+#finishBackBtn {
+
+    order: 2;
+
+    display: block;
+
+    width: 100%;
+
+    text-decoration: none;
+}
+
+
 .back-home-btn {
+
+    display: block;
+
+    width: 100%;
 
     background: #2196F3;
 
@@ -1380,11 +1498,29 @@ body {
 }
 
 
+
+/* ==========================================
+   FINISH BUTTON HOVER
+========================================== */
+
 .finish-buttons button:hover {
 
     transform:
         translateY(3px);
 }
+
+
+
+/* ==========================================
+   FINISH BUTTON ACTIVE
+========================================== */
+
+.finish-buttons button:active {
+
+    transform:
+        translateY(5px);
+}
+
 
 
 /* ==========================================
@@ -1446,6 +1582,11 @@ body {
 }
 
 
+
+/* ==========================================
+   TABLET / SMALL SCREEN
+========================================== */
+
 @media (max-width: 600px) {
 
     .game-header {
@@ -1475,13 +1616,44 @@ body {
     }
 
 
+    .finish-screen {
+
+        padding: 15px;
+    }
+
+
+    .finish-card {
+
+        width: 380px;
+
+        max-width: 100%;
+
+        padding:
+            28px
+            20px;
+    }
+
+
     .finish-buttons {
 
         flex-direction: column;
+
+        gap: 12px;
+    }
+
+
+    .finish-buttons button {
+
+        width: 100%;
     }
 
 }
 
+
+
+/* ==========================================
+   VERY SMALL SCREEN
+========================================== */
 
 @media (max-width: 430px) {
 
@@ -1563,6 +1735,72 @@ body {
         height: 60px;
 
         font-size: 38px;
+    }
+
+
+    .finish-card {
+
+        width: 380px;
+
+        max-width: 94%;
+
+        padding:
+            25px
+            18px;
+    }
+
+
+    .finish-icon {
+
+        width: 76px;
+
+        height: 76px;
+
+        font-size: 42px;
+    }
+
+
+    .finish-card h2 {
+
+        font-size: 27px;
+    }
+
+
+    .finish-message {
+
+        font-size: 13px;
+    }
+
+
+    .final-score {
+
+        font-size: 44px;
+    }
+
+
+    .final-stars {
+
+        font-size: 34px;
+
+        letter-spacing: 4px;
+
+        margin-bottom: 16px;
+    }
+
+
+    .finish-buttons {
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+
+    .finish-buttons button {
+
+        width: 100%;
+
+        min-height: 55px;
     }
 
 }

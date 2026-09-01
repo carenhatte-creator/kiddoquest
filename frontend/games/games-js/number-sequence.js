@@ -13,6 +13,12 @@
 // SELECTED STUDENT
 // SOUND MANAGER
 // BACKEND PROGRESS SAVE
+//
+// ANSWER FEEDBACK:
+// WRONG ANSWER = RED + SHAKE
+// CORRECT ANSWER = GREEN GUIDE
+// ORIGINAL CHOICE COLORS ARE PRESERVED
+// CORRECT ANSWER REMAINS CLICKABLE
 // ==========================================
 
 
@@ -23,7 +29,8 @@ console.log("number-sequence.js loaded");
 // API
 // ==========================================
 
-const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+const API_BASE =
+    "https://kiddoquest-backend.onrender.com/api";
 
 
 // ==========================================
@@ -31,7 +38,9 @@ const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 // ==========================================
 
 const TOTAL_QUESTIONS = 10;
+
 const MAX_LIVES = 3;
+
 const POINTS_PER_CORRECT = 10;
 
 
@@ -109,11 +118,17 @@ const questions = [
 // ==========================================
 
 let currentQuestion = 0;
+
 let score = 0;
+
 let correctAnswers = 0;
+
 let lives = MAX_LIVES;
+
 let answered = false;
+
 let gameEnded = false;
+
 let gameOverState = false;
 
 
@@ -349,7 +364,9 @@ function stopGameMusic() {
 function loadPlayerName() {
 
     if (!playerName) {
+
         return;
+
     }
 
 
@@ -415,6 +432,7 @@ function loadPlayerName() {
             "Player name error:",
             error
         );
+
 
         playerName.textContent =
             "Player";
@@ -505,7 +523,9 @@ function updateHearts() {
     const hearts = [
 
         document.getElementById("heart1"),
+
         document.getElementById("heart2"),
+
         document.getElementById("heart3")
 
     ];
@@ -515,7 +535,9 @@ function updateHearts() {
         (heart, index) => {
 
             if (!heart) {
+
                 return;
+
             }
 
 
@@ -546,7 +568,9 @@ function updateHearts() {
 function loadQuestion() {
 
     if (gameEnded) {
+
         return;
+
     }
 
 
@@ -844,6 +868,22 @@ function showStarReward() {
 // ==========================================
 // CHECK ANSWER
 // ==========================================
+//
+// IMPORTANT:
+//
+// WRONG:
+// - clicked button becomes RED
+// - clicked button shakes
+// - correct answer becomes GREEN
+// - other choices keep their original colors
+// - correct answer remains clickable
+//
+// CORRECT:
+// - clicked correct answer becomes GREEN
+// - all choices are disabled
+// - score increases
+// - next button appears
+// ==========================================
 
 function checkAnswer(
     button,
@@ -851,40 +891,15 @@ function checkAnswer(
     correctAnswer
 ) {
 
-    if (
-        answered ||
-        gameEnded
-    ) {
+    if (gameEnded) {
 
         return;
 
     }
 
 
-    answered = true;
-
-
-    playClickSound();
-
-
-    const allButtons =
-        document.querySelectorAll(
-            ".choice-btn"
-        );
-
-
-    allButtons.forEach(
-        (btn) => {
-
-            btn.disabled =
-                true;
-
-        }
-    );
-
-
     // ======================================
-    // CORRECT
+    // CORRECT ANSWER
     // ======================================
 
     if (
@@ -892,19 +907,73 @@ function checkAnswer(
         Number(correctAnswer)
     ) {
 
+        // Prevent answering the same
+        // question more than once correctly
+
+        if (answered) {
+
+            return;
+
+        }
+
+
+        answered = true;
+
+
+        playClickSound();
+
+
+        const allButtons =
+            document.querySelectorAll(
+                ".choice-btn"
+            );
+
+
+        // Remove guide styling from
+        // previous wrong-answer attempts
+
+        allButtons.forEach(
+            (btn) => {
+
+                btn.classList.remove(
+                    "correct-guide"
+                );
+
+            }
+        );
+
+
+        // Correct answer becomes green
+
+        button.classList.remove(
+            "wrong"
+        );
+
+
+        button.classList.remove(
+            "shake"
+        );
+
+
         button.classList.add(
             "correct"
         );
 
 
-        feedback.textContent =
-            "⭐ Correct! Great job!";
+        // Feedback
+
+        if (feedback) {
+
+            feedback.textContent =
+                "⭐ Correct! Great job!";
+
+            feedback.className =
+                "feedback correct";
+
+        }
 
 
-        feedback.classList.add(
-            "correct"
-        );
-
+        // Score
 
         score +=
             POINTS_PER_CORRECT;
@@ -921,11 +990,30 @@ function checkAnswer(
         }
 
 
+        // Sound
+
         playCorrectSound();
 
 
+        // Star animation
+
         showStarReward();
 
+
+        // Disable all choices after
+        // the correct answer
+
+        allButtons.forEach(
+            (btn) => {
+
+                btn.disabled =
+                    true;
+
+            }
+        );
+
+
+        // Show Next
 
         if (nextBtn) {
 
@@ -934,47 +1022,157 @@ function checkAnswer(
 
         }
 
+
+        return;
+
     }
 
 
     // ======================================
-    // WRONG
+    // WRONG ANSWER
     // ======================================
 
-    else {
+    playClickSound();
 
-        button.classList.add(
-            "wrong"
+
+    // The wrong button becomes red
+
+    button.classList.remove(
+        "correct"
+    );
+
+
+    button.classList.remove(
+        "correct-guide"
+    );
+
+
+    button.classList.add(
+        "wrong"
+    );
+
+
+    // Restart shake animation
+    // even if the button was clicked before
+
+    button.classList.remove(
+        "shake"
+    );
+
+
+    void button.offsetWidth;
+
+
+    button.classList.add(
+        "shake"
+    );
+
+
+    // Lose one life
+
+    lives--;
+
+
+    if (lives < 0) {
+
+        lives = 0;
+
+    }
+
+
+    updateHearts();
+
+
+    playWrongSound();
+
+
+    // ======================================
+    // SHOW CORRECT ANSWER AS GREEN GUIDE
+    // ======================================
+
+    const allButtons =
+        document.querySelectorAll(
+            ".choice-btn"
         );
 
 
-        lives--;
+    allButtons.forEach(
+        (btn) => {
 
+            if (
+                Number(btn.textContent) ===
+                Number(correctAnswer)
+            ) {
 
-        if (lives < 0) {
+                // Green guide
 
-            lives = 0;
+                btn.classList.add(
+                    "correct-guide"
+                );
+
+                // Make sure correct answer
+                // stays clickable
+
+                btn.disabled =
+                    false;
+
+            }
 
         }
+    );
 
 
-        updateHearts();
+    // ======================================
+    // FEEDBACK MESSAGE
+    // ======================================
+
+    if (feedback) {
+
+        feedback.textContent =
+            `The correct answer is ${correctAnswer}.`;
+
+        feedback.className =
+            "feedback guide";
+
+    }
 
 
-        playWrongSound();
+    // ======================================
+    // DISABLE ONLY THE WRONG BUTTON
+    // ======================================
+    //
+    // This prevents the child from
+    // repeatedly clicking the same
+    // wrong answer.
+    //
+    // Other choices remain normal.
+    // The green correct answer remains
+    // clickable.
+    // ======================================
 
+    button.disabled =
+        true;
+
+
+    // ======================================
+    // GAME OVER
+    // ======================================
+
+    if (lives <= 0) {
+
+        // Keep the correct answer visible
+        // for a short moment before game over
 
         allButtons.forEach(
             (btn) => {
 
                 if (
-                    Number(btn.textContent) ===
+                    Number(btn.textContent) !==
                     Number(correctAnswer)
                 ) {
 
-                    btn.classList.add(
-                        "correct"
-                    );
+                    btn.disabled =
+                        true;
 
                 }
 
@@ -982,28 +1180,33 @@ function checkAnswer(
         );
 
 
-        if (lives <= 0) {
+        setTimeout(
+            () => {
 
-            setTimeout(
-                () => {
+                gameOver();
 
-                    gameOver();
-
-                },
-                700
-            );
-
-            return;
-
-        }
+            },
+            700
+        );
 
 
-        if (nextBtn) {
+        return;
 
-            nextBtn.style.display =
-                "block";
+    }
 
-        }
+
+    // ======================================
+    // DO NOT SHOW NEXT BUTTON YET
+    // ======================================
+    //
+    // The child needs to press the
+    // green correct answer.
+    // ======================================
+
+    if (nextBtn) {
+
+        nextBtn.style.display =
+            "none";
 
     }
 
@@ -1022,7 +1225,9 @@ if (nextBtn) {
         () => {
 
             if (gameEnded) {
+
                 return;
+
             }
 
 
@@ -1084,7 +1289,9 @@ function displayStars(
 ) {
 
     if (!finalStars) {
+
         return;
+
     }
 
 
@@ -1126,7 +1333,9 @@ function displayStars(
 function finishGame() {
 
     if (gameEnded) {
+
         return;
+
     }
 
 
@@ -1214,7 +1423,9 @@ function finishGame() {
 function gameOver() {
 
     if (gameEnded) {
+
         return;
+
     }
 
 
