@@ -1,5 +1,4 @@
 let colorPickLoadingFinished = false;
-
 let colorPickGameStarted = false;
 
 
@@ -14,6 +13,10 @@ window.addEventListener("load", function () {
 
     const barFill =
         document.getElementById("loadingBarFill");
+
+
+    // If loading elements do not exist,
+    // allow the game to start immediately.
 
     if (!loader || !barFill) {
 
@@ -47,14 +50,10 @@ window.addEventListener("load", function () {
                     loadingInterval
                 );
 
+
                 barFill.style.width =
                     "100%";
 
-
-                /*
-                 * Wait before removing
-                 * the loading screen.
-                 */
 
                 setTimeout(
                     function () {
@@ -64,11 +63,6 @@ window.addEventListener("load", function () {
                         );
 
 
-                        /*
-                         * Give the fade-out
-                         * time to complete.
-                         */
-
                         setTimeout(
                             function () {
 
@@ -76,14 +70,9 @@ window.addEventListener("load", function () {
                                     true;
 
 
-                                /*
-                                 * Tell the game
-                                 * loading is done.
-                                 */
-
                                 document.dispatchEvent(
                                     new Event(
-                                        "colorPathLoadingFinished"
+                                        "colorPickLoadingFinished"
                                     )
                                 );
 
@@ -122,14 +111,13 @@ document.addEventListener(
         // SETTINGS
         // =====================================================
 
-        const TOTAL_ROUNDS =
-            10;
+        const TOTAL_ROUNDS = 10;
 
-        const MAX_LIVES =
-            3;
+        const MAX_LIVES = 3;
 
+        const API_BASE =
+            "https://kiddoquest-backend.onrender.com/api";
 
-        const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
         // =====================================================
         // COLORS
@@ -180,26 +168,19 @@ document.addEventListener(
         // GAME VARIABLES
         // =====================================================
 
-        let currentRound =
-            1;
+        let currentRound = 1;
 
-        let score =
-            0;
+        let score = 0;
 
-        let stars =
-            0;
+        let stars = 0;
 
-        let lives =
-            MAX_LIVES;
+        let lives = MAX_LIVES;
 
-        let correctColor =
-            null;
+        let correctColor = null;
 
-        let roundFinished =
-            false;
+        let roundFinished = false;
 
-        let gameFinished =
-            false;
+        let gameFinished = false;
 
 
         // =====================================================
@@ -207,154 +188,170 @@ document.addEventListener(
         // =====================================================
 
         const scoreElement =
-            document.getElementById(
-                "score"
-            );
+            document.getElementById("score");
 
 
         const starsElement =
-            document.getElementById(
-                "stars"
-            );
+            document.getElementById("stars");
 
 
         const livesElement =
-            document.getElementById(
-                "lives"
-            );
+            document.getElementById("lives");
 
 
         const roundBadge =
-            document.getElementById(
-                "roundBadge"
-            );
+            document.getElementById("roundBadge");
 
 
         const questionText =
-            document.getElementById(
-                "questionText"
-            );
+            document.getElementById("questionText");
 
 
         const instructionText =
-            document.getElementById(
-                "instructionText"
-            );
+            document.getElementById("instructionText");
 
 
         const targetColor =
-            document.getElementById(
-                "targetColor"
-            );
+            document.getElementById("targetColor");
 
 
         const progressBar =
-            document.getElementById(
-                "progressBar"
-            );
+            document.getElementById("progressBar");
 
 
         const pathGrid =
-            document.getElementById(
-                "pathGrid"
-            );
+            document.getElementById("pathGrid");
 
 
         const feedback =
-            document.getElementById(
-                "feedback"
-            );
+            document.getElementById("feedback");
 
 
         const nextButton =
-            document.getElementById(
-                "nextButton"
-            );
+            document.getElementById("nextButton");
 
 
         const starReward =
-            document.getElementById(
-                "starReward"
-            );
+            document.getElementById("starReward");
 
 
         const resultScreen =
-            document.getElementById(
-                "resultScreen"
-            );
+            document.getElementById("resultScreen");
 
 
         const finalScore =
-            document.getElementById(
-                "finalScore"
-            );
+            document.getElementById("finalScore");
 
 
         const finalStars =
-            document.getElementById(
-                "finalStars"
-            );
+            document.getElementById("finalStars");
 
 
         const finalStarDisplay =
-            document.getElementById(
-                "finalStarDisplay"
-            );
+            document.getElementById("finalStarDisplay");
 
 
         const playAgainButton =
-            document.getElementById(
-                "playAgainButton"
-            );
+            document.getElementById("playAgainButton");
 
 
         const playingStudentName =
-            document.getElementById(
-                "playingStudentName"
-            );
+            document.getElementById("playingStudentName");
 
 
         const finalStudentName =
-            document.getElementById(
-                "finalStudentName"
-            );
+            document.getElementById("finalStudentName");
 
 
         const noStudentOverlay =
-            document.getElementById(
-                "noStudentOverlay"
-            );
+            document.getElementById("noStudentOverlay");
 
 
         // =====================================================
         // REQUIRED ELEMENT CHECK
         // =====================================================
 
-        if (
+        const missingElements = [];
 
-            !scoreElement ||
-            !starsElement ||
-            !livesElement ||
-            !roundBadge ||
-            !questionText ||
-            !instructionText ||
-            !targetColor ||
-            !progressBar ||
-            !pathGrid ||
-            !feedback ||
-            !nextButton ||
-            !starReward ||
-            !resultScreen ||
-            !finalScore ||
-            !finalStars ||
-            !finalStarDisplay ||
-            !playAgainButton ||
-            !playingStudentName
 
-        ) {
+        if (!scoreElement) {
+            missingElements.push("score");
+        }
+
+        if (!starsElement) {
+            missingElements.push("stars");
+        }
+
+        if (!livesElement) {
+            missingElements.push("lives");
+        }
+
+        if (!roundBadge) {
+            missingElements.push("roundBadge");
+        }
+
+        if (!questionText) {
+            missingElements.push("questionText");
+        }
+
+        if (!instructionText) {
+            missingElements.push("instructionText");
+        }
+
+        if (!targetColor) {
+            missingElements.push("targetColor");
+        }
+
+        if (!progressBar) {
+            missingElements.push("progressBar");
+        }
+
+        if (!pathGrid) {
+            missingElements.push("pathGrid");
+        }
+
+        if (!feedback) {
+            missingElements.push("feedback");
+        }
+
+        if (!nextButton) {
+            missingElements.push("nextButton");
+        }
+
+        if (!starReward) {
+            missingElements.push("starReward");
+        }
+
+        if (!resultScreen) {
+            missingElements.push("resultScreen");
+        }
+
+        if (!finalScore) {
+            missingElements.push("finalScore");
+        }
+
+        if (!finalStars) {
+            missingElements.push("finalStars");
+        }
+
+        if (!finalStarDisplay) {
+            missingElements.push("finalStarDisplay");
+        }
+
+        if (!playAgainButton) {
+            missingElements.push("playAgainButton");
+        }
+
+        if (!playingStudentName) {
+            missingElements.push("playingStudentName");
+        }
+
+
+        if (missingElements.length > 0) {
 
             console.error(
-                "Color Path: Missing required HTML element."
+                "Color Path: Missing required HTML elements:",
+                missingElements
             );
 
             return;
@@ -369,16 +366,12 @@ document.addEventListener(
 
             try {
 
-                /*
-                 * New shared sound manager
-                 */
+                // New shared sound manager
 
                 if (
-
                     window.soundManager &&
                     typeof window.soundManager[type] ===
                     "function"
-
                 ) {
 
                     window.soundManager[type]();
@@ -387,16 +380,12 @@ document.addEventListener(
                 }
 
 
-                /*
-                 * Old sound manager support
-                 */
+                // Old sound manager
 
                 if (
-
                     window.SoundManager &&
                     typeof window.SoundManager[type] ===
                     "function"
-
                 ) {
 
                     window.SoundManager[type]();
@@ -405,26 +394,19 @@ document.addEventListener(
                 }
 
 
-                /*
-                 * Existing global functions
-                 */
+                // Existing global functions
 
                 const soundFunctions = {
 
-                    click:
-                        "playButton",
+                    click: "playButton",
 
-                    correct:
-                        "playCorrect",
+                    correct: "playCorrect",
 
-                    wrong:
-                        "playWrong",
+                    wrong: "playWrong",
 
-                    gameOver:
-                        "playGameOver",
+                    gameOver: "playGameOver",
 
-                    finish:
-                        "playFinish"
+                    finish: "playFinish"
 
                 };
 
@@ -434,11 +416,9 @@ document.addEventListener(
 
 
                 if (
-
                     functionName &&
                     typeof window[functionName] ===
                     "function"
-
                 ) {
 
                     window[functionName]();
@@ -450,7 +430,7 @@ document.addEventListener(
             catch (error) {
 
                 console.log(
-                    "Color Pick sound error:",
+                    "Color Path sound error:",
                     error
                 );
 
@@ -463,15 +443,12 @@ document.addEventListener(
         // BACKGROUND MUSIC
         // =====================================================
 
-        let backgroundMusicStarted =
-            false;
+        let backgroundMusicStarted = false;
 
 
         function startBackgroundMusic() {
 
-            if (
-                backgroundMusicStarted
-            ) {
+            if (backgroundMusicStarted) {
 
                 return;
             }
@@ -480,17 +457,15 @@ document.addEventListener(
             try {
 
                 if (
-
                     window.soundManager &&
-                    typeof window.soundManager.startBackgroundMusic ===
+                    typeof
+                    window.soundManager.startBackgroundMusic ===
                     "function"
-
                 ) {
 
                     window.soundManager.startBackgroundMusic();
 
-                    backgroundMusicStarted =
-                        true;
+                    backgroundMusicStarted = true;
 
                     return;
                 }
@@ -503,8 +478,7 @@ document.addEventListener(
 
                     window.startBackgroundMusic();
 
-                    backgroundMusicStarted =
-                        true;
+                    backgroundMusicStarted = true;
                 }
 
             }
@@ -520,11 +494,6 @@ document.addEventListener(
 
         }
 
-
-        /*
-         * Browser audio usually needs
-         * user interaction.
-         */
 
         document.addEventListener(
             "pointerdown",
@@ -593,9 +562,7 @@ document.addEventListener(
         // STUDENT NAME
         // =====================================================
 
-        function getStudentFullName(
-            student
-        ) {
+        function getStudentFullName(student) {
 
             if (!student) {
 
@@ -604,10 +571,8 @@ document.addEventListener(
 
 
             if (
-
                 student.first_name &&
                 student.last_name
-
             ) {
 
                 return (
@@ -619,10 +584,8 @@ document.addEventListener(
 
 
             if (
-
                 student.firstName &&
                 student.lastName
-
             ) {
 
                 return (
@@ -704,6 +667,16 @@ document.addEventListener(
 
                 finalStudentName.textContent =
                     name;
+
+            }
+
+
+            if (noStudentOverlay) {
+
+                noStudentOverlay.classList.add(
+                    "hidden"
+                );
+
             }
 
 
@@ -719,6 +692,7 @@ document.addEventListener(
 
             scoreElement.textContent =
                 score;
+
         }
 
 
@@ -730,6 +704,7 @@ document.addEventListener(
 
             starsElement.textContent =
                 stars;
+
         }
 
 
@@ -765,6 +740,7 @@ document.addEventListener(
 
             livesElement.textContent =
                 hearts;
+
         }
 
 
@@ -779,6 +755,7 @@ document.addEventListener(
                 currentRound +
                 " / " +
                 TOTAL_ROUNDS;
+
         }
 
 
@@ -797,11 +774,12 @@ document.addEventListener(
 
             progressBar.style.width =
                 percentage + "%";
+
         }
 
 
         // =====================================================
-        // PATH/TILE COUNT
+        // CORRECT TILE COUNT
         // =====================================================
 
         function getCorrectTileCount() {
@@ -825,6 +803,7 @@ document.addEventListener(
 
 
             return 11;
+
         }
 
 
@@ -840,6 +819,7 @@ document.addEventListener(
                     colors.length
                 )
             ];
+
         }
 
 
@@ -847,9 +827,7 @@ document.addEventListener(
         // SHUFFLE
         // =====================================================
 
-        function shuffleArray(
-            array
-        ) {
+        function shuffleArray(array) {
 
             for (
                 let i = array.length - 1;
@@ -868,11 +846,10 @@ document.addEventListener(
                     array[i],
                     array[j]
                 ] = [
-
                     array[j],
                     array[i]
-
                 ];
+
             }
 
         }
@@ -884,36 +861,29 @@ document.addEventListener(
 
         function createPath() {
 
-            pathGrid.innerHTML =
-                "";
+            pathGrid.innerHTML = "";
 
-            feedback.textContent =
-                "";
+            feedback.textContent = "";
 
             feedback.className =
                 "feedback";
+
 
             nextButton.classList.add(
                 "hidden"
             );
 
-            roundFinished =
-                false;
+
+            roundFinished = false;
 
 
-            /*
-             * Choose target color.
-             */
+            // -------------------------------------------------
+            // TARGET COLOR
+            // -------------------------------------------------
 
             correctColor =
                 getRandomColor();
 
-
-            /*
-             * Show the color visually.
-             *
-             * No need to read the color name.
-             */
 
             targetColor.style.backgroundColor =
                 correctColor.value;
@@ -925,10 +895,6 @@ document.addEventListener(
             );
 
 
-            /*
-             * Text is kept simple.
-             */
-
             questionText.textContent =
                 "Find the matching colors!";
 
@@ -937,17 +903,13 @@ document.addEventListener(
                 "Touch all the tiles that look like the color above.";
 
 
-            /*
-             * Number of correct tiles.
-             */
+            // -------------------------------------------------
+            // TILE COUNTS
+            // -------------------------------------------------
 
             const correctCount =
                 getCorrectTileCount();
 
-
-            /*
-             * Add wrong tiles.
-             */
 
             const wrongCount =
                 Math.min(
@@ -962,9 +924,9 @@ document.addEventListener(
             const tileColors = [];
 
 
-            /*
-             * Correct tiles.
-             */
+            // -------------------------------------------------
+            // CORRECT TILES
+            // -------------------------------------------------
 
             for (
                 let i = 0;
@@ -979,9 +941,9 @@ document.addEventListener(
             }
 
 
-            /*
-             * Wrong tiles.
-             */
+            // -------------------------------------------------
+            // WRONG TILES
+            // -------------------------------------------------
 
             for (
                 let i = 0;
@@ -1000,6 +962,7 @@ document.addEventListener(
 
                     wrongColor =
                         getRandomColor();
+
                 }
 
 
@@ -1010,23 +973,21 @@ document.addEventListener(
             }
 
 
-            /*
-             * Shuffle.
-             */
+            // -------------------------------------------------
+            // SHUFFLE
+            // -------------------------------------------------
 
             shuffleArray(
                 tileColors
             );
 
 
-            /*
-             * Create tiles.
-             */
+            // -------------------------------------------------
+            // CREATE TILES
+            // -------------------------------------------------
 
             tileColors.forEach(
-                function (
-                    color
-                ) {
+                function (color) {
 
                     const tile =
                         document.createElement(
@@ -1098,10 +1059,6 @@ document.addEventListener(
             }
 
 
-            /*
-             * Button click sound.
-             */
-
             playSound(
                 "click"
             );
@@ -1116,8 +1073,7 @@ document.addEventListener(
                 correctColor.name
             ) {
 
-                tile.disabled =
-                    true;
+                tile.disabled = true;
 
 
                 tile.classList.add(
@@ -1125,28 +1081,16 @@ document.addEventListener(
                 );
 
 
-                /*
-                 * Score.
-                 */
-
                 score++;
 
 
                 updateScore();
 
 
-                /*
-                 * Correct sound.
-                 */
-
                 playSound(
                     "correct"
                 );
 
-
-                /*
-                 * Positive feedback.
-                 */
 
                 feedback.textContent =
                     "⭐ Great job!";
@@ -1156,18 +1100,8 @@ document.addEventListener(
                     "feedback correct";
 
 
-                /*
-                 * Star reward for each
-                 * correct tile.
-                 */
-
                 showStarReward();
 
-
-                /*
-                 * Wait for the tile
-                 * animation before checking.
-                 */
 
                 setTimeout(
                     function () {
@@ -1181,8 +1115,7 @@ document.addEventListener(
 
 
                         if (
-                            remaining.length ===
-                            0
+                            remaining.length === 0
                         ) {
 
                             finishRound();
@@ -1213,10 +1146,6 @@ document.addEventListener(
             updateLives();
 
 
-            /*
-             * Wrong sound.
-             */
-
             playSound(
                 "wrong"
             );
@@ -1242,13 +1171,7 @@ document.addEventListener(
             );
 
 
-            /*
-             * Game over.
-             */
-
-            if (
-                lives <= 0
-            ) {
+            if (lives <= 0) {
 
                 finishGame();
 
@@ -1268,10 +1191,6 @@ document.addEventListener(
             );
 
 
-            /*
-             * Force animation restart.
-             */
-
             const rewardStar =
                 starReward.querySelector(
                     ".reward-star"
@@ -1289,10 +1208,13 @@ document.addEventListener(
                 rewardStar.style.animation =
                     "none";
 
+
                 void rewardStar.offsetWidth;
+
 
                 rewardStar.style.animation =
                     "";
+
             }
 
 
@@ -1301,10 +1223,13 @@ document.addEventListener(
                 rewardText.style.animation =
                     "none";
 
+
                 void rewardText.offsetWidth;
+
 
                 rewardText.style.animation =
                     "";
+
             }
 
 
@@ -1343,24 +1268,14 @@ document.addEventListener(
             }
 
 
-            roundFinished =
-                true;
+            roundFinished = true;
 
-
-            /*
-             * One star for each
-             * completed round.
-             */
 
             stars++;
 
 
             updateStars();
 
-
-            /*
-             * Correct completion sound.
-             */
 
             playSound(
                 "correct"
@@ -1375,24 +1290,15 @@ document.addEventListener(
                 "feedback correct";
 
 
-            /*
-             * Disable all remaining tiles.
-             */
-
             disableTiles();
 
-
-            /*
-             * Show one star reward
-             * for completing the round.
-             */
 
             showStarReward();
 
 
-            /*
-             * Last round.
-             */
+            // -------------------------------------------------
+            // LAST ROUND
+            // -------------------------------------------------
 
             if (
                 currentRound >=
@@ -1413,9 +1319,9 @@ document.addEventListener(
             }
 
 
-            /*
-             * Next round.
-             */
+            // -------------------------------------------------
+            // NEXT ROUND BUTTON
+            // -------------------------------------------------
 
             nextButton.classList.remove(
                 "hidden"
@@ -1437,9 +1343,7 @@ document.addEventListener(
 
 
             tiles.forEach(
-                function (
-                    tile
-                ) {
+                function (tile) {
 
                     tile.disabled =
                         true;
@@ -1458,9 +1362,7 @@ document.addEventListener(
             "click",
             function () {
 
-                if (
-                    gameFinished
-                ) {
+                if (gameFinished) {
 
                     return;
                 }
@@ -1486,7 +1388,7 @@ document.addEventListener(
 
 
         // =====================================================
-        // CALCULATE FINAL STARS
+        // FINAL STARS
         // =====================================================
 
         function calculateFinalStars() {
@@ -1510,6 +1412,7 @@ document.addEventListener(
 
 
             return 0;
+
         }
 
 
@@ -1519,79 +1422,48 @@ document.addEventListener(
 
         async function showResult() {
 
-            if (
-                gameFinished
-            ) {
+            if (gameFinished) {
 
                 return;
             }
 
 
-            gameFinished =
-                true;
+            gameFinished = true;
 
+            roundFinished = true;
 
-            roundFinished =
-                true;
-
-
-            /*
-             * Progress 100%.
-             */
 
             progressBar.style.width =
                 "100%";
 
 
-            /*
-             * Final score.
-             */
-
             finalScore.textContent =
                 score;
 
 
-            /*
-             * Final stars.
-             */
-
             finalStars.textContent =
-                stars +
-                " ⭐";
+                stars + " ⭐";
 
-
-            /*
-             * Final star display.
-             */
 
             const finalStarCount =
                 calculateFinalStars();
 
 
-            if (
-                finalStarCount ===
-                3
-            ) {
+            if (finalStarCount === 3) {
 
                 finalStarDisplay.textContent =
                     "⭐⭐⭐";
 
             }
 
-            else if (
-                finalStarCount ===
-                2
-            ) {
+            else if (finalStarCount === 2) {
 
                 finalStarDisplay.textContent =
                     "⭐⭐";
 
             }
 
-            else if (
-                finalStarCount ===
-                1
-            ) {
+            else if (finalStarCount === 1) {
 
                 finalStarDisplay.textContent =
                     "⭐";
@@ -1605,10 +1477,6 @@ document.addEventListener(
 
             }
 
-
-            /*
-             * Student name.
-             */
 
             const student =
                 getSelectedStudent();
@@ -1627,35 +1495,21 @@ document.addEventListener(
             }
 
 
-            /*
-             * Show result.
-             */
-
             resultScreen.classList.remove(
                 "hidden"
             );
 
-
-            /*
-             * Finish sound.
-             */
 
             playSound(
                 "finish"
             );
 
 
-            /*
-             * Score percentage.
-             *
-             * Since score is based on
-             * tiles, calculate using
-             * actual maximum possible
-             * tile count for all rounds.
-             */
+            // -------------------------------------------------
+            // MAXIMUM SCORE
+            // -------------------------------------------------
 
-            let maximumScore =
-                0;
+            let maximumScore = 0;
 
 
             for (
@@ -1703,10 +1557,6 @@ document.addEventListener(
                 );
 
 
-            /*
-             * Save progress.
-             */
-
             await saveProgress(
                 percentageScore,
                 finalStarCount
@@ -1721,16 +1571,13 @@ document.addEventListener(
 
         function finishGame() {
 
-            if (
-                gameFinished
-            ) {
+            if (gameFinished) {
 
                 return;
             }
 
 
-            roundFinished =
-                true;
+            roundFinished = true;
 
 
             disableTiles();
@@ -1828,8 +1675,7 @@ document.addEventListener(
                         "/progress/save",
                         {
 
-                            method:
-                                "POST",
+                            method: "POST",
 
                             headers: {
 
@@ -1884,7 +1730,6 @@ document.addEventListener(
                     data
                 );
 
-
             }
 
             catch (error) {
@@ -1912,32 +1757,19 @@ document.addEventListener(
                 );
 
 
-                currentRound =
-                    1;
+                currentRound = 1;
 
+                score = 0;
 
-                score =
-                    0;
+                stars = 0;
 
+                lives = MAX_LIVES;
 
-                stars =
-                    0;
+                correctColor = null;
 
+                roundFinished = false;
 
-                lives =
-                    MAX_LIVES;
-
-
-                correctColor =
-                    null;
-
-
-                roundFinished =
-                    false;
-
-
-                gameFinished =
-                    false;
+                gameFinished = false;
 
 
                 resultScreen.classList.add(
@@ -1973,34 +1805,26 @@ document.addEventListener(
 
         function startGame() {
 
-            /*
-             * Prevent duplicate start.
-             */
+            // IMPORTANT:
+            // Correct variable name is colorPickGameStarted.
 
-            if (
-                colorPathGameStarted
-            ) {
+            if (colorPickGameStarted) {
 
                 return;
             }
 
 
-            /*
-             * IMPORTANT:
-             * Game starts ONLY after
-             * loading is finished.
-             */
+            // Wait for loading to finish.
 
-            if (
-                !colorPathLoadingFinished
-            ) {
+            if (!colorPickLoadingFinished) {
 
                 return;
             }
 
 
-            colorPathGameStarted =
-                true;
+            // Mark game as started.
+
+            colorPickGameStarted = true;
 
 
             const studentExists =
@@ -2024,9 +1848,7 @@ document.addEventListener(
             updateProgress();
 
 
-            /*
-             * First round starts HERE.
-             */
+            // Start first round.
 
             createPath();
 
@@ -2038,7 +1860,7 @@ document.addEventListener(
         // =====================================================
 
         document.addEventListener(
-            "colorPathLoadingFinished",
+            "colorPickLoadingFinished",
             function () {
 
                 startGame();
@@ -2050,13 +1872,11 @@ document.addEventListener(
         );
 
 
-        /*
-         * Safety check.
-         */
+        // =====================================================
+        // SAFETY CHECK
+        // =====================================================
 
-        if (
-            colorPathLoadingFinished
-        ) {
+        if (colorPickLoadingFinished) {
 
             startGame();
 
