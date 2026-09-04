@@ -1,28 +1,6 @@
-// =========================================================
-// KINDERQUEST - COLOR PATH
-// FULL UPDATED VERSION
-//
-// MECHANICS:
-// - No START / FINISH
-// - Visual color target
-// - Touch matching color tiles
-// - Correct tiles disappear
-// - Wrong tile removes one life
-// - 10 rounds
-// - Stars based on completed rounds
-// - Sound enabled
-// - Progress + stars saved
-// - Game starts ONLY after loading finishes
-// =========================================================
+let colorPickLoadingFinished = false;
 
-
-// =========================================================
-// GAME LOADING STATE
-// =========================================================
-
-let colorPathLoadingFinished = false;
-
-let colorPathGameStarted = false;
+let colorPickGameStarted = false;
 
 
 // =========================================================
@@ -39,10 +17,10 @@ window.addEventListener("load", function () {
 
     if (!loader || !barFill) {
 
-        colorPathLoadingFinished = true;
+        colorPickLoadingFinished = true;
 
         document.dispatchEvent(
-            new Event("colorPathLoadingFinished")
+            new Event("colorPickLoadingFinished")
         );
 
         return;
@@ -94,7 +72,7 @@ window.addEventListener("load", function () {
                         setTimeout(
                             function () {
 
-                                colorPathLoadingFinished =
+                                colorPickLoadingFinished =
                                     true;
 
 
@@ -472,7 +450,7 @@ document.addEventListener(
             catch (error) {
 
                 console.log(
-                    "Color Path sound error:",
+                    "Color Pick sound error:",
                     error
                 );
 
