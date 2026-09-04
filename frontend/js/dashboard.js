@@ -5,6 +5,11 @@
 
 const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
+
+// ==========================================================
+// PARSE UTC DATE
+// ==========================================================
+
 function parseUTCDate(dateString) {
 
     if (!dateString) {
@@ -94,7 +99,6 @@ function formatActivityDate(dateString) {
 
     const date = parseUTCDate(dateString);
 
-
     if (isNaN(date.getTime())) {
         return "Date unavailable";
     }
@@ -127,72 +131,121 @@ function formatActivityDate(dateString) {
 
 
 // ==========================================================
-// SEARCH STUDENT
+// NORMALIZE ACTIVITY
+// ==========================================================
+// Converts old activity names to the new activity name.
+//
+// OLD:
+// color-path
+//
+// NEW:
+// color-pick
+//
+// This allows old database records to display as
+// "color-pick" without changing the database itself.
 // ==========================================================
 
-const searchInput =
-    document.getElementById("searchStudent");
+function normalizeActivity(activity) {
+
+    if (!activity) {
+        return "—";
+    }
+
+    const value =
+        String(activity)
+            .trim()
+            .toLowerCase();
 
 
-const table =
-    document.getElementById("progressTable");
+    // OLD COLOR PATH → NEW COLOR PICK
+    if (
+        value === "color-path" ||
+        value === "color path" ||
+        value === "colorpath" ||
+        value === "color_path"
+    ) {
+
+        return "color-pick";
+
+    }
 
 
-if (searchInput && table) {
+    // COLOR PICK variations
+    if (
+        value === "color-pick" ||
+        value === "color pick" ||
+        value === "colorpick" ||
+        value === "color_pick"
+    ) {
 
-    searchInput.addEventListener(
-        "keyup",
-        function () {
+        return "color-pick";
 
-            const searchValue =
-                searchInput.value
-                    .toLowerCase()
-                    .trim();
-
-
-            const rows =
-                table.getElementsByTagName("tr");
+    }
 
 
-            for (
-                let i = 0;
-                i < rows.length;
-                i++
-            ) {
+    return activity;
 
-                const cells =
-                    rows[i].getElementsByTagName("td");
+}
 
 
-                const studentName =
-                    cells[0];
+// ==========================================================
+// NORMALIZE CATEGORY
+// ==========================================================
+
+function normalizeCategory(category) {
+
+    if (!category) {
+        return "";
+    }
 
 
-                if (studentName) {
+    const value =
+        String(category)
+            .trim()
+            .toLowerCase();
 
-                    const name =
-                        studentName.textContent
-                            .toLowerCase();
+
+    if (
+        value.includes("alphabet") ||
+        value.includes("letter")
+    ) {
+
+        return "alphabet";
+
+    }
 
 
-                    if (
-                        name.includes(searchValue)
-                    ) {
+    if (
+        value.includes("number") ||
+        value.includes("count") ||
+        value.includes("addition")
+    ) {
 
-                        rows[i].style.display = "";
+        return "numbers";
 
-                    } else {
+    }
 
-                        rows[i].style.display = "none";
 
-                    }
+    if (
+        value.includes("color") ||
+        value.includes("colour")
+    ) {
 
-                }
+        return "colors";
 
-            }
+    }
 
-        }
-    );
+
+    if (
+        value.includes("shape")
+    ) {
+
+        return "shapes";
+
+    }
+
+
+    return value;
 
 }
 
@@ -382,68 +435,6 @@ function loadTotalGames() {
 
 
 loadTotalGames();
-
-
-// ==========================================================
-// NORMALIZE CATEGORY
-// ==========================================================
-
-function normalizeCategory(category) {
-
-    if (!category) {
-        return "";
-    }
-
-
-    const value =
-        String(category)
-            .trim()
-            .toLowerCase();
-
-
-    if (
-        value.includes("alphabet") ||
-        value.includes("letter")
-    ) {
-
-        return "alphabet";
-
-    }
-
-
-    if (
-        value.includes("number") ||
-        value.includes("count") ||
-        value.includes("addition")
-    ) {
-
-        return "numbers";
-
-    }
-
-
-    if (
-        value.includes("color") ||
-        value.includes("colour")
-    ) {
-
-        return "colors";
-
-    }
-
-
-    if (
-        value.includes("shape")
-    ) {
-
-        return "shapes";
-
-    }
-
-
-    return value;
-
-}
 
 
 // ==========================================================
@@ -660,19 +651,6 @@ async function loadAverageStats() {
 
         // ==================================================
         // AVERAGE PROGRESS
-        //
-        // Each student's progress is based on the
-        // average score of the 4 main categories.
-        //
-        // No activity = 0%
-        //
-        // Example:
-        // Alphabet = 60
-        // Numbers  = 20
-        // Colors   = 0
-        // Shapes   = 0
-        //
-        // Student progress = 20%
         // ==================================================
 
         if (averageProgressEl) {
@@ -761,8 +739,6 @@ async function loadAverageStats() {
 
         // ==================================================
         // AVERAGE SCORE
-        //
-        // Uses the latest score from each activity record.
         // ==================================================
 
         if (averageScoreEl) {
@@ -839,21 +815,6 @@ loadAverageStats();
 
 // ==========================================================
 // UPDATE PROGRESS OVERVIEW
-//
-// Category progress is based on the ACTUAL SCORE.
-//
-// Example with 1 student:
-//
-// Alphabet = 60%
-// Numbers  = 20%
-// Colors   = 0%
-// Shapes   = 0%
-//
-// Dashboard:
-// Alphabet = 60%
-// Numbers  = 20%
-// Colors   = 0%
-// Shapes   = 0%
 // ==========================================================
 
 function updateCategoryProgress(
@@ -1125,9 +1086,13 @@ async function loadRecentActivities() {
                 // ACTIVITY
                 // ==========================================
 
+                // IMPORTANT:
+                // This converts old "color-path"
+                // records into "color-pick".
                 const activity =
-                    record.activity
-                    || "Learning Activity";
+                    normalizeActivity(
+                        record.activity
+                    );
 
 
                 // ==========================================
@@ -1276,3 +1241,89 @@ function loadSidebarAvatar() {
 
 
 loadSidebarAvatar();
+
+
+// ==========================================================
+// SEARCH STUDENT
+// ==========================================================
+
+const searchInput =
+    document.getElementById(
+        "searchStudent"
+    );
+
+
+const table =
+    document.getElementById(
+        "progressTable"
+    );
+
+
+if (
+    searchInput &&
+    table
+) {
+
+    searchInput.addEventListener(
+        "keyup",
+        function () {
+
+            const searchValue =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
+
+            const rows =
+                table.getElementsByTagName(
+                    "tr"
+                );
+
+
+            for (
+                let i = 0;
+                i < rows.length;
+                i++
+            ) {
+
+                const cells =
+                    rows[i].getElementsByTagName(
+                        "td"
+                    );
+
+
+                const studentName =
+                    cells[0];
+
+
+                if (studentName) {
+
+                    const name =
+                        studentName.textContent
+                            .toLowerCase();
+
+
+                    if (
+                        name.includes(
+                            searchValue
+                        )
+                    ) {
+
+                        rows[i].style.display =
+                            "";
+
+                    } else {
+
+                        rows[i].style.display =
+                            "none";
+
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+}
