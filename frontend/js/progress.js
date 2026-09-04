@@ -1,23 +1,30 @@
 // =================================
-// KinderQuest Progress JS
+// KiddoQuest Progress JS
 // ACTIVITY-LEVEL PROGRESS
 // =================================
 
 
-const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+// =================================
+// API
+// =================================
 
+const PROGRESS_API =
+    "https://kiddoquest-backend.onrender.com/api/progress";
+
+
+// =================================
+// DOM ELEMENTS
+// =================================
 
 const progressTable =
     document.getElementById(
         "progressTable"
     );
 
-
 const searchInput =
     document.getElementById(
         "searchStudent"
     );
-
 
 let progressRecords = [];
 
@@ -28,12 +35,25 @@ let progressRecords = [];
 
 function getTeacher() {
 
-    const teacher =
-        JSON.parse(
-            localStorage.getItem(
-                "teacher"
-            )
+    let teacher = null;
+
+    try {
+
+        teacher =
+            JSON.parse(
+                localStorage.getItem(
+                    "teacher"
+                )
+            );
+
+    } catch (error) {
+
+        console.error(
+            "Unable to read teacher:",
+            error
         );
+
+    }
 
 
     if (!teacher) {
@@ -42,12 +62,10 @@ function getTeacher() {
             "login.html";
 
         return null;
-
     }
 
 
     return teacher;
-
 }
 
 
@@ -59,7 +77,6 @@ function displayTeacherName() {
 
     const teacher =
         getTeacher();
-
 
     if (!teacher) return;
 
@@ -75,6 +92,7 @@ function displayTeacherName() {
         teacherNameEl.textContent =
             teacher.username ||
             teacher.fullname ||
+            teacher.full_name ||
             "Teacher";
 
     }
@@ -94,7 +112,6 @@ async function loadProgress() {
     const teacher =
         getTeacher();
 
-
     if (!teacher) return;
 
 
@@ -102,7 +119,7 @@ async function loadProgress() {
 
         const response =
             await fetch(
-                `${API_BASE}/progress/teacher/${teacher.id}`
+                `${PROGRESS_API}/teacher/${teacher.id}`
             );
 
 
@@ -119,9 +136,13 @@ async function loadProgress() {
             await response.json();
 
 
-        if (
-            data.success
-        ) {
+        console.log(
+            "PROGRESS API RESPONSE:",
+            data
+        );
+
+
+        if (data.success) {
 
             progressRecords =
                 normalizeProgressRecords(
@@ -133,11 +154,9 @@ async function loadProgress() {
                 progressRecords
             );
 
-
         } else {
 
             progressRecords = [];
-
 
             showMessage(
                 "No progress records found."
@@ -174,9 +193,21 @@ function normalizeProgressRecords(
     records
 ) {
 
+    if (!Array.isArray(records)) {
+
+        return [];
+
+    }
+
+
     return records
+
         .map(
             record => {
+
+                // =================================
+                // STUDENT ID
+                // =================================
 
                 const studentId =
                     record.student_id ??
@@ -184,6 +215,10 @@ function normalizeProgressRecords(
                     record.studentID ??
                     "";
 
+
+                // =================================
+                // STUDENT NAME
+                // =================================
 
                 const firstName =
                     record.first_name ||
@@ -197,14 +232,35 @@ function normalizeProgressRecords(
                     "";
 
 
-                const studentName =
+                let studentName =
                     `${firstName} ${lastName}`
-                    .replace(
-                        /\s+/g,
-                        " "
-                    )
-                    .trim();
+                        .replace(
+                            /\s+/g,
+                            " "
+                        )
+                        .trim();
 
+
+                // =================================
+                // OTHER POSSIBLE STUDENT NAME
+                // =================================
+
+                if (!studentName) {
+
+                    studentName =
+                        record.student_name ||
+                        record.studentName ||
+                        record.fullname ||
+                        record.fullName ||
+                        record.name ||
+                        "";
+
+                }
+
+
+                // =================================
+                // CATEGORY
+                // =================================
 
                 const category =
                     normalizeCategory(
@@ -212,12 +268,31 @@ function normalizeProgressRecords(
                     );
 
 
-                const activity =
+                // =================================
+                // ACTIVITY
+                // =================================
+
+                let activity =
                     record.activity ||
                     record.game_name ||
                     record.game ||
                     "—";
 
+
+                // =================================
+                // IMPORTANT:
+                // RENAME OLD COLOR-PATH
+                // =================================
+
+                activity =
+                    normalizeActivity(
+                        activity
+                    );
+
+
+                // =================================
+                // SCORE
+                // =================================
 
                 let score =
                     Number(
@@ -248,6 +323,10 @@ function normalizeProgressRecords(
                     );
 
 
+                // =================================
+                // STARS
+                // =================================
+
                 let stars =
                     Number(
                         record.stars
@@ -277,12 +356,20 @@ function normalizeProgressRecords(
                     );
 
 
+                // =================================
+                // STATUS
+                // =================================
+
                 const status =
                     record.status ||
                     getStatusFromScore(
                         score
                     );
 
+
+                // =================================
+                // RETURN NORMALIZED RECORD
+                // =================================
 
                 return {
 
@@ -319,9 +406,78 @@ function normalizeProgressRecords(
 
             }
         )
+
         .sort(
             sortNewestFirst
         );
+
+}
+
+
+// =================================
+// NORMALIZE ACTIVITY
+// =================================
+//
+// This changes old activity names
+// only for DISPLAY in Progress.
+//
+// color-path  -> color-pick
+//
+// Other activities remain unchanged.
+// =================================
+
+function normalizeActivity(
+    activity
+) {
+
+    const value =
+        String(
+            activity || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    // =================================
+    // COLOR PATH
+    // =================================
+
+    if (
+        value === "color-path" ||
+        value === "color path" ||
+        value === "colorpath" ||
+        value === "color_path"
+    ) {
+
+        return "color-pick";
+
+    }
+
+
+    // =================================
+    // COLOR PICK
+    // =================================
+
+    if (
+        value === "color-pick" ||
+        value === "color pick" ||
+        value === "colorpick" ||
+        value === "color_pick"
+    ) {
+
+        return "color-pick";
+
+    }
+
+
+    // =================================
+    // KEEP ORIGINAL ACTIVITY
+    // =================================
+
+    return (
+        activity ||
+        "—"
+    );
 
 }
 
@@ -342,6 +498,10 @@ function normalizeCategory(
         .trim();
 
 
+    // =================================
+    // ALPHABET
+    // =================================
+
     if (
         value === "alphabet" ||
         value === "letter" ||
@@ -353,6 +513,10 @@ function normalizeCategory(
     }
 
 
+    // =================================
+    // NUMBERS
+    // =================================
+
     if (
         value === "number" ||
         value === "numbers"
@@ -362,6 +526,10 @@ function normalizeCategory(
 
     }
 
+
+    // =================================
+    // COLORS
+    // =================================
 
     if (
         value === "color" ||
@@ -373,6 +541,10 @@ function normalizeCategory(
     }
 
 
+    // =================================
+    // SHAPES
+    // =================================
+
     if (
         value === "shape" ||
         value === "shapes"
@@ -383,8 +555,10 @@ function normalizeCategory(
     }
 
 
-    return value ||
-        "alphabet";
+    return (
+        value ||
+        "alphabet"
+    );
 
 }
 
@@ -477,6 +651,17 @@ function displayProgress(
     records
 ) {
 
+    if (!progressTable) {
+
+        console.error(
+            "Progress table not found."
+        );
+
+        return;
+
+    }
+
+
     progressTable.innerHTML =
         "";
 
@@ -504,6 +689,10 @@ function displayProgress(
                 );
 
 
+            // =================================
+            // DATE
+            // =================================
+
             const date =
                 parseUTCDate(
                     record.created_at
@@ -528,6 +717,10 @@ function displayProgress(
                     : "—";
 
 
+            // =================================
+            // TIME
+            // =================================
+
             const formattedTime =
                 record.created_at
                     ? date.toLocaleTimeString(
@@ -542,6 +735,10 @@ function displayProgress(
                     )
                     : "";
 
+
+            // =================================
+            // TABLE ROW
+            // =================================
 
             row.innerHTML = `
 
@@ -683,12 +880,17 @@ function starText(
 
 
     return (
+
         "⭐".repeat(
             count
-        ) +
+        )
+
+        +
+
         "☆".repeat(
             3 - count
         )
+
     );
 
 }
@@ -701,6 +903,11 @@ function starText(
 function showMessage(
     message
 ) {
+
+    if (!progressTable) {
+        return;
+    }
+
 
     progressTable.innerHTML = `
 
@@ -742,6 +949,10 @@ if (
                     .trim();
 
 
+            // =================================
+            // SHOW EVERYTHING
+            // =================================
+
             if (!keyword) {
 
                 displayProgress(
@@ -752,6 +963,10 @@ if (
 
             }
 
+
+            // =================================
+            // FILTER
+            // =================================
 
             const filtered =
                 progressRecords.filter(
@@ -785,11 +1000,15 @@ if (
 
                             studentName.includes(
                                 keyword
-                            ) ||
+                            )
+
+                            ||
 
                             activity.includes(
                                 keyword
-                            ) ||
+                            )
+
+                            ||
 
                             category.includes(
                                 keyword
@@ -862,6 +1081,10 @@ function getDateValue(
     let date;
 
 
+    // =================================
+    // SQLITE UTC FORMAT
+    // =================================
+
     if (
         /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/
             .test(value)
@@ -919,6 +1142,10 @@ function parseUTCDate(
         )
         .trim();
 
+
+    // =================================
+    // SQLITE UTC FORMAT
+    // =================================
 
     if (
         /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/
@@ -981,8 +1208,13 @@ function capitalize(
 
 
     return (
-        word.charAt(0).toUpperCase() +
+
+        word.charAt(0).toUpperCase()
+
+        +
+
         word.slice(1)
+
     );
 
 }
@@ -996,7 +1228,6 @@ function loadSidebarAvatar() {
 
     const teacher =
         getTeacher();
-
 
     if (!teacher) return;
 
@@ -1023,25 +1254,40 @@ function loadSidebarAvatar() {
     }
 
 
-    const initial = (
-
+    const teacherDisplayName =
         teacher.fullname ||
+        teacher.full_name ||
         teacher.username ||
-        "T"
+        "Teacher";
 
-    )
-    .trim()
-    .charAt(0)
-    .toUpperCase();
+
+    const initial =
+        teacherDisplayName
+            .trim()
+            .charAt(0)
+            .toUpperCase();
 
 
     avatarText.textContent =
         initial;
 
 
+    const teacherId =
+        teacher.id ||
+        teacher.teacher_id ||
+        teacher._id;
+
+
+    if (!teacherId) {
+
+        return;
+
+    }
+
+
     const savedPicture =
         localStorage.getItem(
-            `profilePicture_${teacher.id}`
+            `profilePicture_${teacherId}`
         );
 
 
@@ -1065,11 +1311,10 @@ function loadSidebarAvatar() {
 }
 
 
-loadSidebarAvatar();
-
-
 // =================================
 // START
 // =================================
+
+loadSidebarAvatar();
 
 loadProgress();
