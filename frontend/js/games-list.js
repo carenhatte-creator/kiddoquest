@@ -35,7 +35,7 @@ const GAMES_LIST = {
         { id: "color-match", name: "Color Matching", built: false },
         { id: "color-sort", name: "Color Sort", built: false },
         { id: "color-memory", name: "Color Memory", built: false },
-        { id: "color-path", name: "Color Path", built: false }
+        { id: "color-pick", name: "Color Pick", built: false }
 
     ],
 
