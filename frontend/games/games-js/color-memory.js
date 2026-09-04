@@ -1,24 +1,3 @@
-// =========================================================
-// KINDERQUEST - COLOR MEMORY
-// FULL UPDATED VERSION
-// =========================================================
-// FIXED:
-// 1. Loading must finish BEFORE game starts
-// 2. Sound Manager integrated
-// 3. Correct / Wrong / Button sounds
-// 4. Background music
-// 5. Progress saving
-// 6. Stars saving
-// 7. Finish screen stars
-// 8. Play Again
-// 9. Best streak
-// =========================================================
-
-
-// =========================================================
-// LOADING CONTROL
-// =========================================================
-
 let colorMemoryLoadingFinished = false;
 
 let colorMemoryLoadingPromise = new Promise(function (resolve) {
@@ -31,8 +10,6 @@ let colorMemoryLoadingPromise = new Promise(function (resolve) {
         const barFill =
             document.getElementById("loadingBarFill");
 
-        // If there is no loading screen,
-        // allow the game to start normally.
         if (!loader || !barFill) {
 
             colorMemoryLoadingFinished = true;
@@ -63,8 +40,6 @@ let colorMemoryLoadingPromise = new Promise(function (resolve) {
                         loadingInterval
                     );
 
-                    // Give the player a very short
-                    // moment to see 100%.
                     setTimeout(function () {
 
                         loader.style.opacity = "0";
@@ -77,8 +52,6 @@ let colorMemoryLoadingPromise = new Promise(function (resolve) {
                             colorMemoryLoadingFinished =
                                 true;
 
-                            // IMPORTANT:
-                            // Only now can the game start.
                             resolve();
 
                         }, 500);
@@ -116,7 +89,8 @@ document.addEventListener(
 
         const MAX_LIVES = 3;
 
-       const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+        const API_BASE =
+            "https://kiddoquest-backend.onrender.com/api";
 
 
         // =====================================================
@@ -173,10 +147,6 @@ document.addEventListener(
         let score = 0;
 
         let lives = MAX_LIVES;
-
-        let streak = 0;
-
-        let bestStreak = 0;
 
         let sequence = [];
 
@@ -263,14 +233,6 @@ document.addEventListener(
             document.getElementById(
                 "finalStudentName"
             );
-
-        const finalStreak =
-            document.getElementById(
-                "finalStreak"
-            );
-
-        const streakElement =
-            document.getElementById("streak");
 
         const noStudentOverlay =
             document.getElementById(
@@ -714,29 +676,6 @@ document.addEventListener(
 
 
         // =====================================================
-        // STREAK
-        // =====================================================
-
-        function updateStreak() {
-
-            if (streakElement) {
-
-                streakElement.textContent =
-                    streak;
-
-            }
-
-            if (streak > bestStreak) {
-
-                bestStreak =
-                    streak;
-
-            }
-
-        }
-
-
-        // =====================================================
         // PROGRESS
         // =====================================================
 
@@ -1106,19 +1045,14 @@ document.addEventListener(
 
             score++;
 
-            streak++;
-
             updateScore();
 
-            updateStreak();
-
             feedback.textContent =
-                "";
+                "🎉 Great job!";
 
             feedback.className =
                 "feedback correct";
 
-            // SOUND
             playCorrectSound();
 
             showStarReward();
@@ -1169,20 +1103,14 @@ document.addEventListener(
 
             lives--;
 
-            streak =
-                0;
-
             updateLives();
 
-            updateStreak();
-
             feedback.textContent =
-                "💛 Oops! Try to remember the sequence.";
+                "💛 Good try! Let's try again!";
 
             feedback.className =
                 "feedback wrong";
 
-            // SOUND
             playWrongSound();
 
             showCorrectSequence();
@@ -1268,7 +1196,6 @@ document.addEventListener(
 
                 }
 
-                // Try Again
                 if (
                     playerSequence.length !==
                     sequence.length &&
@@ -1384,13 +1311,6 @@ document.addEventListener(
                 " / " +
                 TOTAL_ROUNDS;
 
-            if (finalStreak) {
-
-                finalStreak.textContent =
-                    bestStreak;
-
-            }
-
             const stars =
                 calculateStars();
 
@@ -1416,7 +1336,6 @@ document.addEventListener(
                 "hidden"
             );
 
-            // SAVE PROGRESS INCLUDING STARS
             const percentageScore =
                 Math.round(
                     (
@@ -1583,12 +1502,6 @@ document.addEventListener(
                 lives =
                     MAX_LIVES;
 
-                streak =
-                    0;
-
-                bestStreak =
-                    0;
-
                 sequence =
                     [];
 
@@ -1624,16 +1537,12 @@ document.addEventListener(
 
                 updateLives();
 
-                updateStreak();
-
                 updateRound();
 
                 updateProgress();
 
                 createSequence();
 
-                // Play Again does not need
-                // the initial loading screen.
                 showSequence();
 
             }
@@ -1663,18 +1572,6 @@ document.addEventListener(
         // =====================================================
         // START GAME AFTER LOADING
         // =====================================================
-        // IMPORTANT:
-        // The game WILL NOT start immediately.
-        //
-        // It waits for:
-        // Loading 0%
-        // Loading 100%
-        // Fade out
-        // Loading screen display:none
-        // THEN:
-        // createSequence()
-        // showSequence()
-        // =====================================================
 
         async function startGameAfterLoading() {
 
@@ -1687,19 +1584,13 @@ document.addEventListener(
 
             }
 
-            // WAIT FOR LOADING TO COMPLETELY FINISH
             await colorMemoryLoadingPromise;
 
-            // Extra small delay so the transition
-            // is visually clean.
             await wait(150);
 
-            // Initialize game
             updateScore();
 
             updateLives();
-
-            updateStreak();
 
             updateRound();
 
@@ -1707,11 +1598,8 @@ document.addEventListener(
 
             createSequence();
 
-            // Start background music ONLY
-            // after loading is finished.
             startGameMusic();
 
-            // FIRST COLOR SEQUENCE STARTS HERE
             showSequence();
 
         }
