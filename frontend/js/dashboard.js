@@ -8,14 +8,8 @@
 // API
 // ==========================================================
 
-const API_BASE =
-    "https://kiddoquest-backend.onrender.com/api";
+const API_BASE = "https://kiddoquest-backend.onrender.com/api";
 
-
-// ==========================================================
-// PARSE UTC DATE
-// SQLite CURRENT_TIMESTAMP is UTC.
-// ==========================================================
 
 function parseUTCDate(dateString) {
 
@@ -23,9 +17,135 @@ function parseUTCDate(dateString) {
         return new Date();
     }
 
-    return new Date(
-        dateString.replace(" ", "T") + "Z"
-    );
+    const value = String(dateString).trim();
+
+    if (!value) {
+        return new Date();
+    }
+
+
+    if (value.endsWith("Z")) {
+
+        const date = new Date(value);
+
+        if (!isNaN(date.getTime())) {
+            return date;
+        }
+
+    }
+
+
+    // ------------------------------------------------------
+    // Already has timezone offset
+    // Example:
+    // 2026-09-04T05:30:00+00:00
+    // ------------------------------------------------------
+
+    if (/[+-]\d{2}:\d{2}$/.test(value)) {
+
+        const date = new Date(value);
+
+        if (!isNaN(date.getTime())) {
+            return date;
+        }
+
+    }
+
+
+    // ------------------------------------------------------
+    // SQLite format
+    // YYYY-MM-DD HH:MM:SS
+    // ------------------------------------------------------
+
+    if (
+        /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(value)
+    ) {
+
+        const date = new Date(
+            value.replace(" ", "T") + "Z"
+        );
+
+        if (!isNaN(date.getTime())) {
+            return date;
+        }
+
+    }
+
+
+    // ------------------------------------------------------
+    // ISO format without timezone
+    // ------------------------------------------------------
+
+    if (
+        /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)
+    ) {
+
+        const date = new Date(value);
+
+        if (!isNaN(date.getTime())) {
+            return date;
+        }
+
+    }
+
+
+    // ------------------------------------------------------
+    // General fallback
+    // ------------------------------------------------------
+
+    const fallbackDate = new Date(value);
+
+    if (!isNaN(fallbackDate.getTime())) {
+        return fallbackDate;
+    }
+
+
+    // ------------------------------------------------------
+    // Final safe fallback
+    // ------------------------------------------------------
+
+    return new Date();
+
+}
+
+
+// ==========================================================
+// FORMAT ACTIVITY DATE
+// ==========================================================
+
+function formatActivityDate(dateString) {
+
+    const date = parseUTCDate(dateString);
+
+
+    if (isNaN(date.getTime())) {
+        return "Date unavailable";
+    }
+
+
+    const formattedDate =
+        date.toLocaleDateString(
+            "en-US",
+            {
+                month: "short",
+                day: "numeric",
+                year: "numeric"
+            }
+        );
+
+
+    const formattedTime =
+        date.toLocaleTimeString(
+            "en-US",
+            {
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+
+    return `${formattedDate} • ${formattedTime}`;
+
 }
 
 
@@ -48,7 +168,10 @@ if (searchInput && table) {
         function () {
 
             const searchValue =
-                searchInput.value.toLowerCase();
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
+
 
             const rows =
                 table.getElementsByTagName("tr");
@@ -60,9 +183,12 @@ if (searchInput && table) {
                 i++
             ) {
 
+                const cells =
+                    rows[i].getElementsByTagName("td");
+
+
                 const studentName =
-                    rows[i]
-                        .getElementsByTagName("td")[0];
+                    cells[0];
 
 
                 if (studentName) {
@@ -76,18 +202,21 @@ if (searchInput && table) {
                         name.includes(searchValue)
                     ) {
 
-                        rows[i].style.display =
-                            "";
+                        rows[i].style.display = "";
 
                     } else {
 
-                        rows[i].style.display =
-                            "none";
+                        rows[i].style.display = "none";
+
                     }
+
                 }
+
             }
+
         }
     );
+
 }
 
 
@@ -99,6 +228,7 @@ function getTeacher() {
 
     let teacher = null;
 
+
     try {
 
         teacher =
@@ -109,22 +239,26 @@ function getTeacher() {
     } catch (error) {
 
         console.log(
-            "Invalid teacher data:",
+            "Error reading teacher data:",
             error
         );
+
+        teacher = null;
+
     }
 
 
     if (!teacher) {
 
-        window.location.href =
-            "login.html";
+        window.location.href = "login.html";
 
         return null;
+
     }
 
 
     return teacher;
+
 }
 
 
@@ -134,27 +268,22 @@ function getTeacher() {
 
 function displayTeacherName() {
 
-    const teacher =
-        getTeacher();
+    const teacher = getTeacher();
 
-    if (!teacher) {
-        return;
-    }
+    if (!teacher) return;
 
 
     const teacherNameEl =
-        document.getElementById(
-            "teacherName"
-        );
+        document.getElementById("teacherName");
 
 
     if (teacherNameEl) {
 
         teacherNameEl.textContent =
-            teacher.username ||
-            teacher.fullname ||
-            "Teacher";
+            teacher.username || "Teacher";
+
     }
+
 }
 
 
@@ -168,18 +297,13 @@ displayTeacherName();
 function displayCurrentDate() {
 
     const dateElement =
-        document.getElementById(
-            "currentDate"
-        );
+        document.getElementById("currentDate");
 
 
-    if (!dateElement) {
-        return;
-    }
+    if (!dateElement) return;
 
 
-    const today =
-        new Date();
+    const today = new Date();
 
 
     dateElement.textContent =
@@ -192,6 +316,7 @@ function displayCurrentDate() {
                 year: "numeric"
             }
         );
+
 }
 
 
@@ -204,23 +329,16 @@ displayCurrentDate();
 
 async function loadTotalStudents() {
 
-    const teacher =
-        getTeacher();
+    const teacher = getTeacher();
 
-    if (!teacher) {
-        return;
-    }
+    if (!teacher) return;
 
 
     const totalStudentsEl =
-        document.getElementById(
-            "totalStudents"
-        );
+        document.getElementById("totalStudents");
 
 
-    if (!totalStudentsEl) {
-        return;
-    }
+    if (!totalStudentsEl) return;
 
 
     try {
@@ -238,11 +356,9 @@ async function loadTotalStudents() {
         if (data.success) {
 
             totalStudentsEl.textContent =
-                (
-                    data.students || []
-                ).length;
-        }
+                (data.students || []).length;
 
+        }
 
     } catch (err) {
 
@@ -250,7 +366,9 @@ async function loadTotalStudents() {
             "Error loading students:",
             err
         );
+
     }
+
 }
 
 
@@ -264,30 +382,268 @@ loadTotalStudents();
 function loadTotalGames() {
 
     const totalGamesEl =
-        document.getElementById(
-            "totalGames"
-        );
+        document.getElementById("totalGames");
 
 
-    if (!totalGamesEl) {
-        return;
-    }
+    if (!totalGamesEl) return;
 
 
     if (
         typeof getTotalGamesCount !==
         "function"
     ) {
+
         return;
+
     }
 
 
     totalGamesEl.textContent =
         getTotalGamesCount();
+
 }
 
 
 loadTotalGames();
+
+
+// ==========================================================
+// LOAD AVERAGE PROGRESS + AVERAGE SCORE
+// ==========================================================
+
+async function loadAverageStats() {
+
+    const teacher = getTeacher();
+
+    if (!teacher) return;
+
+
+    const averageProgressEl =
+        document.getElementById(
+            "averageProgress"
+        );
+
+
+    const averageScoreEl =
+        document.getElementById(
+            "averageScore"
+        );
+
+
+    if (
+        !averageProgressEl &&
+        !averageScoreEl
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        // ==================================================
+        // GET ALL STUDENTS
+        // ==================================================
+
+        const studentsResponse =
+            await fetch(
+                `${API_BASE}/students?teacher_id=${teacher.id}`
+            );
+
+
+        const studentsData =
+            await studentsResponse.json();
+
+
+        const allStudents =
+            studentsData.success
+                ? (studentsData.students || [])
+                : [];
+
+
+        // ==================================================
+        // GET ALL PROGRESS RECORDS
+        // ==================================================
+
+        const progressResponse =
+            await fetch(
+                `${API_BASE}/progress/teacher/${teacher.id}`
+            );
+
+
+        const progressData =
+            await progressResponse.json();
+
+
+        const records =
+            progressData.success
+                ? (progressData.data || [])
+                : [];
+
+
+        // ==================================================
+        // GROUP RECORDS PER STUDENT
+        // ==================================================
+
+        const perStudentCategories = {};
+
+        const allScores = [];
+
+
+        records.forEach(
+            (record) => {
+
+                const score =
+                    Number(record.score) || 0;
+
+
+                allScores.push(score);
+
+
+                if (
+                    !perStudentCategories[
+                        record.student_id
+                    ]
+                ) {
+
+                    perStudentCategories[
+                        record.student_id
+                    ] = new Set();
+
+                }
+
+
+                perStudentCategories[
+                    record.student_id
+                ].add(
+                    normalizeCategory(
+                        record.category
+                    )
+                );
+
+            }
+        );
+
+
+        // ==================================================
+        // AVERAGE PROGRESS
+        // ==================================================
+
+        if (averageProgressEl) {
+
+            if (
+                allStudents.length === 0
+            ) {
+
+                averageProgressEl.textContent =
+                    "0%";
+
+            } else {
+
+                const totalPercent =
+                    allStudents.reduce(
+                        (
+                            sum,
+                            student
+                        ) => {
+
+                            const categoriesAttempted =
+                                perStudentCategories[
+                                    student.id
+                                ]
+                                    ? countMainCategories(
+                                        perStudentCategories[
+                                            student.id
+                                        ]
+                                    )
+                                    : 0;
+
+
+                            return (
+                                sum +
+                                (
+                                    categoriesAttempted /
+                                    4
+                                ) *
+                                100
+                            );
+
+                        },
+                        0
+                    );
+
+
+                averageProgressEl.textContent =
+                    Math.round(
+                        totalPercent /
+                        allStudents.length
+                    ) + "%";
+
+            }
+
+        }
+
+
+        // ==================================================
+        // AVERAGE SCORE
+        // ==================================================
+
+        if (averageScoreEl) {
+
+            if (
+                allScores.length === 0
+            ) {
+
+                averageScoreEl.textContent =
+                    "0%";
+
+            } else {
+
+                const totalScore =
+                    allScores.reduce(
+                        (
+                            sum,
+                            score
+                        ) =>
+                            sum + score,
+                        0
+                    );
+
+
+                averageScoreEl.textContent =
+                    Math.round(
+                        totalScore /
+                        allScores.length
+                    ) + "%";
+
+            }
+
+        }
+
+
+        // ==================================================
+        // UPDATE CATEGORY PROGRESS
+        // ==================================================
+
+        updateCategoryProgress(
+            allStudents,
+            records
+        );
+
+    } catch (err) {
+
+        console.log(
+            "Error loading average stats:",
+            err
+        );
+
+    }
+
+}
+
+
+loadAverageStats();
 
 
 // ==========================================================
@@ -313,6 +669,7 @@ function normalizeCategory(category) {
     ) {
 
         return "alphabet";
+
     }
 
 
@@ -323,6 +680,7 @@ function normalizeCategory(category) {
     ) {
 
         return "numbers";
+
     }
 
 
@@ -332,6 +690,7 @@ function normalizeCategory(category) {
     ) {
 
         return "colors";
+
     }
 
 
@@ -340,415 +699,52 @@ function normalizeCategory(category) {
     ) {
 
         return "shapes";
+
     }
 
 
     return value;
+
 }
 
 
 // ==========================================================
-// GET LATEST RECORD PER STUDENT + CATEGORY
-//
-// Important:
-// If a student plays Numbers several times:
-//
-// 20%
-// 40%
-// 60%
-//
-// only the latest 60% is used.
-//
-// This prevents old scores from incorrectly
-// increasing or decreasing the dashboard.
+// COUNT MAIN CATEGORIES
 // ==========================================================
 
-function getLatestCategoryRecords(records) {
+function countMainCategories(categorySet) {
 
-    const latest = {};
-
-
-    records.forEach(
-        (record) => {
-
-            const studentId =
-                String(
-                    record.student_id
-                );
+    const mainCategories =
+        new Set();
 
 
-            const category =
-                normalizeCategory(
-                    record.category
-                );
-
-
-            if (!studentId || !category) {
-                return;
-            }
-
-
-            const key =
-                `${studentId}_${category}`;
-
-
-            const existing =
-                latest[key];
-
-
-            if (!existing) {
-
-                latest[key] =
-                    record;
-
-                return;
-            }
-
-
-            const oldDate =
-                parseUTCDate(
-                    existing.created_at
-                );
-
-
-            const newDate =
-                parseUTCDate(
-                    record.created_at
-                );
-
+    categorySet.forEach(
+        (category) => {
 
             if (
-                newDate.getTime() >=
-                oldDate.getTime()
+                category === "alphabet" ||
+                category === "numbers" ||
+                category === "colors" ||
+                category === "shapes"
             ) {
 
-                latest[key] =
-                    record;
+                mainCategories.add(
+                    category
+                );
+
             }
+
         }
     );
 
 
-    return Object.values(
-        latest
-    );
+    return mainCategories.size;
+
 }
 
 
 // ==========================================================
-// LOAD AVERAGE PROGRESS + AVERAGE SCORE
-// ==========================================================
-
-async function loadAverageStats() {
-
-    const teacher =
-        getTeacher();
-
-    if (!teacher) {
-        return;
-    }
-
-
-    const averageProgressEl =
-        document.getElementById(
-            "averageProgress"
-        );
-
-
-    const averageScoreEl =
-        document.getElementById(
-            "averageScore"
-        );
-
-
-    if (
-        !averageProgressEl &&
-        !averageScoreEl
-    ) {
-        return;
-    }
-
-
-    try {
-
-        // ==================================================
-        // GET ALL STUDENTS
-        // ==================================================
-
-        const studentsResponse =
-            await fetch(
-                `${API_BASE}/students?teacher_id=${teacher.id}`
-            );
-
-
-        const studentsData =
-            await studentsResponse.json();
-
-
-        const allStudents =
-            studentsData.success
-                ? (
-                    studentsData.students ||
-                    []
-                )
-                : [];
-
-
-        // ==================================================
-        // GET ALL PROGRESS RECORDS
-        // ==================================================
-
-        const progressResponse =
-            await fetch(
-                `${API_BASE}/progress/teacher/${teacher.id}`
-            );
-
-
-        const progressData =
-            await progressResponse.json();
-
-
-        const records =
-            progressData.success
-                ? (
-                    progressData.data ||
-                    []
-                )
-                : [];
-
-
-        // ==================================================
-        // GET ONLY LATEST SCORE PER
-        // STUDENT + CATEGORY
-        // ==================================================
-
-        const latestRecords =
-            getLatestCategoryRecords(
-                records
-            );
-
-
-        // ==================================================
-        // AVERAGE PROGRESS
-        //
-        // Each student's progress is based on
-        // the actual score of the 4 categories.
-        //
-        // Example:
-        //
-        // Alphabet = 60
-        // Numbers  = 20
-        // Colors   = 0
-        // Shapes   = 0
-        //
-        // Student progress =
-        // (60 + 20 + 0 + 0) / 4
-        // = 20%
-        //
-        // Students with no activity = 0%.
-        // ==================================================
-
-        if (averageProgressEl) {
-
-            if (
-                allStudents.length === 0
-            ) {
-
-                averageProgressEl.textContent =
-                    "0%";
-
-            } else {
-
-                const mainCategories = [
-                    "alphabet",
-                    "numbers",
-                    "colors",
-                    "shapes"
-                ];
-
-
-                let totalStudentProgress =
-                    0;
-
-
-                allStudents.forEach(
-                    (student) => {
-
-                        const studentId =
-                            String(
-                                student.id
-                            );
-
-
-                        let categoryTotal =
-                            0;
-
-
-                        mainCategories.forEach(
-                            (category) => {
-
-                                const record =
-                                    latestRecords.find(
-                                        (item) =>
-                                            String(
-                                                item.student_id
-                                            ) ===
-                                            studentId
-                                            &&
-                                            normalizeCategory(
-                                                item.category
-                                            ) ===
-                                            category
-                                    );
-
-
-                                if (record) {
-
-                                    const score =
-                                        Number(
-                                            record.score
-                                        );
-
-
-                                    categoryTotal +=
-                                        Math.max(
-                                            0,
-                                            Math.min(
-                                                100,
-                                                isNaN(score)
-                                                    ? 0
-                                                    : score
-                                            )
-                                        );
-                                }
-                            }
-                        );
-
-
-                        const studentProgress =
-                            categoryTotal /
-                            mainCategories.length;
-
-
-                        totalStudentProgress +=
-                            studentProgress;
-                    }
-                );
-
-
-                const averageProgress =
-                    totalStudentProgress /
-                    allStudents.length;
-
-
-                averageProgressEl.textContent =
-                    Math.round(
-                        averageProgress
-                    ) + "%";
-            }
-        }
-
-
-        // ==================================================
-        // AVERAGE SCORE
-        //
-        // Uses latest score per student/category.
-        // ==================================================
-
-        if (averageScoreEl) {
-
-            if (
-                latestRecords.length === 0
-            ) {
-
-                averageScoreEl.textContent =
-                    "0%";
-
-            } else {
-
-                const validScores =
-                    latestRecords
-                        .map(
-                            (record) =>
-                                Number(
-                                    record.score
-                                )
-                        )
-                        .filter(
-                            (score) =>
-                                !isNaN(score)
-                        );
-
-
-                if (
-                    validScores.length === 0
-                ) {
-
-                    averageScoreEl.textContent =
-                        "0%";
-
-                } else {
-
-                    const totalScore =
-                        validScores.reduce(
-                            (
-                                sum,
-                                score
-                            ) =>
-                                sum + score,
-                            0
-                        );
-
-
-                    averageScoreEl.textContent =
-                        Math.round(
-                            totalScore /
-                            validScores.length
-                        ) + "%";
-                }
-            }
-        }
-
-
-        // ==================================================
-        // UPDATE PROGRESS OVERVIEW
-        // ==================================================
-
-        updateCategoryProgress(
-            allStudents,
-            records
-        );
-
-
-    } catch (err) {
-
-        console.log(
-            "Error loading average stats:",
-            err
-        );
-    }
-}
-
-
-loadAverageStats();
-
-
-// ==========================================================
-// UPDATE CATEGORY PROGRESS
-//
-// IMPORTANT:
-// Category progress now uses the ACTUAL LATEST SCORE.
-//
-// Example:
-//
-// Numbers latest score = 20%
-// Dashboard Numbers = 20%
-//
-// Alphabet latest score = 60%
-// Dashboard Alphabet = 60%
-//
-// It will NOT automatically become 100%
-// just because the student played the game.
+// UPDATE PROGRESS OVERVIEW
 // ==========================================================
 
 function updateCategoryProgress(
@@ -756,115 +752,130 @@ function updateCategoryProgress(
     records
 ) {
 
-    const mainCategories = [
-        "alphabet",
-        "numbers",
-        "colors",
-        "shapes"
-    ];
+    const categoryStudentMap = {
+
+        alphabet: new Set(),
+
+        numbers: new Set(),
+
+        colors: new Set(),
+
+        shapes: new Set()
+
+    };
 
 
-    const latestRecords =
-        getLatestCategoryRecords(
-            records
-        );
+    records.forEach(
+        (record) => {
 
-
-    mainCategories.forEach(
-        (category) => {
-
-            let totalScore =
-                0;
-
-
-            let studentCount =
-                0;
-
-
-            students.forEach(
-                (student) => {
-
-                    const studentId =
-                        String(
-                            student.id
-                        );
-
-
-                    const record =
-                        latestRecords.find(
-                            (item) =>
-                                String(
-                                    item.student_id
-                                ) ===
-                                studentId
-                                &&
-                                normalizeCategory(
-                                    item.category
-                                ) ===
-                                category
-                        );
-
-
-                    if (record) {
-
-                        let score =
-                            Number(
-                                record.score
-                            );
-
-
-                        if (
-                            isNaN(score)
-                        ) {
-                            score = 0;
-                        }
-
-
-                        score =
-                            Math.max(
-                                0,
-                                Math.min(
-                                    100,
-                                    score
-                                )
-                            );
-
-
-                        totalScore +=
-                            score;
-
-
-                        studentCount++;
-                    }
-                }
-            );
-
-
-            let percentage =
-                0;
+            const category =
+                normalizeCategory(
+                    record.category
+                );
 
 
             if (
-                students.length > 0
+                categoryStudentMap[category]
             ) {
 
-                // Include students with no activity
-                // as 0% progress.
+                categoryStudentMap[
+                    category
+                ].add(
+                    String(
+                        record.student_id
+                    )
+                );
 
-                percentage =
-                    totalScore /
-                    students.length;
             }
 
-
-            setCategoryProgress(
-                category,
-                Math.round(
-                    percentage
-                )
-            );
         }
     );
+
+
+    const totalStudents =
+        students.length;
+
+
+    const alphabet =
+        calculateCategoryPercentage(
+            categoryStudentMap.alphabet,
+            totalStudents
+        );
+
+
+    const numbers =
+        calculateCategoryPercentage(
+            categoryStudentMap.numbers,
+            totalStudents
+        );
+
+
+    const colors =
+        calculateCategoryPercentage(
+            categoryStudentMap.colors,
+            totalStudents
+        );
+
+
+    const shapes =
+        calculateCategoryPercentage(
+            categoryStudentMap.shapes,
+            totalStudents
+        );
+
+
+    setCategoryProgress(
+        "alphabet",
+        alphabet
+    );
+
+
+    setCategoryProgress(
+        "numbers",
+        numbers
+    );
+
+
+    setCategoryProgress(
+        "colors",
+        colors
+    );
+
+
+    setCategoryProgress(
+        "shapes",
+        shapes
+    );
+
+}
+
+
+// ==========================================================
+// CALCULATE CATEGORY PERCENTAGE
+// ==========================================================
+
+function calculateCategoryPercentage(
+    studentSet,
+    totalStudents
+) {
+
+    if (
+        totalStudents === 0
+    ) {
+
+        return 0;
+
+    }
+
+
+    return Math.round(
+        (
+            studentSet.size /
+            totalStudents
+        ) *
+        100
+    );
+
 }
 
 
@@ -882,9 +893,7 @@ function setCategoryProgress(
             0,
             Math.min(
                 100,
-                Number(
-                    percentage
-                ) || 0
+                Number(percentage) || 0
             )
         );
 
@@ -905,6 +914,7 @@ function setCategoryProgress(
 
         textElement.textContent =
             safePercentage + "%";
+
     }
 
 
@@ -912,7 +922,9 @@ function setCategoryProgress(
 
         barElement.style.width =
             safePercentage + "%";
+
     }
+
 }
 
 
@@ -922,12 +934,9 @@ function setCategoryProgress(
 
 async function loadRecentActivities() {
 
-    const teacher =
-        getTeacher();
+    const teacher = getTeacher();
 
-    if (!teacher) {
-        return;
-    }
+    if (!teacher) return;
 
 
     const recentActivityEl =
@@ -936,9 +945,7 @@ async function loadRecentActivities() {
         );
 
 
-    if (!recentActivityEl) {
-        return;
-    }
+    if (!recentActivityEl) return;
 
 
     try {
@@ -955,10 +962,7 @@ async function loadRecentActivities() {
 
         const records =
             data.success
-                ? (
-                    data.data ||
-                    []
-                )
+                ? (data.data || [])
                 : [];
 
 
@@ -967,136 +971,99 @@ async function loadRecentActivities() {
         ) {
 
             recentActivityEl.innerHTML = `
+
                 <div class="empty-activity">
+
+                    <i class="fa-regular fa-folder-open"></i>
+
                     <p>
                         No recent activity yet.
                     </p>
+
                 </div>
+
             `;
 
             return;
+
         }
 
 
         // ==================================================
-        // SORT NEWEST FIRST
-        // ==================================================
-
-        const sortedRecords =
-            [...records].sort(
-                (a, b) => {
-
-                    const dateA =
-                        parseUTCDate(
-                            a.created_at
-                        ).getTime();
-
-
-                    const dateB =
-                        parseUTCDate(
-                            b.created_at
-                        ).getTime();
-
-
-                    return dateB - dateA;
-                }
-            );
-
-
-        // ==================================================
         // GET ONLY 5 MOST RECENT
+        // Backend already returns newest first.
         // ==================================================
 
         const recent =
-            sortedRecords.slice(
-                0,
-                5
-            );
+            records.slice(0, 5);
 
 
-        recentActivityEl.innerHTML =
-            "";
+        recentActivityEl.innerHTML = "";
 
 
         recent.forEach(
             (record) => {
 
-                const createdAt =
-                    parseUTCDate(
+                // ==========================================
+                // SAFE DATE
+                // ==========================================
+
+                const formattedDate =
+                    formatActivityDate(
                         record.created_at
                     );
 
 
-                const formattedDate =
-                    createdAt.toLocaleDateString(
-                        "en-US",
-                        {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric"
-                        }
-                    ) +
-                    " • " +
-                    createdAt.toLocaleTimeString(
-                        [],
-                        {
-                            hour: "2-digit",
-                            minute: "2-digit"
-                        }
-                    );
-
+                // ==========================================
+                // STUDENT NAME
+                // ==========================================
 
                 const firstName =
-                    record.first_name ||
-                    "";
+                    record.first_name || "";
 
 
                 const lastName =
-                    record.last_name ||
-                    "";
+                    record.last_name || "";
 
 
                 const studentName =
                     `${firstName} ${lastName}`
                         .trim()
-                    ||
-                    "Student";
+                    || "Student";
 
+
+                // ==========================================
+                // ACTIVITY
+                // ==========================================
 
                 const activity =
-                    record.activity ||
-                    "Learning Activity";
+                    record.activity
+                    || "Learning Activity";
 
+
+                // ==========================================
+                // CATEGORY
+                // ==========================================
 
                 const category =
-                    record.category ||
-                    "Learning";
+                    record.category
+                    || "Learning";
 
 
-                let score =
-                    Number(
-                        record.score
-                    );
+                // ==========================================
+                // SCORE
+                // ==========================================
+
+                const score =
+                    Number(record.score) || 0;
 
 
-                if (
-                    isNaN(score)
-                ) {
-                    score = 0;
-                }
-
-
-                score =
-                    Math.max(
-                        0,
-                        Math.min(
-                            100,
-                            score
-                        )
-                    );
-
+                // ==========================================
+                // DISPLAY ACTIVITY
+                // ==========================================
 
                 recentActivityEl.innerHTML += `
+
                     <div class="activity-item">
 
                         <strong>
@@ -1111,19 +1078,18 @@ async function loadRecentActivities() {
 
                         (${category})
 
-                        — <span>
-                            ${score}%
-                        </span>
+                        — <span>${score}%</span>
 
                         <small>
                             ${formattedDate}
                         </small>
 
                     </div>
+
                 `;
+
             }
         );
-
 
     } catch (err) {
 
@@ -1131,7 +1097,9 @@ async function loadRecentActivities() {
             "Error loading recent activities:",
             err
         );
+
     }
+
 }
 
 
@@ -1144,12 +1112,9 @@ loadRecentActivities();
 
 function loadSidebarAvatar() {
 
-    const teacher =
-        getTeacher();
+    const teacher = getTeacher();
 
-    if (!teacher) {
-        return;
-    }
+    if (!teacher) return;
 
 
     const avatarText =
@@ -1168,7 +1133,9 @@ function loadSidebarAvatar() {
         !avatarText ||
         !avatarImg
     ) {
+
         return;
+
     }
 
 
@@ -1211,13 +1178,10 @@ function loadSidebarAvatar() {
 
         avatarText.style.display =
             "flex";
+
     }
+
 }
 
 
 loadSidebarAvatar();
-
-
-// ==========================================================
-// END
-// ==========================================================
