@@ -3,13 +3,7 @@
 // PROGRESS MONITORING DASHBOARD
 // ==========================================================
 
-
-// ==========================================================
-// API
-// ==========================================================
-
 const API_BASE = "https://kiddoquest-backend.onrender.com/api";
-
 
 function parseUTCDate(dateString) {
 
@@ -24,6 +18,7 @@ function parseUTCDate(dateString) {
     }
 
 
+    // Already UTC
     if (value.endsWith("Z")) {
 
         const date = new Date(value);
@@ -35,12 +30,7 @@ function parseUTCDate(dateString) {
     }
 
 
-    // ------------------------------------------------------
     // Already has timezone offset
-    // Example:
-    // 2026-09-04T05:30:00+00:00
-    // ------------------------------------------------------
-
     if (/[+-]\d{2}:\d{2}$/.test(value)) {
 
         const date = new Date(value);
@@ -52,11 +42,8 @@ function parseUTCDate(dateString) {
     }
 
 
-    // ------------------------------------------------------
-    // SQLite format
+    // SQLite format:
     // YYYY-MM-DD HH:MM:SS
-    // ------------------------------------------------------
-
     if (
         /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(value)
     ) {
@@ -72,10 +59,7 @@ function parseUTCDate(dateString) {
     }
 
 
-    // ------------------------------------------------------
     // ISO format without timezone
-    // ------------------------------------------------------
-
     if (
         /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)
     ) {
@@ -89,20 +73,13 @@ function parseUTCDate(dateString) {
     }
 
 
-    // ------------------------------------------------------
     // General fallback
-    // ------------------------------------------------------
-
     const fallbackDate = new Date(value);
 
     if (!isNaN(fallbackDate.getTime())) {
         return fallbackDate;
     }
 
-
-    // ------------------------------------------------------
-    // Final safe fallback
-    // ------------------------------------------------------
 
     return new Date();
 
@@ -151,11 +128,11 @@ function formatActivityDate(dateString) {
 
 // ==========================================================
 // SEARCH STUDENT
-// Only runs on pages that have these elements.
 // ==========================================================
 
 const searchInput =
     document.getElementById("searchStudent");
+
 
 const table =
     document.getElementById("progressTable");
@@ -408,6 +385,193 @@ loadTotalGames();
 
 
 // ==========================================================
+// NORMALIZE CATEGORY
+// ==========================================================
+
+function normalizeCategory(category) {
+
+    if (!category) {
+        return "";
+    }
+
+
+    const value =
+        String(category)
+            .trim()
+            .toLowerCase();
+
+
+    if (
+        value.includes("alphabet") ||
+        value.includes("letter")
+    ) {
+
+        return "alphabet";
+
+    }
+
+
+    if (
+        value.includes("number") ||
+        value.includes("count") ||
+        value.includes("addition")
+    ) {
+
+        return "numbers";
+
+    }
+
+
+    if (
+        value.includes("color") ||
+        value.includes("colour")
+    ) {
+
+        return "colors";
+
+    }
+
+
+    if (
+        value.includes("shape")
+    ) {
+
+        return "shapes";
+
+    }
+
+
+    return value;
+
+}
+
+
+// ==========================================================
+// GET LATEST RECORDS
+//
+// If a student has played the same category several times,
+// only the latest score is used.
+// ==========================================================
+
+function getLatestCategoryRecords(
+    students,
+    records
+) {
+
+    const latest = {};
+
+
+    records.forEach(
+        (record) => {
+
+            const studentId =
+                String(record.student_id);
+
+
+            const category =
+                normalizeCategory(
+                    record.category
+                );
+
+
+            if (
+                !studentId ||
+                !category
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                category !== "alphabet" &&
+                category !== "numbers" &&
+                category !== "colors" &&
+                category !== "shapes"
+            ) {
+
+                return;
+
+            }
+
+
+            const key =
+                `${studentId}_${category}`;
+
+
+            if (
+                !latest[key]
+            ) {
+
+                latest[key] = record;
+
+                return;
+
+            }
+
+
+            const currentDate =
+                parseUTCDate(
+                    record.created_at
+                );
+
+
+            const previousDate =
+                parseUTCDate(
+                    latest[key].created_at
+                );
+
+
+            if (
+                currentDate.getTime() >=
+                previousDate.getTime()
+            ) {
+
+                latest[key] = record;
+
+            }
+
+        }
+    );
+
+
+    return latest;
+
+}
+
+
+// ==========================================================
+// GET SCORE SAFELY
+// ==========================================================
+
+function getSafeScore(score) {
+
+    const value =
+        Number(score);
+
+
+    if (
+        isNaN(value)
+    ) {
+
+        return 0;
+
+    }
+
+
+    return Math.max(
+        0,
+        Math.min(
+            100,
+            value
+        )
+    );
+
+}
+
+
+// ==========================================================
 // LOAD AVERAGE PROGRESS + AVERAGE SCORE
 // ==========================================================
 
@@ -483,51 +647,32 @@ async function loadAverageStats() {
 
 
         // ==================================================
-        // GROUP RECORDS PER STUDENT
+        // GET LATEST RECORD FOR EACH
+        // STUDENT + CATEGORY
         // ==================================================
 
-        const perStudentCategories = {};
-
-        const allScores = [];
-
-
-        records.forEach(
-            (record) => {
-
-                const score =
-                    Number(record.score) || 0;
-
-
-                allScores.push(score);
-
-
-                if (
-                    !perStudentCategories[
-                        record.student_id
-                    ]
-                ) {
-
-                    perStudentCategories[
-                        record.student_id
-                    ] = new Set();
-
-                }
-
-
-                perStudentCategories[
-                    record.student_id
-                ].add(
-                    normalizeCategory(
-                        record.category
-                    )
-                );
-
-            }
-        );
+        const latestRecords =
+            getLatestCategoryRecords(
+                allStudents,
+                records
+            );
 
 
         // ==================================================
         // AVERAGE PROGRESS
+        //
+        // Each student's progress is based on the
+        // average score of the 4 main categories.
+        //
+        // No activity = 0%
+        //
+        // Example:
+        // Alphabet = 60
+        // Numbers  = 20
+        // Colors   = 0
+        // Shapes   = 0
+        //
+        // Student progress = 20%
         // ==================================================
 
         if (averageProgressEl) {
@@ -541,43 +686,72 @@ async function loadAverageStats() {
 
             } else {
 
-                const totalPercent =
-                    allStudents.reduce(
-                        (
-                            sum,
-                            student
-                        ) => {
-
-                            const categoriesAttempted =
-                                perStudentCategories[
-                                    student.id
-                                ]
-                                    ? countMainCategories(
-                                        perStudentCategories[
-                                            student.id
-                                        ]
-                                    )
-                                    : 0;
+                let totalStudentProgress = 0;
 
 
-                            return (
-                                sum +
-                                (
-                                    categoriesAttempted /
-                                    4
-                                ) *
-                                100
+                allStudents.forEach(
+                    (student) => {
+
+                        const studentId =
+                            String(student.id);
+
+
+                        const alphabetScore =
+                            getSafeScore(
+                                latestRecords[
+                                    `${studentId}_alphabet`
+                                ]?.score
                             );
 
-                        },
-                        0
-                    );
+
+                        const numbersScore =
+                            getSafeScore(
+                                latestRecords[
+                                    `${studentId}_numbers`
+                                ]?.score
+                            );
+
+
+                        const colorsScore =
+                            getSafeScore(
+                                latestRecords[
+                                    `${studentId}_colors`
+                                ]?.score
+                            );
+
+
+                        const shapesScore =
+                            getSafeScore(
+                                latestRecords[
+                                    `${studentId}_shapes`
+                                ]?.score
+                            );
+
+
+                        const studentProgress =
+                            (
+                                alphabetScore +
+                                numbersScore +
+                                colorsScore +
+                                shapesScore
+                            ) / 4;
+
+
+                        totalStudentProgress +=
+                            studentProgress;
+
+                    }
+                );
+
+
+                const averageProgress =
+                    totalStudentProgress /
+                    allStudents.length;
 
 
                 averageProgressEl.textContent =
                     Math.round(
-                        totalPercent /
-                        allStudents.length
+                        averageProgress
                     ) + "%";
 
             }
@@ -587,12 +761,25 @@ async function loadAverageStats() {
 
         // ==================================================
         // AVERAGE SCORE
+        //
+        // Uses the latest score from each activity record.
         // ==================================================
 
         if (averageScoreEl) {
 
+            const latestScoreValues =
+                Object.values(
+                    latestRecords
+                ).map(
+                    (record) =>
+                        getSafeScore(
+                            record.score
+                        )
+                );
+
+
             if (
-                allScores.length === 0
+                latestScoreValues.length === 0
             ) {
 
                 averageScoreEl.textContent =
@@ -601,7 +788,7 @@ async function loadAverageStats() {
             } else {
 
                 const totalScore =
-                    allScores.reduce(
+                    latestScoreValues.reduce(
                         (
                             sum,
                             score
@@ -611,10 +798,14 @@ async function loadAverageStats() {
                     );
 
 
+                const averageScore =
+                    totalScore /
+                    latestScoreValues.length;
+
+
                 averageScoreEl.textContent =
                     Math.round(
-                        totalScore /
-                        allScores.length
+                        averageScore
                     ) + "%";
 
             }
@@ -647,104 +838,22 @@ loadAverageStats();
 
 
 // ==========================================================
-// NORMALIZE CATEGORY
-// ==========================================================
-
-function normalizeCategory(category) {
-
-    if (!category) {
-        return "";
-    }
-
-
-    const value =
-        String(category)
-            .trim()
-            .toLowerCase();
-
-
-    if (
-        value.includes("alphabet") ||
-        value.includes("letter")
-    ) {
-
-        return "alphabet";
-
-    }
-
-
-    if (
-        value.includes("number") ||
-        value.includes("count") ||
-        value.includes("addition")
-    ) {
-
-        return "numbers";
-
-    }
-
-
-    if (
-        value.includes("color") ||
-        value.includes("colour")
-    ) {
-
-        return "colors";
-
-    }
-
-
-    if (
-        value.includes("shape")
-    ) {
-
-        return "shapes";
-
-    }
-
-
-    return value;
-
-}
-
-
-// ==========================================================
-// COUNT MAIN CATEGORIES
-// ==========================================================
-
-function countMainCategories(categorySet) {
-
-    const mainCategories =
-        new Set();
-
-
-    categorySet.forEach(
-        (category) => {
-
-            if (
-                category === "alphabet" ||
-                category === "numbers" ||
-                category === "colors" ||
-                category === "shapes"
-            ) {
-
-                mainCategories.add(
-                    category
-                );
-
-            }
-
-        }
-    );
-
-
-    return mainCategories.size;
-
-}
-
-
-// ==========================================================
 // UPDATE PROGRESS OVERVIEW
+//
+// Category progress is based on the ACTUAL SCORE.
+//
+// Example with 1 student:
+//
+// Alphabet = 60%
+// Numbers  = 20%
+// Colors   = 0%
+// Shapes   = 0%
+//
+// Dashboard:
+// Alphabet = 60%
+// Numbers  = 20%
+// Colors   = 0%
+// Shapes   = 0%
 // ==========================================================
 
 function updateCategoryProgress(
@@ -752,128 +861,79 @@ function updateCategoryProgress(
     records
 ) {
 
-    const categoryStudentMap = {
-
-        alphabet: new Set(),
-
-        numbers: new Set(),
-
-        colors: new Set(),
-
-        shapes: new Set()
-
-    };
+    const latestRecords =
+        getLatestCategoryRecords(
+            students,
+            records
+        );
 
 
-    records.forEach(
-        (record) => {
+    const categories = [
+        "alphabet",
+        "numbers",
+        "colors",
+        "shapes"
+    ];
 
-            const category =
-                normalizeCategory(
-                    record.category
-                );
+
+    categories.forEach(
+        (category) => {
+
+            let totalScore = 0;
+
+
+            students.forEach(
+                (student) => {
+
+                    const studentId =
+                        String(student.id);
+
+
+                    const key =
+                        `${studentId}_${category}`;
+
+
+                    const record =
+                        latestRecords[key];
+
+
+                    const score =
+                        record
+                            ? getSafeScore(
+                                record.score
+                            )
+                            : 0;
+
+
+                    totalScore +=
+                        score;
+
+                }
+            );
+
+
+            let percentage = 0;
 
 
             if (
-                categoryStudentMap[category]
+                students.length > 0
             ) {
 
-                categoryStudentMap[
-                    category
-                ].add(
-                    String(
-                        record.student_id
-                    )
-                );
+                percentage =
+                    Math.round(
+                        totalScore /
+                        students.length
+                    );
 
             }
 
+
+            setCategoryProgress(
+                category,
+                percentage
+            );
+
         }
-    );
-
-
-    const totalStudents =
-        students.length;
-
-
-    const alphabet =
-        calculateCategoryPercentage(
-            categoryStudentMap.alphabet,
-            totalStudents
-        );
-
-
-    const numbers =
-        calculateCategoryPercentage(
-            categoryStudentMap.numbers,
-            totalStudents
-        );
-
-
-    const colors =
-        calculateCategoryPercentage(
-            categoryStudentMap.colors,
-            totalStudents
-        );
-
-
-    const shapes =
-        calculateCategoryPercentage(
-            categoryStudentMap.shapes,
-            totalStudents
-        );
-
-
-    setCategoryProgress(
-        "alphabet",
-        alphabet
-    );
-
-
-    setCategoryProgress(
-        "numbers",
-        numbers
-    );
-
-
-    setCategoryProgress(
-        "colors",
-        colors
-    );
-
-
-    setCategoryProgress(
-        "shapes",
-        shapes
-    );
-
-}
-
-
-// ==========================================================
-// CALCULATE CATEGORY PERCENTAGE
-// ==========================================================
-
-function calculateCategoryPercentage(
-    studentSet,
-    totalStudents
-) {
-
-    if (
-        totalStudents === 0
-    ) {
-
-        return 0;
-
-    }
-
-
-    return Math.round(
-        (
-            studentSet.size /
-            totalStudents
-        ) *
-        100
     );
 
 }
@@ -990,22 +1050,51 @@ async function loadRecentActivities() {
 
 
         // ==================================================
+        // SORT NEWEST FIRST
+        // ==================================================
+
+        const sortedRecords =
+            [...records].sort(
+                (a, b) => {
+
+                    const dateA =
+                        parseUTCDate(
+                            a.created_at
+                        ).getTime();
+
+
+                    const dateB =
+                        parseUTCDate(
+                            b.created_at
+                        ).getTime();
+
+
+                    return dateB - dateA;
+
+                }
+            );
+
+
+        // ==================================================
         // GET ONLY 5 MOST RECENT
-        // Backend already returns newest first.
         // ==================================================
 
         const recent =
-            records.slice(0, 5);
+            sortedRecords.slice(
+                0,
+                5
+            );
 
 
-        recentActivityEl.innerHTML = "";
+        recentActivityEl.innerHTML =
+            "";
 
 
         recent.forEach(
             (record) => {
 
                 // ==========================================
-                // SAFE DATE
+                // DATE
                 // ==========================================
 
                 const formattedDate =
@@ -1055,11 +1144,13 @@ async function loadRecentActivities() {
                 // ==========================================
 
                 const score =
-                    Number(record.score) || 0;
+                    getSafeScore(
+                        record.score
+                    );
 
 
                 // ==========================================
-                // DISPLAY ACTIVITY
+                // DISPLAY
                 // ==========================================
 
                 recentActivityEl.innerHTML += `
