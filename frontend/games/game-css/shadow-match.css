@@ -327,9 +327,15 @@ button {
 
 /* =========================================================
    SHADOW SLOT
+
+   position: relative ADDED SO THE STAR
+   REWARD (position: absolute) HAS A
+   PROPER ANCHOR TO CENTER ITSELF ON.
    ========================================================= */
 
 .shadow-slot {
+    position: relative;
+
     aspect-ratio: 1;
 
     display: flex;
@@ -470,11 +476,22 @@ button {
 
 /* =========================================================
    STAR REWARD
+
+   NOW ANCHORED AND CENTERED ON THE SLOT
+   IT'S DROPPED INTO (SEE .shadow-slot
+   position: relative ABOVE), SO IT SHOWS
+   UP RELIABLY ON EVERY CORRECT MATCH
+   INSTEAD OF DEPENDING ON AN UNPREDICTABLE
+   "STATIC POSITION" FALLBACK.
    ========================================================= */
 
 .star-reward {
     position: absolute;
-    font-size: 26px;
+    top: 50%;
+    left: 50%;
+
+    font-size: 30px;
+
     animation: starFloat 0.8s ease forwards;
     pointer-events: none;
 }
@@ -482,17 +499,21 @@ button {
 @keyframes starFloat {
     0% {
         opacity: 1;
-        transform: translateY(0) scale(0.6);
+        transform: translate(-50%, -50%) scale(0.6);
     }
     100% {
         opacity: 0;
-        transform: translateY(-40px) scale(1.3);
+        transform: translate(-50%, -50%) translateY(-40px) scale(1.3);
     }
 }
 
 
 /* =========================================================
    GREAT JOB POPUP
+
+   NOW A SINGLE CARD CONTAINING BOTH THE
+   STAR AND THE TEXT (INSTEAD OF A SEPARATE
+   FLOATING STAR ELSEWHERE ON THE BOARD).
    ========================================================= */
 
 .great-job-popup {
@@ -501,23 +522,40 @@ button {
     left: 50%;
     transform: translateX(-50%);
 
-    background: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-    border: 3px solid #55b73b;
+    background: none;
 
-    border-radius: 20px;
+    border: none;
 
-    padding: 12px 24px;
+    padding: 0;
 
-    font-size: 20px;
+    font-size: 22px;
 
     font-weight: 900;
 
     color: #287d1e;
 
+    text-shadow:
+        0 2px 4px rgba(40, 125, 30, 0.25);
+
     z-index: 9000;
 
+    pointer-events: none;
+
     animation: popupFade 0.9s ease forwards;
+}
+
+.great-job-popup .popup-star {
+    font-size: 26px;
+    display: inline-block;
+    animation: popupStarBounce 0.9s ease forwards;
+}
+
+.great-job-popup .popup-text {
+    display: inline-block;
 }
 
 @keyframes popupFade {
@@ -525,6 +563,14 @@ button {
     20% { opacity: 1; transform: translate(-50%, 0) scale(1); }
     80% { opacity: 1; }
     100% { opacity: 0; transform: translate(-50%, -10px) scale(0.9); }
+}
+
+@keyframes popupStarBounce {
+    0% { transform: scale(0.3) rotate(-15deg); }
+    35% { transform: scale(1.35) rotate(10deg); }
+    55% { transform: scale(0.95) rotate(-5deg); }
+    75% { transform: scale(1.1) rotate(0deg); }
+    100% { transform: scale(1) rotate(0deg); }
 }
 
 

@@ -47,6 +47,19 @@ let gameLocked = false;
 
 
 // ===================================
+// TOUCH DRAG STATE
+// (for phones/tablets — native HTML5
+// drag events don't work reliably on
+// touch, so this is a manual fallback)
+// ===================================
+
+let touchDragging = false;
+let touchDragPiece = null;
+let touchGhost = null;
+let touchCurrentSlot = null;
+
+
+// ===================================
 // ELEMENTS
 // ===================================
 
@@ -133,6 +146,7 @@ function getSelectedStudent() {
             ) {
 
                 return `${student.first_name} ${student.last_name}`;
+
             }
 
 
@@ -142,6 +156,7 @@ function getSelectedStudent() {
             ) {
 
                 return `${student.firstName} ${student.lastName}`;
+
             }
 
 
@@ -150,6 +165,7 @@ function getSelectedStudent() {
                 return String(
                     student.fullname
                 );
+
             }
 
 
@@ -158,6 +174,7 @@ function getSelectedStudent() {
                 return String(
                     student.fullName
                 );
+
             }
 
 
@@ -166,6 +183,7 @@ function getSelectedStudent() {
                 return String(
                     student.name
                 );
+
             }
 
         }
@@ -223,6 +241,7 @@ function getSelectedStudent() {
 
 
     return "Player";
+
 }
 
 
@@ -231,7 +250,6 @@ function showStudentName() {
     if (!studentNameDisplay) {
         return;
     }
-
 
     studentNameDisplay.textContent =
         getSelectedStudent();
@@ -477,74 +495,36 @@ function createShapes() {
 
 // ===================================
 // DRAG EVENTS
-// PC / LAPTOP + MOBILE / TABLET
-// ===================================
-
-let activeDragPiece = null;
-let activePointerId = null;
-let pointerStartX = 0;
-let pointerStartY = 0;
-let pointerMoved = false;
-
-
-// ===================================
-// DESKTOP HTML5 DRAG + MOBILE POINTER DRAG
 // ===================================
 
 function addDragEvents(piece) {
 
-    // Prevent touch scrolling while a shape is being dragged.
-    piece.style.touchAction = "none";
-    piece.style.userSelect = "none";
-    piece.style.webkitUserSelect = "none";
-    piece.style.webkitTouchCallout = "none";
-
-
-    // ---------------------------------
-    // DESKTOP HTML5 DRAG START
-    // ---------------------------------
+    // ===============================
+    // DESKTOP (MOUSE) — NATIVE DRAG
+    // ===============================
 
     piece.addEventListener(
         "dragstart",
         event => {
 
-            // Touch/pen pointer dragging should use
-            // the Pointer Events system.
-            if (
-                activeDragPiece === piece &&
-                activePointerId !== null
-            ) {
+            if (gameLocked) {
 
                 event.preventDefault();
+
                 return;
 
             }
 
 
-            if (
-                gameLocked ||
-                piece.classList.contains("used")
-            ) {
-
-                event.preventDefault();
-                return;
-
-            }
+            piece.classList.add(
+                "dragging"
+            );
 
 
-            piece.classList.add("dragging");
-
-
-            if (event.dataTransfer) {
-
-                event.dataTransfer.effectAllowed = "move";
-
-                event.dataTransfer.setData(
-                    "shape",
-                    piece.dataset.shape
-                );
-
-            }
+            event.dataTransfer.setData(
+                "shape",
+                piece.dataset.shape
+            );
 
 
             if (
@@ -561,40 +541,36 @@ function addDragEvents(piece) {
     );
 
 
-    // ---------------------------------
-    // DESKTOP HTML5 DRAG END
-    // ---------------------------------
-
     piece.addEventListener(
         "dragend",
         () => {
 
-            piece.classList.remove("dragging");
-
-
-            document.querySelectorAll(
-                ".shadow-slot"
-            ).forEach(slot => {
-
-                slot.classList.remove("hover");
-
-            });
+            piece.classList.remove(
+                "dragging"
+            );
 
         }
     );
 
 
-    // =================================
-    // MOBILE / TABLET POINTER DOWN
-    // =================================
+    // ===============================
+    // TOUCH / PEN — MANUAL DRAG
+    // ===============================
+
+    piece.style.touchAction =
+        "none";
+
 
     piece.addEventListener(
         "pointerdown",
         event => {
 
+            // Let native drag handle
+            // real mouse input.
+
             if (
-                gameLocked ||
-                piece.classList.contains("used")
+                event.pointerType ===
+                "mouse"
             ) {
 
                 return;
@@ -602,10 +578,15 @@ function addDragEvents(piece) {
             }
 
 
-            // For a mouse, keep the original HTML5
-            // drag-and-drop behavior on PC/laptop.
+            if (gameLocked) {
+                return;
+            }
+
+
             if (
-                event.pointerType === "mouse"
+                piece.classList.contains(
+                    "used"
+                )
             ) {
 
                 return;
@@ -613,13 +594,14 @@ function addDragEvents(piece) {
             }
 
 
-            activeDragPiece = piece;
-            activePointerId = event.pointerId;
+            event.preventDefault();
 
-            pointerStartX = event.clientX;
-            pointerStartY = event.clientY;
 
-            pointerMoved = false;
+            touchDragging =
+                true;
+
+            touchDragPiece =
+                piece;
 
 
             try {
@@ -632,64 +614,11 @@ function addDragEvents(piece) {
 
             catch (error) {
 
-                // Some older browsers may not support
-                // pointer capture. The drag can still continue.
+                console.warn(
+                    "Pointer capture unavailable."
+                );
 
             }
-
-
-            event.preventDefault();
-
-        }
-    );
-
-
-    // =================================
-    // MOBILE / TABLET POINTER MOVE
-    // =================================
-
-    piece.addEventListener(
-        "pointermove",
-        event => {
-
-            if (
-                activeDragPiece !== piece ||
-                activePointerId !== event.pointerId ||
-                gameLocked
-            ) {
-
-                return;
-
-            }
-
-
-            const dx =
-                event.clientX -
-                pointerStartX;
-
-            const dy =
-                event.clientY -
-                pointerStartY;
-
-
-            if (
-                Math.abs(dx) > 5 ||
-                Math.abs(dy) > 5
-            ) {
-
-                pointerMoved = true;
-
-            }
-
-
-            if (!pointerMoved) {
-
-                return;
-
-            }
-
-
-            event.preventDefault();
 
 
             piece.classList.add(
@@ -697,59 +626,37 @@ function addDragEvents(piece) {
             );
 
 
-            const elementUnderFinger =
-                document.elementFromPoint(
-                    event.clientX,
-                    event.clientY
-                );
-
-
-            const slot =
-                elementUnderFinger
-                    ? elementUnderFinger.closest(
-                        ".shadow-slot"
-                    )
-                    : null;
-
-
-            document.querySelectorAll(
-                ".shadow-slot"
-            ).forEach(currentSlot => {
-
-                currentSlot.classList.remove(
-                    "hover"
-                );
-
-            });
-
-
             if (
-                slot &&
-                !slot.classList.contains("correct") &&
-                !gameLocked
+                window.soundManager &&
+                typeof window.soundManager.playClick ===
+                    "function"
             ) {
 
-                slot.classList.add(
-                    "hover"
-                );
+                window.soundManager.playClick();
 
             }
 
+
+            createTouchGhost(
+                piece,
+                event.clientX,
+                event.clientY
+            );
+
+        },
+        {
+            passive: false
         }
     );
 
 
-    // =================================
-    // MOBILE / TABLET POINTER UP
-    // =================================
-
     piece.addEventListener(
-        "pointerup",
+        "pointermove",
         event => {
 
             if (
-                activeDragPiece !== piece ||
-                activePointerId !== event.pointerId
+                !touchDragging ||
+                touchDragPiece !== piece
             ) {
 
                 return;
@@ -760,136 +667,76 @@ function addDragEvents(piece) {
             event.preventDefault();
 
 
-            const wasDragged =
-                pointerMoved;
+            if (touchGhost) {
+
+                touchGhost.style.left =
+                    event.clientX + "px";
+
+                touchGhost.style.top =
+                    event.clientY + "px";
+
+            }
 
 
-            const dropX =
-                event.clientX;
-
-            const dropY =
-                event.clientY;
-
-
-            const elementUnderFinger =
+            const element =
                 document.elementFromPoint(
-                    dropX,
-                    dropY
+                    event.clientX,
+                    event.clientY
                 );
 
 
             const slot =
-                elementUnderFinger
-                    ? elementUnderFinger.closest(
+                element
+                    ? element.closest(
                         ".shadow-slot"
                     )
                     : null;
 
 
-            piece.classList.remove(
-                "dragging"
-            );
+            if (
+                touchCurrentSlot &&
+                touchCurrentSlot !== slot
+            ) {
 
-
-            document.querySelectorAll(
-                ".shadow-slot"
-            ).forEach(currentSlot => {
-
-                currentSlot.classList.remove(
+                touchCurrentSlot.classList.remove(
                     "hover"
                 );
 
-            });
+            }
 
 
-            try {
+            touchCurrentSlot =
+                slot;
 
-                piece.releasePointerCapture?.(
-                    event.pointerId
+
+            if (
+                touchCurrentSlot &&
+                !touchCurrentSlot.classList.contains(
+                    "correct"
+                ) &&
+                !gameLocked
+            ) {
+
+                touchCurrentSlot.classList.add(
+                    "hover"
                 );
 
             }
 
-            catch (error) {
-
-                // Ignore unsupported pointer capture release.
-
-            }
-
-
-            activeDragPiece = null;
-            activePointerId = null;
-            pointerMoved = false;
-
-
-            // A simple tap should not count as a drop.
-            if (!wasDragged) {
-
-                return;
-
-            }
-
-
-            if (
-                gameLocked ||
-                piece.classList.contains("used")
-            ) {
-
-                return;
-
-            }
-
-
-            if (
-                !slot ||
-                slot.classList.contains("correct")
-            ) {
-
-                return;
-
-            }
-
-
-            const draggedShape =
-                piece.dataset.shape;
-
-            const targetShape =
-                slot.dataset.shape;
-
-
-            if (
-                draggedShape ===
-                targetShape
-            ) {
-
-                correctMatch(
-                    slot,
-                    draggedShape
-                );
-
-            }
-
-            else {
-
-                wrongMatch(slot);
-
-            }
-
+        },
+        {
+            passive: false
         }
     );
 
 
-    // =================================
-    // MOBILE / TABLET POINTER CANCEL
-    // =================================
-
     piece.addEventListener(
-        "pointercancel",
+        "pointerup",
         event => {
 
             if (
-                activeDragPiece !== piece ||
-                activePointerId !== event.pointerId
+                !touchDragging ||
+                touchDragPiece !== piece
             ) {
 
                 return;
@@ -897,36 +744,44 @@ function addDragEvents(piece) {
             }
 
 
-            piece.classList.remove(
-                "dragging"
+            event.preventDefault();
+
+
+            const element =
+                document.elementFromPoint(
+                    event.clientX,
+                    event.clientY
+                );
+
+
+            const slot =
+                element
+                    ? element.closest(
+                        ".shadow-slot"
+                    )
+                    : null;
+
+
+            resetTouchDrag();
+
+
+            attemptDrop(
+                piece,
+                slot
             );
 
-
-            document.querySelectorAll(
-                ".shadow-slot"
-            ).forEach(slot => {
-
-                slot.classList.remove(
-                    "hover"
-                );
-
-            });
+        },
+        {
+            passive: false
+        }
+    );
 
 
-            try {
+    piece.addEventListener(
+        "pointercancel",
+        () => {
 
-                piece.releasePointerCapture?.(
-                    event.pointerId
-                );
-
-            }
-
-            catch (error) {}
-
-
-            activeDragPiece = null;
-            activePointerId = null;
-            pointerMoved = false;
+            resetTouchDrag();
 
         }
     );
@@ -935,19 +790,199 @@ function addDragEvents(piece) {
 
 
 // ===================================
+// TOUCH GHOST
+// (visual copy that follows the finger)
+// ===================================
+
+function createTouchGhost(
+    piece,
+    x,
+    y
+) {
+
+    removeTouchGhost();
+
+
+    touchGhost =
+        piece.cloneNode(
+            true
+        );
+
+
+    touchGhost.classList.add(
+        "touch-drag-ghost"
+    );
+
+
+    touchGhost.classList.remove(
+        "used"
+    );
+
+
+    touchGhost.style.position =
+        "fixed";
+
+    touchGhost.style.left =
+        x + "px";
+
+    touchGhost.style.top =
+        y + "px";
+
+    touchGhost.style.width =
+        piece.offsetWidth + "px";
+
+    touchGhost.style.height =
+        piece.offsetHeight + "px";
+
+    touchGhost.style.margin =
+        "0";
+
+    touchGhost.style.zIndex =
+        "999999";
+
+    touchGhost.style.pointerEvents =
+        "none";
+
+    touchGhost.style.opacity =
+        "0.9";
+
+    touchGhost.style.transform =
+        "translate(-50%, -50%) scale(1.08)";
+
+    touchGhost.style.boxShadow =
+        "0 10px 25px rgba(0,0,0,.25)";
+
+
+    document.body.appendChild(
+        touchGhost
+    );
+
+}
+
+
+function removeTouchGhost() {
+
+    if (
+        touchGhost &&
+        touchGhost.parentNode
+    ) {
+
+        touchGhost.parentNode.removeChild(
+            touchGhost
+        );
+
+    }
+
+
+    touchGhost =
+        null;
+
+}
+
+
+function resetTouchDrag() {
+
+    if (touchCurrentSlot) {
+
+        touchCurrentSlot.classList.remove(
+            "hover"
+        );
+
+    }
+
+
+    touchCurrentSlot =
+        null;
+
+
+    removeTouchGhost();
+
+
+    if (touchDragPiece) {
+
+        touchDragPiece.classList.remove(
+            "dragging"
+        );
+
+    }
+
+
+    touchDragging =
+        false;
+
+    touchDragPiece =
+        null;
+
+}
+
+
+// ===================================
+// ATTEMPT DROP
+// (shared by native drop AND touch
+// release, so both paths behave
+// identically)
+// ===================================
+
+function attemptDrop(
+    piece,
+    slot
+) {
+
+    if (gameLocked) {
+        return;
+    }
+
+
+    if (!slot) {
+        return;
+    }
+
+
+    if (
+        slot.classList.contains(
+            "correct"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const draggedShape =
+        piece.dataset.shape;
+
+
+    const targetShape =
+        slot.dataset.shape;
+
+
+    if (
+        draggedShape ===
+        targetShape
+    ) {
+
+        correctMatch(
+            slot,
+            draggedShape
+        );
+
+    }
+
+    else {
+
+        wrongMatch(slot);
+
+    }
+
+}
+
+
+// ===================================
 // DROP EVENTS
-// DESKTOP HTML5 DROP
 // ===================================
 
 function addDropEvents(slot) {
-
-    // A slot itself should not start a browser gesture.
-    slot.style.touchAction = "none";
-
-
-    // ---------------------------------
-    // DESKTOP DRAG OVER
-    // ---------------------------------
 
     slot.addEventListener(
         "dragover",
@@ -957,7 +992,9 @@ function addDropEvents(slot) {
 
 
             if (
-                !slot.classList.contains("correct") &&
+                !slot.classList.contains(
+                    "correct"
+                ) &&
                 !gameLocked
             ) {
 
@@ -967,21 +1004,9 @@ function addDropEvents(slot) {
 
             }
 
-
-            if (event.dataTransfer) {
-
-                event.dataTransfer.dropEffect =
-                    "move";
-
-            }
-
         }
     );
 
-
-    // ---------------------------------
-    // DESKTOP DRAG LEAVE
-    // ---------------------------------
 
     slot.addEventListener(
         "dragleave",
@@ -995,10 +1020,6 @@ function addDropEvents(slot) {
     );
 
 
-    // ---------------------------------
-    // DESKTOP DROP
-    // ---------------------------------
-
     slot.addEventListener(
         "drop",
         event => {
@@ -1011,137 +1032,32 @@ function addDropEvents(slot) {
             );
 
 
-            if (gameLocked) {
-
-                return;
-
-            }
-
-
-            if (
-                slot.classList.contains(
-                    "correct"
-                )
-            ) {
-
-                return;
-
-            }
-
-
             const draggedShape =
-                event.dataTransfer
-                    ? event.dataTransfer.getData(
-                        "shape"
-                    )
-                    : "";
-
-
-            const targetShape =
-                slot.dataset.shape;
-
-
-            if (!draggedShape) {
-
-                return;
-
-            }
-                        if (
-                draggedShape ===
-                targetShape
-            ) {
-
-                correctMatch(
-                    slot,
-                    draggedShape
+                event.dataTransfer.getData(
+                    "shape"
                 );
 
+
+            const piece =
+                document.querySelector(
+                    `.shape-piece[data-shape="${draggedShape}"]:not(.used)`
+                );
+
+
+            if (!piece) {
+                return;
             }
 
-            else {
 
-                wrongMatch(slot);
-
-            }
+            attemptDrop(
+                piece,
+                slot
+            );
 
         }
     );
 
 }
-
-
-// ===================================
-// GLOBAL POINTER CLEANUP
-// ===================================
-
-document.addEventListener(
-    "pointerup",
-    event => {
-
-        if (
-            activeDragPiece &&
-            activePointerId === event.pointerId
-        ) {
-
-            activeDragPiece.classList.remove(
-                "dragging"
-            );
-
-
-            document.querySelectorAll(
-                ".shadow-slot"
-            ).forEach(slot => {
-
-                slot.classList.remove(
-                    "hover"
-                );
-
-            });
-
-
-            activeDragPiece = null;
-            activePointerId = null;
-            pointerMoved = false;
-
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "pointercancel",
-    event => {
-
-        if (
-            activeDragPiece &&
-            activePointerId === event.pointerId
-        ) {
-
-            activeDragPiece.classList.remove(
-                "dragging"
-            );
-
-
-            document.querySelectorAll(
-                ".shadow-slot"
-            ).forEach(slot => {
-
-                slot.classList.remove(
-                    "hover"
-                );
-
-            });
-
-
-            activeDragPiece = null;
-            activePointerId = null;
-            pointerMoved = false;
-
-        }
-
-    }
-);
 
 
 // ===================================
@@ -1193,8 +1109,38 @@ function showGreatJobPopup() {
     popup.className =
         "great-job-popup";
 
-    popup.textContent =
-        "🎉 Great Job!";
+
+    const star =
+        document.createElement(
+            "span"
+        );
+
+    star.className =
+        "popup-star";
+
+    star.textContent =
+        "⭐";
+
+
+    const text =
+        document.createElement(
+            "span"
+        );
+
+    text.className =
+        "popup-text";
+
+    text.textContent =
+        "Great Job!";
+
+
+    popup.appendChild(
+        star
+    );
+
+    popup.appendChild(
+        text
+    );
 
 
     document.body.appendChild(
@@ -1275,6 +1221,7 @@ function correctMatch(
 
 
     matched++;
+
     score += 10;
 
 
@@ -1295,8 +1242,6 @@ function correctMatch(
 
     }
 
-
-    showStarReward(slot);
 
     showGreatJobPopup();
 
@@ -1437,9 +1382,7 @@ function useHint() {
 
 
     if (!availablePiece) {
-
         return;
-
     }
 
 
@@ -1545,31 +1488,44 @@ async function finishGame() {
 
 async function saveProgress() {
 
+    const teacherRaw =
+        localStorage.getItem(
+            "teacher"
+        );
+
+
+    const studentRaw =
+        localStorage.getItem(
+            "selectedStudent"
+        );
+
+
+    if (
+        !teacherRaw ||
+        !studentRaw
+    ) {
+
+        console.log(
+            "Shadow Match: progress not saved. Teacher or student missing."
+        );
+
+        return;
+
+    }
+
+
     try {
 
-        const teacherRaw =
-            localStorage.getItem("teacher");
-
-        const studentRaw =
-            localStorage.getItem("selectedStudent");
-
-
-        if (!teacherRaw || !studentRaw) {
-
-            console.warn(
-                "Teacher or student information is missing."
+        const teacher =
+            JSON.parse(
+                teacherRaw
             );
 
-            return;
-
-        }
-
-
-        const teacher =
-            JSON.parse(teacherRaw);
 
         const student =
-            JSON.parse(studentRaw);
+            JSON.parse(
+                studentRaw
+            );
 
 
         if (
@@ -1579,8 +1535,8 @@ async function saveProgress() {
             !student.id
         ) {
 
-            console.warn(
-                "Invalid teacher or student information."
+            console.log(
+                "Shadow Match: missing teacher_id or student_id."
             );
 
             return;
@@ -1588,59 +1544,30 @@ async function saveProgress() {
         }
 
 
-        // ---------------------------------
-        // CALCULATE PERCENTAGE
-        // ---------------------------------
-
-        const maxScore =
-            95;
-
+        // =================================
+        // SCORE
+        // Maximum normal score:
+        // 8 matches x 10 = 80
+        // plus maximum life bonus = 15
+        // =================================
 
         const percentageScore =
-            Math.max(
-                0,
-                Math.min(
-                    100,
-                    Math.round(
-                        (score / maxScore) * 100
-                    )
+            Math.min(
+                100,
+                Math.round(
+                    (
+                        score /
+                        95
+                    ) * 100
                 )
             );
 
 
-        // ---------------------------------
-        // CALCULATE STARS
-        // ---------------------------------
-
-        let finalStarCount = 1;
-
-
-        if (
-            percentageScore >= 90
-        ) {
-
-            finalStarCount = 3;
-
-        }
-
-        else if (
-            percentageScore >= 70
-        ) {
-
-            finalStarCount = 2;
-
-        }
-
-
-        // ---------------------------------
-        // SAVE TO BACKEND
-        // ---------------------------------
-
         const response =
             await fetch(
-                API_BASE +
-                "/progress/save",
+                `${API_BASE}/progress/save`,
                 {
+
                     method: "POST",
 
                     headers: {
@@ -1648,27 +1575,37 @@ async function saveProgress() {
                             "application/json"
                     },
 
-                    body: JSON.stringify({
+                    body:
+                        JSON.stringify({
 
-                        teacher_id:
-                            teacher.id,
+                            teacher_id:
+                                teacher.id,
 
-                        student_id:
-                            student.id,
+                            student_id:
+                                student.id,
 
-                        category:
-                            "shapes",
+                            category:
+                                "shapes",
 
-                        activity:
-                            "shadow-match",
+                            activity:
+                                "shadow-match",
 
-                        score:
-                            percentageScore,
+                            score:
+                                percentageScore,
 
-                        stars:
-                            finalStarCount
+                            stars:
+                                Math.min(
+                                    3,
+                                    Math.max(
+                                        1,
+                                        Math.ceil(
+                                            percentageScore /
+                                            34
+                                        )
+                                    )
+                                )
 
-                    })
+                        })
 
                 }
             );
@@ -1677,19 +1614,19 @@ async function saveProgress() {
         if (!response.ok) {
 
             throw new Error(
-                `HTTP ${response.status}`
+                `Progress save failed: ${response.status}`
             );
 
         }
 
 
-        const result =
+        const data =
             await response.json();
 
 
         console.log(
-            "Shadow Match progress saved:",
-            result
+            "SHADOW MATCH PROGRESS SAVED:",
+            data
         );
 
     }
@@ -1697,7 +1634,7 @@ async function saveProgress() {
     catch (error) {
 
         console.error(
-            "Failed to save Shadow Match progress:",
+            "Shadow Match progress error:",
             error
         );
 
@@ -1707,336 +1644,206 @@ async function saveProgress() {
 
 
 // ===================================
-// BACK BUTTON
+// BUTTON SOUND
 // ===================================
 
-if (backBtn) {
+function buttonSound() {
 
-    backBtn.addEventListener(
-        "click",
-        () => {
+    if (
+        window.soundManager &&
+        typeof window.soundManager.playButton ===
+            "function"
+    ) {
 
-            window.location.href =
-                "../shapes.html";
+        window.soundManager.playButton();
 
-        }
-    );
+    }
 
 }
 
 
 // ===================================
-// RESTART BUTTON
+// RESTART
 // ===================================
 
-if (restartBtn) {
-
-    restartBtn.addEventListener(
-        "click",
-        () => {
-
-            if (
-                window.soundManager &&
-                typeof window.soundManager.playClick ===
-                    "function"
-            ) {
-
-                window.soundManager.playClick();
-
-            }
-
-
-            startGame();
-
-        }
-    );
-
-}
-
-
-// ===================================
-// PLAY AGAIN BUTTON
-// ===================================
-
-if (playAgainBtn) {
-
-    playAgainBtn.addEventListener(
-        "click",
-        () => {
-
-            if (
-                window.soundManager &&
-                typeof window.soundManager.playClick ===
-                    "function"
-            ) {
-
-                window.soundManager.playClick();
-
-            }
-
-
-            startGame();
-
-        }
-    );
-
-}
-
-
-// ===================================
-// FINISH / BACK BUTTON
-// ===================================
-
-if (finishBackBtn) {
-
-    finishBackBtn.addEventListener(
-        "click",
-        () => {
-
-            if (
-                window.soundManager &&
-                typeof window.soundManager.playClick ===
-                    "function"
-            ) {
-
-                window.soundManager.playClick();
-
-            }
-
-
-            window.location.href =
-                "../shapes.html";
-
-        }
-    );
-
-}
-
-
-// ===================================
-// HINT BUTTON
-// ===================================
-
-if (hintBtn) {
-
-    hintBtn.addEventListener(
-        "click",
-        () => {
-
-            useHint();
-
-        }
-    );
-
-}
-// ===================================
-// LOADING SCREEN
-// ===================================
-
-function runLoading() {
-
-    return new Promise(function (resolve) {
-
-        if (
-            !loadingScreen ||
-            !loadingBarFill
-        ) {
-
-            resolve();
-
-            return;
-
-        }
-
-
-        let progress = 0;
-
-
-        loadingBarFill.style.width =
-            "0%";
-
-
-        const interval =
-            setInterval(
-                function () {
-
-                    progress += 5;
-
-
-                    if (
-                        progress >= 100
-                    ) {
-
-                        progress = 100;
-
-
-                        loadingBarFill.style.width =
-                            "100%";
-
-
-                        clearInterval(
-                            interval
-                        );
-
-
-                        setTimeout(
-                            function () {
-
-                                loadingScreen.classList.add(
-                                    "hidden"
-                                );
-
-
-                                loadingScreen.style.opacity =
-                                    "0";
-
-
-                                loadingScreen.style.visibility =
-                                    "hidden";
-
-
-                                loadingScreen.style.pointerEvents =
-                                    "none";
-
-
-                                loadingScreen.style.display =
-                                    "none";
-
-
-                                resolve();
-
-                            },
-                            300
-                        );
-
-
-                        return;
-
-                    }
-
-
-                    loadingBarFill.style.width =
-                        progress + "%";
-
-                },
-                30
-            );
-
-    });
-
-}
-
-
-// ===================================
-// INITIALIZE GAME
-// ===================================
-
-async function initializeGame() {
-
-    try {
-
-        showStudentName();
-
-        updateDisplay();
-
-
-        await runLoading();
-
+restartBtn.addEventListener(
+    "click",
+    () => {
+
+        buttonSound();
 
         startGame();
 
     }
-
-    catch (error) {
-
-        console.error(
-            "Shadow Match initialization error:",
-            error
-        );
+);
 
 
-        if (loadingScreen) {
+// ===================================
+// PLAY AGAIN
+// ===================================
 
-            loadingScreen.classList.add(
-                "hidden"
-            );
+playAgainBtn.addEventListener(
+    "click",
+    () => {
 
+        buttonSound();
 
-            loadingScreen.style.opacity =
-                "0";
+        startGame();
 
-
-            loadingScreen.style.visibility =
-                "hidden";
-
-
-            loadingScreen.style.pointerEvents =
-                "none";
+    }
+);
 
 
-            loadingScreen.style.display =
-                "none";
+// ===================================
+// HINT
+// ===================================
+
+hintBtn.addEventListener(
+    "click",
+    () => {
+
+        useHint();
+
+    }
+);
+
+
+// ===================================
+// BACK BUTTON - HEADER
+// ===================================
+
+backBtn.addEventListener(
+    "click",
+    () => {
+
+        buttonSound();
+
+
+        if (
+            window.soundManager &&
+            typeof window.soundManager.stopBackgroundMusic ===
+                "function"
+        ) {
+
+            window.soundManager.stopBackgroundMusic();
 
         }
 
-    }
 
-}
-
-
-// ===================================
-// BOOT SHADOW MATCH
-// ===================================
-
-function bootShadowMatch() {
-
-    if (loadingScreen) {
-
-        loadingScreen.style.display =
-            "flex";
-
-
-        loadingScreen.style.opacity =
-            "1";
-
-
-        loadingScreen.style.visibility =
-            "visible";
-
-
-        loadingScreen.style.pointerEvents =
-            "auto";
-
-
-        loadingScreen.classList.remove(
-            "hidden"
-        );
+        window.location.href =
+            "../shapes.html";
 
     }
-
-
-    initializeGame();
-
-}
+);
 
 
 // ===================================
-// START AFTER DOM LOAD
+// BACK BUTTON - FINISH
 // ===================================
 
-if (
-    document.readyState ===
-    "loading"
-) {
+finishBackBtn.addEventListener(
+    "click",
+    () => {
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        bootShadowMatch
+        buttonSound();
+
+
+        if (
+            window.soundManager &&
+            typeof window.soundManager.stopBackgroundMusic ===
+                "function"
+        ) {
+
+            window.soundManager.stopBackgroundMusic();
+
+        }
+
+
+        window.location.href =
+            "../shapes.html";
+
+    }
+);
+
+
+// ===================================
+// INITIAL LOADING
+// SAME STYLE ACROSS ALL KINDERQUEST GAMES
+// ===================================
+
+function runInitialLoading() {
+
+    if (
+        !loadingScreen ||
+        !loadingBarFill
+    ) {
+
+        showStudentName();
+
+        startGame();
+
+        return;
+
+    }
+
+
+    loadingScreen.classList.remove(
+        "hide"
     );
 
+
+    loadingBarFill.style.width =
+        "0%";
+
+
+    let progress = 0;
+
+
+    const loadingTimer =
+        setInterval(
+            () => {
+
+                progress += 5;
+
+
+                loadingBarFill.style.width =
+                    progress + "%";
+
+
+                if (progress >= 100) {
+
+                    clearInterval(
+                        loadingTimer
+                    );
+
+
+                    setTimeout(
+                        () => {
+
+                            loadingScreen.classList.add(
+                                "hide"
+                            );
+
+
+                            showStudentName();
+
+                            startGame();
+
+                        },
+                        250
+                    );
+
+                }
+
+            },
+            70
+        );
+
 }
 
-else {
 
-    bootShadowMatch();
-}
+// ===================================
+// START
+// ===================================
+
+runInitialLoading();
