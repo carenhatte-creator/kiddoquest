@@ -1,6 +1,6 @@
 // ==========================================================
 // KinderQuest - SHAPE HUNT
-// FULL CORRECTED VERSION
+// FULL UPDATED VERSION
 // Loading + Game + Progress Save
 // ==========================================================
 
@@ -16,19 +16,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const IMAGE_PATH = "../../image/";
 
-    // IMPORTANT:
-    // Do NOT put Markdown brackets here.
-    const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+    // Backend API
+    const API_BASE =
+        "https://kiddoquest-backend.onrender.com/api";
+
+    const PROGRESS_API =
+        API_BASE + "/progress/save";
 
 
     // ======================================================
     // ELEMENTS
     // ======================================================
 
-    const objectArea = document.getElementById("objectArea");
-    const scoreElement = document.getElementById("score");
-    const livesElement = document.getElementById("lives");
-    const levelElement = document.getElementById("level");
+    const objectArea =
+        document.getElementById("objectArea");
+
+    const scoreElement =
+        document.getElementById("score");
+
+    const livesElement =
+        document.getElementById("lives");
+
+    const levelElement =
+        document.getElementById("level");
 
     const questionNumberElement =
         document.getElementById("questionNumber");
@@ -84,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ======================================================
     // LOADING ELEMENTS
-    // SAME STYLE ACROSS ALL KINDERQUEST GAMES
     // ======================================================
 
     const loadingScreen =
@@ -388,32 +397,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (
                 type === "click" &&
-                typeof window.soundManager.playClick === "function"
+                typeof window.soundManager.playClick ===
+                "function"
             ) {
+
                 window.soundManager.playClick();
                 return;
             }
 
             if (
                 type === "button" &&
-                typeof window.soundManager.playButton === "function"
+                typeof window.soundManager.playButton ===
+                "function"
             ) {
+
                 window.soundManager.playButton();
                 return;
             }
 
             if (
                 type === "correct" &&
-                typeof window.soundManager.playCorrect === "function"
+                typeof window.soundManager.playCorrect ===
+                "function"
             ) {
+
                 window.soundManager.playCorrect();
                 return;
             }
 
             if (
                 type === "wrong" &&
-                typeof window.soundManager.playWrong === "function"
+                typeof window.soundManager.playWrong ===
+                "function"
             ) {
+
                 window.soundManager.playWrong();
                 return;
             }
@@ -440,11 +457,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (
                 window.soundManager &&
-                typeof window.soundManager.startBackgroundMusic ===
+                typeof window.soundManager
+                    .startBackgroundMusic ===
                 "function"
             ) {
 
-                window.soundManager.startBackgroundMusic();
+                window.soundManager
+                    .startBackgroundMusic();
 
                 musicStarted = true;
             }
@@ -467,11 +486,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (
                 window.soundManager &&
-                typeof window.soundManager.stopBackgroundMusic ===
+                typeof window.soundManager
+                    .stopBackgroundMusic ===
                 "function"
             ) {
 
-                window.soundManager.stopBackgroundMusic();
+                window.soundManager
+                    .stopBackgroundMusic();
 
                 musicStarted = false;
             }
@@ -509,10 +530,16 @@ document.addEventListener("DOMContentLoaded", function () {
             "playingStudent"
         ];
 
-        for (let i = 0; i < possibleKeys.length; i++) {
+        for (
+            let i = 0;
+            i < possibleKeys.length;
+            i++
+        ) {
 
             const raw =
-                localStorage.getItem(possibleKeys[i]);
+                localStorage.getItem(
+                    possibleKeys[i]
+                );
 
             if (!raw) {
                 continue;
@@ -520,7 +547,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             try {
 
-                const student = JSON.parse(raw);
+                const student =
+                    JSON.parse(raw);
 
                 if (student) {
                     return student;
@@ -547,7 +575,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getStudentName() {
 
-        const student = getStudent();
+        const student =
+            getStudent();
 
         if (!student) {
             return "Student";
@@ -597,7 +626,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getStudentId() {
 
-        const student = getStudent();
+        const student =
+            getStudent();
 
         if (!student) {
             return null;
@@ -622,7 +652,9 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
 
             const raw =
-                localStorage.getItem("teacher");
+                localStorage.getItem(
+                    "teacher"
+                );
 
             if (!raw) {
                 return null;
@@ -649,7 +681,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getTeacherId() {
 
-        const teacher = getTeacher();
+        const teacher =
+            getTeacher();
 
         if (!teacher) {
             return null;
@@ -671,14 +704,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayStudentName() {
 
-        const name = getStudentName();
+        const name =
+            getStudentName();
 
         if (playingStudentName) {
-            playingStudentName.textContent = name;
+
+            playingStudentName.textContent =
+                name;
+
         }
 
         if (resultPlayer) {
-            resultPlayer.textContent = name;
+
+            resultPlayer.textContent =
+                name;
+
         }
 
     }
@@ -691,15 +731,23 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateStatus() {
 
         if (scoreElement) {
-            scoreElement.textContent = score;
+
+            scoreElement.textContent =
+                score;
+
         }
 
         if (livesElement) {
 
             livesElement.textContent =
-                "❤️".repeat(Math.max(0, lives)) +
+                "❤️".repeat(
+                    Math.max(0, lives)
+                ) +
                 "🤍".repeat(
-                    Math.max(0, MAX_LIVES - lives)
+                    Math.max(
+                        0,
+                        MAX_LIVES - lives
+                    )
                 );
 
         }
@@ -725,8 +773,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (totalQuestionsElement) {
+
             totalQuestionsElement.textContent =
                 TOTAL_QUESTIONS;
+
         }
 
     }
@@ -739,8 +789,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateTargetShape(question) {
 
         if (shapeNameElement) {
+
             shapeNameElement.textContent =
                 question.name;
+
         }
 
         if (!shapeIcon) {
@@ -750,7 +802,8 @@ document.addEventListener("DOMContentLoaded", function () {
         shapeIcon.className = "";
 
         shapeIcon.classList.add(
-            "target-" + question.shape
+            "target-" +
+            question.shape
         );
 
     }
@@ -782,12 +835,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadQuestion() {
 
-        if (currentQuestion >= TOTAL_QUESTIONS) {
+        if (
+            currentQuestion >=
+            TOTAL_QUESTIONS
+        ) {
+
             finishGame();
             return;
+
         }
 
         locked = false;
+
         foundObjects = 0;
 
         const question =
@@ -798,32 +857,46 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (objectArea) {
-            objectArea.innerHTML = "";
+
+            objectArea.innerHTML =
+                "";
+
         }
 
         updateStatus();
-        updateTargetShape(question);
+
+        updateTargetShape(
+            question
+        );
 
         totalCorrectObjects =
-            question.items.filter(function (key) {
+            question.items.filter(
+                function (key) {
 
-                return (
-                    objects[key] &&
-                    objects[key].shape === question.shape
+                    return (
+                        objects[key] &&
+                        objects[key].shape ===
+                        question.shape
+                    );
+
+                }
+            ).length;
+
+
+        question.items.forEach(
+            function (key, index) {
+
+                createObject(
+                    key,
+                    positions[
+                        index %
+                        positions.length
+                    ],
+                    question
                 );
 
-            }).length;
-
-
-        question.items.forEach(function (key, index) {
-
-            createObject(
-                key,
-                positions[index % positions.length],
-                question
-            );
-
-        });
+            }
+        );
 
     }
 
@@ -838,17 +911,28 @@ document.addEventListener("DOMContentLoaded", function () {
         question
     ) {
 
-        const data = objects[objectKey];
+        const data =
+            objects[objectKey];
 
-        if (!data || !objectArea) {
+        if (
+            !data ||
+            !objectArea
+        ) {
+
             return;
+
         }
 
         const button =
-            document.createElement("button");
+            document.createElement(
+                "button"
+            );
 
-        button.type = "button";
-        button.className = "hunt-object";
+        button.type =
+            "button";
+
+        button.className =
+            "hunt-object";
 
         button.style.left =
             position.left + "%";
@@ -863,23 +947,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         const img =
-            document.createElement("img");
-
-        img.src = data.image;
-        img.alt = data.name;
-        img.draggable = false;
-
-        img.onerror = function () {
-
-            console.error(
-                "SHAPE HUNT IMAGE NOT FOUND:",
-                data.image
+            document.createElement(
+                "img"
             );
 
-        };
+        img.src =
+            data.image;
+
+        img.alt =
+            data.name;
+
+        img.draggable =
+            false;
+
+        img.onerror =
+            function () {
+
+                console.error(
+                    "SHAPE HUNT IMAGE NOT FOUND:",
+                    data.image
+                );
+
+            };
 
 
-        button.appendChild(img);
+        button.appendChild(
+            img
+        );
 
 
         button.addEventListener(
@@ -891,18 +985,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 if (
-                    button.classList.contains("found")
+                    button.classList.contains(
+                        "found"
+                    )
                 ) {
+
                     return;
+
                 }
 
                 activateAudio();
 
-                playSound("click");
+                playSound(
+                    "click"
+                );
 
 
                 if (
-                    data.shape === question.shape
+                    data.shape ===
+                    question.shape
                 ) {
 
                     correctObject(
@@ -923,7 +1024,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        objectArea.appendChild(button);
+        objectArea.appendChild(
+            button
+        );
 
     }
 
@@ -937,17 +1040,24 @@ document.addEventListener("DOMContentLoaded", function () {
         data
     ) {
 
-        button.classList.add("found");
+        button.classList.add(
+            "found"
+        );
 
         foundObjects++;
 
-        score += POINTS_PER_OBJECT;
+        score +=
+            POINTS_PER_OBJECT;
 
         updateStatus();
 
-        playSound("correct");
+        playSound(
+            "correct"
+        );
 
-        createStarAnimation(button);
+        createStarAnimation(
+            button
+        );
 
         showFeedback(
             "⭐",
@@ -964,33 +1074,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
             locked = true;
 
-            setTimeout(function () {
+            setTimeout(
+                function () {
 
-                createLevelStars();
+                    createLevelStars();
 
-            }, 200);
+                },
+                200
+            );
 
 
-            setTimeout(function () {
+            setTimeout(
+                function () {
 
-                hideFeedback();
+                    hideFeedback();
 
-                currentQuestion++;
+                    currentQuestion++;
 
-                if (
-                    currentQuestion >=
-                    TOTAL_QUESTIONS
-                ) {
+                    if (
+                        currentQuestion >=
+                        TOTAL_QUESTIONS
+                    ) {
 
-                    finishGame();
+                        finishGame();
 
-                } else {
+                    } else {
 
-                    loadQuestion();
+                        loadQuestion();
 
-                }
+                    }
 
-            }, 1400);
+                },
+                1400
+            );
 
         }
 
@@ -999,6 +1115,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ======================================================
     // WRONG OBJECT
+    // NO X / CROSS FEEDBACK
     // ======================================================
 
     function wrongObject(
@@ -1010,35 +1127,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
         updateStatus();
 
-        button.classList.add("wrong");
+        button.classList.add(
+            "wrong"
+        );
 
-        playSound("wrong");
+        playSound(
+            "wrong"
+        );
 
+        // No X / ❌ icon.
+        // Friendly text only.
         showFeedback(
-            "❌",
+            "",
             "Try again! Find the " +
             question.name
         );
 
 
-        setTimeout(function () {
+        setTimeout(
+            function () {
 
-            button.classList.remove("wrong");
+                button.classList.remove(
+                    "wrong"
+                );
 
-            hideFeedback();
+                hideFeedback();
 
-        }, 700);
+            },
+            700
+        );
 
 
         if (lives <= 0) {
 
             locked = true;
 
-            setTimeout(function () {
+            setTimeout(
+                function () {
 
-                finishGame();
+                    finishGame();
 
-            }, 600);
+                },
+                600
+            );
 
         }
 
@@ -1049,7 +1180,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // STAR ANIMATION
     // ======================================================
 
-    function createStarAnimation(button) {
+    function createStarAnimation(
+        button
+    ) {
 
         if (!starAnimationLayer) {
             return;
@@ -1059,11 +1192,15 @@ document.addEventListener("DOMContentLoaded", function () {
             button.getBoundingClientRect();
 
         const star =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        star.className = "flying-star";
+        star.className =
+            "flying-star";
 
-        star.textContent = "⭐";
+        star.textContent =
+            "⭐";
 
         star.style.left =
             (
@@ -1078,14 +1215,19 @@ document.addEventListener("DOMContentLoaded", function () {
             ) + "px";
 
 
-        starAnimationLayer.appendChild(star);
+        starAnimationLayer.appendChild(
+            star
+        );
 
 
-        setTimeout(function () {
+        setTimeout(
+            function () {
 
-            star.remove();
+                star.remove();
 
-        }, 900);
+            },
+            900
+        );
 
     }
 
@@ -1130,42 +1272,59 @@ document.addEventListener("DOMContentLoaded", function () {
         ];
 
 
-        stars.forEach(function (item, index) {
+        stars.forEach(
+            function (item, index) {
 
-            const star =
-                document.createElement("div");
+                const star =
+                    document.createElement(
+                        "div"
+                    );
 
-            star.className = "flying-star";
+                star.className =
+                    "flying-star";
 
-            star.textContent = "⭐";
+                star.textContent =
+                    "⭐";
 
-            star.style.left = "50%";
-            star.style.top = "55%";
+                star.style.left =
+                    "50%";
 
-            star.style.setProperty(
-                "--x",
-                item.x
-            );
+                star.style.top =
+                    "55%";
 
-            star.style.setProperty(
-                "--y",
-                item.y
-            );
+                star.style.setProperty(
+                    "--x",
+                    item.x
+                );
 
-            star.style.animationDelay =
-                (index * 0.08) + "s";
+                star.style.setProperty(
+                    "--y",
+                    item.y
+                );
+
+                star.style.animationDelay =
+                    (
+                        index * 0.08
+                    ) + "s";
 
 
-            starAnimationLayer.appendChild(star);
+                starAnimationLayer
+                    .appendChild(
+                        star
+                    );
 
 
-            setTimeout(function () {
+                setTimeout(
+                    function () {
 
-                star.remove();
+                        star.remove();
 
-            }, 1200);
+                    },
+                    1200
+                );
 
-        });
+            }
+        );
 
     }
 
@@ -1184,14 +1343,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (feedbackIcon) {
-            feedbackIcon.textContent = icon;
+
+            feedbackIcon.textContent =
+                icon;
+
         }
 
         if (feedbackText) {
-            feedbackText.textContent = message;
+
+            feedbackText.textContent =
+                message;
+
         }
 
-        feedback.classList.add("show");
+        feedback.classList.add(
+            "show"
+        );
 
     }
 
@@ -1202,7 +1369,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        feedback.classList.remove("show");
+        feedback.classList.remove(
+            "show"
+        );
 
     }
 
@@ -1238,24 +1407,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let total = 0;
 
-        questions.forEach(function (question) {
+        questions.forEach(
+            function (question) {
 
-            const correctCount =
-                question.items.filter(function (key) {
+                const correctCount =
+                    question.items.filter(
+                        function (key) {
 
-                    return (
-                        objects[key] &&
-                        objects[key].shape ===
-                        question.shape
-                    );
+                            return (
+                                objects[key] &&
+                                objects[key].shape ===
+                                question.shape
+                            );
 
-                }).length;
+                        }
+                    ).length;
 
-            total +=
-                correctCount *
-                POINTS_PER_OBJECT;
+                total +=
+                    correctCount *
+                    POINTS_PER_OBJECT;
 
-        });
+            }
+        );
 
         return total;
 
@@ -1276,13 +1449,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const percentage =
-            (score / totalPossibleScore) * 100;
+            (
+                score /
+                totalPossibleScore
+            ) * 100;
 
         return Math.max(
             0,
             Math.min(
                 100,
-                Math.round(percentage)
+                Math.round(
+                    percentage
+                )
             )
         );
 
@@ -1293,7 +1471,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // PROGRESS STATUS
     // ======================================================
 
-    function getProgressStatus(progressPercent) {
+    function getProgressStatus(
+        progressPercent
+    ) {
 
         if (
             currentQuestion >=
@@ -1304,12 +1484,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-        if (progressPercent >= 50) {
+        if (
+            progressPercent >= 50
+        ) {
+
             return "In Progress";
+
         }
 
-        if (progressPercent > 0) {
+        if (
+            progressPercent > 0
+        ) {
+
             return "Needs Practice";
+
         }
 
         return "Not Started";
@@ -1321,7 +1509,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // SAVE LOCAL PROGRESS
     // ======================================================
 
-    function saveLocalProgress(progress) {
+    function saveLocalProgress(
+        progress
+    ) {
 
         try {
 
@@ -1379,13 +1569,20 @@ document.addEventListener("DOMContentLoaded", function () {
             calculateProgressPercent();
 
         const status =
-            getProgressStatus(progressPercent);
+            getProgressStatus(
+                progressPercent
+            );
 
 
-        // Determine last played level safely
+        // ==================================================
+        // DETERMINE LAST PLAYED LEVEL
+        // ==================================================
+
         let savedLevel = 1;
 
-        if (currentQuestion > 0) {
+        if (
+            currentQuestion > 0
+        ) {
 
             const lastIndex =
                 Math.min(
@@ -1394,13 +1591,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
             savedLevel =
-                questions[lastIndex]?.level || 1;
+                questions[lastIndex]?.level ||
+                1;
 
         }
 
 
-        if (currentQuestion >= TOTAL_QUESTIONS) {
+        if (
+            currentQuestion >=
+            TOTAL_QUESTIONS
+        ) {
+
             savedLevel = 3;
+
         }
 
 
@@ -1410,37 +1613,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const progress = {
 
-            teacher_id: teacherId,
+            teacher_id:
+                teacherId,
 
-            student_id: studentId,
+            student_id:
+                studentId,
 
-            category: "shapes",
+            category:
+                "shapes",
 
-            activity: "Shape Hunt",
+            activity:
+                "Shape Hunt",
 
-            game: "shape-hunt",
+            game:
+                "shape-hunt",
 
-            game_name: "Shape Hunt",
+            game_name:
+                "Shape Hunt",
 
-            // Percentage used by Progress page
-            score: progressPercent,
+            score:
+                progressPercent,
 
-            // Original game score
-            raw_score: score,
+            raw_score:
+                score,
 
-            stars: stars,
+            stars:
+                stars,
 
-            status: status,
+            status:
+                status,
 
-            player: playerName,
+            player:
+                playerName,
 
-            student_name: playerName,
+            student_name:
+                playerName,
 
-            level: savedLevel,
+            level:
+                savedLevel,
 
-            date: new Date().toISOString(),
+            date:
+                new Date().toISOString(),
 
-            created_at: new Date().toISOString()
+            created_at:
+                new Date().toISOString()
 
         };
 
@@ -1455,7 +1671,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // ALWAYS SAVE LOCAL BACKUP FIRST
         // ==================================================
 
-        saveLocalProgress(progress);
+        saveLocalProgress(
+            progress
+        );
 
 
         // ==================================================
@@ -1504,7 +1722,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         },
 
                         body:
-                            JSON.stringify(progress)
+                            JSON.stringify(
+                                progress
+                            )
                     }
                 );
 
@@ -1521,7 +1741,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 try {
 
                     result =
-                        JSON.parse(responseText);
+                        JSON.parse(
+                            responseText
+                        );
 
                 } catch (error) {
 
@@ -1566,11 +1788,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 error
             );
 
-            /*
-             * LocalStorage already contains the progress.
-             * Therefore the result screen can still appear.
-             */
-
             return false;
 
         }
@@ -1583,15 +1800,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // ======================================================
 
     async function finishGame() {
-
-        if (progressSaved) {
-
-            /*
-             * Prevent duplicate save when finishGame()
-             * is accidentally triggered twice.
-             */
-
-        }
 
         locked = true;
 
@@ -1703,7 +1911,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (resultScreen) {
 
-            resultScreen.style.display = "flex";
+            resultScreen.style.display =
+                "flex";
 
         }
 
@@ -1714,11 +1923,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (stars > 0) {
 
-            playSound("correct");
+            playSound(
+                "correct"
+            );
 
         } else {
 
-            playSound("wrong");
+            playSound(
+                "wrong"
+            );
 
         }
 
@@ -1735,20 +1948,30 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
-                playSound("button");
+                playSound(
+                    "button"
+                );
 
                 if (resultScreen) {
-                    resultScreen.style.display = "none";
+
+                    resultScreen.style.display =
+                        "none";
+
                 }
 
                 currentQuestion = 0;
+
                 score = 0;
-                lives = MAX_LIVES;
+
+                lives =
+                    MAX_LIVES;
 
                 foundObjects = 0;
+
                 totalCorrectObjects = 0;
 
                 locked = false;
+
                 progressSaved = false;
 
                 displayStudentName();
@@ -1771,7 +1994,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function goBack() {
 
-        playSound("button");
+        playSound(
+            "button"
+        );
 
         stopGameBackgroundMusic();
 
@@ -1820,7 +2045,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ======================================================
     // INITIAL LOADING
-    // SAME STYLE ACROSS ALL KINDERQUEST GAMES
     // ======================================================
 
     function startAfterLoading() {
@@ -1866,12 +2090,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     progress += 5;
 
-
                     loadingBarFill.style.width =
                         progress + "%";
 
 
-                    if (progress >= 100) {
+                    if (
+                        progress >= 100
+                    ) {
 
                         clearInterval(
                             loadingTimer
@@ -1881,10 +2106,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         setTimeout(
                             function () {
 
-                                loadingScreen.classList.add(
-                                    "hide"
-                                );
-
+                                loadingScreen
+                                    .classList
+                                    .add("hide");
 
                                 startAfterLoading();
 
