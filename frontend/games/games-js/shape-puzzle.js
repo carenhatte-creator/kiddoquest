@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const POINTS_PER_PUZZLE = 10;
     const TOTAL_QUESTIONS = 10;
 
-    const API_BASE = "https://kiddoquest-backend.onrender.com/api";
+    // FIXED: correct progress API endpoint
+    const PROGRESS_API =
+        "https://kiddoquest-backend.onrender.com/api/progress";
 
 
     // =====================================================
@@ -27,8 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const loadingBarFill =
         document.getElementById("loadingBarFill");
-
-// loadingPercent removed — not part of the standardized loading screen anymore
 
     const scoreElement =
         document.getElementById("score");
@@ -433,6 +433,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             return null;
         }
+
     }
 
 
@@ -621,9 +622,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // =====================================================
     // RANDOM SPLIT
-    // IMPORTANT:
-    // 42% - 58% ONLY
-    // So the missing piece is always large enough.
     // =====================================================
 
     function randomSplit() {
@@ -913,10 +911,6 @@ document.addEventListener("DOMContentLoaded", function () {
             randomSplit();
 
 
-        // -----------------------------------------------
-        // CIRCLE / OVAL
-        // -----------------------------------------------
-
         if (shape.kind === "ellipse") {
 
             const ellipse =
@@ -956,10 +950,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-
-        // -----------------------------------------------
-        // POLYGON
-        // -----------------------------------------------
 
         const direction =
             randomDirection();
@@ -1330,9 +1320,6 @@ document.addEventListener("DOMContentLoaded", function () {
             bounds.minY;
 
 
-        const padding = 7;
-
-
         const targetWidth =
             82;
 
@@ -1385,10 +1372,6 @@ document.addEventListener("DOMContentLoaded", function () {
             puzzle.pieces;
 
 
-        // -----------------------------------------------
-        // ELLIPSE PIECE
-        // -----------------------------------------------
-
         if (
             shape.kind ===
             "ellipse"
@@ -1418,10 +1401,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-
-        // -----------------------------------------------
-        // POLYGON PIECE
-        // -----------------------------------------------
 
         const normalized =
             normalizePoints(
@@ -1464,8 +1443,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     currentPuzzle.type
             );
 
-
-        // shuffle wrong shapes
 
         for (
             let i = wrong.length - 1;
@@ -1652,9 +1629,6 @@ document.addEventListener("DOMContentLoaded", function () {
         locked = false;
 
 
-        // Create a brand-new puzzle
-        // so the split is randomized.
-
         currentPuzzle =
             createPuzzle();
 
@@ -1670,10 +1644,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // -----------------------------------------------
-        // DRAW PUZZLE
-        // -----------------------------------------------
-
         if (puzzleArea) {
 
             puzzleArea.innerHTML =
@@ -1684,10 +1654,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-
-        // -----------------------------------------------
-        // CREATE CHOICES
-        // -----------------------------------------------
 
         if (choices) {
 
@@ -1811,8 +1777,6 @@ document.addEventListener("DOMContentLoaded", function () {
         button.disabled =
             true;
 
-
-        // Show the complete shape.
 
         if (puzzleArea) {
 
@@ -2316,7 +2280,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        await saveProgress();
+        // Prevent duplicate backend save
+        if (!progressSaved) {
+            await saveProgress();
+        }
 
 
         if (resultScreen) {
