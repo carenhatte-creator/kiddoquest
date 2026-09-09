@@ -1,13 +1,19 @@
 /* ==========================================================
-   KinderQuest - SHAPE HUNT
-   FULL CSS
-   LOADING + GAME + RESULT
+   KiddoQuest - SHAPE HUNT
+   FULL RESPONSIVE CSS
+   LAPTOP + TABLET + CELLPHONE
 ========================================================== */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
 }
 
 body {
@@ -167,11 +173,13 @@ button {
 
 .title-area {
     text-align: center;
+    min-width: 0;
 }
 
 .title-area h1 {
     font-size: 29px;
     color: #31536b;
+    white-space: nowrap;
 }
 
 .player-name {
@@ -180,6 +188,8 @@ button {
     color: #718795;
 
     font-size: 14px;
+
+    white-space: nowrap;
 }
 
 .player-name strong {
@@ -190,6 +200,7 @@ button {
     display: flex;
     gap: 8px;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .status-box {
@@ -227,6 +238,7 @@ button {
 
 .lives-box strong {
     font-size: 16px;
+    white-space: nowrap;
 }
 
 
@@ -298,6 +310,8 @@ button {
     border: 5px solid #5b9ded;
 
     background: #e9f5ff;
+
+    flex-shrink: 0;
 }
 
 .target-circle {
@@ -580,6 +594,8 @@ button {
         transform .15s ease,
         box-shadow .15s ease,
         opacity .2s ease;
+
+    touch-action: manipulation;
 }
 
 .hunt-object:hover {
@@ -810,6 +826,8 @@ button {
     transition:
         transform .25s ease,
         opacity .25s ease;
+
+    max-width: calc(100vw - 24px);
 }
 
 .feedback.show {
@@ -902,6 +920,8 @@ button {
 
     background:
         rgba(35, 67, 82, .45);
+
+    overflow-y: auto;
 }
 
 .result-card {
@@ -1043,6 +1063,8 @@ button {
 
     transition:
         transform .15s ease;
+
+    touch-action: manipulation;
 }
 
 .play-again-button {
@@ -1077,16 +1099,19 @@ button {
 
 
 /* ==========================================================
-   RESPONSIVE
-   LAPTOP DESIGN REMAINS THE REFERENCE
+   TABLET
 ========================================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
+
+    .game-container {
+        padding: 14px;
+    }
 
     .game-header {
         grid-template-columns:
             150px
-            1fr
+            minmax(0, 1fr)
             auto;
 
         gap: 12px;
@@ -1095,7 +1120,6 @@ button {
     }
 
     .back-btn {
-        min-height: 48px;
         padding: 13px 16px;
         font-size: 18px;
     }
@@ -1105,130 +1129,641 @@ button {
     }
 
     .status-area {
-        justify-content: flex-end;
+        gap: 6px;
     }
 
     .status-box {
-        min-width: 70px;
+        min-width: 68px;
+        padding: 8px 7px;
     }
 
     .playground {
         height: 520px;
     }
-
 }
 
 
-@media (max-width: 600px) {
+/* ==========================================================
+   CELLPHONE
+   HEADER IS REARRANGED SO NOTHING GOES OUTSIDE SCREEN
+========================================================== */
+
+@media (max-width: 700px) {
 
     .game-container {
+        width: 100%;
         padding: 8px;
+        overflow-x: hidden;
     }
 
-    /*
-       Keep the laptop-style header instead of
-       stacking everything into separate rows.
-    */
+
+    /* ------------------------------------------------------
+       HEADER
+       TOP ROW = BACK + TITLE
+       SECOND ROW = LEVEL + SCORE + HEARTS
+    ------------------------------------------------------ */
+
     .game-header {
-        min-height: 82px;
+        width: 100%;
+
+        display: grid;
 
         grid-template-columns:
-            125px
-            1fr
+            105px
+            minmax(0, 1fr);
+
+        grid-template-rows:
+            auto
             auto;
 
-        gap: 8px;
+        column-gap: 8px;
+        row-gap: 9px;
 
-        padding: 10px 10px;
+        padding: 10px;
 
-        border-radius: 22px;
+        min-height: auto;
+
+        border-radius: 20px;
     }
+
+
+    /* ------------------------------------------------------
+       BACK BUTTON
+    ------------------------------------------------------ */
 
     .back-btn {
         width: 100%;
 
-        min-height: 48px;
+        min-height: 46px;
 
-        padding: 13px 10px;
+        padding: 10px 6px;
 
-        font-size: 17px;
+        font-size: 16px;
 
-        border-radius: 14px;
+        border-radius: 13px;
+
+        white-space: nowrap;
+    }
+
+
+    /* ------------------------------------------------------
+       TITLE
+    ------------------------------------------------------ */
+
+    .title-area {
+        width: 100%;
+        min-width: 0;
+
+        text-align: center;
+
+        align-self: center;
     }
 
     .title-area h1 {
         font-size: 22px;
+
         line-height: 1.1;
+
+        white-space: nowrap;
     }
 
     .player-name {
-        font-size: 13px;
+        margin-top: 3px;
+
+        font-size: 12px;
+
+        white-space: nowrap;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
     }
 
-    .status-area {
-        gap: 5px;
 
-        justify-content: flex-end;
+    /* ------------------------------------------------------
+       STATUS
+       LEVEL + SCORE + HEARTS BELOW HEADER TOP
+    ------------------------------------------------------ */
+
+    .status-area {
+        grid-column: 1 / -1;
+
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 6px;
+
+        justify-content: stretch;
     }
 
     .status-box {
-        min-width: 58px;
+        width: 100%;
 
-        padding: 8px 5px;
+        min-width: 0;
 
-        border-radius: 12px;
+        padding: 7px 4px;
+
+        border-radius: 11px;
     }
 
     .status-box span {
-        font-size: 9px;
+        font-size: 8px;
     }
 
     .status-box strong {
+        margin-top: 2px;
+
         font-size: 17px;
+
+        line-height: 1.1;
     }
 
     .lives-box strong {
         font-size: 14px;
+
         white-space: nowrap;
     }
 
+
+    /* ------------------------------------------------------
+       QUESTION
+    ------------------------------------------------------ */
+
     .question-card {
-        margin: 16px auto;
+        width: 100%;
 
-        padding: 15px 12px;
+        margin: 12px auto;
 
-        border-radius: 22px;
+        padding: 13px 10px;
+
+        border-radius: 19px;
+    }
+
+    .question-small {
+        font-size: 11px;
     }
 
     .question-card h2 {
-        font-size: 17px;
+        margin-top: 4px;
+
+        font-size: 16px;
+
+        line-height: 1.25;
     }
 
     .target-area {
-        gap: 8px;
+        margin-top: 8px;
+
+        gap: 7px;
     }
 
     .target-area strong {
         font-size: 18px;
     }
 
-    .playground {
-        height: 520px;
-        border-radius: 25px;
+    #shapeIcon {
+        width: 34px;
+        height: 34px;
+
+        border-width: 4px;
     }
 
+    .target-rectangle {
+        width: 46px !important;
+    }
+
+    .target-triangle {
+        border-left-width: 18px !important;
+        border-right-width: 18px !important;
+        border-bottom-width: 34px !important;
+    }
+
+
+    /* ------------------------------------------------------
+       PLAYGROUND
+       FITS INSIDE PHONE WIDTH
+    ------------------------------------------------------ */
+
+    .playground {
+        width: 100%;
+
+        height: 520px;
+
+        border-radius: 20px;
+
+        border-width: 3px;
+    }
+
+
+    /* ------------------------------------------------------
+       BACKGROUND DECORATION
+    ------------------------------------------------------ */
+
+    .cloud-1 {
+        left: 35px;
+        top: 25px;
+
+        transform: scale(.75);
+    }
+
+    .cloud-2 {
+        right: 55px;
+        top: 55px;
+
+        transform: scale(.55);
+    }
+
+    .sun {
+        width: 52px;
+        height: 52px;
+
+        top: 22px;
+        right: 18px;
+
+        border-width: 4px;
+    }
+
+    .wall {
+        top: 90px;
+        height: 145px;
+    }
+
+    .picture-frame {
+        width: 62px;
+        height: 55px;
+
+        border-width: 6px;
+
+        font-size: 23px;
+    }
+
+    .second-frame {
+        left: 22%;
+    }
+
+    .shelf {
+        width: 130px;
+        height: 52px;
+
+        right: 6%;
+
+        bottom: 18px;
+
+        border-bottom-width: 6px;
+
+        font-size: 22px;
+    }
+
+
+    /* ------------------------------------------------------
+       OBJECT AREA
+    ------------------------------------------------------ */
+
+    .object-area {
+        top: 225px;
+        bottom: 0;
+    }
+
+
+    /* ------------------------------------------------------
+       OBJECTS
+       SMALLER SO THEY STAY INSIDE PHONE
+    ------------------------------------------------------ */
+
     .hunt-object {
-        width: 72px;
-        height: 72px;
+        width: 62px;
+        height: 62px;
+
+        padding: 5px;
+
+        border-radius: 15px;
+    }
+
+    .hunt-object.found::after {
+        width: 24px;
+        height: 24px;
+
+        right: -6px;
+        top: -8px;
+
+        font-size: 15px;
+    }
+
+
+    /* ------------------------------------------------------
+       FLOOR
+    ------------------------------------------------------ */
+
+    .floor {
+        height: 105px;
+    }
+
+    .rug {
+        width: 190px;
+        height: 45px;
+
+        bottom: 18px;
+
+        border-width: 4px;
+    }
+
+    .floor-line-1 {
+        width: 80px;
+    }
+
+    .floor-line-2 {
+        width: 90px;
+    }
+
+
+    /* ------------------------------------------------------
+       FEEDBACK
+    ------------------------------------------------------ */
+
+    .feedback {
+        left: 50%;
+
+        bottom: 15px;
+
+        max-width: calc(100vw - 24px);
+
+        padding: 10px 15px;
+
+        border-radius: 15px;
+
+        font-size: 15px;
+
+        gap: 6px;
+
+        text-align: center;
+    }
+
+    #feedbackIcon {
+        font-size: 21px;
+    }
+
+
+    /* ------------------------------------------------------
+       RESULT
+    ------------------------------------------------------ */
+
+    .result-screen {
+        padding: 12px;
+    }
+
+    .result-card {
+        width: 100%;
+
+        max-width: 430px;
+
+        padding: 22px 16px;
+
+        border-radius: 22px;
+    }
+
+    .result-icon {
+        font-size: 45px;
+    }
+
+    .result-card h2 {
+        font-size: 26px;
+    }
+
+    .final-score {
+        margin-top: 14px;
+    }
+
+    .final-score strong {
+        font-size: 32px;
+    }
+
+    .final-stars {
+        font-size: 32px;
+
+        letter-spacing: 2px;
+    }
+
+    .result-message {
+        font-size: 15px;
     }
 
     .result-buttons {
+        width: 100%;
+
         flex-direction: row;
+
+        gap: 8px;
     }
 
     .play-again-button,
     .result-back-button {
-        width: auto;
+        flex: 1;
+
+        width: 50%;
+
+        padding: 11px 8px;
+
+        font-size: 14px;
+    }
+}
+
+
+/* ==========================================================
+   SMALL PHONES
+   360px AND BELOW
+========================================================== */
+
+@media (max-width: 380px) {
+
+    .game-container {
+        padding: 6px;
     }
 
+    .game-header {
+        padding: 8px;
+
+        column-gap: 6px;
+        row-gap: 7px;
+    }
+
+    .back-btn {
+        min-height: 43px;
+
+        padding: 9px 4px;
+
+        font-size: 15px;
+    }
+
+    .title-area h1 {
+        font-size: 19px;
+    }
+
+    .player-name {
+        font-size: 10px;
+    }
+
+    .status-area {
+        gap: 4px;
+    }
+
+    .status-box {
+        padding: 6px 3px;
+    }
+
+    .status-box span {
+        font-size: 7px;
+    }
+
+    .status-box strong {
+        font-size: 15px;
+    }
+
+    .lives-box strong {
+        font-size: 12px;
+    }
+
+    .question-card {
+        margin: 10px auto;
+
+        padding: 11px 8px;
+    }
+
+    .question-card h2 {
+        font-size: 15px;
+    }
+
+    .target-area strong {
+        font-size: 16px;
+    }
+
+    #shapeIcon {
+        width: 31px;
+        height: 31px;
+    }
+
+    .playground {
+        height: 500px;
+
+        border-radius: 18px;
+    }
+
+    .wall {
+        top: 85px;
+        height: 135px;
+    }
+
+    .object-area {
+        top: 215px;
+    }
+
+    .hunt-object {
+        width: 56px;
+        height: 56px;
+
+        border-radius: 13px;
+    }
+
+    .hunt-object.found::after {
+        width: 21px;
+        height: 21px;
+
+        font-size: 13px;
+
+        right: -5px;
+        top: -7px;
+    }
+
+    .shelf {
+        width: 110px;
+        height: 46px;
+
+        font-size: 19px;
+    }
+
+    .sun {
+        width: 45px;
+        height: 45px;
+    }
+
+    .cloud-1 {
+        left: 20px;
+    }
+
+    .cloud-2 {
+        right: 35px;
+    }
+
+    .result-card {
+        padding: 18px 12px;
+    }
+
+    .result-card h2 {
+        font-size: 23px;
+    }
+
+    .final-score strong {
+        font-size: 29px;
+    }
+
+    .final-stars {
+        font-size: 28px;
+    }
+
+    .result-buttons {
+        gap: 6px;
+    }
+
+    .play-again-button,
+    .result-back-button {
+        font-size: 13px;
+
+        padding: 10px 5px;
+    }
+}
+
+
+/* ==========================================================
+   VERY SMALL PHONES
+========================================================== */
+
+@media (max-width: 330px) {
+
+    .game-header {
+        grid-template-columns:
+            92px
+            minmax(0, 1fr);
+    }
+
+    .back-btn {
+        font-size: 14px;
+    }
+
+    .title-area h1 {
+        font-size: 17px;
+    }
+
+    .player-name {
+        font-size: 9px;
+    }
+
+    .status-box strong {
+        font-size: 14px;
+    }
+
+    .lives-box strong {
+        font-size: 11px;
+    }
+
+    .hunt-object {
+        width: 52px;
+        height: 52px;
+    }
+
+    .playground {
+        height: 480px;
+    }
 }
