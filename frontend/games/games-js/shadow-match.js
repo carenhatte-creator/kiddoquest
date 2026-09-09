@@ -133,7 +133,6 @@ function getSelectedStudent() {
             ) {
 
                 return `${student.first_name} ${student.last_name}`;
-
             }
 
 
@@ -143,7 +142,6 @@ function getSelectedStudent() {
             ) {
 
                 return `${student.firstName} ${student.lastName}`;
-
             }
 
 
@@ -152,7 +150,6 @@ function getSelectedStudent() {
                 return String(
                     student.fullname
                 );
-
             }
 
 
@@ -161,7 +158,6 @@ function getSelectedStudent() {
                 return String(
                     student.fullName
                 );
-
             }
 
 
@@ -170,7 +166,6 @@ function getSelectedStudent() {
                 return String(
                     student.name
                 );
-
             }
 
         }
@@ -228,7 +223,6 @@ function getSelectedStudent() {
 
 
     return "Player";
-
 }
 
 
@@ -237,6 +231,7 @@ function showStudentName() {
     if (!studentNameDisplay) {
         return;
     }
+
 
     studentNameDisplay.textContent =
         getSelectedStudent();
@@ -504,6 +499,7 @@ function addDragEvents(piece) {
     piece.style.webkitUserSelect = "none";
     piece.style.webkitTouchCallout = "none";
 
+
     // ---------------------------------
     // DESKTOP HTML5 DRAG START
     // ---------------------------------
@@ -524,6 +520,7 @@ function addDragEvents(piece) {
 
             }
 
+
             if (
                 gameLocked ||
                 piece.classList.contains("used")
@@ -534,7 +531,9 @@ function addDragEvents(piece) {
 
             }
 
+
             piece.classList.add("dragging");
+
 
             if (event.dataTransfer) {
 
@@ -546,6 +545,7 @@ function addDragEvents(piece) {
                 );
 
             }
+
 
             if (
                 window.soundManager &&
@@ -570,6 +570,7 @@ function addDragEvents(piece) {
         () => {
 
             piece.classList.remove("dragging");
+
 
             document.querySelectorAll(
                 ".shadow-slot"
@@ -600,6 +601,7 @@ function addDragEvents(piece) {
 
             }
 
+
             // For a mouse, keep the original HTML5
             // drag-and-drop behavior on PC/laptop.
             if (
@@ -610,6 +612,7 @@ function addDragEvents(piece) {
 
             }
 
+
             activeDragPiece = piece;
             activePointerId = event.pointerId;
 
@@ -618,6 +621,7 @@ function addDragEvents(piece) {
 
             pointerMoved = false;
 
+
             try {
 
                 piece.setPointerCapture(
@@ -625,10 +629,14 @@ function addDragEvents(piece) {
                 );
 
             }
+
             catch (error) {
+
                 // Some older browsers may not support
                 // pointer capture. The drag can still continue.
+
             }
+
 
             event.preventDefault();
 
@@ -654,6 +662,7 @@ function addDragEvents(piece) {
 
             }
 
+
             const dx =
                 event.clientX -
                 pointerStartX;
@@ -661,6 +670,7 @@ function addDragEvents(piece) {
             const dy =
                 event.clientY -
                 pointerStartY;
+
 
             if (
                 Math.abs(dx) > 5 ||
@@ -671,17 +681,21 @@ function addDragEvents(piece) {
 
             }
 
+
             if (!pointerMoved) {
 
                 return;
 
             }
 
+
             event.preventDefault();
+
 
             piece.classList.add(
                 "dragging"
             );
+
 
             const elementUnderFinger =
                 document.elementFromPoint(
@@ -689,12 +703,14 @@ function addDragEvents(piece) {
                     event.clientY
                 );
 
+
             const slot =
                 elementUnderFinger
                     ? elementUnderFinger.closest(
                         ".shadow-slot"
                     )
                     : null;
+
 
             document.querySelectorAll(
                 ".shadow-slot"
@@ -705,6 +721,7 @@ function addDragEvents(piece) {
                 );
 
             });
+
 
             if (
                 slot &&
@@ -739,10 +756,13 @@ function addDragEvents(piece) {
 
             }
 
+
             event.preventDefault();
+
 
             const wasDragged =
                 pointerMoved;
+
 
             const dropX =
                 event.clientX;
@@ -750,11 +770,13 @@ function addDragEvents(piece) {
             const dropY =
                 event.clientY;
 
+
             const elementUnderFinger =
                 document.elementFromPoint(
                     dropX,
                     dropY
                 );
+
 
             const slot =
                 elementUnderFinger
@@ -763,9 +785,11 @@ function addDragEvents(piece) {
                     )
                     : null;
 
+
             piece.classList.remove(
                 "dragging"
             );
+
 
             document.querySelectorAll(
                 ".shadow-slot"
@@ -777,6 +801,7 @@ function addDragEvents(piece) {
 
             });
 
+
             try {
 
                 piece.releasePointerCapture?.(
@@ -784,13 +809,18 @@ function addDragEvents(piece) {
                 );
 
             }
+
             catch (error) {
+
                 // Ignore unsupported pointer capture release.
+
             }
+
 
             activeDragPiece = null;
             activePointerId = null;
             pointerMoved = false;
+
 
             // A simple tap should not count as a drop.
             if (!wasDragged) {
@@ -798,6 +828,7 @@ function addDragEvents(piece) {
                 return;
 
             }
+
 
             if (
                 gameLocked ||
@@ -808,6 +839,7 @@ function addDragEvents(piece) {
 
             }
 
+
             if (
                 !slot ||
                 slot.classList.contains("correct")
@@ -817,11 +849,13 @@ function addDragEvents(piece) {
 
             }
 
+
             const draggedShape =
                 piece.dataset.shape;
 
             const targetShape =
                 slot.dataset.shape;
+
 
             if (
                 draggedShape ===
@@ -862,9 +896,11 @@ function addDragEvents(piece) {
 
             }
 
+
             piece.classList.remove(
                 "dragging"
             );
+
 
             document.querySelectorAll(
                 ".shadow-slot"
@@ -876,6 +912,7 @@ function addDragEvents(piece) {
 
             });
 
+
             try {
 
                 piece.releasePointerCapture?.(
@@ -883,7 +920,9 @@ function addDragEvents(piece) {
                 );
 
             }
+
             catch (error) {}
+
 
             activeDragPiece = null;
             activePointerId = null;
@@ -905,6 +944,7 @@ function addDropEvents(slot) {
     // A slot itself should not start a browser gesture.
     slot.style.touchAction = "none";
 
+
     // ---------------------------------
     // DESKTOP DRAG OVER
     // ---------------------------------
@@ -914,6 +954,7 @@ function addDropEvents(slot) {
         event => {
 
             event.preventDefault();
+
 
             if (
                 !slot.classList.contains("correct") &&
@@ -925,6 +966,7 @@ function addDropEvents(slot) {
                 );
 
             }
+
 
             if (event.dataTransfer) {
 
@@ -963,15 +1005,18 @@ function addDropEvents(slot) {
 
             event.preventDefault();
 
+
             slot.classList.remove(
                 "hover"
             );
+
 
             if (gameLocked) {
 
                 return;
 
             }
+
 
             if (
                 slot.classList.contains(
@@ -983,6 +1028,7 @@ function addDropEvents(slot) {
 
             }
 
+
             const draggedShape =
                 event.dataTransfer
                     ? event.dataTransfer.getData(
@@ -990,16 +1036,17 @@ function addDropEvents(slot) {
                     )
                     : "";
 
+
             const targetShape =
                 slot.dataset.shape;
+
 
             if (!draggedShape) {
 
                 return;
 
             }
-
-            if (
+                        if (
                 draggedShape ===
                 targetShape
             ) {
@@ -1040,6 +1087,7 @@ document.addEventListener(
                 "dragging"
             );
 
+
             document.querySelectorAll(
                 ".shadow-slot"
             ).forEach(slot => {
@@ -1049,6 +1097,7 @@ document.addEventListener(
                 );
 
             });
+
 
             activeDragPiece = null;
             activePointerId = null;
@@ -1073,6 +1122,7 @@ document.addEventListener(
                 "dragging"
             );
 
+
             document.querySelectorAll(
                 ".shadow-slot"
             ).forEach(slot => {
@@ -1082,6 +1132,7 @@ document.addEventListener(
                 );
 
             });
+
 
             activeDragPiece = null;
             activePointerId = null;
@@ -1386,7 +1437,9 @@ function useHint() {
 
 
     if (!availablePiece) {
+
         return;
+
     }
 
 
@@ -1485,6 +1538,7 @@ async function finishGame() {
 
 }
 
+
 // ===================================
 // SAVE PROGRESS
 // ===================================
@@ -1540,6 +1594,7 @@ async function saveProgress() {
 
         const maxScore =
             95;
+
 
         const percentageScore =
             Math.max(
@@ -1690,6 +1745,7 @@ if (restartBtn) {
 
             }
 
+
             startGame();
 
         }
@@ -1717,6 +1773,7 @@ if (playAgainBtn) {
                 window.soundManager.playClick();
 
             }
+
 
             startGame();
 
@@ -1746,6 +1803,7 @@ if (finishBackBtn) {
 
             }
 
+
             window.location.href =
                 "../shapes.html";
 
@@ -1771,86 +1829,100 @@ if (hintBtn) {
     );
 
 }
-
-
 // ===================================
 // LOADING SCREEN
 // ===================================
 
 function runLoading() {
 
-    return new Promise(
-        resolve => {
+    return new Promise(function (resolve) {
 
-            if (
-                !loadingScreen ||
-                !loadingBarFill
-            ) {
+        if (
+            !loadingScreen ||
+            !loadingBarFill
+        ) {
 
-                resolve();
+            resolve();
 
-                return;
+            return;
 
-            }
-
-
-            let progress = 0;
+        }
 
 
-            loadingBarFill.style.width =
-                "0%";
+        let progress = 0;
 
 
-            const interval =
-                setInterval(
-                    () => {
-
-                        progress += 5;
+        loadingBarFill.style.width =
+            "0%";
 
 
-                        if (
-                            progress >= 100
-                        ) {
+        const interval =
+            setInterval(
+                function () {
 
-                            progress = 100;
-
-                            loadingBarFill.style.width =
-                                progress + "%";
+                    progress += 5;
 
 
-                            clearInterval(
-                                interval
-                            );
+                    if (
+                        progress >= 100
+                    ) {
 
-
-                            setTimeout(
-                                () => {
-
-                                    loadingScreen.classList.add(
-                                        "hidden"
-                                    );
-
-                                    resolve();
-
-                                },
-                                250
-                            );
-
-
-                            return;
-
-                        }
+                        progress = 100;
 
 
                         loadingBarFill.style.width =
-                            progress + "%";
+                            "100%";
 
-                    },
-                    30
-                );
 
-        }
-    );
+                        clearInterval(
+                            interval
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                loadingScreen.classList.add(
+                                    "hidden"
+                                );
+
+
+                                loadingScreen.style.opacity =
+                                    "0";
+
+
+                                loadingScreen.style.visibility =
+                                    "hidden";
+
+
+                                loadingScreen.style.pointerEvents =
+                                    "none";
+
+
+                                loadingScreen.style.display =
+                                    "none";
+
+
+                                resolve();
+
+                            },
+                            300
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    loadingBarFill.style.width =
+                        progress + "%";
+
+                },
+                30
+            );
+
+    });
 
 }
 
@@ -1861,21 +1933,95 @@ function runLoading() {
 
 async function initializeGame() {
 
-    showStudentName();
+    try {
 
-    updateDisplay();
+        showStudentName();
+
+        updateDisplay();
 
 
-    await runLoading();
+        await runLoading();
 
 
-    startGame();
+        startGame();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Shadow Match initialization error:",
+            error
+        );
+
+
+        if (loadingScreen) {
+
+            loadingScreen.classList.add(
+                "hidden"
+            );
+
+
+            loadingScreen.style.opacity =
+                "0";
+
+
+            loadingScreen.style.visibility =
+                "hidden";
+
+
+            loadingScreen.style.pointerEvents =
+                "none";
+
+
+            loadingScreen.style.display =
+                "none";
+
+        }
+
+    }
 
 }
 
 
 // ===================================
-// DOM READY
+// BOOT SHADOW MATCH
+// ===================================
+
+function bootShadowMatch() {
+
+    if (loadingScreen) {
+
+        loadingScreen.style.display =
+            "flex";
+
+
+        loadingScreen.style.opacity =
+            "1";
+
+
+        loadingScreen.style.visibility =
+            "visible";
+
+
+        loadingScreen.style.pointerEvents =
+            "auto";
+
+
+        loadingScreen.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    initializeGame();
+
+}
+
+
+// ===================================
+// START AFTER DOM LOAD
 // ===================================
 
 if (
@@ -1885,13 +2031,12 @@ if (
 
     document.addEventListener(
         "DOMContentLoaded",
-        initializeGame
+        bootShadowMatch
     );
 
 }
 
 else {
 
-    initializeGame();
-
+    bootShadowMatch();
 }
