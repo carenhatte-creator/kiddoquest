@@ -523,18 +523,18 @@ body {
     /*
        Mas malapit sa board
     */
-    right: 14%;
+    right: clamp(8%, 14vw, 14%);
 
     /*
-       Nakatayo malapit sa board
+       Same visual position across screen sizes
     */
-    bottom: 105px;
+    bottom: clamp(95px, 11vh, 115px);
 
     /*
-       Slightly larger teacher
+       Responsive teacher size
     */
-    width: 300px;
-    height: 410px;
+    width: clamp(180px, 20vw, 300px);
+    height: clamp(245px, 27vw, 410px);
 
     z-index: 15;
 
@@ -1010,12 +1010,10 @@ body {
 @media (max-width: 1100px) {
 
     .teacher {
-        right: 10%;
-
-        width: 330px;
-        height: 440px;
-
-        bottom: 75px;
+        right: 9%;
+        bottom: 105px;
+        width: 270px;
+        height: 370px;
     }
 
 }
@@ -1106,15 +1104,13 @@ body {
     }
 
 
-    /* BIG TEACHER ON TABLET */
+    /* SAME TEACHER PROPORTION ON TABLET */
 
     .teacher {
-        right: 3%;
-
-        bottom: 115px;
-
-        width: 210px;
-        height: 285px;
+        right: 4%;
+        bottom: 135px;
+        width: 190px;
+        height: 260px;
     }
 
 
@@ -1171,15 +1167,13 @@ body {
     }
 
 
-    /* TEACHER MOBILE */
+    /* TEACHER MOBILE — SAME VISUAL PROPORTION */
 
     .teacher {
-        width: 135px;
-        height: 185px;
-
-        right: 1%;
-
-        bottom: 125px;
+        width: 165px;
+        height: 225px;
+        right: 2%;
+        bottom: 145px;
     }
 
 
