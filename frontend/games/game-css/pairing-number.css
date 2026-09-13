@@ -1010,12 +1010,10 @@ body {
 @media (max-width: 1100px) {
 
     .teacher {
-        right: 10%;
-
-        width: 330px;
-        height: 440px;
-
-        bottom: 75px;
+        right: 5%;
+        bottom: 105px;
+        width: 240px;
+        height: 330px;
     }
 
 }
@@ -1106,15 +1104,13 @@ body {
     }
 
 
-    /* BIG TEACHER ON TABLET */
+    /* RESPONSIVE TEACHER ON TABLET */
 
     .teacher {
-        right: 3%;
-
-        bottom: 115px;
-
-        width: 210px;
-        height: 285px;
+        right: 2%;
+        bottom: 135px;
+        width: 190px;
+        height: 260px;
     }
 
 
@@ -1171,15 +1167,14 @@ body {
     }
 
 
-    /* TEACHER MOBILE */
+    /* RESPONSIVE TEACHER MOBILE */
 
     .teacher {
-        width: 135px;
-        height: 185px;
+        width: 165px;
+        height: 225px;
 
-        right: 1%;
-
-        bottom: 125px;
+        right: 2%;
+        bottom: 155px;
     }
 
 

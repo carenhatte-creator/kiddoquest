@@ -569,6 +569,92 @@ body {
     flex-shrink: 0;
     font-size: 25px; 
 } 
+
+
+/* ========================================================= 
+   STAR POPUP
+   Big centered star badge + "Great Job!" text overlay,
+   separate from the feedback pill. Shown on correct
+   answers only.
+========================================================= */
+
+.star-popup {
+    position: fixed;
+    inset: 0;
+
+    z-index: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .15s ease,
+        visibility .15s ease;
+}
+
+.star-popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.star-popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.star-popup-svg {
+    width: 170px;
+    height: 170px;
+
+    transform: rotate(-8deg);
+
+    filter:
+        drop-shadow(0 10px 18px rgba(245, 200, 90, .45));
+}
+
+.star-popup-text {
+    font-family: "Fredoka", sans-serif;
+
+    font-size: 36px;
+    font-weight: 700;
+
+    color: #f5d76e;
+
+    text-shadow: 0 2px 4px rgba(57,45,89,.12);
+}
+
+.star-popup.show .star-popup-content {
+    animation: starBigPop .8s ease;
+}
+
+@keyframes starBigPop {
+
+    0% {
+        transform: scale(0);
+    }
+
+    55% {
+        transform: scale(1.15);
+    }
+
+    75% {
+        transform: scale(.94);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
  
  
 /* ========================================================= 
@@ -994,6 +1080,18 @@ body {
     }
 
 
+    /* ---------------- STAR POPUP ---------------- */
+
+    .star-popup-svg {
+        width: 120px;
+        height: 120px;
+    }
+
+    .star-popup-text {
+        font-size: 27px;
+    }
+
+
     /* ---------------- RESULT ---------------- */
 
     .result-screen {
@@ -1185,6 +1283,15 @@ body {
         font-size: 12px;
     }
 
+    .star-popup-svg {
+        width: 95px;
+        height: 95px;
+    }
+
+    .star-popup-text {
+        font-size: 22px;
+    }
+
     .result-card {
         padding:
             20px
@@ -1275,6 +1382,15 @@ body {
 
     .feedback-text {
         font-size: 11px;
+    }
+
+    .star-popup-svg {
+        width: 80px;
+        height: 80px;
+    }
+
+    .star-popup-text {
+        font-size: 19px;
     }
 
     .result-card {

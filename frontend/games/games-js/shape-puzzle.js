@@ -66,6 +66,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const feedbackText =
         document.getElementById("feedbackText");
 
+    // Full-screen star popup overlay (separate from the feedback pill)
+    const starPopup =
+        document.getElementById("starPopup");
+
     const resultScreen =
         document.getElementById("resultScreen");
 
@@ -1795,6 +1799,10 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
+        // Big centered star popup, separate from the feedback pill
+        showStarPopup();
+
+
         setTimeout(
             function () {
 
@@ -1941,6 +1949,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         feedback.classList.remove(
+            "show"
+        );
+
+
+        // Make sure the star popup is cleared out too
+        hideStarPopup();
+
+    }
+
+
+    // =====================================================
+    // STAR POPUP (big centered star, correct answers only)
+    // =====================================================
+
+    function showStarPopup() {
+
+        if (!starPopup) {
+            return;
+        }
+
+
+        starPopup.classList.remove(
+            "show"
+        );
+
+
+        // restart the animation even if triggered back-to-back
+        void starPopup.offsetWidth;
+
+
+        starPopup.classList.add(
+            "show"
+        );
+
+    }
+
+
+    function hideStarPopup() {
+
+        if (!starPopup) {
+            return;
+        }
+
+
+        starPopup.classList.remove(
             "show"
         );
 
