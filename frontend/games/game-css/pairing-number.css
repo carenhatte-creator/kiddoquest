@@ -520,18 +520,28 @@ body {
 .teacher {
     position: absolute;
 
-    /* Responsive position inside the classroom */
-    right: clamp(2%, 7vw, 18%);
-    bottom: clamp(85px, 12%, 115px);
+    /*
+       Mas malapit sa board
+    */
+    right: 18%;
 
-    /* Responsive teacher size */
-    width: clamp(180px, 22vw, 300px);
-    height: clamp(250px, 34vw, 395px);
+    /*
+       Nakatayo sa harap
+    */
+    bottom: 70px;
+
+    /*
+       MALAKING TEACHER
+    */
+    width: 380px;
+    height: 500px;
 
     z-index: 15;
 
     display: flex;
+
     align-items: flex-end;
+
     justify-content: center;
 
     pointer-events: none;
@@ -1160,10 +1170,11 @@ body {
     /* RESPONSIVE TEACHER MOBILE */
 
     .teacher {
-        right: 2%;
-        bottom: 155px;
         width: 165px;
         height: 225px;
+
+        right: 2%;
+        bottom: 155px;
     }
 
 
