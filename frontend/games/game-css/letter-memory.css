@@ -73,12 +73,20 @@ body {
 }
 
 .header-left {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
 }
 
 .back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -101,7 +109,7 @@ body {
 }
 
 .back-btn:hover {
-    transform: translateY(2px);
+    transform: translateY(-50%) translateY(2px);
     box-shadow: 0 2px 0 #E0A200;
 }
 
@@ -114,6 +122,8 @@ body {
     font-size: clamp(20px, 3vw, 29px);
     color: #333;
     font-weight: 900;
+    text-align: center;
+    width: 100%;
 }
 
 .playing-as {
@@ -1134,10 +1144,6 @@ body {
         align-items: stretch;
     }
 
-    .header-left {
-        justify-content: flex-start;
-    }
-
     .playing-as {
         justify-content: center;
     }
@@ -1185,10 +1191,6 @@ body {
 
     .game-header {
         padding: 12px;
-    }
-
-    .header-left {
-        justify-content: flex-start;
     }
 
     .game-header h1 {
@@ -1314,22 +1316,24 @@ body {
 }
 
 
-@media (max-width: 600px) and (min-height: 500px) {
+@media (max-width: 480px) {
 
     .header-left {
-        flex-direction: column;
+        padding: 0 68px;
+    }
 
-        align-items: flex-start;
+    .back-btn {
+        padding: 8px 12px;
 
-        gap: 9px;
+        font-size: 13px;
+    }
+
+    .back-btn span:first-child {
+        font-size: 18px;
     }
 
     .game-header h1 {
-        align-self: center;
-
-        text-align: center;
-
-        font-size: 22px;
+        font-size: 17px;
     }
 }
 
