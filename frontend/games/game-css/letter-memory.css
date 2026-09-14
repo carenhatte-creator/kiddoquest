@@ -1314,7 +1314,7 @@ body {
 }
 
 
-@media (max-width: 600px) and (orientation: portrait) {
+@media (max-width: 600px) and (min-height: 500px) {
 
     .header-left {
         flex-direction: column;
