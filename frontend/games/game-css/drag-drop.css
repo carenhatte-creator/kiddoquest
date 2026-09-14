@@ -47,7 +47,6 @@ body::before {
         );
 }
 
-
 /* =========================================================
    PAGE
 ========================================================= */
@@ -59,7 +58,6 @@ body::before {
     position: relative;
     z-index: 1;
 }
-
 
 /* =========================================================
    INITIAL LOADING
@@ -134,7 +132,6 @@ body::before {
         2px 2px 0 #1b3640;
 }
 
-
 /* =========================================================
    HEADER
 ========================================================= */
@@ -151,7 +148,6 @@ body::before {
     box-shadow:
         0 7px 0 rgba(188,139,40,.2);
 }
-
 
 /* =========================================================
    BACK BUTTON
@@ -180,7 +176,6 @@ body::before {
     box-shadow:
         0 1px 0 #d88c00;
 }
-
 
 /* =========================================================
    TITLE
@@ -219,7 +214,6 @@ body::before {
     font-size: 14px;
 }
 
-
 /* =========================================================
    STAT BOX
 ========================================================= */
@@ -250,7 +244,6 @@ body::before {
     color: #7b6340;
 }
 
-
 /* =========================================================
    STUDENT
 ========================================================= */
@@ -272,7 +265,6 @@ body::before {
 .playing-as strong {
     color: #1976d2;
 }
-
 
 /* =========================================================
    GAME CARD
@@ -317,7 +309,6 @@ body::before {
     z-index: 2;
 }
 
-
 /* =========================================================
    PICTURE
 ========================================================= */
@@ -349,7 +340,6 @@ body::before {
     animation:
         bounce .65s ease;
 }
-
 
 /* =========================================================
    WORD
@@ -424,7 +414,6 @@ body::before {
     margin-bottom: 18px;
 }
 
-
 /* =========================================================
    LETTERS
 ========================================================= */
@@ -443,7 +432,6 @@ body::before {
     gap: 14px;
     touch-action: manipulation;
 }
-
 
 /* =========================================================
    LETTER CARD
@@ -501,7 +489,6 @@ body::before {
     background: #fff2a6;
 }
 
-
 /* =========================================================
    FEEDBACK
 ========================================================= */
@@ -525,7 +512,6 @@ body::before {
 .feedback.warning {
     color: #d98c00;
 }
-
 
 /* =========================================================
    CONTROLS
@@ -579,7 +565,6 @@ body::before {
         0 1px 0 currentColor;
 }
 
-
 /* =========================================================
    PROGRESS
 ========================================================= */
@@ -619,7 +604,6 @@ body::before {
     transition:
         width .4s ease;
 }
-
 
 /* =========================================================
    STAR REWARD
@@ -676,7 +660,6 @@ body::before {
         rewardText .8s .15s both;
 }
 
-
 /* =========================================================
    RESULT MODAL
 ========================================================= */
@@ -696,7 +679,6 @@ body::before {
 .modal.hidden {
     display: none !important;
 }
-
 
 /* =========================================================
    RESULT CARD
@@ -748,7 +730,6 @@ body::before {
     letter-spacing: 4px;
 }
 
-
 /* =========================================================
    BUTTONS
 ========================================================= */
@@ -798,7 +779,6 @@ body::before {
         translateY(3px);
 }
 
-
 /* =========================================================
    NO STUDENT
 ========================================================= */
@@ -806,7 +786,6 @@ body::before {
 #noStudentOverlay {
     z-index: 70000;
 }
-
 
 /* =========================================================
    ANIMATIONS
@@ -950,7 +929,6 @@ body::before {
     }
 }
 
-
 /* =========================================================
    TABLET
 ========================================================= */
@@ -963,31 +941,27 @@ body::before {
             12px 0 20px;
     }
 
-    /* -----------------------------------------
-       RESPONSIVE HEADER
-    ----------------------------------------- */
+    /* HEADER */
 
     .top-card {
         position: relative;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         grid-template-rows: auto auto;
-        width: 100%;
-        gap: 0;
-        padding: 9px 10px 8px;
-        min-height: 112px;
+        gap: 8px;
+        padding: 10px;
+        min-height: 145px;
         align-items: center;
         justify-items: center;
     }
 
     .top-card .back-btn {
         position: absolute;
-        left: 9px;
-        top: 10px;
-        width: 42px;
-        height: 42px;
-        border-radius: 13px;
-        font-size: 24px;
+        left: 10px;
+        top: 15px;
+        width: 44px;
+        height: 44px;
+        font-size: 25px;
         z-index: 20;
     }
 
@@ -996,73 +970,68 @@ body::before {
         grid-row: 1;
         width: 100%;
         min-width: 0;
-        min-height: 58px;
-        padding: 0 52px;
+        padding: 0 58px;
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        min-height: 76px;
     }
 
     .top-card .title-area h1 {
-        width: 100%;
-        font-size: 24px;
-        line-height: 1.05;
+        font-size: 28px;
+        line-height: 1.1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        text-align: center;
+        width: 100%;
     }
 
     .top-card .title-area p {
-        width: 100%;
-        margin-top: 4px;
-        font-size: 10px;
-        line-height: 1.15;
+        font-size: 11px;
+        margin-top: 5px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        text-align: center;
+        width: 100%;
     }
 
+    /* ONLY TWO STATS, ALWAYS BESIDE EACH OTHER */
+
     .top-card .stat-box {
-        width: 92px;
-        min-width: 92px;
-        min-height: 34px;
-        padding: 5px 7px;
-        border-radius: 13px;
+        width: 105px;
+        min-width: 105px;
+        min-height: 40px;
+        padding: 6px 9px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 4px;
+        flex: none;
         margin: 0;
     }
 
-    .top-card .stat-box:nth-last-child(3) {
+    .top-card .stat-box:nth-last-child(2) {
         grid-column: 1;
         grid-row: 2;
     }
 
-    .top-card .stat-box:nth-last-child(2) {
+    .top-card .stat-box:last-child {
         grid-column: 2;
         grid-row: 2;
     }
 
-    .top-card .stat-box:last-child {
-        grid-column: 1 / -1;
-        grid-row: 3;
-    }
-
     .top-card .stat-box div {
-        font-size: 13px;
+        font-size: 15px;
         line-height: 1;
     }
 
     .top-card .stat-box small {
         display: block;
         margin: 0;
-        font-size: 8px;
+        font-size: 9px;
         line-height: 1;
         white-space: nowrap;
     }
@@ -1122,7 +1091,6 @@ body::before {
     }
 }
 
-
 /* =========================================================
    MOBILE PORTRAIT
 ========================================================= */
@@ -1132,51 +1100,45 @@ body::before {
     .page-wrap {
         width: 96%;
         padding:
-            8px 0 18px;
+            10px 0 18px;
     }
 
     /* -----------------------------------------
        HEADER
-       COMPACT + CENTERED
+       ARROW = LEFT
+       TITLE = CENTER
+       LIVES + SCORE = BESIDE EACH OTHER
     ----------------------------------------- */
 
     .top-card {
         position: relative;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 58px 36px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
         width: 100%;
-        min-height: 101px;
-        height: auto;
-        padding: 7px 7px 7px;
-        gap: 0;
+        min-height: 145px;
+        padding:
+            9px 7px 10px;
+        gap: 5px;
         align-items: center;
         justify-items: center;
-        overflow: visible;
     }
 
-    /* -----------------------------------------
-       BACK BUTTON
-    ----------------------------------------- */
+    /* BACK */
 
     .top-card .back-btn {
         position: absolute;
-        left: 7px;
-        top: 9px;
-        width: 38px;
-        height: 38px;
+        left: 8px;
+        top: 12px;
+        width: 41px;
+        height: 41px;
         margin: 0;
-        border-radius: 12px;
-        font-size: 22px;
+        border-radius: 13px;
+        font-size: 24px;
         z-index: 20;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
-    /* -----------------------------------------
-       TITLE
-    ----------------------------------------- */
+    /* TITLE */
 
     .top-card .title-area {
         grid-column: 1 / -1;
@@ -1184,23 +1146,22 @@ body::before {
         width: 100%;
         max-width: 100%;
         min-width: 0;
-        min-height: 55px;
-        height: 55px;
-        padding: 0 44px;
-        margin: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
+        padding:
+            0 50px;
+        min-height: 76px;
+        margin: 0;
     }
 
     .top-card .title-area h1 {
         width: 100%;
         max-width: 100%;
-        font-size: 20px;
-        line-height: 1.05;
-        letter-spacing: -.3px;
+        font-size: 25px;
+        line-height: 1.08;
         text-align: center;
         white-space: nowrap;
         overflow: hidden;
@@ -1210,9 +1171,10 @@ body::before {
 
     .top-card .title-area p {
         width: 100%;
-        margin: 4px 0 0;
-        font-size: 8px;
-        line-height: 1.15;
+        margin:
+            5px 0 0;
+        font-size: 9px;
+        line-height: 1.2;
         text-align: center;
         white-space: nowrap;
         overflow: hidden;
@@ -1220,76 +1182,60 @@ body::before {
     }
 
     /* -----------------------------------------
-       STATS
-       BELOW TITLE
+       LIVES + SCORE
+       ALWAYS SAME ROW
     ----------------------------------------- */
 
     .top-card .stat-box {
-        width: calc(100% - 10px);
-        min-width: 0;
-        max-width: 105px;
-        height: 31px;
-        min-height: 31px;
-        padding: 4px 6px;
-        border-radius: 12px;
+        width: 92px;
+        min-width: 92px;
+        min-height: 37px;
+        padding:
+            6px 7px;
+        border-radius: 13px;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 3px;
+        gap: 4px;
         text-align: center;
         margin: 0;
-        flex: none;
     }
 
-    .top-card .stat-box:nth-last-child(3) {
+    .top-card .stat-box:nth-last-child(2) {
         grid-column: 1;
         grid-row: 2;
     }
 
-    .top-card .stat-box:nth-last-child(2) {
+    .top-card .stat-box:last-child {
         grid-column: 2;
         grid-row: 2;
     }
 
-    .top-card .stat-box:last-child {
-        grid-column: 1 / -1;
-        grid-row: 3;
-    }
-
     .top-card .stat-box div {
-        font-size: 12px;
+        font-size: 14px;
         line-height: 1;
     }
 
     .top-card .stat-box small {
         display: block;
         margin: 0;
-        font-size: 7.5px;
+        font-size: 8px;
         line-height: 1;
         white-space: nowrap;
         color: #7b6340;
     }
 
-    /* -----------------------------------------
-       IF THERE IS A THIRD STAT
-       MAKE HEADER A LITTLE TALLER
-    ----------------------------------------- */
-
-    .top-card:has(.stat-box:nth-last-child(1)) {
-        min-height: 101px;
-    }
+    /* STUDENT */
 
     .playing-as {
-        font-size: 12px;
+        font-size: 13px;
         padding:
-            6px 14px;
+            6px 15px;
         margin:
-            8px auto;
+            9px auto;
     }
 
-    /* -----------------------------------------
-       GAME CARD
-    ----------------------------------------- */
+    /* GAME CARD */
 
     .game-card {
         padding:
@@ -1381,67 +1327,76 @@ body::before {
     }
 }
 
-
 /* =========================================================
-   SMALL PHONES
+   VERY SMALL PHONES
+   KEEP LIVES + SCORE TOGETHER
 ========================================================= */
 
 @media (max-width: 400px) {
 
     .top-card {
-        grid-template-rows: 54px 34px;
-        min-height: 94px;
+        min-height: 140px;
         border-radius: 20px;
         padding:
-            6px 5px 6px;
+            8px 5px 9px;
+
+        /* IMPORTANT:
+           DO NOT change to flex */
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        gap: 4px;
     }
 
     .top-card .back-btn {
-        left: 6px;
-        top: 8px;
-        width: 36px;
-        height: 36px;
-        font-size: 21px;
-        border-radius: 11px;
+        left: 7px;
+        top: 11px;
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
     }
 
     .top-card .title-area {
-        height: 52px;
-        min-height: 52px;
+        grid-column: 1 / -1;
+        grid-row: 1;
         padding:
-            0 40px;
+            0 43px;
+        min-height: 68px;
     }
 
     .top-card .title-area h1 {
-        font-size: 18px;
+        font-size: 22px;
     }
 
     .top-card .title-area p {
-        font-size: 7px;
-        margin-top: 3px;
+        font-size: 8px;
     }
 
     .top-card .stat-box {
-        width: calc(100% - 8px);
-        max-width: 94px;
-        min-height: 30px;
-        height: 30px;
+        width: 84px;
+        min-width: 84px;
+        min-height: 34px;
         padding:
-            4px 5px;
-        border-radius: 11px;
+            5px 6px;
+    }
+
+    .top-card .stat-box:nth-last-child(2) {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .top-card .stat-box:last-child {
+        grid-column: 2;
+        grid-row: 2;
     }
 
     .top-card .stat-box div {
-        font-size: 11px;
+        font-size: 12px;
     }
 
     .top-card .stat-box small {
-        font-size: 7px;
+        font-size: 7.5px;
     }
-
-    /* -----------------------------------------
-       GAME CARD
-    ----------------------------------------- */
 
     .game-card {
         padding:
@@ -1490,75 +1445,6 @@ body::before {
     }
 }
 
-
-/* =========================================================
-   EXTRA SMALL PHONES
-   KEEP HEADER GRID
-========================================================= */
-
-@media (max-width: 350px) {
-
-    .top-card {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 51px 32px;
-        min-height: 88px;
-        padding:
-            5px 3px 5px;
-        border-radius: 18px;
-    }
-
-    .top-card .back-btn {
-        left: 5px;
-        top: 7px;
-        width: 34px;
-        height: 34px;
-        font-size: 20px;
-    }
-
-    .top-card .title-area {
-        position: static;
-        grid-column: 1 / -1;
-        grid-row: 1;
-        width: 100%;
-        height: 49px;
-        min-height: 49px;
-        padding:
-            0 37px;
-    }
-
-    .top-card .title-area h1 {
-        font-size: 16px;
-        line-height: 1.05;
-    }
-
-    .top-card .title-area p {
-        font-size: 6.5px;
-        margin-top: 3px;
-    }
-
-    .top-card .stat-box {
-        width: calc(100% - 6px);
-        max-width: 86px;
-        min-width: 0;
-        height: 29px;
-        min-height: 29px;
-        padding:
-            3px 4px;
-        border-radius: 10px;
-        gap: 2px;
-    }
-
-    .top-card .stat-box div {
-        font-size: 10px;
-    }
-
-    .top-card .stat-box small {
-        font-size: 6.5px;
-    }
-}
-
-
 /* =========================================================
    TOUCH DEVICES
 ========================================================= */
@@ -1590,7 +1476,6 @@ body::before {
     }
 }
 
-
 /* =========================================================
    LANDSCAPE PHONES
    SAME HEADER STRUCTURE AS PORTRAIT
@@ -1599,54 +1484,47 @@ body::before {
 @media (max-height: 600px) and (orientation: landscape) {
 
     .page-wrap {
-        width: 96%;
-        padding-top: 6px;
-        padding-bottom: 12px;
+        padding-top: 8px;
     }
 
     /* -----------------------------------------
        HEADER
        ARROW LEFT
        TITLE CENTER
-       STATS BELOW
+       LIVES + SCORE BESIDE EACH OTHER BELOW
     ----------------------------------------- */
 
     .top-card {
         position: relative;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 54px 32px;
-        width: 100%;
-        min-height: 94px;
-        height: auto;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        min-height: 135px;
         padding:
-            6px 8px;
-        gap: 0;
+            8px 10px 9px;
+        gap: 4px;
         align-items: center;
         justify-items: center;
     }
 
     .top-card .back-btn {
         position: absolute;
-        left: 7px;
-        top: 8px;
-        width: 38px;
-        height: 38px;
-        font-size: 22px;
-        border-radius: 12px;
+        left: 8px;
+        top: 11px;
+        width: 40px;
+        height: 40px;
+        font-size: 23px;
         z-index: 20;
     }
 
     .top-card .title-area {
-        position: static;
         grid-column: 1 / -1;
         grid-row: 1;
         width: 100%;
-        height: 52px;
-        min-height: 52px;
+        min-width: 0;
         padding:
-            0 45px;
-        margin: 0;
+            0 50px;
+        min-height: 67px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -1655,197 +1533,121 @@ body::before {
     }
 
     .top-card .title-area h1 {
-        width: 100%;
-        font-size: 20px;
+        font-size: 25px;
         line-height: 1.05;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        text-align: center;
+        width: 100%;
     }
 
     .top-card .title-area p {
-        width: 100%;
-        margin-top: 3px;
         font-size: 8px;
-        line-height: 1.1;
+        margin-top: 4px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        text-align: center;
+        width: 100%;
     }
 
     .top-card .stat-box {
-        width: calc(100% - 8px);
-        max-width: 100px;
-        min-width: 0;
-        height: 30px;
-        min-height: 30px;
+        width: 90px;
+        min-width: 90px;
+        min-height: 34px;
         padding:
-            4px 6px;
-        border-radius: 11px;
+            5px 7px;
+        border-radius: 13px;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 3px;
-        margin: 0;
+        gap: 4px;
     }
 
-    .top-card .stat-box:nth-last-child(3) {
+    .top-card .stat-box:nth-last-child(2) {
         grid-column: 1;
         grid-row: 2;
     }
 
-    .top-card .stat-box:nth-last-child(2) {
+    .top-card .stat-box:last-child {
         grid-column: 2;
         grid-row: 2;
     }
 
-    .top-card .stat-box:last-child {
-        grid-column: 1 / -1;
-        grid-row: 3;
-    }
-
     .top-card .stat-box div {
-        font-size: 11px;
+        font-size: 13px;
         line-height: 1;
     }
 
     .top-card .stat-box small {
-        display: block;
-        font-size: 7px;
+        font-size: 8px;
         line-height: 1;
         margin: 0;
-        white-space: nowrap;
     }
-
 
     /* -----------------------------------------
        GAME CONTENT
     ----------------------------------------- */
 
-    .playing-as {
-        margin:
-            6px auto;
-        padding:
-            5px 14px;
-        font-size: 11px;
-    }
-
-    .game-card {
-        padding-top: 38px;
-        padding-bottom: 13px;
-    }
-
-    .word-badge {
-        font-size: 14px;
-        padding:
-            7px 24px;
-    }
-
     .picture-area {
-        height: 82px;
-        margin-top: 5px;
+        height: 90px;
     }
 
     .picture-area img {
-        max-height: 78px;
-        max-width: 90px;
+        max-height: 85px;
+        max-width: 95px;
     }
 
-    .word-container {
-        min-height: 55px;
-        gap: 5px;
-        margin:
-            4px 0 7px;
+    .game-card {
+        padding-top: 40px;
+        padding-bottom: 15px;
     }
 
     .word-slot {
-        width: 46px;
-        height: 45px;
-        font-size: 27px;
-    }
-
-    .instruction {
-        font-size: 12px;
-        margin-bottom: 8px;
-    }
-
-    .letters-container {
-        min-height: 72px;
-        padding:
-            7px;
-        gap: 7px;
-        border-radius: 17px;
+        width: 48px;
+        height: 48px;
+        font-size: 28px;
     }
 
     .letter-card {
-        width: 49px;
-        height: 49px;
-        font-size: 27px;
+        width: 52px;
+        height: 52px;
+        font-size: 29px;
     }
 
-    .feedback {
-        min-height: 23px;
-        font-size: 13px;
-        margin-top: 6px;
-    }
-
-    .controls {
+    .letters-container {
+        padding: 8px;
         gap: 8px;
-        margin: 8px 0;
-    }
-
-    .controls button {
-        padding:
-            8px 14px;
-        font-size: 12px;
-    }
-
-    .progress-area {
-        width: 90%;
-    }
-
-    .progress-area > span {
-        font-size: 18px;
-    }
-
-    .progress-track {
-        height: 12px;
     }
 }
 
-
 /* =========================================================
-   VERY SHORT LANDSCAPE PHONES
+   EXTRA NARROW LANDSCAPE
 ========================================================= */
 
-@media (max-height: 430px) and (orientation: landscape) {
+@media (max-height: 450px) and (orientation: landscape) {
 
     .top-card {
-        grid-template-rows: 48px 29px;
-        min-height: 83px;
+        min-height: 125px;
         padding:
-            5px 7px;
+            6px 8px 7px;
     }
 
     .top-card .back-btn {
-        width: 34px;
-        height: 34px;
-        left: 6px;
-        top: 7px;
-        font-size: 20px;
+        left: 7px;
+        top: 9px;
+        width: 37px;
+        height: 37px;
+        font-size: 21px;
     }
 
     .top-card .title-area {
-        height: 46px;
-        min-height: 46px;
         padding:
-            0 42px;
+            0 45px;
+        min-height: 60px;
     }
 
     .top-card .title-area h1 {
-        font-size: 18px;
+        font-size: 22px;
     }
 
     .top-card .title-area p {
@@ -1853,55 +1655,18 @@ body::before {
     }
 
     .top-card .stat-box {
-        height: 27px;
-        min-height: 27px;
-        max-width: 90px;
+        width: 82px;
+        min-width: 82px;
+        min-height: 31px;
         padding:
-            3px 5px;
+            4px 6px;
     }
 
     .top-card .stat-box div {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .top-card .stat-box small {
-        font-size: 6.5px;
-    }
-
-    .playing-as {
-        margin:
-            5px auto;
-        padding:
-            4px 12px;
-        font-size: 10px;
-    }
-
-    .game-card {
-        padding-top: 34px;
-    }
-
-    .picture-area {
-        height: 68px;
-    }
-
-    .picture-area img {
-        max-height: 65px;
-        max-width: 78px;
-    }
-
-    .word-slot {
-        width: 42px;
-        height: 40px;
-        font-size: 24px;
-    }
-
-    .letters-container {
-        min-height: 62px;
-    }
-
-    .letter-card {
-        width: 44px;
-        height: 44px;
-        font-size: 24px;
+        font-size: 7px;
     }
 }
