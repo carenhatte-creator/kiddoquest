@@ -1019,6 +1019,7 @@ body::before {
 
 /* =========================================================
    MOBILE
+   SAME HEADER STRUCTURE IN PORTRAIT AND LANDSCAPE
 ========================================================= */
 
 @media (max-width: 600px) {
@@ -1029,6 +1030,7 @@ body::before {
             10px 0 18px;
     }
 
+
     /* -----------------------------------------
        HEADER
     ----------------------------------------- */
@@ -1038,13 +1040,12 @@ body::before {
 
         display: grid;
 
-        /* TITLE ROW + STATS ROW */
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
 
         width: 100%;
 
-        min-height: 142px;
+        min-height: 140px;
 
         padding:
             10px 8px 9px;
@@ -1078,6 +1079,10 @@ body::before {
         font-size: 23px;
 
         z-index: 20;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
 
@@ -1087,7 +1092,7 @@ body::before {
 
     .top-card .title-area {
 
-        order: 1;
+        order: initial;
 
         grid-column: 1 / -1;
         grid-row: 1;
@@ -1097,6 +1102,7 @@ body::before {
         min-width: 0;
 
         display: flex;
+
         flex-direction: column;
 
         align-items: center;
@@ -1105,9 +1111,9 @@ body::before {
         text-align: center;
 
         padding:
-            0 42px;
+            0 48px;
 
-        min-height: 72px;
+        min-height: 70px;
 
         margin: 0;
 
@@ -1128,6 +1134,7 @@ body::before {
         white-space: nowrap;
 
         overflow: hidden;
+
         text-overflow: ellipsis;
 
         margin: 0;
@@ -1149,18 +1156,16 @@ body::before {
         white-space: nowrap;
 
         overflow: hidden;
+
         text-overflow: ellipsis;
     }
 
 
     /* -----------------------------------------
-       FIRST STAT - LIVES
+       ALL STAT BOXES
     ----------------------------------------- */
 
-    .top-card .stat-box:nth-of-type(1) {
-
-        grid-column: 1;
-        grid-row: 2;
+    .top-card .stat-box {
 
         width: 82px;
 
@@ -1174,7 +1179,9 @@ body::before {
         border-radius: 13px;
 
         display: flex;
+
         align-items: center;
+
         justify-content: center;
 
         gap: 3px;
@@ -1182,38 +1189,30 @@ body::before {
         text-align: center;
 
         flex: none;
+
+        margin: 0;
     }
 
 
     /* -----------------------------------------
-       SECOND STAT - SCORE
+       FIRST STAT
     ----------------------------------------- */
 
-    .top-card .stat-box:nth-of-type(2) {
+    .top-card .stat-box:nth-last-child(2) {
+
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+
+    /* -----------------------------------------
+       SECOND STAT
+    ----------------------------------------- */
+
+    .top-card .stat-box:last-child {
 
         grid-column: 2;
         grid-row: 2;
-
-        width: 82px;
-
-        min-width: 82px;
-
-        min-height: 34px;
-
-        padding:
-            5px 7px;
-
-        border-radius: 13px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        gap: 3px;
-
-        text-align: center;
-
-        flex: none;
     }
 
 
@@ -1254,6 +1253,7 @@ body::before {
     ----------------------------------------- */
 
     .playing-as {
+
         font-size: 13px;
 
         padding:
@@ -1269,6 +1269,7 @@ body::before {
     ----------------------------------------- */
 
     .game-card {
+
         padding:
             42px 10px 22px;
 
@@ -1276,38 +1277,50 @@ body::before {
     }
 
     .word-badge {
+
         font-size: 16px;
+
         padding:
             8px 28px;
     }
 
     .picture-area {
+
         height: 125px;
     }
 
     .picture-area img {
+
         max-width: 125px;
         max-height: 115px;
     }
 
     .word-container {
+
         gap: 5px;
+
         margin-bottom: 10px;
     }
 
     .word-slot {
+
         width: 44px;
         height: 50px;
+
         font-size: 28px;
+
         border-width: 2px;
     }
 
     .instruction {
+
         font-size: 14px;
+
         margin-bottom: 12px;
     }
 
     .letters-container {
+
         padding:
             12px 8px;
 
@@ -1317,6 +1330,7 @@ body::before {
     }
 
     .letter-card {
+
         width: 55px;
         height: 55px;
 
@@ -1328,14 +1342,17 @@ body::before {
     }
 
     .feedback {
+
         font-size: 15px;
     }
 
     .controls {
+
         gap: 10px;
     }
 
     .controls button {
+
         padding:
             10px 17px;
 
@@ -1343,23 +1360,29 @@ body::before {
     }
 
     .progress-area {
+
         width: 96%;
     }
 
     .progress-area > span {
+
         font-size: 21px;
     }
 
     .progress-track {
+
         height: 15px;
     }
 
     .reward-star {
+
         font-size: 90px;
     }
 
     .reward-text {
+
         font-size: 22px;
+
         padding:
             8px 22px;
     }
@@ -1368,12 +1391,14 @@ body::before {
 
 /* =========================================================
    VERY SMALL PHONES
+   KEEP SAME HEADER POSITION
 ========================================================= */
 
 @media (max-width: 400px) {
 
     .top-card {
-        min-height: 138px;
+
+        min-height: 136px;
 
         border-radius: 20px;
 
@@ -1382,6 +1407,7 @@ body::before {
     }
 
     .top-card .back-btn {
+
         left: 7px;
         top: 12px;
 
@@ -1394,23 +1420,25 @@ body::before {
     .top-card .title-area {
 
         padding:
-            0 39px;
+            0 43px;
 
-        min-height: 68px;
+        min-height: 66px;
     }
 
     .top-card .title-area h1 {
+
         font-size: 18px;
     }
 
     .top-card .title-area p {
+
         font-size: 8px;
     }
 
-    .top-card .stat-box:nth-of-type(1),
-    .top-card .stat-box:nth-of-type(2) {
+    .top-card .stat-box {
 
         width: 76px;
+
         min-width: 76px;
 
         min-height: 33px;
@@ -1420,54 +1448,68 @@ body::before {
     }
 
     .top-card .stat-box div {
+
         font-size: 12px;
     }
 
     .top-card .stat-box small {
+
         font-size: 7.5px;
     }
 
     .game-card {
+
         padding:
             40px 7px 18px;
     }
 
     .picture-area {
+
         height: 110px;
     }
 
     .picture-area img {
+
         max-width: 105px;
         max-height: 100px;
     }
 
     .word-container {
+
         gap: 4px;
     }
 
     .word-slot {
+
         width: 39px;
         height: 46px;
+
         font-size: 25px;
     }
 
     .letters-container {
+
         gap: 7px;
+
         padding:
             10px 5px;
     }
 
     .letter-card {
+
         width: 50px;
         height: 50px;
+
         font-size: 27px;
     }
 
     .instruction {
+
         font-size: 13px;
     }
 
     .controls button {
+
         padding:
             9px 13px;
 
@@ -1492,17 +1534,22 @@ body::before {
     }
 
     .letter-card {
+
         cursor: pointer;
+
         touch-action: manipulation;
     }
 
     .word-slot.blank {
+
         cursor: pointer;
+
         touch-action: manipulation;
     }
 
     .controls button,
     .back-btn {
+
         min-height: 44px;
     }
 }
@@ -1510,42 +1557,120 @@ body::before {
 
 /* =========================================================
    LANDSCAPE PHONES
+   ONLY RESIZE GAME CONTENT
+   HEADER STAYS THE SAME AS PORTRAIT
 ========================================================= */
 
 @media (max-height: 600px) and (orientation: landscape) {
 
     .page-wrap {
+
         padding-top: 8px;
     }
 
+
+    /* KEEP HEADER SAME AS PORTRAIT */
+
+    .top-card {
+
+        min-height: 140px;
+
+        padding:
+            10px 8px 9px;
+    }
+
+    .top-card .back-btn {
+
+        left: 8px;
+        top: 13px;
+
+        width: 40px;
+        height: 40px;
+
+        font-size: 23px;
+    }
+
+    .top-card .title-area {
+
+        padding:
+            0 48px;
+
+        min-height: 70px;
+    }
+
+    .top-card .title-area h1 {
+
+        font-size: 21px;
+    }
+
+    .top-card .title-area p {
+
+        font-size: 9px;
+    }
+
+    .top-card .stat-box {
+
+        width: 82px;
+        min-width: 82px;
+
+        min-height: 34px;
+
+        padding:
+            5px 7px;
+    }
+
+    .top-card .stat-box div {
+
+        font-size: 13px;
+    }
+
+    .top-card .stat-box small {
+
+        font-size: 8px;
+    }
+
+
+    /* -----------------------------------------
+       GAME CONTENT
+    ----------------------------------------- */
+
     .picture-area {
+
         height: 90px;
     }
 
     .picture-area img {
+
         max-height: 85px;
         max-width: 95px;
     }
 
     .game-card {
+
         padding-top: 40px;
         padding-bottom: 15px;
     }
 
     .word-slot {
+
         width: 48px;
         height: 48px;
+
         font-size: 28px;
     }
 
     .letter-card {
+
         width: 52px;
         height: 52px;
+
         font-size: 29px;
     }
 
     .letters-container {
+
         padding: 8px;
+
         gap: 8px;
     }
 }
