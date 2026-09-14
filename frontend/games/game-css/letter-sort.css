@@ -1535,67 +1535,154 @@ body {
 
 
 /* ==========================================
-   RESPONSIVE
+   RESPONSIVE - TABLET / MOBILE
 ========================================== */
 
 @media (max-width:700px) {
 
     .top-card {
         position: relative;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: center;
 
-        padding: 12px 12px;
-        min-height: 82px;
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        align-items: center;
+        justify-items: center;
+
+        width: 100%;
+
+        padding: 12px 10px 10px;
+
+        min-height: 118px;
+
+        gap: 0;
     }
 
-    /* BACK ARROW - LEFT SIDE */
-    .back-circle-btn {
-        position: absolute;
-        left: 12px;
-        top: 50%;
 
-        transform: translateY(-50%);
+    /* ======================================
+       BACK ARROW
+       FIXED LEFT SIDE
+    ====================================== */
+
+    .top-card .back-circle-btn {
+        position: absolute;
+
+        left: 10px;
+        top: 18px;
 
         width: 42px;
         height: 42px;
 
-        z-index: 10;
+        margin: 0;
+
+        z-index: 20;
+
+        transform: none;
     }
 
-    .back-circle-btn:hover {
-        transform: translateY(-50%);
+    .top-card .back-circle-btn:hover,
+    .top-card .back-circle-btn:active {
+        transform: none;
+
         box-shadow: 0 4px 0 #E0A200;
     }
 
-    /* CENTER TITLE */
-    .top-card-text {
-        order: 0;
-        width: auto;
-        flex: 1;
+
+    /* ======================================
+       CENTER TITLE
+    ====================================== */
+
+    .top-card .top-card-text {
+        width: 100%;
+
+        flex: none;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
 
         text-align: center;
 
-        padding: 0 42px;
+        padding: 0 50px;
+
+        margin: 0;
+
+        min-height: 58px;
     }
 
-    .top-card-text h1 {
-        font-size: 23px;
-        line-height: 1.1;
-    }
-
-    .top-card-text p {
-        font-size: 11px;
-        line-height: 1.3;
-        margin-top: 4px;
-    }
-
-    .top-card-stats {
+    .top-card .top-card-text h1 {
         width: 100%;
-        justify-content: center;
+
+        margin: 0;
+
+        font-size: 23px;
+
+        line-height: 1.1;
+
+        text-align: center;
+
+        white-space: nowrap;
     }
+
+    .top-card .top-card-text p {
+        width: 100%;
+
+        margin: 4px 0 0;
+
+        font-size: 11px;
+
+        line-height: 1.2;
+
+        text-align: center;
+
+        white-space: nowrap;
+    }
+
+
+    /* ======================================
+       STATS BELOW TITLE
+    ====================================== */
+
+    .top-card .top-card-stats {
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 6px;
+
+        margin-top: 6px;
+
+        flex-shrink: 0;
+    }
+
+    .top-card .stat-pill {
+        min-height: 38px;
+
+        padding: 6px 9px;
+
+        border-radius: 14px;
+
+        gap: 4px;
+    }
+
+    .top-card .stat-pill strong {
+        font-size: 14px;
+    }
+
+    .top-card .stat-label {
+        font-size: 10px;
+    }
+
+
+    /* ======================================
+       TRUCK
+    ====================================== */
 
     .truck-cargo {
         gap: 4px;
@@ -1605,6 +1692,10 @@ body {
     .letter-slot {
         width: 44px;
         height: 58px;
+    }
+
+    .placed-letter {
+        font-size: 30px !important;
     }
 
     .letter-card {
@@ -1622,6 +1713,11 @@ body {
     .tree-3 {
         display: none;
     }
+
+
+    /* ======================================
+       REWARD
+    ====================================== */
 
     .reward-card {
         padding: 25px 20px 22px;
@@ -1641,15 +1737,92 @@ body {
 }
 
 
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
 @media (max-width:450px) {
 
-    .stat-pill {
-        padding: 6px 8px;
+    .page-wrap {
+        padding: 10px 10px 20px;
     }
 
-    .stat-label {
+
+    /* ======================================
+       HEADER
+    ====================================== */
+
+    .top-card {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        width: 100%;
+
+        min-height: 116px;
+
+        padding: 10px 8px 9px;
+
+        border-radius: 20px;
+    }
+
+    .top-card .back-circle-btn {
+        left: 8px;
+        top: 15px;
+
+        width: 40px;
+        height: 40px;
+
+        font-size: 21px;
+    }
+
+    .top-card .top-card-text {
+        padding-left: 46px;
+        padding-right: 46px;
+
+        min-height: 56px;
+    }
+
+    .top-card .top-card-text h1 {
+        font-size: 21px;
+
+        line-height: 1.1;
+    }
+
+    .top-card .top-card-text p {
+        font-size: 9.5px;
+
+        line-height: 1.2;
+
+        margin-top: 4px;
+    }
+
+    .top-card .top-card-stats {
+        gap: 5px;
+
+        margin-top: 5px;
+    }
+
+    .top-card .stat-pill {
+        min-height: 35px;
+
+        padding: 5px 8px;
+
+        border-radius: 13px;
+    }
+
+    .top-card .stat-pill strong {
+        font-size: 13px;
+    }
+
+    .top-card .stat-label {
         display: none;
     }
+
+
+    /* ======================================
+       OTHER MOBILE SETTINGS
+    ====================================== */
 
     .game-over-info {
         gap: 5px;
@@ -1684,5 +1857,62 @@ body {
 
     .playing-as #playingStudentName {
         max-width: 150px;
+    }
+}
+
+
+/* ==========================================
+   VERY SMALL PHONES
+========================================== */
+
+@media (max-width:360px) {
+
+    .page-wrap {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .top-card {
+        min-height: 112px;
+
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .top-card .back-circle-btn {
+        left: 6px;
+        top: 14px;
+
+        width: 38px;
+        height: 38px;
+
+        font-size: 19px;
+    }
+
+    .top-card .top-card-text {
+        padding-left: 42px;
+        padding-right: 42px;
+
+        min-height: 54px;
+    }
+
+    .top-card .top-card-text h1 {
+        font-size: 20px;
+    }
+
+    .top-card .top-card-text p {
+        font-size: 9px;
+    }
+
+    .top-card .top-card-stats {
+        gap: 4px;
+    }
+
+    .top-card .stat-pill {
+        padding: 5px 6px;
+    }
+
+    .top-card .stat-pill strong {
+        font-size: 12px;
     }
 }
