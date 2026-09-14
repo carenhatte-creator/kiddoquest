@@ -1135,7 +1135,7 @@ body {
     }
 
     .header-left {
-        justify-content: center;
+        justify-content: flex-start;
     }
 
     .playing-as {
