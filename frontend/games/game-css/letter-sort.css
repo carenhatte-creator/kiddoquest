@@ -1676,7 +1676,9 @@ body {
     }
 
     .top-card .stat-label {
+        display: inline;
         font-size: 10px;
+        white-space: nowrap;
     }
 
 
@@ -1801,22 +1803,34 @@ body {
         gap: 5px;
 
         margin-top: 5px;
+
+        width: 100%;
+        justify-content: center;
     }
 
     .top-card .stat-pill {
         min-height: 35px;
 
-        padding: 5px 8px;
+        padding: 5px 7px;
 
         border-radius: 13px;
+
+        gap: 3px;
+
+        flex-shrink: 0;
     }
 
     .top-card .stat-pill strong {
-        font-size: 13px;
+        font-size: 12px;
     }
 
+    /* FIX:
+       Keep Score / Stars / Lives visible
+       on portrait mobile */
     .top-card .stat-label {
-        display: none;
+        display: inline;
+        font-size: 9px;
+        white-space: nowrap;
     }
 
 
@@ -1905,14 +1919,21 @@ body {
     }
 
     .top-card .top-card-stats {
-        gap: 4px;
+        gap: 3px;
     }
 
     .top-card .stat-pill {
-        padding: 5px 6px;
+        padding: 5px 5px;
+        gap: 2px;
     }
 
     .top-card .stat-pill strong {
-        font-size: 12px;
+        font-size: 11px;
+    }
+
+    .top-card .stat-label {
+        display: inline;
+        font-size: 8px;
+        white-space: nowrap;
     }
 }
