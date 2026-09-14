@@ -143,16 +143,11 @@ body::before {
     display: flex;
     align-items: center;
     gap: 14px;
-
     background: #fffdf3;
-
     border:
         3px solid #ffd76a;
-
     border-radius: 25px;
-
     padding: 12px 14px;
-
     box-shadow:
         0 7px 0 rgba(188,139,40,.2);
 }
@@ -165,32 +160,23 @@ body::before {
 .back-btn {
     width: 58px;
     height: 58px;
-
     border-radius: 18px;
-
     background: #ffb51b;
     color: white;
-
     text-decoration: none;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     font-size: 35px;
     font-weight: 900;
-
     box-shadow:
         0 5px 0 #d88c00;
-
     flex-shrink: 0;
-
     touch-action: manipulation;
 }
 
 .back-btn:active {
     transform: translateY(4px);
-
     box-shadow:
         0 1px 0 #d88c00;
 }
@@ -209,9 +195,7 @@ body::before {
 .title-area h1 {
     font-size:
         clamp(24px,4vw,39px);
-
     font-weight: 900;
-
     letter-spacing: -.5px;
 }
 
@@ -230,11 +214,8 @@ body::before {
 
 .title-area p {
     color: #5e5e5e;
-
     font-weight: 700;
-
     margin-top: 3px;
-
     font-size: 14px;
 }
 
@@ -245,21 +226,14 @@ body::before {
 
 .stat-box {
     min-width: 115px;
-
     background: white;
-
     border:
         2px solid #eadfca;
-
     border-radius: 18px;
-
     text-align: center;
-
     padding: 9px 12px;
-
     box-shadow:
         0 3px 0 rgba(0,0,0,.06);
-
     flex-shrink: 0;
 }
 
@@ -270,13 +244,9 @@ body::before {
 
 .stat-box small {
     display: block;
-
     margin-top: 3px;
-
     font-size: 13px;
-
     font-weight: 800;
-
     color: #7b6340;
 }
 
@@ -287,22 +257,14 @@ body::before {
 
 .playing-as {
     width: fit-content;
-
     margin: 12px auto;
-
     background: white;
-
     border:
         2px solid #56a526;
-
     border-radius: 25px;
-
     padding: 7px 20px;
-
     font-size: 14px;
-
     font-weight: 700;
-
     box-shadow:
         0 3px 0 rgba(50,100,25,.12);
 }
@@ -318,59 +280,40 @@ body::before {
 
 .game-card {
     position: relative;
-
     background: #fff9e8;
-
     border:
         4px dashed #f0c34e;
-
     border-radius: 34px;
-
     padding: 48px 42px 35px;
-
     box-shadow:
         0 12px 30px rgba(45,88,20,.16);
-
     overflow: hidden;
 }
 
 .game-card::before {
     content: "";
-
     position: absolute;
-
     inset: 8px;
-
     border:
         2px solid rgba(255,255,255,.8);
-
     border-radius: 28px;
-
     pointer-events: none;
 }
 
 .word-badge {
     position: absolute;
-
     top: -1px;
     left: 50%;
-
     transform: translateX(-50%);
-
     background: #69b52d;
     color: white;
-
     padding: 10px 42px;
-
     border-radius:
         0 0 22px 22px;
-
     font-size: 19px;
     font-weight: 900;
-
     box-shadow:
         0 4px 0 #4d8d20;
-
     z-index: 2;
 }
 
@@ -381,29 +324,22 @@ body::before {
 
 .picture-area {
     height: 170px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     margin-top: 8px;
 }
 
 .picture-area img {
     max-width: 170px;
     max-height: 160px;
-
     object-fit: contain;
-
     filter:
         drop-shadow(
             0 8px 5px rgba(0,0,0,.12)
         );
-
     transition:
         transform .3s;
-
     -webkit-user-drag: none;
     user-select: none;
     pointer-events: none;
@@ -421,98 +357,70 @@ body::before {
 
 .word-container {
     min-height: 78px;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     gap: 9px;
-
     margin: 8px 0 12px;
-
     flex-wrap: wrap;
 }
 
 .word-slot {
     width: 68px;
     height: 68px;
-
     background: white;
-
     border:
         3px solid #d3a447;
-
     border-radius: 13px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     font-size: 39px;
     font-weight: 900;
-
     color: #238b24;
-
     box-shadow:
         0 4px 0 #c28e32;
-
     transition:
         transform .2s,
         background .2s,
         border-color .2s;
-
     user-select: none;
     -webkit-user-select: none;
-
     touch-action: manipulation;
 }
 
 .word-slot.blank {
     border:
         3px dashed #d8a94a;
-
     background: #fffdf5;
-
     cursor: pointer;
 }
 
 .word-slot.drag-over {
     transform: scale(1.1);
-
     background: #fff3a6;
-
     border-color: #5db62d;
 }
 
 .word-slot.correct {
     background: #eaffd9;
-
     border-color: #58ac2a;
-
     animation:
         correctPop .35s ease;
-
     cursor: default;
 }
 
 .word-slot.wrong {
     border-color: #e74c3c;
-
     animation:
         shake .35s ease;
 }
 
 .instruction {
     text-align: center;
-
     font-size: 17px;
-
     color: #764f28;
-
     font-weight: 800;
-
     margin-bottom: 18px;
 }
 
@@ -523,25 +431,16 @@ body::before {
 
 .letters-container {
     min-height: 120px;
-
     background: #e7f5ff;
-
     border:
         3px solid #b9def2;
-
     border-radius: 24px;
-
     padding: 18px;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     flex-wrap: wrap;
-
     gap: 14px;
-
     touch-action: manipulation;
 }
 
@@ -553,38 +452,24 @@ body::before {
 .letter-card {
     width: 78px;
     height: 78px;
-
     border-radius: 17px;
-
     background: #fffdf5;
-
     border:
         3px solid #e2b95d;
-
     box-shadow:
         0 5px 0 #cda044,
         0 7px 12px rgba(0,0,0,.12);
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     font-size: 43px;
-
     font-weight: 900;
-
     cursor: grab;
-
     user-select: none;
     -webkit-user-select: none;
-
     -webkit-touch-callout: none;
-
     -webkit-user-drag: element;
-
     touch-action: manipulation;
-
     transition:
         transform .18s,
         opacity .2s,
@@ -599,16 +484,13 @@ body::before {
 
 .letter-card:active {
     cursor: grabbing;
-
     transform:
         scale(.94);
 }
 
 .letter-card.used {
     opacity: .25;
-
     pointer-events: none;
-
     transform:
         scale(.9);
 }
@@ -616,7 +498,6 @@ body::before {
 .letter-card.hint {
     animation:
         hintPulse .7s infinite alternate;
-
     background: #fff2a6;
 }
 
@@ -627,13 +508,9 @@ body::before {
 
 .feedback {
     min-height: 31px;
-
     text-align: center;
-
     font-size: 17px;
-
     font-weight: 900;
-
     margin-top: 12px;
 }
 
@@ -656,58 +533,41 @@ body::before {
 
 .controls {
     display: flex;
-
     justify-content: center;
-
     gap: 15px;
-
     margin: 15px 0;
-
     flex-wrap: wrap;
 }
 
 .controls button {
     border: none;
-
     border-radius: 17px;
-
     padding: 12px 24px;
-
     font-size: 16px;
-
     font-weight: 900;
-
     cursor: pointer;
-
     touch-action: manipulation;
-
     -webkit-user-select: none;
     user-select: none;
 }
 
 .controls button:disabled {
     opacity: .55;
-
     cursor: not-allowed;
 }
 
 .hint-btn {
     background: #fff2a7;
-
     color: #745300;
-
     border:
         3px solid #d8b64c !important;
-
     box-shadow:
         0 4px 0 #bd9737;
 }
 
 .restart-btn {
     background: #2196f3;
-
     color: white;
-
     box-shadow:
         0 4px 0 #1269ae;
 }
@@ -715,7 +575,6 @@ body::before {
 .controls button:active {
     transform:
         translateY(3px);
-
     box-shadow:
         0 1px 0 currentColor;
 }
@@ -727,13 +586,9 @@ body::before {
 
 .progress-area {
     display: flex;
-
     align-items: center;
-
     gap: 8px;
-
     width: 75%;
-
     margin: auto;
 }
 
@@ -743,32 +598,24 @@ body::before {
 
 .progress-track {
     height: 18px;
-
     flex: 1;
-
     background: #fff1c5;
-
     border:
         2px solid #d7b458;
-
     border-radius: 20px;
-
     overflow: hidden;
 }
 
 #progressBar {
     width: 0;
     height: 100%;
-
     background:
         linear-gradient(
             90deg,
             #76c936,
             #b9e94e
         );
-
     border-radius: 20px;
-
     transition:
         width .4s ease;
 }
@@ -780,20 +627,13 @@ body::before {
 
 .star-reward {
     position: fixed;
-
     inset: 0;
-
     z-index: 5000;
-
     pointer-events: none;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     flex-direction: column;
-
     animation:
         rewardFade 1s ease forwards;
 }
@@ -804,14 +644,11 @@ body::before {
 
 .reward-star {
     font-size: 115px;
-
     line-height: 1;
-
     filter:
         drop-shadow(
             0 7px 4px rgba(0,0,0,.2)
         );
-
     animation:
         rewardStar .9s
         cubic-bezier(.2,1.4,.4,1)
@@ -820,9 +657,7 @@ body::before {
 
 .reward-stars {
     position: absolute;
-
     font-size: 35px;
-
     animation:
         rewardStars .9s ease-out
         forwards;
@@ -830,20 +665,13 @@ body::before {
 
 .reward-text {
     background: #ff4e91;
-
     color: white;
-
     border-radius: 25px;
-
     padding: 9px 28px;
-
     font-size: 28px;
-
     font-weight: 900;
-
     box-shadow:
         0 5px 0 #cf2d68;
-
     animation:
         rewardText .8s .15s both;
 }
@@ -855,19 +683,13 @@ body::before {
 
 .modal {
     position: fixed;
-
     inset: 0;
-
     background:
         rgba(22,47,63,.58);
-
     z-index: 60000;
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     padding: 20px;
 }
 
@@ -882,32 +704,20 @@ body::before {
 
 .result-card {
     width: 390px;
-
     max-width: 90%;
-
     background: #fffdf3;
-
     border:
         5px solid #ffd04a;
-
     border-radius: 30px;
-
     padding: 30px;
-
     text-align: center;
-
     box-shadow:
         0 12px 0 #dcae35,
         0 20px 45px rgba(0,0,0,.25);
-
     position: relative;
-
     z-index: 60001;
-
     animation: none !important;
-
     opacity: 1 !important;
-
     visibility: visible !important;
 }
 
@@ -917,31 +727,24 @@ body::before {
 
 .result-card h2 {
     color: #59a625;
-
     font-size: 28px;
-
     margin: 7px 0;
 }
 
 .result-card p {
     color: #6b6254;
-
     font-weight: 600;
 }
 
 .final-score {
     font-size: 30px;
-
     font-weight: 900;
-
     margin: 16px 0 5px;
 }
 
 .final-stars {
     font-size: 38px;
-
     margin: 8px 0 18px;
-
     letter-spacing: 4px;
 }
 
@@ -953,32 +756,21 @@ body::before {
 .primary-btn,
 .secondary-btn {
     width: 100%;
-
     padding: 13px;
-
     border: none;
-
     border-radius: 15px;
-
     font-size: 17px;
-
     font-weight: 900;
-
     cursor: pointer;
-
     margin-top: 8px;
-
     touch-action: manipulation;
-
     -webkit-user-select: none;
     user-select: none;
 }
 
 .primary-btn {
     background: #64b82f;
-
     color: white;
-
     box-shadow:
         0 4px 0 #478c20;
 }
@@ -990,9 +782,7 @@ body::before {
 
 .secondary-btn {
     background: #e9edf0;
-
     color: #444;
-
     box-shadow:
         0 4px 0 #c7cdd1;
 }
@@ -1077,7 +867,6 @@ body::before {
 
     to {
         transform: scale(1.1);
-
         box-shadow:
             0 0 0 6px
             rgba(255,220,67,.35);
@@ -1089,7 +878,6 @@ body::before {
         transform:
             scale(.2)
             rotate(-30deg);
-
         opacity: 0;
     }
 
@@ -1097,7 +885,6 @@ body::before {
         transform:
             scale(1.25)
             rotate(8deg);
-
         opacity: 1;
     }
 
@@ -1105,7 +892,6 @@ body::before {
         transform:
             scale(1)
             rotate(0);
-
         opacity: 1;
     }
 }
@@ -1114,14 +900,12 @@ body::before {
     0% {
         transform:
             scale(.2);
-
         opacity: 0;
     }
 
     45% {
         transform:
             scale(1.4);
-
         opacity: 1;
     }
 
@@ -1129,7 +913,6 @@ body::before {
         transform:
             translateY(-95px)
             scale(.8);
-
         opacity: 0;
     }
 }
@@ -1139,7 +922,6 @@ body::before {
         transform:
             scale(.4)
             translateY(20px);
-
         opacity: 0;
     }
 
@@ -1147,7 +929,6 @@ body::before {
         transform:
             scale(1)
             translateY(0);
-
         opacity: 1;
     }
 }
@@ -1178,165 +959,117 @@ body::before {
 
     .page-wrap {
         width: 94%;
-
         padding:
             12px 0 20px;
     }
 
-    /*
-       HEADER:
-       Keep arrow left,
-       title centered,
-       stats below.
-    */
+    /* -----------------------------------------
+       RESPONSIVE HEADER
+    ----------------------------------------- */
 
     .top-card {
         position: relative;
-
         display: grid;
-
         grid-template-columns: 1fr 1fr;
-
-        grid-template-rows:
-            auto auto;
-
+        grid-template-rows: auto auto;
+        width: 100%;
         gap: 0;
-
-        padding:
-            10px;
-
-        min-height: 140px;
-
+        padding: 9px 10px 8px;
+        min-height: 112px;
         align-items: center;
-
         justify-items: center;
     }
 
     .top-card .back-btn {
         position: absolute;
-
-        left: 10px;
-        top: 15px;
-
+        left: 9px;
+        top: 10px;
         width: 42px;
         height: 42px;
-
+        border-radius: 13px;
         font-size: 24px;
-
         z-index: 20;
     }
 
     .top-card .title-area {
         grid-column: 1 / -1;
         grid-row: 1;
-
         width: 100%;
-
         min-width: 0;
-
-        padding:
-            0 52px;
-
+        min-height: 58px;
+        padding: 0 52px;
         text-align: center;
-
         display: flex;
-
         flex-direction: column;
-
         align-items: center;
-
         justify-content: center;
-
-        min-height: 70px;
     }
 
     .top-card .title-area h1 {
-        font-size: 24px;
-
-        line-height: 1.1;
-
-        white-space: nowrap;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-
         width: 100%;
+        font-size: 24px;
+        line-height: 1.05;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
     }
 
     .top-card .title-area p {
-        font-size: 10px;
-
-        margin-top: 4px;
-
-        white-space: nowrap;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-
         width: 100%;
+        margin-top: 4px;
+        font-size: 10px;
+        line-height: 1.15;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
     }
 
     .top-card .stat-box {
-        width: 90px;
-
-        min-width: 90px;
-
-        min-height: 38px;
-
-        padding:
-            6px 8px;
-
-        border-radius: 14px;
-
+        width: 92px;
+        min-width: 92px;
+        min-height: 34px;
+        padding: 5px 7px;
+        border-radius: 13px;
         display: flex;
-
         align-items: center;
-
         justify-content: center;
-
         gap: 4px;
+        margin: 0;
+    }
+
+    .top-card .stat-box:nth-last-child(3) {
+        grid-column: 1;
+        grid-row: 2;
     }
 
     .top-card .stat-box:nth-last-child(2) {
-        grid-column: 1;
-
+        grid-column: 2;
         grid-row: 2;
     }
 
     .top-card .stat-box:last-child {
-        grid-column: 2;
-
-        grid-row: 2;
+        grid-column: 1 / -1;
+        grid-row: 3;
     }
 
     .top-card .stat-box div {
-        font-size: 14px;
-
+        font-size: 13px;
         line-height: 1;
     }
 
     .top-card .stat-box small {
         display: block;
-
         margin: 0;
-
-        font-size: 9px;
-
+        font-size: 8px;
         line-height: 1;
-
         white-space: nowrap;
-    }
-
-    .stat-box {
-        flex: none;
     }
 
     .game-card {
         padding:
             45px 15px 25px;
-
         border-radius: 28px;
     }
 
@@ -1356,20 +1089,17 @@ body::before {
     .word-slot {
         width: 52px;
         height: 58px;
-
         font-size: 32px;
     }
 
     .letters-container {
         padding: 15px;
-
         gap: 12px;
     }
 
     .letter-card {
         width: 62px;
         height: 62px;
-
         font-size: 34px;
     }
 
@@ -1379,7 +1109,6 @@ body::before {
 
     .result-card {
         width: 360px;
-
         padding:
             25px 20px;
     }
@@ -1395,49 +1124,36 @@ body::before {
 
 
 /* =========================================================
-   MOBILE
+   MOBILE PORTRAIT
 ========================================================= */
 
 @media (max-width: 600px) {
 
     .page-wrap {
         width: 96%;
-
         padding:
-            10px 0 18px;
+            8px 0 18px;
     }
-
 
     /* -----------------------------------------
        HEADER
+       COMPACT + CENTERED
     ----------------------------------------- */
 
     .top-card {
         position: relative;
-
         display: grid;
-
         grid-template-columns: 1fr 1fr;
-
-        grid-template-rows:
-            auto auto;
-
+        grid-template-rows: 58px 36px;
         width: 100%;
-
-        min-height: 140px;
-
-        padding:
-            10px 8px 9px;
-
+        min-height: 101px;
+        height: auto;
+        padding: 7px 7px 7px;
         gap: 0;
-
         align-items: center;
-
         justify-items: center;
-
-        flex-wrap: nowrap;
+        overflow: visible;
     }
-
 
     /* -----------------------------------------
        BACK BUTTON
@@ -1445,207 +1161,131 @@ body::before {
 
     .top-card .back-btn {
         position: absolute;
-
-        left: 8px;
-        top: 13px;
-
-        width: 40px;
-        height: 40px;
-
+        left: 7px;
+        top: 9px;
+        width: 38px;
+        height: 38px;
         margin: 0;
-
-        border-radius: 13px;
-
-        font-size: 23px;
-
+        border-radius: 12px;
+        font-size: 22px;
         z-index: 20;
-
         display: flex;
-
         align-items: center;
         justify-content: center;
     }
-
 
     /* -----------------------------------------
        TITLE
     ----------------------------------------- */
 
     .top-card .title-area {
-        order: initial;
-
         grid-column: 1 / -1;
-
         grid-row: 1;
-
         width: 100%;
-
         max-width: 100%;
-
         min-width: 0;
-
-        display: flex;
-
-        flex-direction: column;
-
-        align-items: center;
-
-        justify-content: center;
-
-        text-align: center;
-
-        padding:
-            0 48px;
-
-        min-height: 70px;
-
+        min-height: 55px;
+        height: 55px;
+        padding: 0 44px;
         margin: 0;
-
-        flex: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
     .top-card .title-area h1 {
         width: 100%;
-
         max-width: 100%;
-
-        font-size: 21px;
-
-        line-height: 1.1;
-
+        font-size: 20px;
+        line-height: 1.05;
+        letter-spacing: -.3px;
         text-align: center;
-
         white-space: nowrap;
-
         overflow: hidden;
-
         text-overflow: ellipsis;
-
         margin: 0;
     }
 
     .top-card .title-area p {
         width: 100%;
-
-        margin:
-            5px 0 0;
-
-        font-size: 9px;
-
-        line-height: 1.2;
-
+        margin: 4px 0 0;
+        font-size: 8px;
+        line-height: 1.15;
         text-align: center;
-
         white-space: nowrap;
-
         overflow: hidden;
-
         text-overflow: ellipsis;
     }
 
-
     /* -----------------------------------------
-       STAT BOXES
-       SCORE / STAR / LIVES
+       STATS
+       BELOW TITLE
     ----------------------------------------- */
 
     .top-card .stat-box {
-        width: 82px;
-
-        min-width: 82px;
-
-        min-height: 34px;
-
-        padding:
-            5px 7px;
-
-        border-radius: 13px;
-
+        width: calc(100% - 10px);
+        min-width: 0;
+        max-width: 105px;
+        height: 31px;
+        min-height: 31px;
+        padding: 4px 6px;
+        border-radius: 12px;
         display: flex;
-
         align-items: center;
-
         justify-content: center;
-
         gap: 3px;
-
         text-align: center;
-
-        flex: none;
-
         margin: 0;
+        flex: none;
     }
-
-
-    /*
-       IMPORTANT:
-       Stats stay beside each other when possible.
-       If there are 3 stats, they can wrap naturally.
-    */
 
     .top-card .stat-box:nth-last-child(3) {
         grid-column: 1;
-
         grid-row: 2;
     }
 
     .top-card .stat-box:nth-last-child(2) {
         grid-column: 2;
-
         grid-row: 2;
     }
 
     .top-card .stat-box:last-child {
         grid-column: 1 / -1;
-
         grid-row: 3;
     }
 
-
-    /* -----------------------------------------
-       STAT NUMBER
-    ----------------------------------------- */
-
     .top-card .stat-box div {
-        font-size: 13px;
-
+        font-size: 12px;
         line-height: 1;
     }
-
-
-    /* -----------------------------------------
-       STAT LABEL
-    ----------------------------------------- */
 
     .top-card .stat-box small {
         display: block;
-
         margin: 0;
-
-        font-size: 8px;
-
+        font-size: 7.5px;
         line-height: 1;
-
         white-space: nowrap;
-
         color: #7b6340;
     }
 
-
     /* -----------------------------------------
-       STUDENT
+       IF THERE IS A THIRD STAT
+       MAKE HEADER A LITTLE TALLER
     ----------------------------------------- */
 
-    .playing-as {
-        font-size: 13px;
-
-        padding:
-            6px 15px;
-
-        margin:
-            9px auto;
+    .top-card:has(.stat-box:nth-last-child(1)) {
+        min-height: 101px;
     }
 
+    .playing-as {
+        font-size: 12px;
+        padding:
+            6px 14px;
+        margin:
+            8px auto;
+    }
 
     /* -----------------------------------------
        GAME CARD
@@ -1654,13 +1294,11 @@ body::before {
     .game-card {
         padding:
             42px 10px 22px;
-
         border-radius: 28px;
     }
 
     .word-badge {
         font-size: 16px;
-
         padding:
             8px 28px;
     }
@@ -1671,50 +1309,38 @@ body::before {
 
     .picture-area img {
         max-width: 125px;
-
         max-height: 115px;
     }
 
     .word-container {
         gap: 5px;
-
         margin-bottom: 10px;
     }
 
     .word-slot {
         width: 44px;
-
         height: 50px;
-
         font-size: 28px;
-
         border-width: 2px;
     }
 
     .instruction {
         font-size: 14px;
-
         margin-bottom: 12px;
     }
 
     .letters-container {
         padding:
             12px 8px;
-
         gap: 9px;
-
         border-radius: 20px;
     }
 
     .letter-card {
         width: 55px;
-
         height: 55px;
-
         font-size: 30px;
-
         border-width: 2px;
-
         border-radius: 14px;
     }
 
@@ -1729,7 +1355,6 @@ body::before {
     .controls button {
         padding:
             10px 17px;
-
         font-size: 14px;
     }
 
@@ -1751,7 +1376,6 @@ body::before {
 
     .reward-text {
         font-size: 22px;
-
         padding:
             8px 22px;
     }
@@ -1759,37 +1383,33 @@ body::before {
 
 
 /* =========================================================
-   VERY SMALL PHONES
+   SMALL PHONES
 ========================================================= */
 
 @media (max-width: 400px) {
 
     .top-card {
-        min-height: 154px;
-
+        grid-template-rows: 54px 34px;
+        min-height: 94px;
         border-radius: 20px;
-
         padding:
-            9px 5px 8px;
+            6px 5px 6px;
     }
 
     .top-card .back-btn {
-        left: 7px;
-
-        top: 12px;
-
-        width: 38px;
-
-        height: 38px;
-
-        font-size: 22px;
+        left: 6px;
+        top: 8px;
+        width: 36px;
+        height: 36px;
+        font-size: 21px;
+        border-radius: 11px;
     }
 
     .top-card .title-area {
+        height: 52px;
+        min-height: 52px;
         padding:
-            0 43px;
-
-        min-height: 66px;
+            0 40px;
     }
 
     .top-card .title-area h1 {
@@ -1797,28 +1417,27 @@ body::before {
     }
 
     .top-card .title-area p {
-        font-size: 8px;
+        font-size: 7px;
+        margin-top: 3px;
     }
 
     .top-card .stat-box {
-        width: 76px;
-
-        min-width: 76px;
-
-        min-height: 33px;
-
+        width: calc(100% - 8px);
+        max-width: 94px;
+        min-height: 30px;
+        height: 30px;
         padding:
-            5px 6px;
+            4px 5px;
+        border-radius: 11px;
     }
 
     .top-card .stat-box div {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .top-card .stat-box small {
-        font-size: 7.5px;
+        font-size: 7px;
     }
-
 
     /* -----------------------------------------
        GAME CARD
@@ -1835,7 +1454,6 @@ body::before {
 
     .picture-area img {
         max-width: 105px;
-
         max-height: 100px;
     }
 
@@ -1845,24 +1463,19 @@ body::before {
 
     .word-slot {
         width: 39px;
-
         height: 46px;
-
         font-size: 25px;
     }
 
     .letters-container {
         gap: 7px;
-
         padding:
             10px 5px;
     }
 
     .letter-card {
         width: 50px;
-
         height: 50px;
-
         font-size: 27px;
     }
 
@@ -1873,7 +1486,6 @@ body::before {
     .controls button {
         padding:
             9px 13px;
-
         font-size: 13px;
     }
 }
@@ -1881,78 +1493,68 @@ body::before {
 
 /* =========================================================
    EXTRA SMALL PHONES
-   PUT ALL STATS ON LOWER ROW
+   KEEP HEADER GRID
 ========================================================= */
 
 @media (max-width: 350px) {
 
     .top-card {
-        min-height: 175px;
-
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 51px 32px;
+        min-height: 88px;
         padding:
-            8px 4px 10px;
+            5px 3px 5px;
+        border-radius: 18px;
+    }
+
+    .top-card .back-btn {
+        left: 5px;
+        top: 7px;
+        width: 34px;
+        height: 34px;
+        font-size: 20px;
     }
 
     .top-card .title-area {
+        position: static;
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+        height: 49px;
+        min-height: 49px;
         padding:
-            0 40px;
-
-        min-height: 62px;
+            0 37px;
     }
 
     .top-card .title-area h1 {
-        font-size: 17px;
+        font-size: 16px;
+        line-height: 1.05;
     }
 
     .top-card .title-area p {
-        font-size: 7.5px;
-    }
-
-    /*
-       On very narrow phones,
-       Score / Star / Lives are arranged
-       in one lower row that can wrap.
-    */
-
-    .top-card {
-        display: flex;
-
-        flex-wrap: wrap;
-
-        justify-content: center;
-
-        align-items: center;
-
-        padding-top: 58px;
-    }
-
-    .top-card .title-area {
-        position: absolute;
-
-        left: 0;
-        right: 0;
-        top: 8px;
-
-        width: 100%;
+        font-size: 6.5px;
+        margin-top: 3px;
     }
 
     .top-card .stat-box {
-        width: 72px;
-
-        min-width: 72px;
-
-        min-height: 32px;
-
+        width: calc(100% - 6px);
+        max-width: 86px;
+        min-width: 0;
+        height: 29px;
+        min-height: 29px;
         padding:
-            4px 5px;
+            3px 4px;
+        border-radius: 10px;
+        gap: 2px;
     }
 
     .top-card .stat-box div {
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .top-card .stat-box small {
-        font-size: 7px;
+        font-size: 6.5px;
     }
 }
 
@@ -1974,13 +1576,11 @@ body::before {
 
     .letter-card {
         cursor: pointer;
-
         touch-action: manipulation;
     }
 
     .word-slot.blank {
         cursor: pointer;
-
         touch-action: manipulation;
     }
 
@@ -1993,73 +1593,130 @@ body::before {
 
 /* =========================================================
    LANDSCAPE PHONES
-   KEEP HEADER RESPONSIVE
+   SAME HEADER STRUCTURE AS PORTRAIT
 ========================================================= */
 
 @media (max-height: 600px) and (orientation: landscape) {
 
     .page-wrap {
-        padding-top: 8px;
+        width: 96%;
+        padding-top: 6px;
+        padding-bottom: 12px;
     }
 
-    /*
-       Header remains:
-       LEFT   = arrow
-       CENTER = title
-       RIGHT/LOWER = stats
-    */
+    /* -----------------------------------------
+       HEADER
+       ARROW LEFT
+       TITLE CENTER
+       STATS BELOW
+    ----------------------------------------- */
 
     .top-card {
-        min-height: 140px;
-
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 54px 32px;
+        width: 100%;
+        min-height: 94px;
+        height: auto;
         padding:
-            10px 8px 9px;
+            6px 8px;
+        gap: 0;
+        align-items: center;
+        justify-items: center;
     }
 
     .top-card .back-btn {
-        left: 8px;
-
-        top: 13px;
-
-        width: 40px;
-
-        height: 40px;
-
-        font-size: 23px;
+        position: absolute;
+        left: 7px;
+        top: 8px;
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
+        border-radius: 12px;
+        z-index: 20;
     }
 
     .top-card .title-area {
+        position: static;
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+        height: 52px;
+        min-height: 52px;
         padding:
-            0 48px;
-
-        min-height: 70px;
+            0 45px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
     .top-card .title-area h1 {
-        font-size: 21px;
+        width: 100%;
+        font-size: 20px;
+        line-height: 1.05;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
     }
 
     .top-card .title-area p {
-        font-size: 9px;
+        width: 100%;
+        margin-top: 3px;
+        font-size: 8px;
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
     }
 
     .top-card .stat-box {
-        width: 82px;
-
-        min-width: 82px;
-
-        min-height: 34px;
-
+        width: calc(100% - 8px);
+        max-width: 100px;
+        min-width: 0;
+        height: 30px;
+        min-height: 30px;
         padding:
-            5px 7px;
+            4px 6px;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        margin: 0;
+    }
+
+    .top-card .stat-box:nth-last-child(3) {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .top-card .stat-box:nth-last-child(2) {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .top-card .stat-box:last-child {
+        grid-column: 1 / -1;
+        grid-row: 3;
     }
 
     .top-card .stat-box div {
-        font-size: 13px;
+        font-size: 11px;
+        line-height: 1;
     }
 
     .top-card .stat-box small {
-        font-size: 8px;
+        display: block;
+        font-size: 7px;
+        line-height: 1;
+        margin: 0;
+        white-space: nowrap;
     }
 
 
@@ -2067,41 +1724,184 @@ body::before {
        GAME CONTENT
     ----------------------------------------- */
 
-    .picture-area {
-        height: 90px;
-    }
-
-    .picture-area img {
-        max-height: 85px;
-
-        max-width: 95px;
+    .playing-as {
+        margin:
+            6px auto;
+        padding:
+            5px 14px;
+        font-size: 11px;
     }
 
     .game-card {
-        padding-top: 40px;
+        padding-top: 38px;
+        padding-bottom: 13px;
+    }
 
-        padding-bottom: 15px;
+    .word-badge {
+        font-size: 14px;
+        padding:
+            7px 24px;
+    }
+
+    .picture-area {
+        height: 82px;
+        margin-top: 5px;
+    }
+
+    .picture-area img {
+        max-height: 78px;
+        max-width: 90px;
+    }
+
+    .word-container {
+        min-height: 55px;
+        gap: 5px;
+        margin:
+            4px 0 7px;
     }
 
     .word-slot {
-        width: 48px;
-
-        height: 48px;
-
-        font-size: 28px;
+        width: 46px;
+        height: 45px;
+        font-size: 27px;
     }
 
-    .letter-card {
-        width: 52px;
-
-        height: 52px;
-
-        font-size: 29px;
+    .instruction {
+        font-size: 12px;
+        margin-bottom: 8px;
     }
 
     .letters-container {
-        padding: 8px;
+        min-height: 72px;
+        padding:
+            7px;
+        gap: 7px;
+        border-radius: 17px;
+    }
 
+    .letter-card {
+        width: 49px;
+        height: 49px;
+        font-size: 27px;
+    }
+
+    .feedback {
+        min-height: 23px;
+        font-size: 13px;
+        margin-top: 6px;
+    }
+
+    .controls {
         gap: 8px;
+        margin: 8px 0;
+    }
+
+    .controls button {
+        padding:
+            8px 14px;
+        font-size: 12px;
+    }
+
+    .progress-area {
+        width: 90%;
+    }
+
+    .progress-area > span {
+        font-size: 18px;
+    }
+
+    .progress-track {
+        height: 12px;
+    }
+}
+
+
+/* =========================================================
+   VERY SHORT LANDSCAPE PHONES
+========================================================= */
+
+@media (max-height: 430px) and (orientation: landscape) {
+
+    .top-card {
+        grid-template-rows: 48px 29px;
+        min-height: 83px;
+        padding:
+            5px 7px;
+    }
+
+    .top-card .back-btn {
+        width: 34px;
+        height: 34px;
+        left: 6px;
+        top: 7px;
+        font-size: 20px;
+    }
+
+    .top-card .title-area {
+        height: 46px;
+        min-height: 46px;
+        padding:
+            0 42px;
+    }
+
+    .top-card .title-area h1 {
+        font-size: 18px;
+    }
+
+    .top-card .title-area p {
+        font-size: 7px;
+    }
+
+    .top-card .stat-box {
+        height: 27px;
+        min-height: 27px;
+        max-width: 90px;
+        padding:
+            3px 5px;
+    }
+
+    .top-card .stat-box div {
+        font-size: 10px;
+    }
+
+    .top-card .stat-box small {
+        font-size: 6.5px;
+    }
+
+    .playing-as {
+        margin:
+            5px auto;
+        padding:
+            4px 12px;
+        font-size: 10px;
+    }
+
+    .game-card {
+        padding-top: 34px;
+    }
+
+    .picture-area {
+        height: 68px;
+    }
+
+    .picture-area img {
+        max-height: 65px;
+        max-width: 78px;
+    }
+
+    .word-slot {
+        width: 42px;
+        height: 40px;
+        font-size: 24px;
+    }
+
+    .letters-container {
+        min-height: 62px;
+    }
+
+    .letter-card {
+        width: 44px;
+        height: 44px;
+        font-size: 24px;
     }
 }
