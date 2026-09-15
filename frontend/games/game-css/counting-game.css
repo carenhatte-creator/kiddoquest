@@ -168,20 +168,17 @@ body {
 
 /* ==========================================================
    HEADER
-   TRUE CENTERED TITLE
 ========================================================== */
 
 .game-header {
-
-    position: relative;
-
-    min-height: 82px;
 
     display: flex;
 
     align-items: center;
 
-    justify-content: center;
+    justify-content: space-between;
+
+    gap: 20px;
 
     margin-bottom: 22px;
 
@@ -195,36 +192,22 @@ body {
 
     box-shadow:
         0 6px 0 #1565C0;
+
+    flex-wrap: wrap;
 }
 
 
-/* ==========================================================
-   HEADER LEFT
-   BACK BUTTON ONLY
-========================================================== */
-
 .header-left {
-
-    position: absolute;
-
-    left: 20px;
-
-    top: 50%;
-
-    transform:
-        translateY(-50%);
 
     display: flex;
 
     align-items: center;
 
-    z-index: 2;
+    gap: 15px;
+
+    flex-wrap: wrap;
 }
 
-
-/* ==========================================================
-   BACK BUTTON
-========================================================== */
 
 .back-btn {
 
@@ -275,35 +258,13 @@ body {
 }
 
 
-/* ==========================================================
-   TITLE AREA
-   TRUE CENTER OF WHOLE HEADER
-========================================================== */
-
 .title-area {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 50%;
-
-    transform:
-        translate(-50%, -50%);
 
     display: flex;
 
     align-items: center;
 
-    justify-content: center;
-
     gap: 11px;
-
-    width: max-content;
-
-    text-align: center;
-
-    z-index: 1;
 }
 
 
@@ -312,8 +273,6 @@ body {
     width: 50px;
 
     height: 50px;
-
-    flex-shrink: 0;
 
     display: flex;
 
@@ -340,8 +299,6 @@ body {
     line-height: 1;
 
     font-weight: 800;
-
-    text-align: center;
 }
 
 
@@ -354,8 +311,6 @@ body {
     font-weight: 600;
 
     margin-top: 3px;
-
-    text-align: center;
 }
 
 
@@ -364,15 +319,6 @@ body {
 ========================================================== */
 
 .playing-as {
-
-    position: absolute;
-
-    right: 20px;
-
-    top: 50%;
-
-    transform:
-        translateY(-50%);
 
     display: inline-flex;
 
@@ -397,8 +343,6 @@ body {
     font-size: 13px;
 
     font-weight: 700;
-
-    z-index: 2;
 }
 
 
@@ -1506,6 +1450,8 @@ body {
 
 /* ==========================================================
    FINISH BUTTONS
+   PLAY AGAIN = TOP
+   BACK = BOTTOM
 ========================================================== */
 
 .finish-buttons {
@@ -1519,6 +1465,11 @@ body {
     gap: 12px;
 }
 
+
+/* ==========================================================
+   PLAY AGAIN
+   TOP
+========================================================== */
 
 .finish-buttons .play-again-btn {
 
@@ -1554,6 +1505,11 @@ body {
 }
 
 
+/* ==========================================================
+   BACK
+   BOTTOM
+========================================================== */
+
 .finish-buttons .back-home-btn {
 
     order: 2;
@@ -1587,6 +1543,10 @@ body {
         transform 0.15s ease;
 }
 
+
+/* ==========================================================
+   BACK LINK
+========================================================== */
 
 .finish-buttons a {
 
@@ -1623,7 +1583,7 @@ body {
 
 
 /* ==========================================================
-   RESPONSIVE - TABLET
+   RESPONSIVE
 ========================================================== */
 
 @media (max-width: 800px) {
@@ -1637,22 +1597,7 @@ body {
 
     .game-header {
 
-        min-height: 76px;
-
-        padding:
-            13px 15px;
-    }
-
-
-    .header-left {
-
-        left: 15px;
-    }
-
-
-    .playing-as {
-
-        right: 15px;
+        padding: 13px;
     }
 
 
@@ -1688,62 +1633,19 @@ body {
 
     .game-header {
 
-        min-height: auto;
-
-        display: flex;
-
         flex-direction: column;
 
-        align-items: center;
-
-        justify-content: center;
-
-        gap: 10px;
-
-        padding:
-            13px;
+        align-items: stretch;
     }
 
 
     .header-left {
 
-        position: static;
-
         width: 100%;
-
-        transform: none;
-
-        justify-content: flex-start;
-
-        order: 1;
-    }
-
-
-    .title-area {
-
-        position: static;
-
-        transform: none;
-
-        order: 2;
-
-        width: 100%;
-
-        justify-content: center;
-
-        text-align: center;
     }
 
 
     .playing-as {
-
-        position: static;
-
-        transform: none;
-
-        order: 3;
-
-        width: 100%;
 
         justify-content: center;
     }
@@ -1808,6 +1710,8 @@ body {
     }
 
 
+    /* FINISH BUTTONS STAY VERTICAL */
+
     .finish-buttons {
 
         flex-direction: column;
@@ -1846,9 +1750,6 @@ body {
     .game-header {
 
         border-radius: 19px;
-
-        padding:
-            11px;
     }
 
 
@@ -1868,12 +1769,6 @@ body {
         height: 43px;
 
         font-size: 23px;
-    }
-
-
-    .title-area {
-
-        gap: 8px;
     }
 
 
