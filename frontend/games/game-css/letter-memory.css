@@ -46,7 +46,6 @@ body {
 
 /* =========================================
    HEADER
-   CENTERED TITLE ON LAPTOP AND CP
 ========================================= */
 
 .game-header {
@@ -60,7 +59,7 @@ body {
     gap: 8px;
 
     margin-bottom: 18px;
-    padding: 14px 20px 12px;
+    padding: 12px 20px 12px;
 
     background: #FFFFFF;
     border: 3px solid #B9DFF5;
@@ -69,11 +68,14 @@ body {
 
 
 /* =========================================
-   HEADER LEFT
+   HEADER TITLE ROW
 ========================================= */
 
 .header-left {
+    position: relative;
+
     width: 100%;
+    min-height: 48px;
 
     display: flex;
     align-items: center;
@@ -90,13 +92,14 @@ body {
 .back-btn {
     position: absolute;
 
-    left: 14px;
+    left: 0;
     top: 50%;
 
     transform: translateY(-50%);
 
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 7px;
 
     padding: 9px 17px;
@@ -113,9 +116,11 @@ body {
     font-size: 16px;
     font-weight: 800;
 
-    transition: .15s ease;
+    white-space: nowrap;
 
     z-index: 5;
+
+    transition: .15s ease;
 }
 
 
@@ -167,6 +172,8 @@ body {
     font-weight: 700;
 
     text-align: center;
+
+    white-space: nowrap;
 }
 
 
@@ -1217,28 +1224,28 @@ body {
 
 
     /* =====================================
-       CENTER TITLE
+       HEADER
     ===================================== */
 
     .game-header {
         position: relative;
 
-        padding: 12px 14px 10px;
+        padding: 10px 14px 10px;
 
-        justify-content: center;
+        gap: 7px;
     }
 
 
     .header-left {
         width: 100%;
 
+        min-height: 46px;
+
         display: flex;
 
         align-items: center;
 
         justify-content: center;
-
-        text-align: center;
 
         flex-wrap: nowrap;
     }
@@ -1247,24 +1254,23 @@ body {
     .game-header h1 {
         width: 100%;
 
-        text-align: center;
-
         font-size: 22px;
+
+        text-align: center;
 
         white-space: nowrap;
     }
 
 
     .back-btn {
-        position: absolute;
-
-        left: 12px;
-
+        left: 0;
         top: 50%;
 
-        transform: translateY(-50%);
+        padding: 8px 14px;
 
-        z-index: 5;
+        font-size: 15px;
+
+        transform: translateY(-50%);
     }
 
 
@@ -1274,7 +1280,9 @@ body {
 
 
     .playing-as {
-        width: 100%;
+        width: auto;
+
+        max-width: 100%;
 
         justify-content: center;
 
@@ -1300,54 +1308,31 @@ body {
 
 
     .game-header {
-        position: relative;
+        padding: 9px 10px 9px;
 
-        padding: 11px 10px 9px;
-
-        justify-content: center;
+        gap: 6px;
     }
 
 
     .header-left {
-        width: 100%;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        text-align: center;
-
-        flex-wrap: nowrap;
+        min-height: 44px;
     }
 
 
     .game-header h1 {
-        width: 100%;
-
-        text-align: center;
-
         font-size: 21px;
-
-        white-space: nowrap;
     }
 
 
     .back-btn {
-        position: absolute;
-
-        left: 9px;
-
+        left: 0;
         top: 50%;
 
-        transform: translateY(-50%);
-
-        padding: 8px 13px;
+        padding: 7px 12px;
 
         font-size: 14px;
 
-        z-index: 5;
+        transform: translateY(-50%);
     }
 
 
@@ -1357,11 +1342,9 @@ body {
 
 
     .playing-as {
-        width: 100%;
+        width: auto;
 
-        justify-content: center;
-
-        text-align: center;
+        max-width: 100%;
 
         font-size: 13px;
     }
@@ -1412,50 +1395,27 @@ body {
 @media (max-height: 600px) and (orientation: landscape) {
 
     .game-header {
-        position: relative;
+        padding: 8px 14px 8px;
 
-        padding: 9px 14px 8px;
-
-        justify-content: center;
+        gap: 6px;
     }
 
 
     .header-left {
-        width: 100%;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        text-align: center;
-
-        flex-wrap: nowrap;
+        min-height: 44px;
     }
 
 
     .game-header h1 {
-        width: 100%;
-
-        text-align: center;
-
         font-size: 22px;
-
-        white-space: nowrap;
     }
 
 
     .back-btn {
-        position: absolute;
-
-        left: 10px;
-
+        left: 0;
         top: 50%;
 
         transform: translateY(-50%);
-
-        z-index: 5;
     }
 
 
@@ -1465,10 +1425,8 @@ body {
 
 
     .playing-as {
-        width: 100%;
+        width: auto;
 
         justify-content: center;
-
-        text-align: center;
     }
 }
