@@ -273,6 +273,29 @@ function initializeGame() {
 
 
     // ===================================
+    // ⭐ TOUCH SUPPORT (mobile / cp)
+    // ===================================
+
+    document.addEventListener(
+        "touchmove",
+        handleTouchMove,
+        { passive: false }
+    );
+
+
+    document.addEventListener(
+        "touchend",
+        handleTouchEnd
+    );
+
+
+    document.addEventListener(
+        "touchcancel",
+        handleTouchEnd
+    );
+
+
+    // ===================================
     // START BACKGROUND MUSIC
     // ===================================
 
@@ -604,6 +627,17 @@ function createObjects() {
             );
 
 
+            // ===================================
+            // ⭐ TOUCH SUPPORT (mobile / cp)
+            // ===================================
+
+            item.addEventListener(
+                "touchstart",
+                handleTouchStart,
+                { passive: false }
+            );
+
+
             objectContainer.appendChild(item);
 
         }
@@ -865,6 +899,298 @@ function handleDrop(event) {
 
 
 // ===================================
+// ⭐ TOUCH DRAG STATE
+// ===================================
+
+let touchDragItem = null;
+
+let touchDragClone = null;
+
+let touchOffsetX = 0;
+
+let touchOffsetY = 0;
+
+
+// ===================================
+// ⭐ TOUCH START
+// ===================================
+
+function handleTouchStart(event) {
+
+    if (gameEnded) return;
+
+
+    const item =
+        event.currentTarget;
+
+
+    if (
+        item.classList.contains("sorted")
+    ) {
+
+        return;
+
+    }
+
+
+    const touch =
+        event.touches[0];
+
+
+    const rect =
+        item.getBoundingClientRect();
+
+
+    touchDragItem = item;
+
+    touchOffsetX =
+        touch.clientX - rect.left;
+
+    touchOffsetY =
+        touch.clientY - rect.top;
+
+
+    // ===================================
+    // GHOST CLONE THAT FOLLOWS THE FINGER
+    // ===================================
+
+    touchDragClone =
+        item.cloneNode(true);
+
+
+    touchDragClone.classList.add(
+        "touch-clone"
+    );
+
+
+    touchDragClone.style.position =
+        "fixed";
+
+    touchDragClone.style.left =
+        rect.left + "px";
+
+    touchDragClone.style.top =
+        rect.top + "px";
+
+    touchDragClone.style.width =
+        rect.width + "px";
+
+    touchDragClone.style.height =
+        rect.height + "px";
+
+    touchDragClone.style.margin =
+        "0";
+
+    touchDragClone.style.pointerEvents =
+        "none";
+
+    touchDragClone.style.zIndex =
+        "9999";
+
+
+    document.body.appendChild(
+        touchDragClone
+    );
+
+
+    item.classList.add("dragging");
+
+    item.style.visibility =
+        "hidden";
+
+
+    if (typeof playClick === "function") {
+
+        playClick();
+
+    }
+
+
+    event.preventDefault();
+
+}
+
+
+// ===================================
+// ⭐ TOUCH MOVE
+// ===================================
+
+function handleTouchMove(event) {
+
+    if (!touchDragItem || !touchDragClone) return;
+
+
+    event.preventDefault();
+
+
+    const touch =
+        event.touches[0];
+
+
+    touchDragClone.style.left =
+        (touch.clientX - touchOffsetX) + "px";
+
+    touchDragClone.style.top =
+        (touch.clientY - touchOffsetY) + "px";
+
+
+    touchDragClone.style.display =
+        "none";
+
+    const target =
+        document.elementFromPoint(
+            touch.clientX,
+            touch.clientY
+        );
+
+    touchDragClone.style.display =
+        "";
+
+
+    document.querySelectorAll(
+        ".color-box"
+    ).forEach(
+        b => b.classList.remove("drag-over")
+    );
+
+
+    const box =
+        target
+            ? target.closest(".color-box")
+            : null;
+
+
+    if (box) {
+
+        box.classList.add("drag-over");
+
+    }
+
+}
+
+
+// ===================================
+// ⭐ TOUCH END
+// ===================================
+
+function handleTouchEnd(event) {
+
+    if (!touchDragItem) return;
+
+
+    const item =
+        touchDragItem;
+
+    const clone =
+        touchDragClone;
+
+
+    touchDragItem = null;
+
+    touchDragClone = null;
+
+
+    const touch =
+        event.changedTouches[0];
+
+
+    let box = null;
+
+
+    if (clone) {
+
+        clone.style.display =
+            "none";
+
+        const target =
+            document.elementFromPoint(
+                touch.clientX,
+                touch.clientY
+            );
+
+        box =
+            target
+                ? target.closest(".color-box")
+                : null;
+
+        clone.remove();
+
+    }
+
+
+    document.querySelectorAll(
+        ".color-box"
+    ).forEach(
+        b => b.classList.remove("drag-over")
+    );
+
+
+    item.classList.remove("dragging");
+
+    item.style.visibility =
+        "";
+
+
+    if (
+        !box ||
+        gameEnded ||
+        item.classList.contains("sorted")
+    ) {
+
+        return;
+
+    }
+
+
+    processDrop(item, box);
+
+}
+
+
+// ===================================
+// ⭐ SHARED DROP LOGIC (mouse + touch)
+// ===================================
+
+function processDrop(item, box) {
+
+    const index =
+        item.dataset.index;
+
+
+    const object =
+        colorObjects[
+            Number(index)
+        ];
+
+
+    if (!object) return;
+
+
+    const targetColor =
+        box.dataset.color;
+
+
+    if (
+        object.color === targetColor
+    ) {
+
+        handleCorrect(
+            item,
+            box
+        );
+
+    }
+
+    else {
+
+        handleWrong(item);
+
+    }
+
+}
+
+
+// ===================================
 // CORRECT ANSWER
 // ===================================
 
@@ -916,6 +1242,12 @@ function handleCorrect(item, box) {
     item.removeEventListener(
         "dragend",
         handleDragEnd
+    );
+
+
+    item.removeEventListener(
+        "touchstart",
+        handleTouchStart
     );
 
 
