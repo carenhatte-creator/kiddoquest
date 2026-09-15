@@ -1040,6 +1040,8 @@ body {
 
 
     .back-btn {
+        align-self: flex-start;
+
         padding: 9px 13px;
 
         font-size: 14px;
