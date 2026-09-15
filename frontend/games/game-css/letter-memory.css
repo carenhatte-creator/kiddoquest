@@ -46,17 +46,21 @@ body {
 
 /* =========================================
    HEADER
+   CENTERED TITLE ON LAPTOP AND CP
 ========================================= */
 
 .game-header {
+    position: relative;
+
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 8px;
 
     margin-bottom: 18px;
-    padding: 10px 14px;
+    padding: 14px 20px 12px;
 
     background: #FFFFFF;
     border: 3px solid #B9DFF5;
@@ -64,15 +68,33 @@ body {
 }
 
 
+/* =========================================
+   HEADER LEFT
+========================================= */
+
 .header-left {
+    width: 100%;
+
     display: flex;
     align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
+    justify-content: center;
+
+    text-align: center;
 }
 
 
+/* =========================================
+   BACK BUTTON
+========================================= */
+
 .back-btn {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
     display: inline-flex;
     align-items: center;
     gap: 7px;
@@ -92,24 +114,44 @@ body {
     font-weight: 800;
 
     transition: .15s ease;
+
+    z-index: 5;
 }
 
 
 .back-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-50%);
 }
 
+
+/* =========================================
+   GAME TITLE
+========================================= */
 
 .game-header h1 {
+    width: 100%;
+
     color: #6245A6;
+
     font-size: 24px;
     font-weight: 800;
+
+    text-align: center;
+
+    white-space: nowrap;
 }
 
+
+/* =========================================
+   PLAYING AS
+========================================= */
 
 .playing-as {
     display: inline-flex;
+
     align-items: center;
+    justify-content: center;
+
     gap: 6px;
 
     padding: 8px 15px;
@@ -123,6 +165,8 @@ body {
 
     font-size: 14px;
     font-weight: 700;
+
+    text-align: center;
 }
 
 
@@ -260,12 +304,6 @@ body {
 
 /* =========================================
    ACTIVITY BOARD
-
-   FLEX-COLUMN IS USED HERE SOLELY SO THE
-   .feedback BANNER CAN BE REORDERED HIGHER
-   (RIGHT AFTER THE INSTRUCTION TEXT) VIA THE
-   "order" PROPERTY BELOW, WITHOUT TOUCHING
-   THE HTML MARKUP ORDER.
 ========================================= */
 
 .activity-board {
@@ -665,11 +703,6 @@ body {
 
 /* =========================================
    FEEDBACK
-
-   MOVED HIGHER (RIGHT AFTER THE INSTRUCTION
-   TEXT, ABOVE THE MEMORY BOARD) VIA order: 3
-   ON .activity-board's FLEX LAYOUT ABOVE, SO
-   IT'S VISIBLE WITHOUT SCROLLING.
 ========================================= */
 
 .feedback {
@@ -744,7 +777,6 @@ body {
     color: #FFFFFF;
 
     font-size: 16px;
-
     font-weight: 800;
 
     cursor: pointer;
@@ -1185,20 +1217,24 @@ body {
 
 
     /* =====================================
-       CENTER LETTER MEMORY TITLE
+       CENTER TITLE
     ===================================== */
 
     .game-header {
         position: relative;
 
-        justify-content: center;
+        padding: 12px 14px 10px;
 
-        padding: 10px 12px;
+        justify-content: center;
     }
 
 
     .header-left {
         width: 100%;
+
+        display: flex;
+
+        align-items: center;
 
         justify-content: center;
 
@@ -1208,7 +1244,7 @@ body {
     }
 
 
-    .header-left h1 {
+    .game-header h1 {
         width: 100%;
 
         text-align: center;
@@ -1219,7 +1255,7 @@ body {
     }
 
 
-    .header-left .back-btn {
+    .back-btn {
         position: absolute;
 
         left: 12px;
@@ -1232,7 +1268,7 @@ body {
     }
 
 
-    .header-left .back-btn:hover {
+    .back-btn:hover {
         transform: translateY(-50%);
     }
 
@@ -1263,21 +1299,21 @@ body {
     }
 
 
-    /* =====================================
-       CENTER TITLE ON SMALL PHONE
-    ===================================== */
-
     .game-header {
         position: relative;
 
-        justify-content: center;
+        padding: 11px 10px 9px;
 
-        padding: 9px 10px;
+        justify-content: center;
     }
 
 
     .header-left {
         width: 100%;
+
+        display: flex;
+
+        align-items: center;
 
         justify-content: center;
 
@@ -1287,7 +1323,7 @@ body {
     }
 
 
-    .header-left h1 {
+    .game-header h1 {
         width: 100%;
 
         text-align: center;
@@ -1298,7 +1334,7 @@ body {
     }
 
 
-    .header-left .back-btn {
+    .back-btn {
         position: absolute;
 
         left: 9px;
@@ -1307,11 +1343,15 @@ body {
 
         transform: translateY(-50%);
 
+        padding: 8px 13px;
+
+        font-size: 14px;
+
         z-index: 5;
     }
 
 
-    .header-left .back-btn:hover {
+    .back-btn:hover {
         transform: translateY(-50%);
     }
 
@@ -1322,6 +1362,8 @@ body {
         justify-content: center;
 
         text-align: center;
+
+        font-size: 13px;
     }
 
 
@@ -1372,14 +1414,18 @@ body {
     .game-header {
         position: relative;
 
-        justify-content: center;
+        padding: 9px 14px 8px;
 
-        padding: 8px 12px;
+        justify-content: center;
     }
 
 
     .header-left {
         width: 100%;
+
+        display: flex;
+
+        align-items: center;
 
         justify-content: center;
 
@@ -1389,7 +1435,7 @@ body {
     }
 
 
-    .header-left h1 {
+    .game-header h1 {
         width: 100%;
 
         text-align: center;
@@ -1400,7 +1446,7 @@ body {
     }
 
 
-    .header-left .back-btn {
+    .back-btn {
         position: absolute;
 
         left: 10px;
@@ -1413,7 +1459,7 @@ body {
     }
 
 
-    .header-left .back-btn:hover {
+    .back-btn:hover {
         transform: translateY(-50%);
     }
 
