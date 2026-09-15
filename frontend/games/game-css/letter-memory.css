@@ -260,12 +260,6 @@ body {
 
 /* =========================================
    ACTIVITY BOARD
-
-   FLEX-COLUMN IS USED HERE SOLELY SO THE
-   .feedback BANNER CAN BE REORDERED HIGHER
-   (RIGHT AFTER THE INSTRUCTION TEXT) VIA THE
-   "order" PROPERTY BELOW, WITHOUT TOUCHING
-   THE HTML MARKUP ORDER.
 ========================================= */
 
 .activity-board {
@@ -361,6 +355,7 @@ body {
     min-height: 110px;
 
     border: 3px solid #C9B9F2;
+
     border-radius: 22px;
 
     background: #EEE8FF;
@@ -392,6 +387,7 @@ body {
 
 .memory-inner {
     position: absolute;
+
     inset: 0;
 
     width: 100%;
@@ -413,12 +409,14 @@ body {
 .memory-front,
 .memory-back {
     position: absolute;
+
     inset: 0;
 
     width: 100%;
     height: 100%;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -447,6 +445,7 @@ body {
     height: 42px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -553,7 +552,8 @@ body {
     left: 50%;
     top: 50%;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%, -50%);
 
     z-index: 100;
 
@@ -562,7 +562,6 @@ body {
     flex-direction: column;
 
     align-items: center;
-
     justify-content: center;
 
     pointer-events: none;
@@ -575,7 +574,10 @@ body {
     line-height: 1;
 
     filter:
-        drop-shadow(0 7px 4px rgba(205, 145, 0, .28));
+        drop-shadow(
+            0 7px 4px
+            rgba(205, 145, 0, .28)
+        );
 
     animation:
         starRewardPop .85s ease-out forwards;
@@ -616,25 +618,39 @@ body {
 
     0% {
         opacity: 0;
-        transform: scale(.2) rotate(-25deg);
+
+        transform:
+            scale(.2)
+            rotate(-25deg);
     }
 
     35% {
         opacity: 1;
-        transform: scale(1.35) rotate(8deg);
+
+        transform:
+            scale(1.35)
+            rotate(8deg);
     }
 
     55% {
-        transform: scale(.95) rotate(-5deg);
+        transform:
+            scale(.95)
+            rotate(-5deg);
     }
 
     72% {
-        transform: scale(1.08) rotate(3deg);
+        transform:
+            scale(1.08)
+            rotate(3deg);
     }
 
     100% {
         opacity: 0;
-        transform: scale(1.2) translateY(-75px) rotate(8deg);
+
+        transform:
+            scale(1.2)
+            translateY(-75px)
+            rotate(8deg);
     }
 }
 
@@ -643,33 +659,40 @@ body {
 
     0% {
         opacity: 0;
-        transform: translateY(15px) scale(.7);
+
+        transform:
+            translateY(15px)
+            scale(.7);
     }
 
     35% {
         opacity: 1;
-        transform: translateY(0) scale(1.05);
+
+        transform:
+            translateY(0)
+            scale(1.05);
     }
 
     70% {
         opacity: 1;
-        transform: translateY(-5px) scale(1);
+
+        transform:
+            translateY(-5px)
+            scale(1);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(-60px) scale(.9);
+
+        transform:
+            translateY(-60px)
+            scale(.9);
     }
 }
 
 
 /* =========================================
    FEEDBACK
-
-   MOVED HIGHER (RIGHT AFTER THE INSTRUCTION
-   TEXT, ABOVE THE MEMORY BOARD) VIA order: 3
-   ON .activity-board's FLEX LAYOUT ABOVE, SO
-   IT'S VISIBLE WITHOUT SCROLLING.
 ========================================= */
 
 .feedback {
@@ -683,6 +706,7 @@ body {
     gap: 12px;
 
     width: fit-content;
+
     max-width: 90%;
 
     margin: 0 auto 16px;
@@ -706,13 +730,16 @@ body {
 
 .feedback h3 {
     color: #6245A6;
+
     font-size: 17px;
 }
 
 
 .feedback p {
     color: #777;
+
     font-size: 13px;
+
     font-weight: 700;
 }
 
@@ -744,6 +771,7 @@ body {
     color: #FFFFFF;
 
     font-size: 16px;
+
     font-weight: 800;
 
     cursor: pointer;
@@ -763,6 +791,7 @@ body {
 
 .result-screen {
     position: fixed;
+
     inset: 0;
 
     display: flex;
@@ -781,6 +810,7 @@ body {
 
 .result-card {
     width: 390px;
+
     max-width: 94%;
 
     padding: 28px 25px;
@@ -818,7 +848,10 @@ body {
     letter-spacing: 5px;
 
     filter:
-        drop-shadow(0 5px 3px rgba(211, 156, 0, .22));
+        drop-shadow(
+            0 5px 3px
+            rgba(211, 156, 0, .22)
+        );
 
     animation:
         finalStarsPulse 1.5s ease-in-out infinite;
@@ -970,11 +1003,13 @@ body {
 
     0% {
         opacity: 0;
+
         transform: scale(.88);
     }
 
     100% {
         opacity: 1;
+
         transform: scale(1);
     }
 }
@@ -988,6 +1023,7 @@ body {
     display: none;
 
     position: fixed;
+
     inset: 0;
 
     justify-content: center;
@@ -1007,6 +1043,7 @@ body {
 
 .no-student-card {
     width: 350px;
+
     max-width: 92%;
 
     padding: 30px;
@@ -1065,11 +1102,11 @@ body {
 
 /* =========================================
    LOADING SCREEN
-   INITIAL ENTRY ONLY
 ========================================= */
 
 #loadingScreen {
     position: fixed;
+
     inset: 0;
 
     width: 100%;
@@ -1082,7 +1119,6 @@ body {
     flex-direction: column;
 
     justify-content: center;
-
     align-items: center;
 
     z-index: 9999;
@@ -1122,7 +1158,8 @@ body {
     margin-bottom: 12px;
 
     border:
-        2px solid rgba(255, 255, 255, .6);
+        2px solid
+        rgba(255, 255, 255, .6);
 }
 
 
@@ -1181,8 +1218,76 @@ body {
     .memory-card {
         min-height: 120px;
     }
+
+
+    /* =====================================
+       CENTER LETTER MEMORY TITLE
+    ===================================== */
+
+    .game-header {
+        position: relative;
+
+        justify-content: center;
+
+        padding: 10px 12px;
+    }
+
+
+    .header-left {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+
+        flex-wrap: nowrap;
+    }
+
+
+    .header-left h1 {
+        width: 100%;
+
+        text-align: center;
+
+        font-size: 22px;
+
+        white-space: nowrap;
+    }
+
+
+    .header-left .back-btn {
+        position: absolute;
+
+        left: 12px;
+
+        top: 50%;
+
+        transform:
+            translateY(-50%);
+
+        z-index: 5;
+    }
+
+
+    .header-left .back-btn:hover {
+        transform:
+            translateY(-50%);
+    }
+
+
+    .playing-as {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+    }
 }
 
+
+/* =========================================
+   SMALL PHONE
+========================================= */
 
 @media (max-width: 450px) {
 
@@ -1196,8 +1301,65 @@ body {
     }
 
 
-    .game-header h1 {
-        font-size: 20px;
+    /* =====================================
+       CENTER LETTER MEMORY TITLE
+    ===================================== */
+
+    .game-header {
+        position: relative;
+
+        padding: 9px 10px;
+
+        justify-content: center;
+    }
+
+
+    .header-left {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+
+        flex-wrap: nowrap;
+    }
+
+
+    .header-left h1 {
+        width: 100%;
+
+        text-align: center;
+
+        font-size: 21px;
+
+        white-space: nowrap;
+    }
+
+
+    .header-left .back-btn {
+        position: absolute;
+
+        left: 9px;
+
+        top: 50%;
+
+        transform:
+            translateY(-50%);
+    }
+
+
+    .header-left .back-btn:hover {
+        transform:
+            translateY(-50%);
+    }
+
+
+    .playing-as {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
     }
 
 
@@ -1235,5 +1397,72 @@ body {
 
     .result-stars-display {
         font-size: 45px;
+    }
+}
+
+
+/* =========================================
+   LANDSCAPE PHONE
+========================================= */
+
+@media (max-height: 600px) and (orientation: landscape) {
+
+    .game-header {
+        position: relative;
+
+        justify-content: center;
+
+        padding: 8px 12px;
+    }
+
+
+    .header-left {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+
+        flex-wrap: nowrap;
+    }
+
+
+    .header-left h1 {
+        width: 100%;
+
+        text-align: center;
+
+        font-size: 22px;
+
+        white-space: nowrap;
+    }
+
+
+    .header-left .back-btn {
+        position: absolute;
+
+        left: 10px;
+
+        top: 50%;
+
+        transform:
+            translateY(-50%);
+
+        z-index: 5;
+    }
+
+
+    .header-left .back-btn:hover {
+        transform:
+            translateY(-50%);
+    }
+
+
+    .playing-as {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
     }
 }
