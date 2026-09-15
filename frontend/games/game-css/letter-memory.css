@@ -744,6 +744,7 @@ body {
     color: #FFFFFF;
 
     font-size: 16px;
+
     font-weight: 800;
 
     cursor: pointer;
@@ -1181,8 +1182,74 @@ body {
     .memory-card {
         min-height: 120px;
     }
+
+
+    /* =====================================
+       CENTER LETTER MEMORY TITLE
+    ===================================== */
+
+    .game-header {
+        position: relative;
+
+        justify-content: center;
+
+        padding: 10px 12px;
+    }
+
+
+    .header-left {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+
+        flex-wrap: nowrap;
+    }
+
+
+    .header-left h1 {
+        width: 100%;
+
+        text-align: center;
+
+        font-size: 22px;
+
+        white-space: nowrap;
+    }
+
+
+    .header-left .back-btn {
+        position: absolute;
+
+        left: 12px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        z-index: 5;
+    }
+
+
+    .header-left .back-btn:hover {
+        transform: translateY(-50%);
+    }
+
+
+    .playing-as {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+    }
 }
 
+
+/* =========================================
+   SMALL PHONE
+========================================= */
 
 @media (max-width: 450px) {
 
@@ -1196,8 +1263,65 @@ body {
     }
 
 
-    .game-header h1 {
-        font-size: 20px;
+    /* =====================================
+       CENTER TITLE ON SMALL PHONE
+    ===================================== */
+
+    .game-header {
+        position: relative;
+
+        justify-content: center;
+
+        padding: 9px 10px;
+    }
+
+
+    .header-left {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+
+        flex-wrap: nowrap;
+    }
+
+
+    .header-left h1 {
+        width: 100%;
+
+        text-align: center;
+
+        font-size: 21px;
+
+        white-space: nowrap;
+    }
+
+
+    .header-left .back-btn {
+        position: absolute;
+
+        left: 9px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        z-index: 5;
+    }
+
+
+    .header-left .back-btn:hover {
+        transform: translateY(-50%);
+    }
+
+
+    .playing-as {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
     }
 
 
@@ -1235,5 +1359,70 @@ body {
 
     .result-stars-display {
         font-size: 45px;
+    }
+}
+
+
+/* =========================================
+   LANDSCAPE PHONE
+========================================= */
+
+@media (max-height: 600px) and (orientation: landscape) {
+
+    .game-header {
+        position: relative;
+
+        justify-content: center;
+
+        padding: 8px 12px;
+    }
+
+
+    .header-left {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+
+        flex-wrap: nowrap;
+    }
+
+
+    .header-left h1 {
+        width: 100%;
+
+        text-align: center;
+
+        font-size: 22px;
+
+        white-space: nowrap;
+    }
+
+
+    .header-left .back-btn {
+        position: absolute;
+
+        left: 10px;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        z-index: 5;
+    }
+
+
+    .header-left .back-btn:hover {
+        transform: translateY(-50%);
+    }
+
+
+    .playing-as {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
     }
 }
