@@ -17,11 +17,13 @@ body {
 body {
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
+
     background: linear-gradient(
         180deg,
         #dff5ff 0%,
         #eefaf0 100%
     );
+
     color: #333;
     overflow-x: hidden;
 }
@@ -46,11 +48,15 @@ body {
 #loadingScreen {
     position: fixed;
     inset: 0;
+
     background: #8bd3f7;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     z-index: 99999;
+
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -71,9 +77,12 @@ body {
 .loading-bar-container {
     width: 100%;
     height: 24px;
+
     background: #11323f;
+
     border: 2px solid rgba(255,255,255,.7);
     border-radius: 20px;
+
     padding: 3px;
     overflow: hidden;
 }
@@ -81,20 +90,26 @@ body {
 .loading-bar-fill {
     width: 0%;
     height: 100%;
+
     background: linear-gradient(
         90deg,
         #ffe600,
         #ffb700
     );
+
     border-radius: 20px;
+
     transition: width .12s linear;
 }
 
 .loading-text {
     margin-top: 12px;
+
     color: white;
+
     font-size: 22px;
     font-weight: 900;
+
     text-shadow:
         -2px -2px 0 #1b3640,
         2px -2px 0 #1b3640,
@@ -108,55 +123,111 @@ body {
 ========================================== */
 
 .top-card {
+    width: 100%;
+
     background: white;
+
     border: 3px dashed #FFD54F;
     border-radius: 24px;
+
     padding: 14px 18px;
-    display: flex;
+
+    display: grid;
+
+    /*
+       LEFT  = BACK
+       CENTER = TITLE
+       RIGHT = STATS
+    */
+    grid-template-columns: 1fr auto 1fr;
+
     align-items: center;
+
     gap: 14px;
+
     margin-bottom: 10px;
-    box-shadow: 0 4px 14px rgba(0,0,0,.06);
+
+    box-shadow:
+        0 4px 14px rgba(0,0,0,.06);
 }
+
+
+/* ==========================================
+   BACK BUTTON
+========================================== */
 
 .back-circle-btn {
     width: 44px;
     height: 44px;
+
     flex-shrink: 0;
+
     border-radius: 50%;
+
     background: #FFC107;
     color: #5C4400;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     text-decoration: none;
+
     font-size: 22px;
     font-weight: 800;
-    box-shadow: 0 4px 0 #E0A200;
+
+    box-shadow:
+        0 4px 0 #E0A200;
+
     transition: .15s;
+
+    justify-self: start;
 }
 
 .back-circle-btn:hover {
     transform: translateY(2px);
-    box-shadow: 0 2px 0 #E0A200;
+
+    box-shadow:
+        0 2px 0 #E0A200;
 }
 
+
+/* ==========================================
+   TOP CARD TEXT
+========================================== */
+
 .top-card-text {
-    flex: 1;
+    grid-column: 2;
+
+    width: max-content;
+    max-width: 100%;
+
     text-align: center;
+
+    justify-self: center;
 }
 
 .top-card-text h1 {
     font-size: 23px;
     font-weight: 900;
+
     color: #333;
+
+    line-height: 1.1;
+
+    white-space: nowrap;
 }
 
 .top-card-text p {
     margin-top: 3px;
+
     font-size: 12px;
+
     color: #777;
+
     font-weight: 600;
+
+    white-space: nowrap;
 }
 
 
@@ -165,20 +236,36 @@ body {
 ========================================== */
 
 .top-card-stats {
+    grid-column: 3;
+
     display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
     gap: 6px;
+
     flex-shrink: 0;
+
+    justify-self: end;
 }
 
 .stat-pill {
     min-height: 42px;
+
     padding: 7px 11px;
+
     border-radius: 16px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 5px;
+
     font-weight: 800;
+
     white-space: nowrap;
 }
 
@@ -207,29 +294,41 @@ body {
 
 
 /* ==========================================
-   PLAYING AS - FIXED
+   PLAYING AS
+   CENTERED ON DESKTOP + MOBILE
 ========================================== */
 
 .playing-as {
-    display: inline-flex;
+    display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 7px;
 
     background: white;
 
     border: 2px solid #4e9914;
+
     border-radius: 30px;
 
     padding: 8px 16px;
-    margin-bottom: 10px;
+
+    /*
+       IMPORTANT:
+       auto margins center the whole box
+    */
+    margin: 0 auto 10px;
 
     font-size: 12.5px;
     font-weight: 600;
+
     color: #555;
 
     white-space: nowrap;
+
     width: fit-content;
+
     min-width: 215px;
 
     line-height: 1.2;
@@ -237,17 +336,25 @@ body {
 
 .playing-as .playing-label {
     display: inline-flex;
+
     align-items: center;
+
     white-space: nowrap;
 }
 
 .playing-as #playingStudentName {
     display: inline-block;
+
     color: #4e9914;
+
     font-weight: 800;
+
     white-space: nowrap;
+
     max-width: 180px;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
 }
 
@@ -258,19 +365,28 @@ body {
 
 .game-info {
     display: flex;
+
     align-items: center;
+
     justify-content: flex-start;
+
     margin-bottom: 10px;
 }
 
 .level-box {
     background: #4e9914;
+
     color: white;
+
     padding: 7px 14px;
+
     border-radius: 16px;
+
     font-size: 13px;
     font-weight: bold;
-    box-shadow: 0 2px 0 #39770c;
+
+    box-shadow:
+        0 2px 0 #39770c;
 }
 
 .level-box strong {
@@ -284,9 +400,13 @@ body {
 
 .truck-scene {
     position: relative;
+
     height: 230px;
+
     overflow: hidden;
+
     border-radius: 20px;
+
     margin-bottom: 14px;
 
     background: linear-gradient(
@@ -305,9 +425,12 @@ body {
 
 .cloud {
     position: absolute;
+
     width: 90px;
     height: 30px;
+
     background: rgba(255,255,255,.8);
+
     border-radius: 50%;
 
     box-shadow:
@@ -323,6 +446,7 @@ body {
 .cloud-two {
     top: 22px;
     right: 120px;
+
     width: 70px;
     height: 24px;
 }
@@ -330,6 +454,7 @@ body {
 .cloud-three {
     top: 8px;
     right: 40px;
+
     width: 55px;
     height: 20px;
 }
@@ -341,26 +466,35 @@ body {
 
 .tree {
     position: absolute;
+
     bottom: 46px;
+
     font-size: 40px;
-    filter: drop-shadow(0 3px 2px rgba(0,0,0,.15));
+
+    filter:
+        drop-shadow(
+            0 3px 2px rgba(0,0,0,.15)
+        );
 }
 
 .tree-1 {
     left: 6px;
     bottom: 42px;
+
     font-size: 46px;
 }
 
 .tree-2 {
     left: 50px;
     bottom: 40px;
+
     font-size: 34px;
 }
 
 .tree-3 {
     right: 200px;
     bottom: 44px;
+
     font-size: 38px;
 }
 
@@ -371,12 +505,19 @@ body {
 
 .hill {
     position: absolute;
+
     left: 0;
     right: 0;
     bottom: 0;
+
     height: 55px;
+
     background: #97c96f;
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+
+    border-radius:
+        50% 50% 0 0 /
+        100% 100% 0 0;
+
     transform: scaleX(1.3);
 }
 
@@ -387,26 +528,35 @@ body {
 
 .road {
     position: absolute;
+
     left: 0;
     right: 0;
+
     bottom: 28px;
+
     height: 14px;
+
     background: #6b6b6b;
 }
 
 .road::before {
     content: "";
+
     position: absolute;
+
     left: 0;
     right: 0;
+
     top: 5px;
+
     height: 3px;
 
-    background-image: repeating-linear-gradient(
-        90deg,
-        white 0 18px,
-        transparent 18px 34px
-    );
+    background-image:
+        repeating-linear-gradient(
+            90deg,
+            white 0 18px,
+            transparent 18px 34px
+        );
 }
 
 
@@ -416,20 +566,30 @@ body {
 
 .truck {
     position: absolute;
+
     left: 4%;
     bottom: 36px;
+
     display: flex;
+
     align-items: flex-end;
+
     z-index: 5;
-    transition: left 1.2s ease;
+
+    transition:
+        left 1.2s ease;
 }
 
 .truck-cargo {
     height: 100px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 7px;
+
     padding: 0 10px;
 
     background: linear-gradient(
@@ -439,7 +599,9 @@ body {
     );
 
     border: 3px solid #F0A500;
-    border-radius: 10px 4px 4px 10px;
+
+    border-radius:
+        10px 4px 4px 10px;
 
     box-shadow:
         0 4px 0 #E0A200,
@@ -450,14 +612,18 @@ body {
 
 .letter-slot {
     position: relative;
+
     width: 58px;
     height: 74px;
 
     background: rgba(255,255,255,.9);
+
     border: 3px dashed #F0A500;
+
     border-radius: 10px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -469,42 +635,53 @@ body {
 
 .letter-slot.drag-over {
     transform: scale(1.06);
+
     background: #FFFBE8;
+
     border-color: white;
 }
 
 .letter-slot.correct {
     background: #f8fff2;
+
     border-color: #4CAF50;
 }
 
 .letter-slot.wrong {
     border-color: #e53935;
-    animation: shake .35s;
+
+    animation:
+        shake .35s;
 }
 
 .slot-number {
     position: absolute;
+
     bottom: -12px;
 
     width: 20px;
     height: 20px;
 
     border-radius: 50%;
+
     background: #2196F3;
+
     color: white;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     font-size: 11px;
     font-weight: bold;
+
     border: 2px solid white;
 }
 
 .placed-letter {
     font-size: 36px !important;
+
     font-weight: 900;
 }
 
@@ -516,7 +693,9 @@ body {
 .truck-cab {
     width: 62px;
     height: 82px;
+
     position: relative;
+
     flex-shrink: 0;
 
     background: linear-gradient(
@@ -525,7 +704,8 @@ body {
         #1E88E5
     );
 
-    border-radius: 4px 16px 8px 4px;
+    border-radius:
+        4px 16px 8px 4px;
 
     box-shadow:
         inset -3px 0 0 rgba(255,255,255,.25);
@@ -533,34 +713,46 @@ body {
 
 .truck-window {
     position: absolute;
+
     top: 8px;
     left: 8px;
     right: 8px;
+
     height: 30px;
 
     background: #E3F2FD;
+
     border: 3px solid #0D47A1;
 
-    border-radius: 4px 12px 4px 4px;
+    border-radius:
+        4px 12px 4px 4px;
 }
 
 .truck-bumper {
     position: absolute;
+
     bottom: 8px;
     left: -4px;
+
     width: 10px;
     height: 20px;
+
     background: #C0C0C0;
+
     border-radius: 3px;
 }
 
 .truck-headlight {
     position: absolute;
+
     bottom: 20px;
     right: -3px;
+
     width: 8px;
     height: 10px;
+
     background: #FFF176;
+
     border-radius: 2px;
 }
 
@@ -571,11 +763,14 @@ body {
 
 .truck-wheels {
     position: absolute;
+
     left: 4px;
     right: 6px;
+
     bottom: -14px;
 
     display: flex;
+
     justify-content: space-between;
 
     padding: 0 12px;
@@ -584,15 +779,19 @@ body {
 .wheel {
     width: 26px;
     height: 26px;
+
     position: relative;
 
     border-radius: 50%;
+
     background: #2b2b2b;
+
     border: 4px solid #555;
 }
 
 .wheel .hub {
     position: absolute;
+
     top: 50%;
     left: 50%;
 
@@ -600,9 +799,11 @@ body {
     height: 8px;
 
     background: #bbb;
+
     border-radius: 50%;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%, -50%);
 }
 
 
@@ -612,16 +813,22 @@ body {
 
 .finish {
     position: absolute;
+
     right: 14px;
     bottom: 28px;
+
     z-index: 3;
+
     text-align: center;
 }
 
 .bunting {
     display: flex;
+
     justify-content: center;
+
     gap: 3px;
+
     margin-bottom: 2px;
 }
 
@@ -631,6 +838,7 @@ body {
 
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
+
     border-top: 10px solid #E53935;
 }
 
@@ -657,16 +865,23 @@ body {
 .finish-post {
     width: 4px;
     height: 32px;
+
     margin: 0 auto;
+
     background: #89532c;
 }
 
 .finish-label {
     margin-top: 2px;
+
     padding: 3px 8px;
+
     background: #89532c;
+
     color: white;
+
     border-radius: 5px;
+
     font-size: 10px;
     font-weight: bold;
 }
@@ -678,14 +893,18 @@ body {
 
 .letters-section {
     text-align: center;
+
     margin-bottom: 10px;
 }
 
 .letters-container {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 10px;
+
     flex-wrap: wrap;
 }
 
@@ -694,17 +913,21 @@ body {
     height: 72px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     background: #fffdf1;
+
     border: 3px solid #e2bd59;
+
     border-radius: 14px;
 
     font-size: 36px;
     font-weight: 900;
 
     cursor: grab;
+
     user-select: none;
 
     box-shadow:
@@ -723,11 +946,14 @@ body {
 
 .letter-card:active {
     cursor: grabbing;
+
     transform: scale(.94);
 }
 
 .letter-card.selected {
-    transform: translateY(-7px) scale(1.05);
+    transform:
+        translateY(-7px)
+        scale(1.05);
 
     border-color: #4CAF50;
 
@@ -742,9 +968,13 @@ body {
 
 .instruction {
     margin-top: 8px;
+
     color: #555;
+
     font-size: 12px;
+
     line-height: 1.5;
+
     font-weight: bold;
 }
 
@@ -770,14 +1000,17 @@ body {
 
 .game-footer {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 10px;
 }
 
 .hint-btn,
 .control-btn {
     border: none;
+
     border-radius: 12px;
 
     padding: 9px 16px;
@@ -787,18 +1020,23 @@ body {
 
     cursor: pointer;
 
-    transition: transform .15s;
+    transition:
+        transform .15s;
 }
 
 .hint-btn {
     background: #fff3a8;
+
     border: 3px solid #d5b75d;
 }
 
 .control-btn {
     background: #5aaa18;
+
     color: white;
-    box-shadow: 0 3px 0 #43820d;
+
+    box-shadow:
+        0 3px 0 #43820d;
 }
 
 .hint-btn:hover,
@@ -808,7 +1046,9 @@ body {
 
 .hint-btn:disabled {
     opacity: .5;
+
     cursor: not-allowed;
+
     transform: none;
 }
 
@@ -819,16 +1059,21 @@ body {
 
 .reward-modal {
     position: fixed;
+
     inset: 0;
+
     z-index: 70000;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     padding: 20px;
 
-    background: rgba(25,60,35,.58);
+    background:
+        rgba(25,60,35,.58);
+
     overflow: hidden;
 
     opacity: 1;
@@ -847,10 +1092,13 @@ body {
 
     border-radius: 50%;
 
-    background: rgba(255,215,0,.18);
+    background:
+        rgba(255,215,0,.18);
+
     filter: blur(35px);
 
-    animation: rewardGlow 1.8s ease-in-out infinite;
+    animation:
+        rewardGlow 1.8s ease-in-out infinite;
 }
 
 .reward-card {
@@ -868,6 +1116,7 @@ body {
     );
 
     border: 4px solid #FFD54F;
+
     border-radius: 30px;
 
     text-align: center;
@@ -884,9 +1133,11 @@ body {
 
 .reward-stars-animation {
     height: 88px;
+
     position: relative;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -895,6 +1146,7 @@ body {
 
 .reward-star {
     position: absolute;
+
     display: block;
 
     filter:
@@ -915,6 +1167,7 @@ body {
 
 .star-left {
     font-size: 38px;
+
     left: 74px;
     top: 27px;
 
@@ -924,6 +1177,7 @@ body {
 
 .star-right {
     font-size: 38px;
+
     right: 74px;
     top: 27px;
 
@@ -933,8 +1187,11 @@ body {
 
 .reward-level-title {
     color: #4e9914;
+
     font-size: 27px;
+
     font-weight: 900;
+
     margin-top: 2px;
 
     animation:
@@ -945,14 +1202,17 @@ body {
     display: inline-block;
 
     margin-top: 8px;
+
     padding: 7px 18px;
 
     border-radius: 30px;
 
     background: #fff1a8;
+
     color: #a87300;
 
     font-size: 18px;
+
     font-weight: 900;
 
     animation:
@@ -961,8 +1221,11 @@ body {
 
 .reward-message {
     margin-top: 10px;
+
     color: #777;
+
     font-size: 14px;
+
     font-weight: 600;
 
     animation:
@@ -973,20 +1236,25 @@ body {
     width: 100%;
 
     border: none;
+
     border-radius: 16px;
 
     padding: 13px 18px;
+
     margin-top: 18px;
 
     background: #5aaa18;
+
     color: white;
 
     font-size: 17px;
+
     font-weight: 900;
 
     cursor: pointer;
 
-    box-shadow: 0 5px 0 #43820d;
+    box-shadow:
+        0 5px 0 #43820d;
 
     animation:
         rewardButtonIn .5s .75s both;
@@ -1002,7 +1270,9 @@ body {
 
 .reward-next-btn:active {
     transform: translateY(5px);
-    box-shadow: 0 0 0 #43820d;
+
+    box-shadow:
+        0 0 0 #43820d;
 }
 
 
@@ -1012,33 +1282,44 @@ body {
 
 .reward-burst {
     position: absolute;
+
     z-index: 1;
+
     font-size: 30px;
+
     opacity: 0;
 }
 
 .burst-one {
     top: 23%;
     left: 34%;
-    animation: burstFloat 1.4s .1s infinite;
+
+    animation:
+        burstFloat 1.4s .1s infinite;
 }
 
 .burst-two {
     top: 30%;
     right: 31%;
-    animation: burstFloat 1.4s .35s infinite;
+
+    animation:
+        burstFloat 1.4s .35s infinite;
 }
 
 .burst-three {
     bottom: 27%;
     left: 28%;
-    animation: burstFloat 1.4s .55s infinite;
+
+    animation:
+        burstFloat 1.4s .55s infinite;
 }
 
 .burst-four {
     bottom: 25%;
     right: 27%;
-    animation: burstFloat 1.4s .75s infinite;
+
+    animation:
+        burstFloat 1.4s .75s infinite;
 }
 
 
@@ -1048,16 +1329,20 @@ body {
 
 .modal {
     position: fixed;
+
     inset: 0;
+
     z-index: 60000;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
     padding: 20px;
 
-    background: rgba(0,0,0,.45);
+    background:
+        rgba(0,0,0,.45);
 }
 
 .modal.hidden {
@@ -1071,6 +1356,7 @@ body {
     padding: 26px;
 
     background: white;
+
     border-radius: 24px;
 
     text-align: center;
@@ -1078,17 +1364,21 @@ body {
     box-shadow:
         0 15px 40px rgba(0,0,0,.25);
 
-    animation: pop .25s ease;
+    animation:
+        pop .25s ease;
 }
 
 .result-card h2 {
     margin: 8px 0;
+
     font-size: 25px;
 }
 
 .result-card p {
     font-size: 14px;
+
     line-height: 1.5;
+
     color: #666;
 }
 
@@ -1111,33 +1401,44 @@ body {
 
 .game-over-stars {
     font-size: 30px;
+
     margin-bottom: 4px;
 }
 
 .game-over-info {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap: 8px;
+
     margin: 18px 0;
 }
 
 .game-over-stat {
     background: #f5f5f5;
+
     border-radius: 12px;
+
     padding: 10px 5px;
 
     display: flex;
+
     flex-direction: column;
+
     gap: 3px;
 }
 
 .game-over-stat span {
     color: #777;
+
     font-size: 11px;
 }
 
 .game-over-stat strong {
     color: #333;
+
     font-size: 17px;
 }
 
@@ -1156,10 +1457,13 @@ body {
 
 .final-stars-display {
     min-height: 38px;
+
     margin: 5px 0 10px;
 
     color: #f4b400;
+
     font-size: 29px;
+
     letter-spacing: 3px;
 
     word-break: break-word;
@@ -1170,28 +1474,38 @@ body {
 
 .final-result-stats {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
 
     gap: 10px;
+
     margin: 18px 0;
 }
 
 .final-stat {
     background: #f5f9ed;
+
     border-radius: 14px;
+
     padding: 12px;
 }
 
 .final-stat span {
     display: block;
+
     color: #777;
+
     font-size: 12px;
 }
 
 .final-stat strong {
     display: inline-block;
+
     margin-top: 4px;
+
     color: #4e9914;
+
     font-size: 23px;
 }
 
@@ -1201,14 +1515,17 @@ body {
 
 .finish-message {
     margin-bottom: 8px;
+
     padding: 10px;
 
     border-radius: 12px;
 
     background: #fff8d7;
+
     color: #9a7200;
 
     font-weight: 800;
+
     font-size: 13px;
 }
 
@@ -1222,12 +1539,15 @@ body {
     width: 100%;
 
     border: none;
+
     border-radius: 14px;
 
     padding: 12px;
+
     margin-top: 8px;
 
     font-size: 16px;
+
     font-weight: bold;
 
     cursor: pointer;
@@ -1235,17 +1555,23 @@ body {
 
 .primary-btn {
     background: #5aaa18;
+
     color: white;
-    box-shadow: 0 4px 0 #43820d;
+
+    box-shadow:
+        0 4px 0 #43820d;
 }
 
 .primary-btn:hover {
     transform: translateY(2px);
-    box-shadow: 0 2px 0 #43820d;
+
+    box-shadow:
+        0 2px 0 #43820d;
 }
 
 .secondary-btn {
     background: #eeeeee;
+
     color: #444;
 }
 
@@ -1262,10 +1588,13 @@ body {
     display: none;
 
     position: fixed;
+
     inset: 0;
+
     z-index: 80000;
 
-    background: rgba(0,0,0,.6);
+    background:
+        rgba(0,0,0,.6);
 
     align-items: center;
     justify-content: center;
@@ -1286,45 +1615,58 @@ body {
     background: white;
 
     border: 6px solid #FFD54F;
+
     border-radius: 32px;
 
-    box-shadow: 0 10px 0 #F0A500;
+    box-shadow:
+        0 10px 0 #F0A500;
 }
 
 .no-student-icon {
     font-size: 60px;
+
     margin-bottom: 10px;
 }
 
 .no-student-card h2 {
     margin-bottom: 12px;
+
     color: #FF6F3C;
+
     font-size: 22px;
 }
 
 .no-student-card p {
     margin-bottom: 22px;
+
     color: #777;
+
     font-size: 14px;
+
     line-height: 1.5;
 }
 
 .no-student-card button {
     width: 100%;
+
     padding: 15px;
 
     border: 4px solid #1565C0;
+
     border-radius: 20px;
 
     background: #2196F3;
+
     color: white;
 
     font-size: 16px;
+
     font-weight: 800;
 
     cursor: pointer;
 
-    box-shadow: 0 6px 0 #1565C0;
+    box-shadow:
+        0 6px 0 #1565C0;
 }
 
 
@@ -1333,6 +1675,7 @@ body {
 ========================================== */
 
 @keyframes shake {
+
     0% {
         transform: translateX(0);
     }
@@ -1355,6 +1698,7 @@ body {
 }
 
 @keyframes pop {
+
     from {
         transform: scale(.92);
         opacity: 0;
@@ -1367,7 +1711,9 @@ body {
 }
 
 @keyframes rewardGlow {
-    0%,100% {
+
+    0%,
+    100% {
         transform: scale(.9);
         opacity: .5;
     }
@@ -1379,78 +1725,121 @@ body {
 }
 
 @keyframes rewardCardPop {
+
     0% {
-        transform: scale(.55) translateY(25px);
+        transform:
+            scale(.55)
+            translateY(25px);
+
         opacity: 0;
     }
 
     70% {
-        transform: scale(1.05) translateY(-4px);
+        transform:
+            scale(1.05)
+            translateY(-4px);
+
         opacity: 1;
     }
 
     100% {
-        transform: scale(1) translateY(0);
+        transform:
+            scale(1)
+            translateY(0);
+
         opacity: 1;
     }
 }
 
 @keyframes mainStarPop {
+
     0% {
-        transform: scale(0) rotate(-30deg);
+        transform:
+            scale(0)
+            rotate(-30deg);
+
         opacity: 0;
     }
 
     55% {
-        transform: scale(1.35) rotate(12deg);
+        transform:
+            scale(1.35)
+            rotate(12deg);
+
         opacity: 1;
     }
 
     75% {
-        transform: scale(.9) rotate(-5deg);
+        transform:
+            scale(.9)
+            rotate(-5deg);
     }
 
     100% {
-        transform: scale(1) rotate(0deg);
+        transform:
+            scale(1)
+            rotate(0deg);
+
         opacity: 1;
     }
 }
 
 @keyframes sideStarLeft {
+
     0% {
-        transform: translate(45px,20px) scale(0);
+        transform:
+            translate(45px,20px)
+            scale(0);
+
         opacity: 0;
     }
 
     60% {
-        transform: translate(-8px,-5px) scale(1.2);
+        transform:
+            translate(-8px,-5px)
+            scale(1.2);
+
         opacity: 1;
     }
 
     100% {
-        transform: translate(0,0) scale(1);
+        transform:
+            translate(0,0)
+            scale(1);
+
         opacity: 1;
     }
 }
 
 @keyframes sideStarRight {
+
     0% {
-        transform: translate(-45px,20px) scale(0);
+        transform:
+            translate(-45px,20px)
+            scale(0);
+
         opacity: 0;
     }
 
     60% {
-        transform: translate(8px,-5px) scale(1.2);
+        transform:
+            translate(8px,-5px)
+            scale(1.2);
+
         opacity: 1;
     }
 
     100% {
-        transform: translate(0,0) scale(1);
+        transform:
+            translate(0,0)
+            scale(1);
+
         opacity: 1;
     }
 }
 
 @keyframes rewardTextIn {
+
     from {
         transform: translateY(15px);
         opacity: 0;
@@ -1463,20 +1852,32 @@ body {
 }
 
 @keyframes rewardButtonIn {
+
     from {
-        transform: translateY(20px) scale(.92);
+        transform:
+            translateY(20px)
+            scale(.92);
+
         opacity: 0;
     }
 
     to {
-        transform: translateY(0) scale(1);
+        transform:
+            translateY(0)
+            scale(1);
+
         opacity: 1;
     }
 }
 
 @keyframes burstFloat {
+
     0% {
-        transform: scale(.4) translateY(15px) rotate(0deg);
+        transform:
+            scale(.4)
+            translateY(15px)
+            rotate(0deg);
+
         opacity: 0;
     }
 
@@ -1485,17 +1886,26 @@ body {
     }
 
     50% {
-        transform: scale(1) translateY(-8px) rotate(15deg);
+        transform:
+            scale(1)
+            translateY(-8px)
+            rotate(15deg);
+
         opacity: 1;
     }
 
     100% {
-        transform: scale(.5) translateY(-30px) rotate(-15deg);
+        transform:
+            scale(.5)
+            translateY(-30px)
+            rotate(-15deg);
+
         opacity: 0;
     }
 }
 
 @keyframes finalStarsPop {
+
     0% {
         transform: scale(.5);
         opacity: 0;
@@ -1512,33 +1922,52 @@ body {
 }
 
 @keyframes hintPulse {
-    0%,100% {
+
+    0%,
+    100% {
         transform: scale(1);
         box-shadow: none;
     }
 
     50% {
         transform: scale(1.08);
-        box-shadow: 0 0 0 6px rgba(255,193,7,.25);
+
+        box-shadow:
+            0 0 0 6px
+            rgba(255,193,7,.25);
     }
 }
 
 @keyframes hintCardPulse {
-    0%,100% {
-        transform: translateY(0);
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-7px) scale(1.08);
+        transform:
+            translateY(-7px)
+            scale(1.08);
     }
 }
 
 
 /* ==========================================
-   RESPONSIVE - TABLET / MOBILE
+   TABLET / MOBILE
 ========================================== */
 
-@media (max-width:700px) {
+@media (max-width: 700px) {
+
+    .page-wrap {
+        width: 100%;
+    }
+
+
+    /* ======================================
+       TOP HEADER
+    ====================================== */
 
     .top-card {
         position: relative;
@@ -1561,8 +1990,7 @@ body {
 
 
     /* ======================================
-       BACK ARROW
-       FIXED LEFT SIDE
+       BACK BUTTON
     ====================================== */
 
     .top-card .back-circle-btn {
@@ -1579,13 +2007,16 @@ body {
         z-index: 20;
 
         transform: none;
+
+        justify-self: unset;
     }
 
     .top-card .back-circle-btn:hover,
     .top-card .back-circle-btn:active {
         transform: none;
 
-        box-shadow: 0 4px 0 #E0A200;
+        box-shadow:
+            0 4px 0 #E0A200;
     }
 
 
@@ -1594,11 +2025,12 @@ body {
     ====================================== */
 
     .top-card .top-card-text {
+        grid-column: 1;
+
         width: 100%;
 
-        flex: none;
-
         display: flex;
+
         flex-direction: column;
 
         align-items: center;
@@ -1606,11 +2038,13 @@ body {
 
         text-align: center;
 
-        padding: 0 50px;
+        padding: 0 52px;
 
         margin: 0;
 
         min-height: 58px;
+
+        justify-self: center;
     }
 
     .top-card .top-card-text h1 {
@@ -1647,6 +2081,8 @@ body {
     ====================================== */
 
     .top-card .top-card-stats {
+        grid-column: 1;
+
         width: 100%;
 
         display: flex;
@@ -1659,6 +2095,8 @@ body {
         margin-top: 6px;
 
         flex-shrink: 0;
+
+        justify-self: center;
     }
 
     .top-card .stat-pill {
@@ -1669,6 +2107,8 @@ body {
         border-radius: 14px;
 
         gap: 4px;
+
+        flex-shrink: 0;
     }
 
     .top-card .stat-pill strong {
@@ -1677,8 +2117,30 @@ body {
 
     .top-card .stat-label {
         display: inline;
+
         font-size: 10px;
+
         white-space: nowrap;
+    }
+
+
+    /* ======================================
+       PLAYING AS
+       CENTERED
+    ====================================== */
+
+    .playing-as {
+        display: flex;
+
+        width: fit-content;
+        max-width: calc(100% - 20px);
+
+        margin: 0 auto 10px;
+
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
     }
 
 
@@ -1688,6 +2150,7 @@ body {
 
     .truck-cargo {
         gap: 4px;
+
         padding: 0 6px;
     }
 
@@ -1703,6 +2166,7 @@ body {
     .letter-card {
         width: 56px;
         height: 56px;
+
         font-size: 26px;
     }
 
@@ -1743,7 +2207,7 @@ body {
    SMALL MOBILE
 ========================================== */
 
-@media (max-width:450px) {
+@media (max-width: 450px) {
 
     .page-wrap {
         padding: 10px 10px 20px;
@@ -1768,6 +2232,11 @@ body {
         border-radius: 20px;
     }
 
+
+    /* ======================================
+       BACK
+    ====================================== */
+
     .top-card .back-circle-btn {
         left: 8px;
         top: 15px;
@@ -1778,9 +2247,14 @@ body {
         font-size: 21px;
     }
 
+
+    /* ======================================
+       TITLE
+    ====================================== */
+
     .top-card .top-card-text {
-        padding-left: 46px;
-        padding-right: 46px;
+        padding-left: 48px;
+        padding-right: 48px;
 
         min-height: 56px;
     }
@@ -1799,12 +2273,18 @@ body {
         margin-top: 4px;
     }
 
+
+    /* ======================================
+       STATS
+    ====================================== */
+
     .top-card .top-card-stats {
         gap: 5px;
 
         margin-top: 5px;
 
         width: 100%;
+
         justify-content: center;
     }
 
@@ -1824,13 +2304,34 @@ body {
         font-size: 12px;
     }
 
-    /* FIX:
-       Keep Score / Stars / Lives visible
-       on portrait mobile */
     .top-card .stat-label {
         display: inline;
+
         font-size: 9px;
+
         white-space: nowrap;
+    }
+
+
+    /* ======================================
+       PLAYING AS
+    ====================================== */
+
+    .playing-as {
+        min-width: 0;
+
+        max-width: calc(100% - 20px);
+
+        padding: 8px 13px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        justify-content: center;
+    }
+
+    .playing-as #playingStudentName {
+        max-width: 150px;
     }
 
 
@@ -1862,16 +2363,6 @@ body {
     .star-right {
         right: 38px;
     }
-
-    .playing-as {
-        min-width: 0;
-        max-width: 100%;
-        padding: 8px 13px;
-    }
-
-    .playing-as #playingStudentName {
-        max-width: 150px;
-    }
 }
 
 
@@ -1879,12 +2370,13 @@ body {
    VERY SMALL PHONES
 ========================================== */
 
-@media (max-width:360px) {
+@media (max-width: 360px) {
 
     .page-wrap {
         padding-left: 7px;
         padding-right: 7px;
     }
+
 
     .top-card {
         min-height: 112px;
@@ -1892,6 +2384,7 @@ body {
         padding-left: 6px;
         padding-right: 6px;
     }
+
 
     .top-card .back-circle-btn {
         left: 6px;
@@ -1903,9 +2396,10 @@ body {
         font-size: 19px;
     }
 
+
     .top-card .top-card-text {
-        padding-left: 42px;
-        padding-right: 42px;
+        padding-left: 43px;
+        padding-right: 43px;
 
         min-height: 54px;
     }
@@ -1918,12 +2412,14 @@ body {
         font-size: 9px;
     }
 
+
     .top-card .top-card-stats {
         gap: 3px;
     }
 
     .top-card .stat-pill {
         padding: 5px 5px;
+
         gap: 2px;
     }
 
@@ -1933,7 +2429,21 @@ body {
 
     .top-card .stat-label {
         display: inline;
+
         font-size: 8px;
+
         white-space: nowrap;
+    }
+
+
+    .playing-as {
+        max-width: calc(100% - 14px);
+
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .playing-as #playingStudentName {
+        max-width: 120px;
     }
 }
