@@ -118,9 +118,7 @@ body {
 
     left: 18px;
 
-    top: 50%;
-
-    transform: translateY(-50%);
+    top: 18px;
 
     width: 58px;
 
@@ -159,7 +157,6 @@ body {
     background: #ffd54f;
 
     transform:
-        translateY(-50%)
         scale(1.06);
 }
 
@@ -167,7 +164,6 @@ body {
 .back-btn:active {
 
     transform:
-        translateY(-45%)
         scale(0.97);
 }
 
@@ -1288,6 +1284,8 @@ body {
         height: 52px;
 
         left: 12px;
+
+        top: 14px;
     }
 
 
