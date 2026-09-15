@@ -17,7 +17,6 @@ body {
 body {
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
-
     background:
         radial-gradient(
             circle at 10% 10%,
@@ -34,7 +33,6 @@ body {
             #dff5ff 0%,
             #eefaf0 100%
         );
-
     color: #333;
     overflow-x: hidden;
 }
@@ -56,39 +54,82 @@ body {
 ========================================================= */
 
 .game-header {
+    position: relative;
+
     background: #ffffff;
     border: 3px solid #FFD54F;
     border-radius: 24px;
+
     padding: 14px 20px;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    /*
+       3 COLUMNS:
+       left  = back button
+       center = title + playing as
+       right = empty space
 
-    gap: 15px;
+       This keeps the title and Playing as
+       EXACTLY centered in the whole header.
+    */
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto;
+
+    align-items: center;
+
+    gap: 4px 15px;
 
     box-shadow: 0 6px 0 rgba(224,162,0,.25);
 
     margin-bottom: 15px;
 }
 
+
+/* =========================================================
+   HEADER LEFT / TITLE AREA
+========================================================= */
+
 .header-left {
     position: relative;
+
+    grid-column: 2;
+    grid-row: 1;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1;
+
     min-width: 0;
 }
 
+.game-header h1 {
+    font-size: clamp(20px, 3vw, 29px);
+    color: #333;
+    font-weight: 900;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
 .back-btn {
     position: absolute;
-    left: 0;
+
+    left: auto;
+    right: calc(100% + 15px);
+
     top: 50%;
+
     transform: translateY(-50%);
 
     display: inline-flex;
     align-items: center;
+
     gap: 6px;
 
     text-decoration: none;
@@ -106,6 +147,10 @@ body {
     box-shadow: 0 4px 0 #E0A200;
 
     transition: .15s ease;
+
+    white-space: nowrap;
+
+    z-index: 10;
 }
 
 .back-btn:hover {
@@ -118,17 +163,23 @@ body {
     line-height: 1;
 }
 
-.game-header h1 {
-    font-size: clamp(20px, 3vw, 29px);
-    color: #333;
-    font-weight: 900;
-    text-align: center;
-    width: 100%;
-}
+
+/* =========================================================
+   PLAYING AS
+   EXACT CENTER OF HEADER
+========================================================= */
 
 .playing-as {
+    grid-column: 2;
+    grid-row: 2;
+
+    justify-self: center;
+
     display: inline-flex;
+
     align-items: center;
+    justify-content: center;
+
     gap: 6px;
 
     background: #f4fff0;
@@ -144,11 +195,18 @@ body {
     color: #555;
 
     white-space: nowrap;
+
+    max-width: 100%;
+
+    overflow: hidden;
 }
 
 .playing-as strong {
     color: #4e9914;
     font-weight: 900;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -158,6 +216,7 @@ body {
 
 .score-board {
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
 
     gap: 12px;
@@ -192,14 +251,19 @@ body {
 
 .score-card span:not(.score-icon) {
     font-size: 20px;
+
     font-weight: 900;
+
     color: #333;
 }
 
 .score-card p {
     margin-top: 3px;
+
     font-size: 12px;
+
     font-weight: 800;
+
     color: #777;
 }
 
@@ -226,11 +290,13 @@ body {
 
 .progress-box {
     width: 100%;
+
     height: 18px;
 
     background: #ffffff;
 
     border: 3px solid #d8d8d8;
+
     border-radius: 20px;
 
     overflow: hidden;
@@ -242,6 +308,7 @@ body {
 
 .progress-fill {
     width: 0%;
+
     height: 100%;
 
     background: linear-gradient(
@@ -290,6 +357,7 @@ body {
     color: #665500;
 
     font-size: 15px;
+
     font-weight: 800;
 
     margin-bottom: 24px;
@@ -314,14 +382,17 @@ body {
 .big-letter-box,
 .target-box {
     width: 230px;
+
     min-height: 190px;
 
     border-radius: 25px;
 
     display: flex;
+
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     position: relative;
@@ -355,6 +426,7 @@ body {
     position: absolute;
 
     top: 12px;
+
     left: 50%;
 
     transform: translateX(-50%);
@@ -362,6 +434,7 @@ body {
     white-space: nowrap;
 
     font-size: 11px;
+
     font-weight: 900;
 
     letter-spacing: .5px;
@@ -419,6 +492,7 @@ body {
 
 .match-arrow {
     width: 60px;
+
     height: 60px;
 
     border-radius: 50%;
@@ -430,9 +504,11 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     font-size: 34px;
+
     font-weight: 900;
 
     box-shadow: 0 5px 0 #43820d;
@@ -685,6 +761,7 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     z-index: 99999;
@@ -766,6 +843,7 @@ body {
     background: rgba(0,0,0,.6);
 
     justify-content: center;
+
     align-items: center;
 
     z-index: 10000;
@@ -857,6 +935,7 @@ body {
     display: none;
 
     align-items: center;
+
     justify-content: center;
 
     background: rgba(15,35,45,.72);
@@ -954,6 +1033,7 @@ body {
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     width: 30%;
@@ -1134,18 +1214,58 @@ body {
 
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE — TABLET
 ========================================================= */
 
 @media (max-width: 800px) {
 
     .game-header {
-        flex-direction: column;
-        align-items: stretch;
+        /*
+           Keep title and Playing as centered.
+        */
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+
+        padding: 13px 15px;
+
+        gap: 5px;
+    }
+
+    .header-left {
+        grid-column: 1;
+        grid-row: 1;
+
+        width: 100%;
+
+        min-height: 42px;
+
+        padding: 0 90px;
+    }
+
+    .game-header h1 {
+        width: 100%;
+
+        font-size: clamp(20px, 3vw, 26px);
+    }
+
+    .back-btn {
+        left: 0;
+        right: auto;
+
+        top: 50%;
+
+        transform: translateY(-50%);
     }
 
     .playing-as {
-        justify-content: center;
+        grid-column: 1;
+        grid-row: 2;
+
+        justify-self: center;
+
+        margin: 0 auto;
+
+        max-width: 90%;
     }
 
     .score-board {
@@ -1181,6 +1301,10 @@ body {
 }
 
 
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
 @media (max-width: 600px) {
 
     .game-container {
@@ -1189,13 +1313,122 @@ body {
         padding-top: 12px;
     }
 
+    /* -----------------------------------------
+       MOBILE HEADER
+    ----------------------------------------- */
+
     .game-header {
-        padding: 12px;
+        width: 100%;
+
+        padding: 10px 10px 9px;
+
+        border-radius: 21px;
+
+        /*
+           Title row
+           Playing as row
+        */
+        grid-template-columns: 1fr;
+
+        grid-template-rows: auto auto;
+
+        gap: 3px;
+    }
+
+    .header-left {
+        grid-column: 1;
+        grid-row: 1;
+
+        width: 100%;
+
+        min-height: 42px;
+
+        /*
+           Space reserved so the Back button
+           does not overlap the title.
+        */
+        padding-left: 58px;
+        padding-right: 58px;
     }
 
     .game-header h1 {
-        font-size: clamp(18px, 3.5vw, 24px);
+        width: 100%;
+
+        font-size: clamp(18px, 5vw, 24px);
+
+        text-align: center;
+
+        white-space: nowrap;
     }
+
+    /* -----------------------------------------
+       BACK BUTTON
+    ----------------------------------------- */
+
+    .back-btn {
+        left: 0;
+        right: auto;
+
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        padding: 8px 12px;
+
+        font-size: 13px;
+
+        border-radius: 13px;
+    }
+
+    .back-btn:hover {
+        transform: translateY(-50%) translateY(2px);
+    }
+
+    .back-btn span:first-child {
+        font-size: 18px;
+    }
+
+    /* -----------------------------------------
+       PLAYING AS — EXACT CENTER
+    ----------------------------------------- */
+
+    .playing-as {
+        grid-column: 1;
+        grid-row: 2;
+
+        justify-self: center;
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: fit-content;
+
+        max-width: calc(100% - 10px);
+
+        margin: 0 auto;
+
+        padding: 7px 12px;
+
+        font-size: 11.5px;
+
+        text-align: center;
+    }
+
+    .playing-as strong {
+        max-width: 150px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+    }
+
+    /* -----------------------------------------
+       SCORE BOARD
+    ----------------------------------------- */
 
     .score-board {
         gap: 8px;
@@ -1215,6 +1448,10 @@ body {
         font-size: 17px;
     }
 
+    /* -----------------------------------------
+       ACTIVITY BOARD
+    ----------------------------------------- */
+
     .activity-board {
         padding: 16px 10px 22px;
 
@@ -1226,6 +1463,10 @@ body {
 
         padding: 8px 11px;
     }
+
+    /* -----------------------------------------
+       LETTER PAIR
+    ----------------------------------------- */
 
     .letter-pair {
         gap: 8px;
@@ -1258,7 +1499,9 @@ body {
         font-size: 24px;
     }
 
-    /* STAR REWARD */
+    /* -----------------------------------------
+       STAR REWARD
+    ----------------------------------------- */
 
     .star-reward {
         min-height: 50px;
@@ -1290,6 +1533,10 @@ body {
         font-size: 17px;
     }
 
+    /* -----------------------------------------
+       CHOICES
+    ----------------------------------------- */
+
     .choices {
         grid-template-columns: repeat(2, 1fr);
 
@@ -1304,6 +1551,10 @@ body {
         font-size: 43px;
     }
 
+    /* -----------------------------------------
+       FINISH
+    ----------------------------------------- */
+
     .result-stat {
         width: 29%;
 
@@ -1316,29 +1567,95 @@ body {
 }
 
 
+/* =========================================================
+   RESPONSIVE — SMALL PHONE
+========================================================= */
+
 @media (max-width: 480px) {
 
+    .game-header {
+        padding: 9px 8px 8px;
+
+        border-radius: 20px;
+    }
+
     .header-left {
-        padding: 0 68px;
+        min-height: 40px;
+
+        padding-left: 52px;
+        padding-right: 52px;
     }
 
     .back-btn {
-        padding: 8px 12px;
+        padding: 7px 10px;
 
-        font-size: 13px;
+        font-size: 12px;
+
+        border-radius: 12px;
     }
 
     .back-btn span:first-child {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .game-header h1 {
         font-size: 17px;
     }
+
+    .playing-as {
+        padding: 6px 10px;
+
+        font-size: 11px;
+
+        max-width: calc(100% - 8px);
+    }
+
+    .playing-as strong {
+        max-width: 125px;
+    }
 }
 
 
+/* =========================================================
+   RESPONSIVE — VERY SMALL PHONE
+========================================================= */
+
 @media (max-width: 380px) {
+
+    .game-header {
+        padding: 8px 7px;
+    }
+
+    .header-left {
+        min-height: 38px;
+
+        padding-left: 48px;
+        padding-right: 48px;
+    }
+
+    .back-btn {
+        padding: 6px 9px;
+
+        font-size: 11px;
+    }
+
+    .back-btn span:first-child {
+        font-size: 16px;
+    }
+
+    .game-header h1 {
+        font-size: 16px;
+    }
+
+    .playing-as {
+        padding: 6px 9px;
+
+        font-size: 10.5px;
+    }
+
+    .playing-as strong {
+        max-width: 105px;
+    }
 
     .score-board {
         grid-template-columns: repeat(2, 1fr);
@@ -1381,5 +1698,44 @@ body {
 
     .reward-main {
         font-size: 16px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — LANDSCAPE PHONE
+========================================================= */
+
+@media (max-width: 700px) and (orientation: landscape) {
+
+    .game-header {
+        padding: 8px 12px;
+
+        grid-template-rows: auto auto;
+
+        gap: 2px;
+    }
+
+    .header-left {
+        min-height: 38px;
+
+        padding-left: 70px;
+        padding-right: 70px;
+    }
+
+    .game-header h1 {
+        font-size: 18px;
+    }
+
+    .back-btn {
+        padding: 6px 10px;
+
+        font-size: 12px;
+    }
+
+    .playing-as {
+        font-size: 11px;
+
+        padding: 5px 11px;
     }
 }
