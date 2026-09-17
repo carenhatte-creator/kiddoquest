@@ -26,8 +26,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    min-width: 0;
 }
 
 
@@ -38,7 +36,6 @@ body {
     border-radius: 15px;
     cursor: pointer;
     font-weight: bold;
-    white-space: nowrap;
 }
 
 
@@ -53,7 +50,6 @@ body {
 
 .search-box {
     margin: 25px 0;
-    width: 100%;
 }
 
 
@@ -63,19 +59,6 @@ body {
     border-radius: 15px;
     border: 1px solid #ddd;
     font-size: 16px;
-    outline: none;
-}
-
-
-/* =====================
-   TABLE WRAPPER SUPPORT
-===================== */
-
-.table-container {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 
@@ -85,7 +68,6 @@ body {
 
 table {
     width: 100%;
-    min-width: 650px;
     background: white;
     border-collapse: collapse;
     border-radius: 15px;
@@ -124,7 +106,6 @@ tr:hover {
     cursor: pointer;
     margin: 3px;
     font-weight: bold;
-    white-space: nowrap;
 }
 
 
@@ -157,8 +138,8 @@ tr:hover {
     top: 0;
     left: 0;
 
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
     background: rgba(0,0,0,.4);
 
@@ -166,10 +147,6 @@ tr:hover {
     align-items: center;
 
     z-index: 2000;
-
-    padding: 15px;
-
-    overflow: hidden;
 }
 
 
@@ -191,8 +168,6 @@ tr:hover {
     border-radius: 20px;
 
     overflow-y: auto;
-
-    box-sizing: border-box;
 }
 
 
@@ -214,8 +189,6 @@ tr:hover {
     border-radius: 10px;
 
     border: 1px solid #ddd;
-
-    box-sizing: border-box;
 }
 
 
@@ -289,8 +262,8 @@ tr:hover {
     top: 0;
     left: 0;
 
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
     background: rgba(0,0,0,.4);
 
@@ -300,10 +273,6 @@ tr:hover {
     align-items: center;
 
     z-index: 2001;
-
-    padding: 15px;
-
-    box-sizing: border-box;
 }
 
 
@@ -323,8 +292,6 @@ tr:hover {
     text-align: center;
 
     overflow-y: auto;
-
-    box-sizing: border-box;
 }
 
 
@@ -367,41 +334,13 @@ tr:hover {
 
 
 /* =========================================================
-   TABLET / SMALL LAPTOP
-   Desktop design remains essentially unchanged.
+   MOBILE RESPONSIVE
+   Desktop design above remains unchanged.
 ========================================================= */
 
-@media (max-width: 900px) and (min-width: 701px) {
+@media (max-width: 600px) {
 
-    .header {
-        gap: 10px;
-    }
-
-    .header h1 {
-        font-size: 32px;
-    }
-
-    #openAdd {
-        padding: 11px 16px;
-    }
-
-    .search-box {
-        margin: 20px 0;
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE PORTRAIT
-========================================================= */
-
-@media (max-width: 700px) {
-
-    html,
     body {
-        width: 100%;
-        max-width: 100%;
         overflow-x: hidden;
     }
 
@@ -411,46 +350,28 @@ tr:hover {
     ===================== */
 
     .header {
-        width: 100%;
-        min-width: 0;
-
-        display: flex;
-
-        justify-content: space-between;
+        gap: 10px;
         align-items: flex-start;
-
-        gap: 7px;
     }
 
 
     .header h1 {
-        font-size: 23px;
-        line-height: 1.12;
-
-        min-width: 0;
-
-        overflow-wrap: break-word;
+        font-size: 24px;
+        line-height: 1.15;
     }
 
 
     .header p {
-        font-size: 12px;
-        line-height: 1.2;
-
+        font-size: 13px;
         margin-top: 4px;
     }
 
 
     #openAdd {
-        flex-shrink: 0;
-
-        padding: 8px 9px;
-
+        padding: 9px 11px;
         border-radius: 10px;
-
-        font-size: 11px;
-
-        line-height: 1.1;
+        font-size: 12px;
+        white-space: nowrap;
     }
 
 
@@ -459,80 +380,86 @@ tr:hover {
     ===================== */
 
     .search-box {
-        width: 100%;
-
-        margin: 14px 0;
+        margin: 15px 0;
     }
 
 
     .search-box input {
-        width: 100%;
-
-        padding: 11px;
-
-        font-size: 13px;
-
-        border-radius: 12px;
+        padding: 12px;
+        font-size: 14px;
     }
 
 
     /* =====================
-       TABLE
+       STUDENT TABLE
+       PORTRAIT PHONE
     ===================== */
-
-    .table-container {
-        width: 100%;
-
-        max-width: 100%;
-
-        overflow-x: auto;
-
-        overflow-y: hidden;
-
-        display: block;
-
-        border-radius: 15px;
-    }
-
-
-    /*
-       If HTML does not have .table-container,
-       the table itself remains scrollable.
-    */
 
     table {
         width: 100%;
-
-        min-width: 600px;
-
         display: table;
-
-        white-space: nowrap;
-
-        border-radius: 15px;
+        table-layout: fixed;
+        white-space: normal;
+        overflow: hidden;
     }
 
 
     th,
     td {
-        padding: 9px 8px;
-
-        font-size: 12px;
+        padding: 8px 4px;
+        font-size: 11px;
+        word-break: break-word;
     }
 
+
+    /* NAME */
+
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 31%;
+    }
+
+
+    /* AGE */
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 12%;
+    }
+
+
+    /* GENDER */
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 18%;
+    }
+
+
+    /* ACTION */
+
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: 39%;
+    }
+
+
+    /* =====================
+       ACTION BUTTONS
+    ===================== */
 
     .action-btn {
-        padding: 7px 9px;
-
-        font-size: 11px;
-
-        margin: 2px;
+        padding: 6px 5px;
+        margin: 2px 1px;
+        border-radius: 6px;
+        font-size: 10px;
+        white-space: nowrap;
     }
 
 
-    /* =========================
+    /* =====================
        ADD STUDENT MODAL
-    ========================= */
+    ===================== */
 
     .modal {
         position: fixed;
@@ -542,7 +469,7 @@ tr:hover {
         width: 100vw;
         height: 100vh;
 
-        padding: 12px;
+        padding: 15px;
 
         display: none;
 
@@ -550,59 +477,48 @@ tr:hover {
         align-items: center;
 
         z-index: 2000;
-
-        overflow: hidden;
     }
 
 
     .modal-content {
         width: 100%;
 
-        max-width: 360px;
+        max-width: 390px;
 
-        max-height: calc(100vh - 24px);
+        max-height: calc(100vh - 30px);
 
-        padding: 20px 16px;
+        padding: 22px 18px;
 
-        border-radius: 17px;
+        border-radius: 18px;
 
         overflow-y: auto;
     }
 
 
     .modal-content h2 {
-        font-size: 21px;
-
-        margin-bottom: 9px;
+        font-size: 22px;
+        margin-bottom: 10px;
     }
 
 
     .modal-content input,
     .modal-content select {
-        padding: 10px;
-
-        margin: 6px 0;
-
-        font-size: 13px;
-
-        border-radius: 9px;
+        padding: 11px;
+        margin: 7px 0;
+        font-size: 14px;
     }
 
 
     .modal-content button {
-        padding: 10px;
-
-        margin-top: 7px;
-
-        font-size: 13px;
-
-        border-radius: 9px;
+        padding: 11px;
+        margin-top: 8px;
+        font-size: 14px;
     }
 
 
-    /* =========================
+    /* =====================
        DELETE MODAL
-    ========================= */
+    ===================== */
 
     .delete-confirm {
         position: fixed;
@@ -612,7 +528,7 @@ tr:hover {
         width: 100vw;
         height: 100vh;
 
-        padding: 12px;
+        padding: 15px;
 
         z-index: 2001;
     }
@@ -621,40 +537,33 @@ tr:hover {
     .delete-box {
         width: 100%;
 
-        max-width: 330px;
+        max-width: 350px;
 
-        max-height: calc(100vh - 24px);
+        max-height: calc(100vh - 30px);
 
-        padding: 19px 15px;
+        padding: 20px 16px;
 
         overflow-y: auto;
     }
 
 
     .delete-box h3 {
-        font-size: 19px;
+        font-size: 20px;
     }
 
 
     .delete-box p {
-        font-size: 13px;
-    }
-
-
-    .delete-box button {
-        padding: 9px 12px;
-
-        font-size: 12px;
+        font-size: 14px;
     }
 
 }
 
 
 /* =========================================================
-   PORTRAIT SMALL PHONE
+   VERY SMALL PHONES
 ========================================================= */
 
-@media (max-width: 500px) and (orientation: portrait) {
+@media (max-width: 380px) {
 
     .header h1 {
         font-size: 21px;
@@ -662,48 +571,65 @@ tr:hover {
 
 
     .header p {
-        font-size: 11px;
-    }
-
-
-    #openAdd {
-        padding: 7px 8px;
-
-        font-size: 10px;
-    }
-
-
-    .search-box {
-        margin: 12px 0;
-    }
-
-
-    .search-box input {
-        padding: 10px;
-
         font-size: 12px;
     }
 
 
-    table {
-        min-width: 560px;
-    }
-
-
-    th,
-    td {
-        padding: 8px 7px;
-
+    #openAdd {
+        padding: 8px 9px;
         font-size: 11px;
     }
 
 
-    .action-btn {
-        padding: 6px 8px;
+    /* =====================
+       SMALL TABLE
+    ===================== */
 
+    th,
+    td {
+        padding: 7px 3px;
         font-size: 10px;
     }
 
+
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 30%;
+    }
+
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 12%;
+    }
+
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 18%;
+    }
+
+
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: 40%;
+    }
+
+
+    /* =====================
+       SMALL ACTION BUTTONS
+    ===================== */
+
+    .action-btn {
+        padding: 5px 3px;
+        margin: 1px;
+        font-size: 9px;
+    }
+
+
+    /* =====================
+       SMALL MODAL
+    ===================== */
 
     .modal {
         padding: 10px;
@@ -711,7 +637,7 @@ tr:hover {
 
 
     .modal-content {
-        max-width: 340px;
+        max-width: 100%;
 
         padding: 18px 14px;
 
@@ -726,256 +652,14 @@ tr:hover {
 
     .modal-content input,
     .modal-content select {
-        padding: 9px;
-
-        font-size: 12px;
-
-        margin: 5px 0;
-    }
-
-
-    .modal-content button {
-        padding: 9px;
-
-        font-size: 12px;
-    }
-
-}
-
-
-/* =========================================================
-   LANDSCAPE PHONE
-========================================================= */
-
-@media (max-width: 900px) and (orientation: landscape) {
-
-    html,
-    body {
-        overflow-x: hidden;
-    }
-
-
-    .header {
-        gap: 10px;
-
-        align-items: center;
-    }
-
-
-    .header h1 {
-        font-size: 24px;
-
-        line-height: 1.1;
-    }
-
-
-    .header p {
-        font-size: 12px;
-
-        margin-top: 3px;
-    }
-
-
-    #openAdd {
-        padding: 8px 12px;
-
-        font-size: 11px;
-
-        border-radius: 10px;
-    }
-
-
-    .search-box {
-        margin: 12px 0;
-    }
-
-
-    .search-box input {
         padding: 10px;
-
         font-size: 13px;
     }
 
 
-    .table-container {
-        width: 100%;
-
-        overflow-x: auto;
-    }
-
-
-    table {
-        min-width: 600px;
-    }
-
-
-    th,
-    td {
-        padding: 8px;
-
-        font-size: 11px;
-    }
-
-
-    .action-btn {
-        padding: 6px 9px;
-
-        font-size: 10px;
-    }
-
-
-    /* =====================
-       LANDSCAPE MODAL
-    ===================== */
-
-    .modal {
-        padding: 8px;
-    }
-
-
-    .modal-content {
-        max-width: 390px;
-
-        max-height: calc(100vh - 16px);
-
-        padding: 16px 18px;
-
-        border-radius: 16px;
-    }
-
-
-    .modal-content h2 {
-        font-size: 19px;
-
-        margin-bottom: 6px;
-    }
-
-
-    .modal-content input,
-    .modal-content select {
-        padding: 8px;
-
-        margin: 4px 0;
-
-        font-size: 12px;
-    }
-
-
     .modal-content button {
-        padding: 8px;
-
-        margin-top: 5px;
-
-        font-size: 12px;
+        padding: 10px;
+        font-size: 13px;
     }
 
-
-    .delete-confirm {
-        padding: 8px;
-    }
-
-
-    .delete-box {
-        max-width: 350px;
-
-        max-height: calc(100vh - 16px);
-
-        padding: 15px;
-    }
-
-}
-
-
-/* =========================================================
-   VERY SMALL PORTRAIT PHONES
-========================================================= */
-
-@media (max-width: 380px) and (orientation: portrait) {
-
-    .header h1 {
-        font-size: 19px;
-    }
-
-
-    .header p {
-        font-size: 10px;
-    }
-
-
-    #openAdd {
-        padding: 7px;
-
-        font-size: 9px;
-    }
-
-
-    table {
-        min-width: 540px;
-    }
-
-
-    th,
-    td {
-        padding: 7px 6px;
-
-        font-size: 10px;
-    }
-
-
-    .action-btn {
-        padding: 5px 7px;
-
-        font-size: 9px;
-    }
-
-
-    .modal {
-        padding: 8px;
-    }
-
-
-    .modal-content {
-        max-width: 330px;
-
-        padding: 16px 12px;
-    }
-
-
-    .modal-content h2 {
-        font-size: 18px;
-    }
-
-
-    .modal-content input,
-    .modal-content select {
-        padding: 8px;
-
-        font-size: 11px;
-    }
-
-
-    .modal-content button {
-        padding: 8px;
-
-        font-size: 11px;
-    }
-
-}
-
-
-/* =========================================================
-   TOUCH DEVICES
-   Prevent hover effects from causing layout movement.
-========================================================= */
-
-@media (hover: none) and (pointer: coarse) {
-
-    #openAdd:hover {
-        background: #FFD54F;
-    }
-
-
-    tr:hover {
-        background: inherit;
-    }
 }
