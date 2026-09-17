@@ -445,10 +445,6 @@ tbody tr:hover{
 
 /* =========================================
    RESPONSIVE
-========================================= */
-
-/* =========================================
-   RESPONSIVE
    (category-cards and insight-box now
    auto-adjust on their own via auto-fit/
    minmax above, so no breakpoint needed
@@ -472,6 +468,11 @@ tbody tr:hover{
     }
 
     .student-select-box select{
+        /* Reset the row-layout flex-basis (200px)
+           so it isn't read as a HEIGHT once the
+           container becomes a column — without
+           this override the select balloons tall. */
+        flex:0 1 auto;
         width:100%;
     }
 
