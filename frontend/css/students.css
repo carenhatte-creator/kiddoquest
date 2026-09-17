@@ -1,12 +1,12 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-    background:#EAF8FF;
+body {
+    background: #EAF8FF;
 }
 
 
@@ -19,161 +19,141 @@ body{
 
 
 
+/* =====================
+   HEADER
+===================== */
 
-/* HEADER (page-specific: may button sa kanan) */
+.header {
 
-.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+}
+
+
+#openAdd {
+
+    background: #FFD54F;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+
+}
+
+
+#openAdd:hover {
+
+    background: #FFC107;
 
 }
 
 
 
+/* =====================
+   SEARCH
+===================== */
 
-#openAdd{
+.search-box {
 
-    background:#FFD54F;
-    border:none;
-    padding:12px 20px;
-    border-radius:15px;
-    cursor:pointer;
-    font-weight:bold;
+    margin: 25px 0;
+
+}
+
+
+.search-box input {
+
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    font-size: 16px;
 
 }
 
 
 
-#openAdd:hover{
+/* =====================
+   TABLE
+===================== */
 
-    background:#FFC107;
+table {
 
-}
-
-
-
-
-
-
-
-/* SEARCH */
-
-.search-box{
-
-    margin:25px 0;
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
 
 }
 
 
+th {
 
-.search-box input{
-
-    width:100%;
-    padding:15px;
-    border-radius:15px;
-    border:1px solid #ddd;
-    font-size:16px;
+    background: #2196F3;
+    color: white;
 
 }
-
-
-
-
-
-
-
-
-/* TABLE */
-
-table{
-
-    width:100%;
-    background:white;
-    border-collapse:collapse;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
-
-}
-
-
-
-th{
-
-    background:#2196F3;
-    color:white;
-
-}
-
 
 
 th,
-td{
+td {
 
-    padding:15px;
-    text-align:center;
-    border-bottom:1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+
+}
+
+
+tr:hover {
+
+    background: #F5FBFF;
 
 }
 
 
 
-tr:hover{
+/* =====================
+   ACTION BUTTON
+===================== */
 
-    background:#F5FBFF;
+.action-btn {
 
-}
-
-
-
-
-
-
-
-/* ACTION BUTTON */
-
-.action-btn{
-
-    border:none;
-    padding:8px 12px;
-    border-radius:8px;
-    cursor:pointer;
-    margin:3px;
-    font-weight:bold;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 3px;
+    font-weight: bold;
 
 }
 
 
+.edit {
 
-.edit{
-
-    background:#FFC107;
-
-}
-
-
-
-.delete{
-
-    background:#F44336;
-    color:white;
+    background: #FFC107;
 
 }
 
 
+.delete {
 
-.play{
-
-    background:#4CAF50;
-    color:white;
+    background: #F44336;
+    color: white;
 
 }
 
 
+.play {
 
+    background: #4CAF50;
+    color: white;
 
+}
 
 
 
@@ -181,92 +161,117 @@ tr:hover{
           MODAL
 ========================= */
 
+.modal {
 
-.modal{
+    display: none;
 
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.4);
-    justify-content:center;
-    align-items:center;
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,.4);
+
+    justify-content: center;
+    align-items: center;
+
+    /*
+       IMPORTANT:
+       Mas mataas kaysa sa sidebar
+       para hindi matakpan ang modal.
+    */
+    z-index: 2000;
+
+}
+
+
+/* =========================
+      MODAL CONTENT
+========================= */
+
+.modal-content {
+
+    background: white;
+
+    width: 400px;
+
+    max-width: calc(100vw - 30px);
+
+    max-height: calc(100vh - 30px);
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    overflow-y: auto;
 
 }
 
 
+.modal-content h2 {
 
-
-.modal-content{
-
-    background:white;
-    width:400px;
-    padding:30px;
-    border-radius:20px;
+    text-align: center;
+    color: #2196F3;
+    margin-bottom: 15px;
 
 }
-
-
-
-.modal-content h2{
-
-    text-align:center;
-    color:#2196F3;
-    margin-bottom:15px;
-
-}
-
 
 
 
 .modal-content input,
-.modal-content select{
+.modal-content select {
 
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
+    width: 100%;
 
-}
+    padding: 12px;
 
+    margin: 10px 0;
 
+    border-radius: 10px;
 
-
-.modal-content button{
-
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    margin-top:10px;
-    cursor:pointer;
-    font-weight:bold;
+    border: 1px solid #ddd;
 
 }
 
 
 
-#saveStudent{
+.modal-content button {
 
-    background:#2196F3;
-    color:white;
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    margin-top: 10px;
+
+    cursor: pointer;
+
+    font-weight: bold;
 
 }
 
 
 
-#closeModal{
+#saveStudent {
 
-    background:#ddd;
+    background: #2196F3;
+    color: white;
 
 }
 
 
 
+#closeModal {
 
+    background: #ddd;
+
+}
 
 
 
@@ -274,45 +279,40 @@ tr:hover{
           MESSAGE
 ========================= */
 
+#message {
 
-#message{
-
-    margin-top:15px;
-
-}
-
-
-
-.message{
-
-    padding:12px;
-    border-radius:12px;
-    text-align:center;
-    font-weight:bold;
+    margin-top: 15px;
 
 }
 
 
+.message {
 
-.message.success{
+    padding: 12px;
 
-    background:#D4EDDA;
-    color:#155724;
+    border-radius: 12px;
 
-}
+    text-align: center;
 
-
-
-.message.error{
-
-    background:#F8D7DA;
-    color:#721C24;
+    font-weight: bold;
 
 }
 
 
+.message.success {
+
+    background: #D4EDDA;
+    color: #155724;
+
+}
 
 
+.message.error {
+
+    background: #F8D7DA;
+    color: #721C24;
+
+}
 
 
 
@@ -320,78 +320,418 @@ tr:hover{
        DELETE CONFIRM
 ========================= */
 
+.delete-confirm {
 
-.delete-confirm{
+    position: fixed;
 
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.4);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
+    top: 0;
+    left: 0;
 
-}
+    width: 100%;
+    height: 100%;
 
+    background: rgba(0,0,0,.4);
 
+    display: flex;
 
-.delete-box{
+    justify-content: center;
+    align-items: center;
 
-    background:white;
-    width:350px;
-    padding:25px;
-    border-radius:20px;
-    text-align:center;
+    /*
+       Keep delete confirmation
+       above the page and sidebar.
+    */
+    z-index: 2001;
 
 }
 
 
 
-.delete-box h3{
+.delete-box {
 
-    color:#F44336;
-    margin-bottom:15px;
+    background: white;
+
+    width: 350px;
+
+    max-width: calc(100vw - 30px);
+
+    max-height: calc(100vh - 30px);
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    overflow-y: auto;
+
+}
+
+
+.delete-box h3 {
+
+    color: #F44336;
+    margin-bottom: 15px;
+
+}
+
+
+.delete-box p {
+
+    margin-bottom: 20px;
+    color: #555;
+
+}
+
+
+.delete-box button {
+
+    border: none;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    margin: 5px;
+
+    font-weight: bold;
+
+}
+
+
+#yesDelete {
+
+    background: #F44336;
+    color: white;
+
+}
+
+
+#cancelDelete {
+
+    background: #ddd;
 
 }
 
 
 
-.delete-box p{
+/* =========================================================
+   MOBILE RESPONSIVE
+   Desktop design above remains unchanged.
+========================================================= */
 
-    margin-bottom:20px;
-    color:#555;
+@media (max-width: 600px) {
+
+    body {
+
+        overflow-x: hidden;
+
+    }
+
+
+    /* =====================
+       HEADER
+    ===================== */
+
+    .header {
+
+        gap: 10px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .header h1 {
+
+        font-size: 24px;
+
+        line-height: 1.15;
+
+    }
+
+
+    .header p {
+
+        font-size: 13px;
+
+        margin-top: 4px;
+
+    }
+
+
+    #openAdd {
+
+        padding: 9px 11px;
+
+        border-radius: 10px;
+
+        font-size: 12px;
+
+        white-space: nowrap;
+
+    }
+
+
+
+    /* =====================
+       SEARCH
+    ===================== */
+
+    .search-box {
+
+        margin: 15px 0;
+
+    }
+
+
+    .search-box input {
+
+        padding: 12px;
+
+        font-size: 14px;
+
+    }
+
+
+
+    /* =====================
+       TABLE
+    ===================== */
+
+    table {
+
+        display: block;
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+
+    }
+
+
+    th,
+    td {
+
+        padding: 9px 8px;
+
+        font-size: 12px;
+
+    }
+
+
+
+    /* =====================
+       ADD STUDENT MODAL
+    ===================== */
+
+    .modal {
+
+        /*
+           Fixed to the entire viewport.
+           This prevents the modal from being
+           positioned only inside the main content.
+        */
+
+        position: fixed;
+
+        inset: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+        padding: 15px;
+
+        display: none;
+
+        justify-content: center;
+        align-items: center;
+
+        /*
+           MUST stay above sidebar.
+        */
+
+        z-index: 2000;
+
+    }
+
+
+    .modal-content {
+
+        width: 100%;
+
+        max-width: 390px;
+
+        max-height: calc(100vh - 30px);
+
+        padding: 22px 18px;
+
+        border-radius: 18px;
+
+        overflow-y: auto;
+
+    }
+
+
+    .modal-content h2 {
+
+        font-size: 22px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .modal-content input,
+    .modal-content select {
+
+        padding: 11px;
+
+        margin: 7px 0;
+
+        font-size: 14px;
+
+    }
+
+
+    .modal-content button {
+
+        padding: 11px;
+
+        margin-top: 8px;
+
+        font-size: 14px;
+
+    }
+
+
+
+    /* =====================
+       DELETE MODAL
+    ===================== */
+
+    .delete-confirm {
+
+        position: fixed;
+
+        inset: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+        padding: 15px;
+
+        z-index: 2001;
+
+    }
+
+
+    .delete-box {
+
+        width: 100%;
+
+        max-width: 350px;
+
+        max-height: calc(100vh - 30px);
+
+        padding: 20px 16px;
+
+        overflow-y: auto;
+
+    }
+
+
+    .delete-box h3 {
+
+        font-size: 20px;
+
+    }
+
+
+    .delete-box p {
+
+        font-size: 14px;
+
+    }
 
 }
 
 
 
-.delete-box button{
+/* =========================================================
+   SMALL PHONES
+========================================================= */
 
-    border:none;
-    padding:10px 15px;
-    border-radius:10px;
-    cursor:pointer;
-    margin:5px;
-    font-weight:bold;
+@media (max-width: 380px) {
 
-}
+    .header h1 {
 
+        font-size: 21px;
 
-
-#yesDelete{
-
-    background:#F44336;
-    color:white;
-
-}
+    }
 
 
+    .header p {
 
-#cancelDelete{
+        font-size: 12px;
 
-    background:#ddd;
+    }
+
+
+    #openAdd {
+
+        padding: 8px 9px;
+
+        font-size: 11px;
+
+    }
+
+
+    .modal {
+
+        padding: 10px;
+
+    }
+
+
+    .modal-content {
+
+        max-width: 100%;
+
+        padding: 18px 14px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .modal-content h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .modal-content input,
+    .modal-content select {
+
+        padding: 10px;
+
+        font-size: 13px;
+
+    }
+
+
+    .modal-content button {
+
+        padding: 10px;
+
+        font-size: 13px;
+
+    }
 
 }
