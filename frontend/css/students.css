@@ -399,28 +399,35 @@ tr:hover {
         width: 100%;
         display: table;
         table-layout: fixed;
-        white-space: normal;
+        white-space: nowrap;
         overflow: hidden;
     }
 
 
     th,
     td {
-        padding: 8px 4px;
+        padding: 8px 3px;
         font-size: 11px;
-        word-break: break-word;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 
-    /* NAME */
+    /* =====================
+       NAME
+    ===================== */
 
     th:nth-child(1),
     td:nth-child(1) {
-        width: 31%;
+        width: 28%;
+        text-align: left;
     }
 
 
-    /* AGE */
+    /* =====================
+       AGE
+    ===================== */
 
     th:nth-child(2),
     td:nth-child(2) {
@@ -428,7 +435,9 @@ tr:hover {
     }
 
 
-    /* GENDER */
+    /* =====================
+       GENDER
+    ===================== */
 
     th:nth-child(3),
     td:nth-child(3) {
@@ -436,11 +445,13 @@ tr:hover {
     }
 
 
-    /* ACTION */
+    /* =====================
+       ACTION
+    ===================== */
 
     th:nth-child(4),
     td:nth-child(4) {
-        width: 39%;
+        width: 42%;
     }
 
 
@@ -449,10 +460,10 @@ tr:hover {
     ===================== */
 
     .action-btn {
-        padding: 6px 5px;
-        margin: 2px 1px;
+        padding: 6px 4px;
+        margin: 1px;
         border-radius: 6px;
-        font-size: 10px;
+        font-size: 9px;
         white-space: nowrap;
     }
 
@@ -585,18 +596,29 @@ tr:hover {
        SMALL TABLE
     ===================== */
 
+    table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+
     th,
     td {
-        padding: 7px 3px;
+        padding: 7px 2px;
         font-size: 10px;
     }
 
 
+    /* NAME */
+
     th:nth-child(1),
     td:nth-child(1) {
-        width: 30%;
+        width: 27%;
+        text-align: left;
     }
 
+
+    /* AGE */
 
     th:nth-child(2),
     td:nth-child(2) {
@@ -604,15 +626,19 @@ tr:hover {
     }
 
 
+    /* GENDER */
+
     th:nth-child(3),
     td:nth-child(3) {
         width: 18%;
     }
 
 
+    /* ACTION */
+
     th:nth-child(4),
     td:nth-child(4) {
-        width: 40%;
+        width: 43%;
     }
 
 
@@ -623,7 +649,7 @@ tr:hover {
     .action-btn {
         padding: 5px 3px;
         margin: 1px;
-        font-size: 9px;
+        font-size: 8px;
     }
 
 
