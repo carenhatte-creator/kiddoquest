@@ -1,5 +1,5 @@
 /* ===================================
-   KinderQuest — SHARED SIDEBAR STYLE
+   KiddoQuest — SHARED SIDEBAR STYLE
    OFFICIAL TEACHER SIDEBAR DESIGN
    =================================== */
 
@@ -500,21 +500,28 @@
 }
 
 
-/* ===================================
-   RESPONSIVE
-=================================== */
+/* =========================================================
+   MOBILE RESPONSIVE
+   Desktop design above remains unchanged.
+   
+   IMPORTANT:
+   Sa cellphone, compact sidebar na lang ang gagamitin.
+   Kaya mas malaki ang space para sa main content.
+========================================================= */
 
 @media (max-width: 700px) {
 
-
     /* =================================
        MOBILE SIDEBAR
+       COMPACT ICON SIDEBAR
     ================================= */
 
     .sidebar {
-        width: 220px !important;
+        width: 78px !important;
 
-        padding: 7px 18px 12px !important;
+        padding: 6px 8px 10px !important;
+
+        overflow: hidden;
     }
 
 
@@ -523,18 +530,24 @@
     ================================= */
 
     .sidebar .brand {
-        height: 92px;
+        height: 78px;
+
+        width: 100%;
 
         margin: 0;
+
+        padding: 0;
+
+        flex-shrink: 0;
     }
 
 
     .sidebar .brand img {
-        width: 130px;
+        width: 68px;
 
-        height: 130px;
+        height: 68px;
 
-        margin-top: -5px;
+        margin-top: -2px;
     }
 
 
@@ -543,11 +556,17 @@
     ================================= */
 
     .sidebar .teacher {
-        padding: 10px 12px;
+        width: 100%;
 
-        margin-bottom: 10px;
+        padding: 7px 0;
 
-        border-radius: 13px;
+        margin-bottom: 9px;
+
+        border-radius: 12px;
+
+        justify-content: center;
+
+        gap: 0;
     }
 
 
@@ -556,15 +575,27 @@
     ================================= */
 
     .sidebar .teacher-avatar-wrap {
-        width: 29px;
-        height: 29px;
+        width: 30px;
+
+        height: 30px;
     }
 
 
     .sidebar .sidebar-avatar,
     .sidebar .sidebar-avatar-img {
-        width: 29px;
-        height: 29px;
+        width: 30px;
+
+        height: 30px;
+    }
+
+
+    /* =================================
+       HIDE TEACHER NAME
+       Keep only avatar on mobile.
+    ================================= */
+
+    .sidebar #teacherName {
+        display: none;
     }
 
 
@@ -573,52 +604,307 @@
     ================================= */
 
     .sidebar nav {
-        gap: 5px;
+        gap: 6px;
+
+        width: 100%;
     }
 
+
+    /* =================================
+       MOBILE NAV LINKS
+       ICON ONLY
+    ================================= */
 
     .sidebar nav a {
-        min-height: 40px;
+        width: 100%;
 
-        padding: 9px 11px;
+        min-height: 42px;
 
-        font-size: 15px;
+        height: 42px;
 
-        gap: 9px;
+        padding: 8px 0;
 
-        border-radius: 12px;
+        font-size: 0;
+
+        gap: 0;
+
+        border-radius: 11px;
+
+        justify-content: center;
+
+        transform: none !important;
     }
 
 
+    /* =================================
+       MOBILE NAV ICON
+    ================================= */
+
     .sidebar nav a i {
-        width: 20px;
+        width: 22px;
 
-        min-width: 20px;
+        min-width: 22px;
 
-        font-size: 16px;
+        font-size: 18px;
+
+        margin: 0;
+
+        transform: none;
+    }
+
+
+    /* =================================
+       HIDE NAVIGATION TEXT
+    ================================= */
+
+    .sidebar nav a span {
+        display: none;
+    }
+
+
+    /* =================================
+       ACTIVE MOBILE LINK
+    ================================= */
+
+    .sidebar nav a.active {
+        transform: none !important;
     }
 
 
     /* =================================
        MOBILE CONTENT
+       Use almost the entire screen.
     ================================= */
 
     .content,
     .main {
-        margin-left: 220px !important;
+        margin-left: 78px !important;
 
-        width: calc(100% - 220px);
+        width: calc(100% - 78px);
 
-        padding: 20px !important;
+        padding: 15px !important;
+
+        box-sizing: border-box;
+
+        min-width: 0;
     }
 
 
     .main-content {
-        margin-left: 220px !important;
+        margin-left: 78px !important;
 
-        width: calc(100% - 220px);
+        width: calc(100% - 78px);
 
-        padding: 20px !important;
+        padding: 15px !important;
+
+        box-sizing: border-box;
+
+        min-width: 0;
     }
 
+
+    /* =================================
+       MOBILE PAGE HEADER
+    ================================= */
+
+    .header {
+        min-width: 0;
+
+        gap: 8px;
+    }
+
+
+    .header h1,
+    .page-header h1 {
+        font-size: 24px !important;
+
+        line-height: 1.15;
+
+        min-width: 0;
+    }
+
+
+    .header p,
+    .page-header p {
+        font-size: 13px;
+
+        margin-top: 5px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .sidebar {
+        width: 68px !important;
+
+        padding: 5px 6px 8px !important;
+    }
+
+
+    .sidebar .brand {
+        height: 70px;
+    }
+
+
+    .sidebar .brand img {
+        width: 60px;
+
+        height: 60px;
+    }
+
+
+    .sidebar .teacher {
+        padding: 6px 0;
+
+        margin-bottom: 7px;
+
+        border-radius: 10px;
+    }
+
+
+    .sidebar .teacher-avatar-wrap {
+        width: 27px;
+
+        height: 27px;
+    }
+
+
+    .sidebar .sidebar-avatar,
+    .sidebar .sidebar-avatar-img {
+        width: 27px;
+
+        height: 27px;
+    }
+
+
+    .sidebar nav {
+        gap: 5px;
+    }
+
+
+    .sidebar nav a {
+        min-height: 38px;
+
+        height: 38px;
+
+        border-radius: 10px;
+    }
+
+
+    .sidebar nav a i {
+        font-size: 17px;
+    }
+
+
+    .content,
+    .main {
+        margin-left: 68px !important;
+
+        width: calc(100% - 68px);
+
+        padding: 12px !important;
+    }
+
+
+    .main-content {
+        margin-left: 68px !important;
+
+        width: calc(100% - 68px);
+
+        padding: 12px !important;
+    }
+
+
+    .header h1,
+    .page-header h1 {
+        font-size: 21px !important;
+    }
+
+
+    .header p,
+    .page-header p {
+        font-size: 12px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 330px) {
+
+    .sidebar {
+        width: 64px !important;
+
+        padding: 5px 5px 7px !important;
+    }
+
+
+    .sidebar .brand {
+        height: 65px;
+    }
+
+
+    .sidebar .brand img {
+        width: 55px;
+
+        height: 55px;
+    }
+
+
+    .sidebar .teacher {
+        padding: 5px 0;
+    }
+
+
+    .sidebar .teacher-avatar-wrap {
+        width: 25px;
+
+        height: 25px;
+    }
+
+
+    .sidebar .sidebar-avatar,
+    .sidebar .sidebar-avatar-img {
+        width: 25px;
+
+        height: 25px;
+    }
+
+
+    .sidebar nav a {
+        min-height: 36px;
+
+        height: 36px;
+    }
+
+
+    .sidebar nav a i {
+        font-size: 16px;
+    }
+
+
+    .content,
+    .main {
+        margin-left: 64px !important;
+
+        width: calc(100% - 64px);
+
+        padding: 10px !important;
+    }
+
+
+    .main-content {
+        margin-left: 64px !important;
+
+        width: calc(100% - 64px);
+
+        padding: 10px !important;
+    }
 }
