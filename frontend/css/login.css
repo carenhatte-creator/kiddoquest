@@ -348,6 +348,33 @@ body::before {
 
 
 /* =========================================================
+   FORGOT PASSWORD LINK
+   ========================================================= */
+
+.forgot-password-link {
+    align-self: flex-end;
+
+    margin-top: 8px;
+
+    color: #1976d2;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+    color: #0d5fa8;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
    LOGIN BUTTON
    ========================================================= */
 
