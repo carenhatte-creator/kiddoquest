@@ -3577,6 +3577,44 @@ function shuffleArray(array) {
 // SAVE LOCAL PROGRESS
 // ==========================================================
 
+// ==========================================================
+// CALCULATE STARS FROM PERCENTAGE
+// (Same formula as Drag & Drop Letters, so stars stay
+// consistent with the score shown in the Progress table)
+// ==========================================================
+
+function calculateStarsFromPercentage(
+    percentage
+) {
+
+    let stars =
+        1;
+
+
+    if (
+        percentage >= 80
+    ) {
+
+        stars =
+            3;
+
+    }
+
+    else if (
+        percentage >= 60
+    ) {
+
+        stars =
+            2;
+
+    }
+
+
+    return stars;
+
+}
+
+
 function saveLocalProgress() {
 
     const teacherId =
@@ -3844,18 +3882,8 @@ async function saveProgressToBackend() {
 
 
     let backendStars =
-        Number(stars) || 0;
-
-
-    backendStars =
-        Math.max(
-            0,
-            Math.min(
-                3,
-                Math.round(
-                    backendStars
-                )
-            )
+        calculateStarsFromPercentage(
+            percentageScore
         );
 
 
