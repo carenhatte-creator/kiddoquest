@@ -621,3 +621,282 @@ exports.changePassword = async (req, res) => {
     }
 
 };
+
+// =========================================================
+// FORGOT PASSWORD - VERIFY USERNAME
+// POST /api/auth/forgot-password/verify
+// =========================================================
+
+exports.forgotPasswordVerify = (req, res) => {
+
+    const { username } = req.body;
+
+
+    // =====================================================
+    // VALIDATION
+    // =====================================================
+
+    if (!username) {
+
+        return errorResponse(
+            res,
+            "Username is required."
+        );
+
+    }
+
+
+    const cleanUsername = username.trim();
+
+
+    // =====================================================
+    // FIND TEACHER
+    // =====================================================
+
+    db.get(
+
+        `
+        SELECT id
+        FROM teachers
+        WHERE username = ?
+        `,
+
+        [cleanUsername],
+
+        (err, teacher) => {
+
+            if (err) {
+
+                console.error(
+                    "Forgot password verify database error:",
+                    err
+                );
+
+                return errorResponse(
+                    res,
+                    "Unable to verify username."
+                );
+
+            }
+
+
+            // =============================================
+            // TEACHER NOT FOUND
+            // =============================================
+
+            if (!teacher) {
+
+                return errorResponse(
+                    res,
+                    "Username not found."
+                );
+
+            }
+
+
+            // =============================================
+            // SUCCESS
+            // =============================================
+
+            return successResponse(
+
+                res,
+
+                "Username verified.",
+
+                {
+                    username: cleanUsername
+                }
+
+            );
+
+        }
+
+    );
+
+};
+
+
+// =========================================================
+// FORGOT PASSWORD - RESET PASSWORD
+// POST /api/auth/forgot-password/reset
+// =========================================================
+
+exports.forgotPasswordReset = async (req, res) => {
+
+    try {
+
+        const {
+            username,
+            newPassword
+        } = req.body;
+
+
+        // =================================================
+        // VALIDATION
+        // =================================================
+
+        if (!username || !newPassword) {
+
+            return errorResponse(
+                res,
+                "Username and new password are required."
+            );
+
+        }
+
+
+        if (newPassword.length < 6) {
+
+            return errorResponse(
+                res,
+                "New password must be at least 6 characters."
+            );
+
+        }
+
+
+        const cleanUsername = username.trim();
+
+
+        // =================================================
+        // FIND TEACHER
+        // =================================================
+
+        db.get(
+
+            `
+            SELECT id
+            FROM teachers
+            WHERE username = ?
+            `,
+
+            [cleanUsername],
+
+            async (err, teacher) => {
+
+                if (err) {
+
+                    console.error(
+                        "Forgot password reset database error:",
+                        err
+                    );
+
+                    return errorResponse(
+                        res,
+                        "Unable to reset password."
+                    );
+
+                }
+
+
+                // =============================================
+                // TEACHER NOT FOUND
+                // =============================================
+
+                if (!teacher) {
+
+                    return errorResponse(
+                        res,
+                        "Username not found."
+                    );
+
+                }
+
+
+                try {
+
+                    // =========================================
+                    // HASH NEW PASSWORD
+                    // =========================================
+
+                    const hashedPassword =
+                        await bcrypt.hash(
+                            newPassword,
+                            10
+                        );
+
+
+                    // =========================================
+                    // UPDATE PASSWORD
+                    // =========================================
+
+                    db.run(
+
+                        `
+                        UPDATE teachers
+                        SET password = ?
+                        WHERE id = ?
+                        `,
+
+                        [
+                            hashedPassword,
+                            teacher.id
+                        ],
+
+                        function (updateError) {
+
+                            if (updateError) {
+
+                                console.error(
+                                    "Forgot password update error:",
+                                    updateError
+                                );
+
+                                return errorResponse(
+                                    res,
+                                    "Unable to reset password."
+                                );
+
+                            }
+
+
+                            // =================================
+                            // SUCCESS
+                            // =================================
+
+                            return successResponse(
+
+                                res,
+
+                                "Password reset successfully."
+
+                            );
+
+                        }
+
+                    );
+
+                } catch (hashError) {
+
+                    console.error(
+                        "Forgot password hashing error:",
+                        hashError
+                    );
+
+                    return errorResponse(
+                        res,
+                        "Unable to secure new password."
+                    );
+
+                }
+
+            }
+
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Forgot password reset error:",
+            error
+        );
+
+        return errorResponse(
+            res,
+            "Unable to reset password."
+        );
+
+    }
+
+};

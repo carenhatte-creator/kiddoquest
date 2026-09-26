@@ -45,4 +45,26 @@ router.put(
 );
 
 
+// =========================================================
+// FORGOT PASSWORD - VERIFY USERNAME
+// POST /api/auth/forgot-password/verify
+// =========================================================
+
+router.post(
+    "/forgot-password/verify",
+    authController.forgotPasswordVerify
+);
+
+
+// =========================================================
+// FORGOT PASSWORD - RESET PASSWORD
+// POST /api/auth/forgot-password/reset
+// =========================================================
+
+router.post(
+    "/forgot-password/reset",
+    authController.forgotPasswordReset
+);
+
+
 module.exports = router;
