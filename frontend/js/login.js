@@ -11,6 +11,52 @@ const loginButton = document.getElementById("loginSubmitBtn");
 
 
 // =========================================================
+// SHOW / HIDE PASSWORD
+// =========================================================
+
+const passwordInput = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+
+if (togglePassword && passwordInput) {
+
+    togglePassword.addEventListener("click", () => {
+
+        const isHidden =
+            passwordInput.type === "password";
+
+        passwordInput.type =
+            isHidden ? "text" : "password";
+
+
+        const icon =
+            togglePassword.querySelector("i");
+
+        if (icon) {
+
+            icon.classList.toggle(
+                "fa-eye",
+                !isHidden
+            );
+
+            icon.classList.toggle(
+                "fa-eye-slash",
+                isHidden
+            );
+
+        }
+
+
+        togglePassword.setAttribute(
+            "aria-label",
+            isHidden ? "Hide password" : "Show password"
+        );
+
+    });
+
+}
+
+
+// =========================================================
 // LOGIN
 // =========================================================
 
