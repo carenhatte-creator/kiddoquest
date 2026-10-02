@@ -379,14 +379,19 @@ saveBtn.onclick = async()=>{
     try{
 
 
+        const isEditing = editID !== null;
+
+
         const response = await fetch(
 
-            `${API_BASE}/students`,
+            isEditing
+                ? `${API_BASE}/students/${editID}`
+                : `${API_BASE}/students`,
 
             {
 
 
-                method:"POST",
+                method: isEditing ? "PUT" : "POST",
 
 
                 headers:{
@@ -426,11 +431,17 @@ saveBtn.onclick = async()=>{
 
             showMessage(
 
-                "Student added successfully!",
+                isEditing
+                    ? "Student updated successfully!"
+                    : "Student added successfully!",
 
                 "success"
 
             );
+
+
+
+            editID = null;
 
 
 
