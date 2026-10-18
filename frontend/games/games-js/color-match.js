@@ -122,7 +122,7 @@ document.addEventListener(
 
             {
                 name: "Grapes",
-                image: "grapes.png",
+                image: "Grapes.png",
                 coloredImage: "grapes-colored.png",
                 color: "purple",
                 colorName: "Purple"
